@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('assigned_province');
             $table->string('profile_photo_path')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('inactive');
+            $table->enum('status', ['pending', 'active'])->default('pending');
             $table->timestamps();
         });
     }

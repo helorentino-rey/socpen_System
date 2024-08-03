@@ -10,7 +10,7 @@ class StaffController extends Controller
 {
     public function store(Request $request)
     {
-        // Save the staff data
+        // Save the staff data with default 'pending' status
         Staff::create([
             'lastname' => $request->lastname,
             'firstname' => $request->firstname,
@@ -29,8 +29,16 @@ class StaffController extends Controller
             'profile_photo_path' => $request->file('profile_photo')
                 ? $request->file('profile_photo')->store('profile_photos', 'public')
                 : null,
+            'status' => 'pending', // Set status to pending
         ]);
 
         return redirect()->route('staff.login')->with('success', 'Registration successful. Awaiting admin approval.');
+    }
+
+
+    public function dashboard()
+    {
+        // Return the view for the staff dashboard
+        return view('livewire.staff.dashboard'); // Ensure this view exists
     }
 }
