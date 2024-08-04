@@ -5,7 +5,7 @@
 @section('content')
 <style scoped>
 .main-container {
-  margin-left: 250px; /* Adjust this value based on the actual sidebar width */
+  margin-left: 50px; /* Adjust this value based on the actual sidebar width */
   padding: 2rem;
   background-color: #ffffff;
 }
@@ -43,7 +43,7 @@
 
 .profile-pic-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   margin-bottom: 1rem;
 }
 
@@ -96,7 +96,7 @@
 }
 </style>
 <div class="main-container">
-    
+<form action="{{ route('saveChanges') }}" method="POST" class="form">
         @csrf
         <div class="section">
             <div class="section-header">
@@ -132,6 +132,6 @@
             </div>
         </div>
         <button type="submit" class="submit-button">Save Changes</button>
-    
+        </form>
 </div>
 @endsection
