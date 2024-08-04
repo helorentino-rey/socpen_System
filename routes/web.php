@@ -1,10 +1,9 @@
 <?php
 
-use App\Livewire\CreatePost;
-use App\Livewire\Home;
 use App\Livewire\LandingPage;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\AdminForLoginController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffLoginController;
 use App\Http\Controllers\StaffController;
@@ -69,3 +68,14 @@ Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBenefic
 Route::get('/staff/approve', [AdminDashboardController::class, 'approveStaff'])->name('admin.staff.approve');
 Route::get('/staff/list', [AdminDashboardController::class, 'listStaff'])->name('admin.staff.list');
 Route::get('/account', [AdminDashboardController::class, 'accountInformation'])->name('admin.account');
+
+//Route for Staff Approval in the Dashboard Admin
+Route::get('/admin/approve-staff', [AdminController::class, 'showApprovalPage'])->name('admin.staff.approve');
+Route::patch('/admin/approve-staff/{id}', [AdminController::class, 'approveStaff'])->name('admin.approveStaff');
+
+//Route for Staff Login after Approval
+Route::get('/staff/login', [StaffLoginController::class, 'showLoginForm'])->name('staff.loginForm');
+Route::post('/staff/login', [StaffLoginController::class, 'login'])->name('staff.login');
+
+//Route for the Staff Dashboard
+Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');

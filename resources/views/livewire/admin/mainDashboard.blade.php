@@ -110,8 +110,8 @@
                 </a>
                 <div class="collapse" id="beneficiaryMenu">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.beneficiaries.search') }}" class="nav-link"><i
-                                    class="bi bi-search"></i> Search Beneficiaries</a></li>
+                        {{-- <li><a href="{{ route('admin.beneficiaries.search') }}" class="nav-link"><i
+                                    class="bi bi-search"></i> Search Beneficiaries</a></li> --}}
                         <li><a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link"><i
                                     class="bi bi-check-circle"></i> Approve Beneficiaries</a></li>
                         <li><a href="{{ route('admin.beneficiaries.list') }}" class="nav-link"><i
