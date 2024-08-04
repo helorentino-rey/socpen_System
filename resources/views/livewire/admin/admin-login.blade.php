@@ -128,11 +128,19 @@
         </div>
         <div class="card-body">
             <h5 class="card-title text-center mb-4">Admin Login</h5>
+
+            @if ($errors->has('login_error'))
+                <div class="alert alert-danger">
+                    {{ $errors->first('login_error') }}
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="employeeId" class="form-label">Employee ID</label>
-                    <input type="text" class="form-control" id="employeeId" name="employee_id" pattern="\d{4}" required>
+                    <input type="text" class="form-control" id="employeeId" name="employee_id" pattern="\d{2}-\d{4}"
+                        required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>

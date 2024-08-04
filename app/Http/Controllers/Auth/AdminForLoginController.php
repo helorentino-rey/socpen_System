@@ -1,6 +1,5 @@
 <?php
 
-// Controller: AdminForLoginController
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -17,7 +16,7 @@ class AdminForLoginController extends Controller
     public function adminLogin(Request $request)
     {
         $request->validate([
-            'employee_id' => 'required|digits:4',
+            'employee_id' => ['required', 'regex:/^\d{2}-\d{4}$/'], // Validate correct format
             'password' => 'required|string|min:8',
         ]);
 
@@ -25,7 +24,10 @@ class AdminForLoginController extends Controller
             return redirect()->route('admin.mainDashboard');
         }
 
-        return back()->withErrors(['employee_id' => 'Invalid credentials.']);
+        // If authentication fails, return an error message
+        return back()->withErrors([
+            'login_error' => 'Invalid employee ID or Password.',
+        ])->withInput($request->only('employee_id', 'remember'));
     }
 
     public function logout()

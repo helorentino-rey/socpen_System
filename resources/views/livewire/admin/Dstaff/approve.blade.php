@@ -11,20 +11,29 @@
                 <th>Staff Name</th>
                 <th>Assigned Province</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($staff as $staffMember)
+            @foreach ($staff as $staffMember)
                 <tr>
                     <td>{{ $staffMember->lastname }}, {{ $staffMember->firstname }} {{ $staffMember->middlename }}</td>
                     <td>{{ $staffMember->assigned_province }}</td>
                     <td>
-                        <form action="{{ route('admin.approveStaff', $staffMember->id) }}" method="POST">
+                        <span class="badge {{ $staffMember->status == 'active' ? 'bg-success' : 'bg-danger' }}">
+                            {{ ucfirst($staffMember->status) }}
+                        </span>
+                    </td>
+                    <td>
+                        <form action="{{ route('admin.approveStaff', $staffMember->id) }}" method="POST"
+                            style="display: inline;">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-sm {{ $staffMember->status == 'active' ? 'btn-success' : 'btn-danger' }}">
-                                {{ ucfirst($staffMember->status) }}
-                            </button>
+                            @if ($staffMember->status == 'pending')
+                                <button type="submit" class="btn btn-sm btn-primary">Approve</button>
+                            @else
+                                <button type="submit" class="btn btn-sm btn-warning">Deactivate</button>
+                            @endif
                         </form>
                     </td>
                 </tr>
