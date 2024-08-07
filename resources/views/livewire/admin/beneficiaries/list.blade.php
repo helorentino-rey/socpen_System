@@ -152,6 +152,19 @@
         display: flex;
         justify-content: space-between;
     }
+    .file-input {
+        display: none;
+    }
+    .signature-box {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            width: 100%;
+        }
 </style>
 
 
@@ -159,17 +172,15 @@
     <div class="card">
         <div class="card-body">
             <div class="section-header">
-                <div class="profile-pic"></div>
+                <div class="profile-pic" id="profile_pic"></div>
                 <div class="profile-info">
                     <h2></h2>
                     <div class="profile-details">
                         <div>
-                            <p>Senior ID: </p>
-                            <p>Date issued: </p>
+                            <p id="osca_id">OSCA ID No. </p>
+                            <p id="ncsc_rrn">NCSC RRN: </p>
                         </div>
                         <div>
-                            <p>Reference Code: </p>
-                            <p>Status: <span class="status"></span></p>
                         </div>
                     </div>
                 </div>
@@ -618,6 +629,76 @@
                     <label for="recommendationsssessment_yes">Eligible</label>
                     <input type="radio" id="recommendationsssessment_no" name="recommendationAssessment" />
                     <label for="recommendationsssessment_no">Not Eligible</label>
+                </div>
+            </div>
+            <h6 class="mt-4">Validated by:</h6>
+            <div class="form-row">
+                <div class="income-table">
+                    <div class="income-header">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="income-row">
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="validatedname" id="validated_name"></label>
+                            <label for="validated_name">Signature over printed name</label>
+                        </div>
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="validateddesignation" id="validated_designation"></label>
+                            
+                            <label for="validated_designation">Designation</label>  
+                        </div>
+                        <div>
+                        <label><input type="date" name="validateddate" id="validated_date">Date</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="mt-4">Encoded by:</h6>
+            <div class="form-row">
+                <div class="income-table">
+                    <div class="income-header">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="income-row">
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="encodedname" id="encoded_name"></label>
+                            <label for="encoded_name">Signature over printed name</label>
+                        </div>
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="encodeddesignation" id="encoded_designation"></label>  
+                            <label for="econded_designation">Designation</label>
+                        </div>
+                        <div>
+                        <label><input type="date" name="encodeddate" id="encoded_date">Date</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="mt-4">Conformed by:</h6>
+            <div class="form-row">
+                <div class="income-table">
+                    <div class="income-header">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="income-row">
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="conformedname" id="conformed_name"></label>
+                            <label for="conformed_name">Name of Applicant</label>
+                        </div>
+                        <div>
+                            <label class="signature-box"><input type="file" class="file-input" name="conformedsignature" id="conformed_signature"></label>
+                            <label for="conformed_signature">Signature</label>  
+                        </div>
+                        <div>
+                        <label><input type="date" name="conformed_date" id="conformed_date">Date</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
