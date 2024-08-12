@@ -26,6 +26,13 @@
             top: 0;
             left: 0;
             bottom: 0;
+            transition: width 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar.retracted {
+            width: 80px;
         }
 
         .sidebar .profile-pic {
@@ -34,22 +41,57 @@
             border-radius: 50%;
             background-color: #fff;
             margin: 0 auto;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.retracted .profile-pic {
+            opacity: 0;
         }
 
         .sidebar .profile-name {
             text-align: center;
             margin-top: 10px;
             font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.retracted .profile-name {
+            opacity: 0;
         }
 
         .sidebar .nav-link {
             color: white;
             display: flex;
             align-items: center;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap; /* Ensure text stays on one line */
         }
 
         .sidebar .nav-link i {
-            margin-right: 10px;
+            width: 30px;
+            text-align: center;
+            flex-shrink: 0; /* Prevent icon from shrinking */
+        }
+
+        .sidebar .nav-link span {
+            transition: opacity 0.3s, transform 0.3s;
+            margin-left: 10px;
+            opacity: 1;
+            flex-grow: 1; /* Allow the text to grow within the available space */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar.retracted .nav-link span {
+            opacity: 0;
+            transform: translateX(-100%);
+        }
+
+        .sidebar.retracted .nav-link {
+            padding-left: 15px; /* Ensure icon is still aligned correctly */
         }
 
         .sidebar .nav-link:hover {
@@ -59,6 +101,11 @@
         .content {
             margin-left: 250px;
             padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .content.retracted {
+            margin-left: 80px;
         }
 
         .card {
@@ -94,71 +141,86 @@
             font-size: 24px;
             cursor: pointer;
         }
-    </style>
 
+        .toggle-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background-color: #1C4CB1;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
-
     <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column">
+    <div class="sidebar d-flex flex-column" id="sidebar">
         <div class="profile-pic"></div>
         <div class="profile-name">Admin</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> Dashboard
+                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#beneficiaryMenu"
                     aria-expanded="false" aria-controls="beneficiaryMenu">
-                    <i class="bi bi-people-fill"></i> Beneficiaries
+                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
                 </a>
                 <div class="collapse" id="beneficiaryMenu">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        {{-- <li><a href="{{ route('admin.beneficiaries.search') }}" class="nav-link"><i
-                                    class="bi bi-search"></i> Search Beneficiaries</a></li> --}}
                         <li><a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> Approve Beneficiaries</a></li>
+                                    class="bi bi-check-circle"></i> <span>Approve Beneficiaries</span></a></li>
                         <li><a href="{{ route('admin.beneficiaries.list') }}" class="nav-link"><i
-                                    class="bi bi-list-ul"></i> List of Beneficiaries</a></li>
+                                    class="bi bi-list-ul"></i> <span>List of Beneficiaries</span></a></li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#staffMenu"
                     aria-expanded="false" aria-controls="staffMenu">
-                    <i class="bi bi-person-fill"></i> Staff
+                    <i class="bi bi-person-fill"></i> <span>Staff</span>
                 </a>
                 <div class="collapse" id="staffMenu">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="{{ route('admin.staff.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> Approve Staff</a></li>
+                                    class="bi bi-check-circle"></i> <span>Approve Staff</span></a></li>
                         <li><a href="{{ route('admin.staff.list') }}" class="nav-link"><i class="bi bi-list-ul"></i>
-                                List of Staff</a></li>
+                                <span>List of Staff</span></a></li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
                 <a href="{{ route('admin.account') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> Account Information
+                    <i class="bi bi-info-circle-fill"></i> <span>Account Information</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="bi bi-box-arrow-right"></i> Logout
+                    <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
                 </a>
                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </li>
         </ul>
+        <div class="toggle-button" id="toggleButton">
+            <i class="bi bi-chevron-left"></i>
+        </div>
     </div>
 
     <!-- Main Content -->
-    <div class="content">
+    <div class="content" id="content">
         @yield('content')
     </div>
 
@@ -168,6 +230,24 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function () {
+            var sidebar = document.getElementById('sidebar');
+            var content = document.getElementById('content');
+            var icon = this.querySelector('i');
+
+            sidebar.classList.toggle('retracted');
+            content.classList.toggle('retracted');
+
+            if (sidebar.classList.contains('retracted')) {
+                icon.classList.remove('bi-chevron-left');
+                icon.classList.add('bi-chevron-right');
+            } else {
+                icon.classList.remove('bi-chevron-right');
+                icon.classList.add('bi-chevron-left');
+            }
+        });
+    </script>
 </body>
 
 </html>
