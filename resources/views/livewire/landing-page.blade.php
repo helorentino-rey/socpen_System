@@ -93,6 +93,7 @@
             <h1>Welcome back</h1>
             <p class="text-muted">Login as</p>
             <div class="mt-4">
+                <a href="{{ route('superadmin.login') }}" class="btn btn-admin btn-lg">Super Admin</a>
                 <a href="{{ route('admin.login') }}" class="btn btn-admin btn-lg">Admin</a>
                 <a href="{{ route('staff.login') }}" class="btn btn-staff btn-lg">Staff</a>
             </div>

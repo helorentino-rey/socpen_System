@@ -111,7 +111,10 @@
                         <div class="col-md-4 mb-3">
                             <label for="contact_number" class="form-label">Contact Number</label>
                             <input type="text" class="form-control" id="contact_number" name="contact_number"
-                                maxlength="11" required>
+                                maxlength="11" required pattern="[0-9]+" title="Please enter numbers only">
+                            <div class="invalid-feedback">
+                                Please enter numbers only.
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">

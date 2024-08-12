@@ -3,6 +3,7 @@
 use App\Livewire\LandingPage;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\AdminForLoginController;
+use App\Http\Controllers\SuperadminLoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffLoginController;
@@ -32,6 +33,18 @@ Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name
 // Staff login
 Route::get('/staff/login', [StaffLoginController::class, 'showLoginForm'])->name('staff.login');
 
+//Super Admin Login
+Route::prefix('superadmin')->group(function () {
+    Route::get('/login', [SuperadminLoginController::class, 'showLoginForm'])->name('superadmin.login');
+    Route::post('/login', [SuperadminLoginController::class, 'login'])->name('superadmin.login');
+    Route::post('/logout', [SuperadminLoginController::class, 'logout'])->name('superadmin.logout');
+
+    // No extra prefix here, just define the route as is
+    Route::get('/dashboard', function () {
+        return view('livewire.superadmin.dashboard');
+    })->name('superadmin.dashboard')->middleware('auth:superadmin');
+});
+
 //Staff Register
 Route::get('/register', function () {
     return view('livewire.staff.register');
@@ -57,7 +70,6 @@ Route::prefix('admin')->group(function () {
 
     // Admin Logout Route
     Route::post('logout', [AdminForLoginController::class, 'logout'])->name('admin.logout');
-    
 });
 
 //Route for Dashboard
