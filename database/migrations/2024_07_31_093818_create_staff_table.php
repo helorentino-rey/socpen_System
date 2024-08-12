@@ -10,34 +10,29 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string('lastname');
-            $table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('name_extension')->nullable();
+            $table->string('lastname', 15);
+            $table->string('firstname', 15);
+            $table->string('middlename', 15)->nullable();
+            $table->string('name_extension', 4)->nullable();
             $table->enum('sex', ['Male', 'Female']);
             $table->date('birthday');
-            $table->integer('age');
-            $table->string('marital_status');
-            $table->string('contact_number');
-            $table->string('address');
-            $table->string('employee_id')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('assigned_province');
-            $table->string('profile_photo_path')->nullable();
+            $table->integer('age', false, true)->length(3);
+            $table->string('marital_status', 10);
+            $table->string('contact_number', 11);
+            $table->string('address', 50);
+            $table->string('employee_id', 10)->unique();
+            $table->string('email', 25)->unique();
+            $table->string('password', 150);
+            $table->string('assigned_province', 20);
+            $table->string('profile_picture')->nullable(); // Updated column name
             $table->enum('status', ['pending', 'active'])->default('pending');
             $table->timestamps();
         });
     }
-
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('staff');

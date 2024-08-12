@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Call the SuperAdminSeeder
+        $this->call(SuperAdminSeeder::class);
+
+        // Optionally, you can seed users as well
         // User::factory(10)->create();
 
         User::factory()->create([
