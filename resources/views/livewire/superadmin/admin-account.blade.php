@@ -1,8 +1,7 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Dashboard')
-
+@section('title', 'Admin Account')
 @section('content')
-    <h1>Dashboard</h1>
+    <h1>Admin Account</h1>
     <!-- Search Beneficiaries content -->
 @endsection

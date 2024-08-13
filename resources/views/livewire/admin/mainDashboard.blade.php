@@ -188,14 +188,14 @@
                     aria-expanded="false" aria-controls="staffMenu">
                     <i class="bi bi-person-fill"></i> <span>Staff</span>
                 </a>
-                <div class="collapse" id="staffMenu">
+                {{-- <div class="collapse" id="staffMenu">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="{{ route('admin.staff.approve') }}" class="nav-link"><i
                                     class="bi bi-check-circle"></i> <span>Approve Staff</span></a></li>
                         <li><a href="{{ route('admin.staff.list') }}" class="nav-link"><i class="bi bi-list-ul"></i>
                                 <span>List of Staff</span></a></li>
                     </ul>
-                </div>
+                </div> --}}
             </li>
             <li class="nav-item">
                 <a href="{{ route('admin.account') }}" class="nav-link">

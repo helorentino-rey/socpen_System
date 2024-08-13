@@ -57,13 +57,14 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="middlename" class="form-label">Middlename</label>
-                            <input type="text" class="form-control" id="middlename" name="middlename" maxlength="15">
+                            <input type="text" class="form-control" id="middlename" name="middlename" maxlength="15"
+                                required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="name_extension" class="form-label">Name Extension</label>
-                            <select class="form-select" id="name_extension" name="name_extension">
+                            <select class="form-select" id="name_extension" name="name_extension" required>
                                 <option value="">Choose...</option>
                                 <option value="Jr.">Jr.</option>
                                 <option value="Sr.">Sr.</option>
@@ -142,7 +143,8 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required minlength="8" maxlength="8">
+                            <input type="password" class="form-control" id="password" name="password" required
+                                minlength="8" maxlength="8">
                         </div>
                     </div>
                     <div class="row">
@@ -166,7 +168,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="profile_picture" class="form-label">Profile Picture</label>
-                        <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+                        <input type="file" class="form-control" id="profile_picture" name="profile_picture"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Register</button>
                 </form>

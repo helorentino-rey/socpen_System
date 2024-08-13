@@ -27,12 +27,12 @@ return new class extends Migration
             $table->string('email', 25)->unique();
             $table->string('password', 150);
             $table->string('assigned_province', 20);
-            $table->string('profile_picture')->nullable(); // Updated column name
+            $table->string('profile_picture')->nullable();
             $table->enum('status', ['pending', 'active'])->default('pending');
             $table->timestamps();
         });
     }
-    
+
     public function down(): void
     {
         Schema::dropIfExists('staff');

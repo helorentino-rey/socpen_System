@@ -13,20 +13,22 @@ class AdminController extends Controller
         $staff = Staff::all();
 
         // Pass the staff members to the view
-        return view('livewire.admin.Dstaff.approve', compact('staff'));
+        return view('livewire.superadmin.approved-staff', compact('staff'));
     }
-
-
     public function approveStaff($id)
     {
         $staff = Staff::findOrFail($id);
-
-        // Toggle status between 'pending' and 'active'
         $staff->status = $staff->status == 'pending' ? 'active' : 'pending';
         $staff->save();
 
         $message = $staff->status == 'active' ? 'Staff approved successfully.' : 'Staff deactivated successfully.';
 
         return redirect()->back()->with('success', $message);
+    }
+
+    public function getStaffDetails($id)
+    {
+        $staff = Staff::findOrFail($id);
+        return response()->json($staff);
     }
 }

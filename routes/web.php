@@ -4,6 +4,7 @@ use App\Livewire\LandingPage;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\AdminForLoginController;
 use App\Http\Controllers\SuperadminLoginController;
+use App\Http\Controllers\SuperAdminDashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffLoginController;
@@ -45,6 +46,14 @@ Route::prefix('superadmin')->group(function () {
     })->name('superadmin.dashboard')->middleware('auth:superadmin');
 });
 
+//Super admin Dashboard Controller
+Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'adminDashboard'])->name('superadmin.dashboard');
+Route::get('/superadmin/admin-account', [SuperAdminDashboardController::class, 'adminAccount'])->name('superadmin.admin-account');
+Route::get('/superadmin/approved-staff', [SuperAdminDashboardController::class, 'approvedStaff'])->name('superadmin.approved-staff');
+Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::class, 'approvedBeneficiary'])->name('superadmin.approved-beneficiary');
+Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
+Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
+
 //Staff Register
 Route::get('/register', function () {
     return view('livewire.staff.register');
@@ -81,9 +90,15 @@ Route::get('/staff/approve', [AdminDashboardController::class, 'approveStaff'])-
 Route::get('/staff/list', [AdminDashboardController::class, 'listStaff'])->name('admin.staff.list');
 Route::get('/account', [AdminDashboardController::class, 'accountInformation'])->name('admin.account');
 
-//Route for Staff Approval in the Dashboard Admin
-Route::get('/admin/approve-staff', [AdminController::class, 'showApprovalPage'])->name('admin.staff.approve');
-Route::patch('/admin/approve-staff/{id}', [AdminController::class, 'approveStaff'])->name('admin.approveStaff');
+//Route for Staff Approval in the super admin dashboard
+Route::get('/superadmin/approved-staff', [AdminController::class, 'showApprovalPage'])->name('superadmin.approved-staff');
+Route::patch('/superadmin/approved-staff/{id}', [AdminController::class, 'approveStaff'])->name('superadmin.approveStaff');
+
+//Route for show staff info in the super admin dashboard
+Route::get('/superadmin/staff/{id}', [AdminController::class, 'getStaffDetails'])->name('superadmin.staffDetails');
+//Display Staff Info
+Route::post('/staff/store', [StaffController::class, 'store'])->name('staff.store');
+
 
 //Route for Staff Login after Approval
 Route::get('/staff/login', [StaffLoginController::class, 'showLoginForm'])->name('staff.loginForm');
