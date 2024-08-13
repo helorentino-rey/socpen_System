@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const birthdateInput = document.getElementById('birthday');
             const ageInput = document.getElementById('age');
             const form = document.querySelector('form');
+            const employeeIdInput = document.getElementById('employee_id');
 
             birthdateInput.addEventListener('change', function() {
                 const birthdate = new Date(birthdateInput.value);
@@ -24,14 +24,56 @@
             });
 
             form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form submission until checks are done
+
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('password_confirmation').value;
 
                 if (password !== confirmPassword) {
-                    event.preventDefault();
                     alert('Passwords do not match.');
+                    return;
                 }
+
+                if (!areAllFieldsFilled()) {
+                    alert('Please fill in all fields.');
+                    return;
+                }
+
+                checkEmployeeIdExists(employeeIdInput.value).then(exists => {
+                    if (exists) {
+                        alert('Employee ID already exists.');
+                    } else {
+                        form.submit(); // Submit the form if all checks pass
+                    }
+                });
             });
+
+            function areAllFieldsFilled() {
+                const inputs = form.querySelectorAll('input, select');
+                for (let input of inputs) {
+                    if (input.value.trim() === '') {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function checkEmployeeIdExists(employeeId) {
+                return $.ajax({
+                    url: '/check-employee-id', // Replace with your actual endpoint
+                    method: 'POST',
+                    data: {
+                        employee_id: employeeId,
+                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                    },
+                    dataType: 'json'
+                }).then(response => {
+                    return response.exists;
+                }).catch(error => {
+                    console.error('Error checking employee ID:', error);
+                    return false;
+                });
+            }
         });
     </script>
 </head>
@@ -177,5 +219,3 @@
         </div>
     </div>
 </body>
-
-</html>

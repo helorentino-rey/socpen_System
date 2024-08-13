@@ -62,6 +62,9 @@ Route::get('/register', function () {
 //Route to Save in the Database
 Route::post('/register', [StaffController::class, 'store'])->name('register.submit');
 
+//Route for Duplication
+Route::post('/check-employee-id', [StaffController::class, 'checkEmployeeId']);
+
 //Admin Login
 Route::post('/admin/login', [AdminForLoginController::class, 'adminLogin'])->name('admin.login');
 

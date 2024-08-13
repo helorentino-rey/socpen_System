@@ -55,10 +55,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-center mb-3">
-                        <img id="staff-image" src="" alt="Staff Image" class="img-fluid"
+                        <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
                             style="width: 150px; height: 150px; object-fit: cover;">
                     </div>
-                    <div class="text-left">
+                    <div>
                         <p><strong>Last Name:</strong> <span id="staff-lastname"></span></p>
                         <p><strong>First Name:</strong> <span id="staff-firstname"></span></p>
                         <p><strong>Middle Name:</strong> <span id="staff-middlename"></span></p>
@@ -87,7 +87,8 @@
             fetch(`/superadmin/staff/${id}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('staff-image').src = data.image_url || 'default-image-url.jpg';
+                    const imageUrl = data.image_url ? data.image_url : '/path/to/default-image.jpg';
+                    document.getElementById('staff-image').src = imageUrl;
                     document.getElementById('staff-lastname').innerText = data.lastname;
                     document.getElementById('staff-firstname').innerText = data.firstname;
                     document.getElementById('staff-middlename').innerText = data.middlename || 'N/A';
