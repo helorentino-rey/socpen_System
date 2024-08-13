@@ -172,18 +172,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#beneficiaryMenu"
-                    aria-expanded="false" aria-controls="beneficiaryMenu">
-                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
+                <a href="{{ route('admin.beneficiaries.create') }}" class="nav-link">
+                    <i class="bi bi-grid-fill"></i> <span>Beneficiaries</span>
                 </a>
-                <div class="collapse" id="beneficiaryMenu">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> <span>Approve Beneficiaries</span></a></li>
-                        <li><a href="{{ route('admin.beneficiaries.list') }}" class="nav-link"><i
-                                    class="bi bi-list-ul"></i> <span>List of Beneficiaries</span></a></li>
-                    </ul>
-                </div>
             </li>
             </li>
             <li class="nav-item">
