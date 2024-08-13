@@ -142,14 +142,14 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" required minlength="8" maxlength="8">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="password_confirmation" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="password_confirmation"
-                                name="password_confirmation" required>
+                                name="password_confirmation" required minlength="8" maxlength="8">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="assigned_province" class="form-label">Assigned Province</label>
