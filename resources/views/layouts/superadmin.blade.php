@@ -138,6 +138,12 @@
             cursor: pointer;
             font-size: 16px;
         }
+
+        .chevron-icon {
+            position: relative;
+            top: 5px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -184,7 +190,7 @@
             </li>
         </ul>
         <div class="toggle-button" id="toggleButton">
-            <i class="bi bi-chevron-left"></i>
+            <i class="bi bi-chevron-left chevron-icon"></i>
         </div>
     </div>
 

@@ -1,5 +1,3 @@
-
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,20 +64,23 @@
             transition: background-color 0.3s;
             position: relative;
             overflow: hidden;
-            white-space: nowrap; /* Ensure text stays on one line */
+            white-space: nowrap;
+            /* Ensure text stays on one line */
         }
 
         .sidebar .nav-link i {
             width: 30px;
             text-align: center;
-            flex-shrink: 0; /* Prevent icon from shrinking */
+            flex-shrink: 0;
+            /* Prevent icon from shrinking */
         }
 
         .sidebar .nav-link span {
             transition: opacity 0.3s, transform 0.3s;
             margin-left: 10px;
             opacity: 1;
-            flex-grow: 1; /* Allow the text to grow within the available space */
+            flex-grow: 1;
+            /* Allow the text to grow within the available space */
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -90,7 +91,8 @@
         }
 
         .sidebar.retracted .nav-link {
-            padding-left: 15px; /* Ensure icon is still aligned correctly */
+            padding-left: 15px;
+            /* Ensure icon is still aligned correctly */
         }
 
         .sidebar .nav-link:hover {
@@ -156,6 +158,12 @@
             cursor: pointer;
             font-size: 16px;
         }
+
+        .chevron-icon {
+            position: relative;
+            top: 5px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -192,7 +200,7 @@
             </li>
         </ul>
         <div class="toggle-button" id="toggleButton">
-            <i class="bi bi-chevron-left"></i>
+            <i class="bi bi-chevron-left chevron-icon"></i>
         </div>
     </div>
 
@@ -208,7 +216,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('toggleButton').addEventListener('click', function () {
+        document.getElementById('toggleButton').addEventListener('click', function() {
             var sidebar = document.getElementById('sidebar');
             var content = document.getElementById('content');
             var icon = this.querySelector('i');

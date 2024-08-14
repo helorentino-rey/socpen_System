@@ -109,15 +109,16 @@
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
         }
 
         h2 {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
         }
 
         h3 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
+            text-align: center;
         }
     </style>
 </head>
