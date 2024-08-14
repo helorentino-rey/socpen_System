@@ -106,7 +106,7 @@ Route::get('/superadmin/staff/{id}', [AdminController::class, 'getStaffDetails']
 //Display Staff Info
 Route::post('/staff/store', [StaffController::class, 'store'])->name('staff.store');
 
-// Route for admin credentials in super admin dashboard
+//Route for admin credentials in super admin dashboard
 Route::get('/admin', [AdminController::class, 'showAdminPage'])->name('admin.page');
 Route::post('/admin/create', [AdminController::class, 'createAdmin'])->name('admin.create');
 Route::put('/admin/edit/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit');

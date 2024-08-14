@@ -62,7 +62,7 @@ class AdminController extends Controller
 
         $request->validate([
             'employee_id' => 'required|unique:admins,employee_id,' . $admin->id,
-            'password' => 'nullable|min:6',
+            'password' => 'nullable|min:8',
         ]);
 
         $admin->employee_id = $request->employee_id;
