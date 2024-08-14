@@ -107,11 +107,11 @@ Route::get('/superadmin/staff/{id}', [AdminController::class, 'getStaffDetails']
 Route::post('/staff/store', [StaffController::class, 'store'])->name('staff.store');
 
 //Route for admin credentials in super admin dashboard
-Route::get('/admin', [AdminController::class, 'showAdminPage'])->name('admin.page');
+Route::get('/admin', [AdminController::class, 'showAdminPage'])->name('admin.index');
 Route::post('/admin/create', [AdminController::class, 'createAdmin'])->name('admin.create');
 Route::put('/admin/edit/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit');
-Route::delete('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
-Route::get('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggle-status');
+Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
+Route::get('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 
 //Route for Staff Login after Approval
 Route::get('/staff/login', [StaffLoginController::class, 'showLoginForm'])->name('staff.loginForm');

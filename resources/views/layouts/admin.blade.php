@@ -209,11 +209,6 @@
         @yield('content')
     </div>
 
-    <!-- Floating Plus Button -->
-    <div class="plus-button">
-        <i class="bi bi-plus-lg"></i>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('toggleButton').addEventListener('click', function() {
