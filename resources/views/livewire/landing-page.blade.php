@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,7 +154,7 @@
         // JavaScript to handle background color changes
         document.querySelector('.btn-superadmin').addEventListener('mouseover', function() {
             document.getElementById('wrapper').style.backgroundColor =
-            '#4a4791'; // Updated color for super admin button hover
+                '#4a4791'; // Updated color for super admin button hover
         });
         document.querySelector('.btn-admin').addEventListener('mouseover', function() {
             document.getElementById('wrapper').style.backgroundColor = '#111828';
@@ -167,12 +164,10 @@
         });
         document.querySelector('.btn-staff').addEventListener('mouseover', function() {
             document.getElementById('wrapper').style.backgroundColor =
-            '#4a4791'; // Updated color for staff button hover
+                '#4a4791'; // Updated color for staff button hover
         });
         document.querySelector('.btn-staff').addEventListener('mouseout', function() {
             document.getElementById('wrapper').style.backgroundColor = 'white';
         });
     </script>
 </body>
-
-</html>

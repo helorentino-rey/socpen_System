@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id')->unique();
             $table->string('password');
-            // Other fields...
+            $table->string('assigned_province')->nullable();
+            $table->string('photo')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
@@ -28,4 +30,3 @@ return new class extends Migration
         Schema::dropIfExists('admins');
     }
 };
-
