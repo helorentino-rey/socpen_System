@@ -10,6 +10,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffLoginController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeneficiaryController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -88,6 +90,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name('admin.dashboard');
 Route::get('/beneficiaries/search', [AdminDashboardController::class, 'searchBeneficiaries'])->name('admin.beneficiaries.search');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
+Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
 Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
 Route::get('/staff/approve', [AdminDashboardController::class, 'approveStaff'])->name('admin.staff.approve');
 Route::get('/staff/list', [AdminDashboardController::class, 'listStaff'])->name('admin.staff.list');
@@ -116,3 +119,4 @@ Route::post('/staff/login', [StaffLoginController::class, 'login'])->name('staff
 
 //Route for the Staff Dashboard
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+

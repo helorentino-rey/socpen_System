@@ -27,6 +27,11 @@ class AdminDashboardController extends Controller
         return view('livewire.admin.beneficiaries.approve');
     }
 
+    public function create()
+    {
+        return view('livewire.admin.beneficiaries.create');
+    }
+
     public function listBeneficiaries()
     {
         return view('livewire.admin.beneficiaries.list');
