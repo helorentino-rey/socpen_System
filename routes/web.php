@@ -88,7 +88,7 @@ Route::prefix('admin')->group(function () {
 
 //Route for Dashboard
 Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name('admin.dashboard');
-Route::get('/beneficiaries/search', [AdminDashboardController::class, 'searchBeneficiaries'])->name('admin.beneficiaries.search');
+Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
 Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
 Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');

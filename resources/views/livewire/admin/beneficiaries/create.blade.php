@@ -169,36 +169,38 @@
 }
 
 .navbar {
-    background-color: #f8f9fa; /* Light gray background */
-    border-bottom: 2px solid #343a40; /* Darker border at the bottom */
-    padding: 1rem 2rem; /* Padding for a better look */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #343a40; 
+    padding: 1rem 2rem; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar brand */
+
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #343a40; /* Dark gray text color */
+    color: #343a40; 
     text-transform: uppercase;
 }
 
-/* Navbar links */
+
 .navbar-nav .nav-link {
     font-size: 1rem;
-    color: #495057; /* Medium gray text color */
+    color: #495057; 
     padding: 0.5rem 1rem;
     transition: color 0.3s ease-in-out;
     border-radius: 0.25rem;
 }
 
-/* Hover and active states for navbar links */
+
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: #ffffff; /* White text on hover */
-    background-color: #343a40; /* Dark gray background on hover */
+    color: #007bff; 
+    background-color: transparent; 
+    text-decoration: underline; 
+    text-decoration-color: #007bff; 
+    text-decoration-thickness: 3px; 
 }
-
 /* Navbar for mobile view */
 @media (max-width: 991px) {
     .navbar {
@@ -238,6 +240,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.beneficiaries.list') }}" class="nav-link" style="color: black;">List of Beneficiaries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.beneficiaries.export') }}" class="nav-link" style="color: black;">Export List of Beneficiaries</a>
                     </li>
                 </ul>
             </div>
