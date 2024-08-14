@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -167,13 +166,13 @@
         <div class="profile-name">Admin</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                <a href="{{ route('admin.mainDashboard') }}" class="nav-link">
                     <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.beneficiaries.create') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> <span>Beneficiaries</span>
+                <a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link">
+                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
             </li>

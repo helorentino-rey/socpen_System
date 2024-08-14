@@ -1,5 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
+
+@section('title', 'Dashboard')
+
+@section('content')
 
 <head>
     <meta charset="UTF-8">
@@ -160,66 +163,9 @@
 
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar d-flex flex-column" id="sidebar">
-        <div class="profile-pic"></div>
-        <div class="profile-name">Admin</div>
-        <ul class="nav nav-pills flex-column mb-auto mt-4">
-            <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
-                </a>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#beneficiaryMenu"
-                    aria-expanded="false" aria-controls="beneficiaryMenu">
-                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
-                </a>
-                <div class="collapse" id="beneficiaryMenu">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> <span>Approve Beneficiaries</span></a></li>
-                        <li><a href="{{ route('admin.beneficiaries.list') }}" class="nav-link"><i
-                                    class="bi bi-list-ul"></i> <span>List of Beneficiaries</span></a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#staffMenu"
-                    aria-expanded="false" aria-controls="staffMenu">
-                    <i class="bi bi-person-fill"></i> <span>Staff</span>
-                </a>
-                {{-- <div class="collapse" id="staffMenu">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.staff.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> <span>Approve Staff</span></a></li>
-                        <li><a href="{{ route('admin.staff.list') }}" class="nav-link"><i class="bi bi-list-ul"></i>
-                                <span>List of Staff</span></a></li>
-                    </ul>
-                </div> --}}
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.account') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> <span>Account Information</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
-                </a>
-                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </li>
-        </ul>
-        <div class="toggle-button" id="toggleButton">
-            <i class="bi bi-chevron-left"></i>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="content" id="content">
-        <img src="path/to/dswd-logo.png" alt="DSWD Logo" class="logo">
+        
         <h1>Department of Social Welfare and Development</h1>
         <input type="text" class="form-control search-bar" placeholder="Search Beneficiaries">
 
