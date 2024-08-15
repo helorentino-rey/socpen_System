@@ -6,7 +6,6 @@ use App\Models\Staff;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Crypt;
 
 class AdminController extends Controller
 {
@@ -59,7 +58,7 @@ class AdminController extends Controller
         Admin::create([
             'name' => $request->name,
             'employee_id' => $request->employee_id,
-            'password' => Crypt::encrypt($request->password), // Encrypt the password
+            'password' => Hash::make($request->password), // Hash the password
             'assigned_province' => $request->province,
             'is_active' => true, // Set the default status to active
         ]);
@@ -81,9 +80,11 @@ class AdminController extends Controller
 
         $admin->name = $request->name;
         $admin->employee_id = $request->employee_id;
+
         if ($request->password) {
-            $admin->password = Crypt::encrypt($request->password); // Encrypt the updated password
+            $admin->password = Hash::make($request->password); // Hash the updated password
         }
+
         $admin->assigned_province = $request->province;
         $admin->save();
 
@@ -108,5 +109,19 @@ class AdminController extends Controller
 
         $message = $admin->is_active ? 'Admin activated successfully.' : 'Admin deactivated successfully.';
         return redirect()->back()->with('success', $message);
+    }
+
+    // Reset an admin's password
+    public function resetPassword(Request $request, $id)
+    {
+        $request->validate([
+            'new_password' => 'required|min:8',
+        ]);
+
+        $admin = Admin::findOrFail($id);
+        $admin->password = Hash::make($request->new_password);
+        $admin->save();
+
+        return redirect()->back()->with('success', 'Password reset successfully.');
     }
 }
