@@ -348,43 +348,42 @@
             <h6 class="mt-4">Present Address</h6>
             <div class="form-row">
                 <div class="form-col">
-                    <label for="present_house" class="form-label">Sitio/House No./Purok/Street</label>
-                    <select class="form-control" id="present_house" name="present_house"></select>
+                    <label for="present_region" class="form-label">Region</label>
+                    <select class="form-control" id="present_region" name="present_region">
+                        <option value="">Select Region</option>
+                        <!-- Populate with regions from the database on page load -->
+                    </select>
+                </div>
+                <div class="form-col">
+                    <label for="present_province" class="form-label">Province</label>
+                    <select class="form-control" id="present_province" name="present_province" disabled>
+                        <option value="">Select Province</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="present_city" class="form-label">City/Municipality</label>
+                    <select class="form-control" id="present_city" name="present_city" disabled>
+                        <option value="">Select City/Municipality</option>
+                    </select>
                 </div>
                 <div class="form-col">
                     <label for="present_barangay" class="form-label">Barangay</label>
-                    <select class="form-control" id="present_barangay" name="present_barangay"></select>
-                </div>
-                <div class="form-col">
-                    <label for="present_city" class="form-label">City/Municipality</label>
-                    <select class="form-control" id="present_city" name="present_city"></select>
+                    <select class="form-control" id="present_barangay" name="present_barangay" disabled>
+                        <option value="">Select Barangay</option>
+                    </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-col">
-                    <label for="present_province" class="form-label">Province</label>
-                    <select class="form-control" id="present_province" name="present_province"></select>
-                </div>
-                <div class="form-col">
-                    <label for="present_region" class="form-label">Region</label>
-                    <select class="form-control" id="present_region" name="present_region"></select>
+                    <label for="present_house" class="form-label">Sitio/House No./Purok/Street</label>
+                    <select class="form-control" id="present_house" name="present_house" disabled>
+                        <option value="">Select House</option>
+                    </select>
                 </div>
             </div>
-            <h6 class="mt-4">Birth Information</h6>
-            <div class="form-row">
-                <div class="form-col">
-                    <label for="lastname" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="date_birth" name="date_birth" required>
-                </div>
-                <div class="form-col">
-                    <label for="firstname" class="form-label">City/Municipality</label>
-                    <input type="text" class="form-control" id="birth_city" name="birth_city" required>
-                </div>
-                <div class="form-col">
-                    <label for="middlename" class="form-label">Province</label>
-                    <input type="text" class="form-control" id="birth_province" name="birth_province">
-                </div>
-            </div>
+
             <div class="form-row">
                 <div class="form-col">
                     <label for="name_extension" class="form-label">Age</label>
@@ -845,18 +844,64 @@
         }
     });
 
-    // Fetch and populate the dropdowns
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/address-options')
+        fetch('/api/regions')
             .then(response => response.json())
-            .then(data => {
-                populateDropdown('present_house', data.houses);
-                populateDropdown('present_barangay', data.barangays);
-                populateDropdown('present_city', data.cities);
-                populateDropdown('present_province', data.provinces);
-                populateDropdown('present_region', data.regions);
-            })
-            .catch(error => console.error('Error fetching data:', error));
+            .then(regions => {
+                populateDropdown('present_region', regions);
+            });
+
+        document.getElementById('present_region').addEventListener('change', function() {
+            const regionId = this.value;
+            resetDropdowns(['present_province', 'present_city', 'present_barangay', 'present_house']);
+            if (regionId) {
+                fetch(`/api/provinces/${regionId}`)
+                    .then(response => response.json())
+                    .then(provinces => {
+                        populateDropdown('present_province', provinces);
+                        document.getElementById('present_province').disabled = false;
+                    });
+            }
+        });
+
+        document.getElementById('present_province').addEventListener('change', function() {
+            const provinceId = this.value;
+            resetDropdowns(['present_city', 'present_barangay', 'present_house']);
+            if (provinceId) {
+                fetch(`/api/cities/${provinceId}`)
+                    .then(response => response.json())
+                    .then(cities => {
+                        populateDropdown('present_city', cities);
+                        document.getElementById('present_city').disabled = false;
+                    });
+            }
+        });
+
+        document.getElementById('present_city').addEventListener('change', function() {
+            const cityId = this.value;
+            resetDropdowns(['present_barangay', 'present_house']);
+            if (cityId) {
+                fetch(`/api/barangays/${cityId}`)
+                    .then(response => response.json())
+                    .then(barangays => {
+                        populateDropdown('present_barangay', barangays);
+                        document.getElementById('present_barangay').disabled = false;
+                    });
+            }
+        });
+
+        document.getElementById('present_barangay').addEventListener('change', function() {
+            const barangayId = this.value;
+            resetDropdowns(['present_house']);
+            if (barangayId) {
+                fetch(`/api/houses/${barangayId}`)
+                    .then(response => response.json())
+                    .then(houses => {
+                        populateDropdown('present_house', houses);
+                        document.getElementById('present_house').disabled = false;
+                    });
+            }
+        });
     });
 
     function populateDropdown(elementId, options) {
@@ -866,6 +911,14 @@
             opt.value = option.id; // Assuming the ID is the unique identifier
             opt.textContent = option.name; // Assuming there's a name or description field
             dropdown.appendChild(opt);
+        });
+    }
+
+    function resetDropdowns(dropdownIds) {
+        dropdownIds.forEach(id => {
+            const dropdown = document.getElementById(id);
+            dropdown.innerHTML = '<option value="">Select</option>';
+            dropdown.disabled = true;
         });
     }
 </script>

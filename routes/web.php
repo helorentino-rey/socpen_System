@@ -11,7 +11,7 @@ use App\Http\Controllers\StaffLoginController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BeneficiaryController;
-
+use App\Http\Controllers\getAddressOptions;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -124,4 +124,11 @@ Route::post('/staff/login', [StaffLoginController::class, 'login'])->name('staff
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
 Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
 Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
+
+//for creating beneficiary
+Route::get('/api/provinces/{regionId}', [GetAddressOptions::class, 'getProvincesByRegion']);
+Route::get('/api/cities/{provinceId}', [GetAddressOptions::class, 'getCitiesByProvince']);
+Route::get('/api/barangays/{cityId}', [GetAddressOptions::class, 'getBarangaysByCity']);
+Route::get('/api/houses/{barangayId}', [GetAddressOptions::class, 'getHousesByBarangay']);
+
 

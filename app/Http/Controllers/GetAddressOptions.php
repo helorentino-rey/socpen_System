@@ -6,22 +6,30 @@ use Illuminate\Http\Request;
 
 class getAddressOptions extends Controller
 {
-    // Controller Example
-public function getPresentAddressOptions()
+public function getProvincesByRegion($regionId)
 {
-    $houses = House::all(); // Fetch from the houses table
-    $barangays = Barangay::all(); // Fetch from the barangays table
-    $cities = City::all(); // Fetch from the cities table
-    $provinces = Province::all(); // Fetch from the provinces table
-    $regions = Region::all(); // Fetch from the regions table
+    $provinces = Province::where('region_id', $regionId)->get();
+    return response()->json($provinces);
+}
 
-    return response()->json([
-        'houses' => $houses,
-        'barangays' => $barangays,
-        'cities' => $cities,
-        'provinces' => $provinces,
-        'regions' => $regions,
-    ]);
+public function getCitiesByProvince($provinceId)
+{
+    $cities = City::where('province_id', $provinceId)->get();
+    return response()->json($cities);
+}
+
+public function getBarangaysByCity($cityId)
+{
+    $barangays = Barangay::where('city_id', $cityId)->get();
+    return response()->json($barangays);
+}
+
+public function getHousesByBarangay($barangayId)
+{
+    $houses = House::where('barangay_id', $barangayId)->get();
+    return response()->json($houses);
+}
+
 }
 
 }
