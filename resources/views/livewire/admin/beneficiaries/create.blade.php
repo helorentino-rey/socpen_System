@@ -328,7 +328,7 @@
                 </div>
                 <div class="form-col">
                     <label for="firstname" class="form-label">Barangay</label>
-                    <input type="text" class="form-control" id="barangay" name="Barangay" required>
+                    <select class="form-control" id="barangay" name="Barangay" required></select>
                 </div>
                 <div class="form-col">
                     <label for="middlename" class="form-label">City/Municipality</label>
@@ -363,7 +363,9 @@
             <div class="form-row">
                 <div class="form-col">
                     <label for="name_extension" class="form-label">Province</label>
-                    <input type="text" class="form-control" id="present_province" name="present_province">
+                    <select class="form-control" id="present_province" name="present_province">
+                       
+                    </select>
                 </div>
                 <div class="form-col">
                     <label for="sex" class="form-label">Region</label>
@@ -560,7 +562,7 @@
                         </div>
                         <div>
                             <label for="house_status">House Status:</label>
-                            <select id="house_status" name="house_status" class="form-control">
+                            <select id="house_status" name="house_status">
                                 <option value="Owned">Owned</option>
                                 <option value="Rent">Rent</option>
                                 <option value="Others">Others</option>
@@ -568,21 +570,24 @@
                             <br />
                             <div id="other_status_input" style="display: none;">
                                 <label for="other_status">Please specify:</label>
-                                <input type="text" id="other_status" name="other_status" class="form-control" />
+                                <input type="text" id="other_status" name="other_status" />
                             </div>
                         </div>
-                        <div><input type="radio" id="alone_yes" name="living_status" />
-                            <label for="alone_yes">Living Alone</label>
+                        <div>
+                            <label for="living_status">Living Status:</label>
+                            <select id="living_status" name="living_status" >
+                                <option value="Living Alone">Living Alone</option>
+                                <option value="Living with Spouse">Living with Spouse</option>
+                                <option value="Living with Children">Living with Children</option>
+                                <option value="Others">Others</option>
+                            </select>
                             <br />
-                            <input type="radio" id="spouse_yes" name="living_status" />
-                            <label for="spouse_yes">Living with Spouse</label>
-                            <br />
-                            <input type="radio" id="children_yes" name="living_status" />
-                            <label for="children_yes">Living with Children</label>
-                            <br />
-                            <label for="others_yes">Others:</label>
-                            <input type="" id="others_yes" name="living_status" />
+                            <div id="other_living_status_input" style="display: none;">
+                                <label for="other_living_status">Please specify:</label>
+                                <input type="text" id="other_living_status" name="other_living_status"  />
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -801,16 +806,27 @@
         </div>
     </div>
 </div>
-@endsection
+
 <script>
-    document.getElementById('house_status').addEventListener('change', function () {
-    const otherInput = document.getElementById('other_status_input');
+    document.getElementById('house_status').addEventListener('change', function() {
+        const otherInput = document.getElementById('other_status_input');
+        if (this.value === 'Others') {
+            otherInput.style.display = 'block';
+        } else {
+            otherInput.style.display = 'none';
+            document.getElementById('other_status').value = ''; // Clear the input field when not in use
+        }
+    });
+
+    document.getElementById('living_status').addEventListener('change', function () {
+    const otherInput = document.getElementById('other_living_status_input');
     if (this.value === 'Others') {
         otherInput.style.display = 'block';
     } else {
         otherInput.style.display = 'none';
-        document.getElementById('other_status').value = ''; // Clear the input field when not in use
+        document.getElementById('other_living_status').value = ''; // Clear the input field when not in use
     }
 });
 
 </script>
+@endsection
