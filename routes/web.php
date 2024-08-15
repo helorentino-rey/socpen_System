@@ -25,6 +25,8 @@ use App\Http\Controllers\BeneficiaryController;
 //     Route::get('/dashboard', function () {
 //         return view('dashboard');
 //     })->name('dashboard');
+
+//To add- Dashboard with authentication
 // });
 
 //Route for Landing Page
@@ -112,6 +114,7 @@ Route::post('/admin/create', [AdminController::class, 'createAdmin'])->name('adm
 Route::put('/admin/edit/{id}', [AdminController::class, 'editAdmin'])->name('admin.edit');
 Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
+Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
 //Route for Staff Login after Approval
 Route::get('/staff/login', [StaffLoginController::class, 'showLoginForm'])->name('staff.loginForm');
