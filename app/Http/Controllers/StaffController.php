@@ -74,4 +74,14 @@ class StaffController extends Controller
         $exists = DB::table('staff')->where('employee_id', $request->employee_id)->exists();
         return response()->json(['exists' => $exists]);
     }
+
+    public function listBeneficiary()
+    {
+        return view('livewire.staff.listbeneficiary');
+    }
+
+    public function staffInformation()
+    {
+        return view('livewire.staff.staffinformation');
+    }
 }

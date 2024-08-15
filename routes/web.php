@@ -119,4 +119,6 @@ Route::post('/staff/login', [StaffLoginController::class, 'login'])->name('staff
 
 //Route for the Staff Dashboard
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
+Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
 
