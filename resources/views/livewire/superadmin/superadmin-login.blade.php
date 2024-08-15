@@ -91,16 +91,12 @@
                         @csrf
                         <div class="mb-3">
                             <label for="employeeId" class="form-label">Employee ID</label>
-                            <input type="text" class="form-control" id="employeeId" name="employee_id" required>
+                            <input type="text" class="form-control" id="employeeId" name="employee_id"pattern="R\d{2}-\d{4}" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password" minlength="8"
                                 required>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
-                            <label class="form-check-label" for="rememberMe">Remember Me</label>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>

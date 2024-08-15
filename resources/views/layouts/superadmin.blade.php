@@ -184,11 +184,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
                 </a>
             </li>
         </ul>
+        <form id="logout-form" action="{{ route('superadmin.logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         <div class="toggle-button" id="toggleButton">
             <i class="bi bi-chevron-left chevron-icon"></i>
         </div>

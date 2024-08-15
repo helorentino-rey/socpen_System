@@ -70,13 +70,14 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const birthdateInput = document.getElementById('birthday');
             const ageInput = document.getElementById('age');
             const form = document.querySelector('form');
             const employeeIdInput = document.getElementById('employee_id');
+            const emailInput = document.getElementById('email');
 
-            birthdateInput.addEventListener('change', function () {
+            birthdateInput.addEventListener('change', function() {
                 const birthdate = new Date(birthdateInput.value);
                 const today = new Date();
                 let age = today.getFullYear() - birthdate.getFullYear();
@@ -87,7 +88,7 @@
                 ageInput.value = age;
             });
 
-            form.addEventListener('submit', function (event) {
+            form.addEventListener('submit', function(event) {
                 event.preventDefault(); // Prevent form submission until checks are done
 
                 const password = document.getElementById('password').value;
@@ -98,33 +99,24 @@
                     return;
                 }
 
-                if (!areAllFieldsFilled()) {
-                    alert('Please fill in all fields.');
-                    return;
-                }
-
-                checkEmployeeIdExists(employeeIdInput.value).then(exists => {
-                    if (exists) {
-                        alert('Employee ID already exists.');
+                checkEmailExists(emailInput.value).then(emailExists => {
+                    if (emailExists) {
+                        alert('Email already exists.');
                     } else {
-                        form.submit(); // Submit the form if all checks pass
+                        checkEmployeeIdExists(employeeIdInput.value).then(employeeExists => {
+                            if (employeeExists) {
+                                alert('Employee ID already exists.');
+                            } else {
+                                form.submit(); // Submit the form if all checks pass
+                            }
+                        });
                     }
                 });
             });
 
-            function areAllFieldsFilled() {
-                const inputs = form.querySelectorAll('input, select');
-                for (let input of inputs) {
-                    if (input.value.trim() === '') {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
             function checkEmployeeIdExists(employeeId) {
                 return $.ajax({
-                    url: '/check-employee-id', // Replace with your actual endpoint
+                    url: '/check-employee-id',
                     method: 'POST',
                     data: {
                         employee_id: employeeId,
@@ -138,6 +130,23 @@
                     return false;
                 });
             }
+
+            function checkEmailExists(email) {
+                return $.ajax({
+                    url: '/check-email',
+                    method: 'POST',
+                    data: {
+                        email: email,
+                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                    },
+                    dataType: 'json'
+                }).then(response => {
+                    return response.exists;
+                }).catch(error => {
+                    console.error('Error checking email:', error);
+                    return false;
+                });
+            }
         });
     </script>
 </head>
@@ -148,6 +157,7 @@
             <h2 class="form-title">Staff Registration</h2>
             <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
                 @csrf
+                <!-- Personal Information Section -->
                 <div class="form-section">
                     <h6 class="form-section-title">Personal Information</h6>
                     <div class="row">
@@ -161,7 +171,7 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="middlename">Middlename</label>
-                            <input type="text" id="middlename" name="middlename" maxlength="15" required>
+                            <input type="text" id="middlename" name="middlename" maxlength="15">
                         </div>
                     </div>
                     <div class="row">
@@ -189,7 +199,7 @@
                                 <option value="">Choose...</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                                <option value="Female">Prefer not to say</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
                             </select>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
@@ -214,9 +224,11 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="contact_number">Contact Number</label>
-                            <input type="text" id="contact_number" name="contact_number" maxlength="11" required pattern="[0-9]+" title="Please enter numbers only">
+                            <input type="text" id="contact_number" name="contact_number" maxlength="13" required
+                                pattern="\+639[0-9]{9}" title="Please enter a valid PH contact number starting with +63"
+                                onfocus="prependCountryCode()" oninput="enforceCountryCode()">
                             <div class="invalid-feedback">
-                                Please enter numbers only.
+                                Please enter a valid PH contact number starting with +63 (e.g., +639485292540).
                             </div>
                         </div>
                     </div>
@@ -226,12 +238,18 @@
                     </div>
                 </div>
 
+                <!-- Employee Information Section -->
                 <div class="form-section">
                     <h6 class="form-section-title">Employee Information</h6>
                     <div class="row">
                         <div class="col-md-4 mb-3 form-group">
                             <label for="employee_id">Employee ID</label>
-                            <input type="text" id="employee_id" name="employee_id" maxlength="10" required>
+                            <input type="text" id="employee_id" name="employee_id" maxlength="10" required
+                                pattern="[0-9\-]+"
+                                title="Please enter a valid Employee ID (numbers and hyphens only)">
+                            <div class="invalid-feedback">
+                                Please enter a valid Employee ID (numbers and hyphens only).
+                            </div>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="email">Email</label>
@@ -239,13 +257,15 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required minlength="8" maxlength="8">
+                            <input type="password" id="password" name="password" required minlength="8"
+                                maxlength="8">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3 form-group">
                             <label for="password_confirmation">Confirm Password</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" required minlength="8" maxlength="8">
+                            <input type="password" id="password_confirmation" name="password_confirmation" required
+                                minlength="8" maxlength="8">
                         </div>
                         <div class="col-md-6 mb-3 form-group">
                             <label for="assigned_province">Assigned Province</label>

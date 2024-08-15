@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffLoginController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BeneficiaryController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\getAddressOptions;
 
 // Route::get('/', function () {
@@ -68,6 +68,10 @@ Route::post('/register', [StaffController::class, 'store'])->name('register.subm
 
 //Route for Duplication
 Route::post('/check-employee-id', [StaffController::class, 'checkEmployeeId']);
+
+//Route for Check Email Duplication in Staff Registration
+Route::post('/check-email', [RegistrationController::class, 'checkEmail']);
+Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId']);
 
 //Admin Login
 Route::post('/admin/login', [AdminForLoginController::class, 'adminLogin'])->name('admin.login');

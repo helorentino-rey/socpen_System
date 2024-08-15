@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('firstname', 15);
             $table->string('middlename', 15)->nullable();
             $table->string('name_extension', 4)->nullable();
-            $table->enum('sex', ['Male', 'Female']);
+            $table->enum('sex', ['Male', 'Female',  'Prefer not to say']);
             $table->date('birthday');
             $table->integer('age', false, true)->length(3);
             $table->string('marital_status', 10);
-            $table->string('contact_number', 11);
+            $table->string('contact_number', 13);
             $table->string('address', 50);
             $table->string('employee_id', 10)->unique();
             $table->string('email', 25)->unique();
