@@ -348,28 +348,26 @@
             <h6 class="mt-4">Present Address</h6>
             <div class="form-row">
                 <div class="form-col">
-                    <label for="lastname" class="form-label">Sitio/House No./Purok/Street</label>
-                    <input type="text" class="form-control" id="present_house" name="present_house" required>
+                    <label for="present_house" class="form-label">Sitio/House No./Purok/Street</label>
+                    <select class="form-control" id="present_house" name="present_house"></select>
                 </div>
                 <div class="form-col">
-                    <label for="firstname" class="form-label">Barangay</label>
-                    <input type="text" class="form-control" id="present_barangay" name="present_barangay" required>
+                    <label for="present_barangay" class="form-label">Barangay</label>
+                    <select class="form-control" id="present_barangay" name="present_barangay"></select>
                 </div>
                 <div class="form-col">
-                    <label for="middlename" class="form-label">City/Municipality</label>
-                    <input type="text" class="form-control" id="present_city" name="present_city">
+                    <label for="present_city" class="form-label">City/Municipality</label>
+                    <select class="form-control" id="present_city" name="present_city"></select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-col">
-                    <label for="name_extension" class="form-label">Province</label>
-                    <select class="form-control" id="present_province" name="present_province">
-                       
-                    </select>
+                    <label for="present_province" class="form-label">Province</label>
+                    <select class="form-control" id="present_province" name="present_province"></select>
                 </div>
                 <div class="form-col">
-                    <label for="sex" class="form-label">Region</label>
-                    <input type="text" class="form-control" id="present_region" name="present_region">
+                    <label for="present_region" class="form-label">Region</label>
+                    <select class="form-control" id="present_region" name="present_region"></select>
                 </div>
             </div>
             <h6 class="mt-4">Birth Information</h6>
@@ -575,7 +573,7 @@
                         </div>
                         <div>
                             <label for="living_status">Living Status:</label>
-                            <select id="living_status" name="living_status" >
+                            <select id="living_status" name="living_status">
                                 <option value="Living Alone">Living Alone</option>
                                 <option value="Living with Spouse">Living with Spouse</option>
                                 <option value="Living with Children">Living with Children</option>
@@ -584,7 +582,7 @@
                             <br />
                             <div id="other_living_status_input" style="display: none;">
                                 <label for="other_living_status">Please specify:</label>
-                                <input type="text" id="other_living_status" name="other_living_status"  />
+                                <input type="text" id="other_living_status" name="other_living_status" />
                             </div>
                         </div>
 
@@ -777,6 +775,15 @@
                     </div>
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label class="form-label">By signing this form, I grant my free and voluntary consent for the Department of Social Welfare and Development (DSWD) to collect, process, and share my personal information for the purpose of validation, eligibility test, and cross-matching to serve as the basis in granting my entitlements as a qualified beneficiary of the Social Pension for Indigent Senior Citizens (SPISC) Program. As a data subject, I understand that I have the right to be informed, access, object, block, file complaints or damages or rectify my personal information obtained, processed, or shared as well as the purpose and reason for processing or sharing this personal information.
+
+
+                    </label>
+
+                </div>
+            </div>
             <h6 class="mt-4">Conformed by:</h6>
             <div class="form-row">
                 <div class="income-table">
@@ -800,6 +807,16 @@
                     </div>
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <label class="form-label">DATA PRIVACY</label>
+                    <label class="form-label">
+                        In compliance with the provisions of Republic Act No. 10173, also known as the Data Privacy Act of 2012 and its Implementing Rules and Regulations (IRR), the Department of Social Welfare and Development (DSWD) ensures that the personal information provided is collected and processed by authorized personnel and is only used for the implementation of the Social Pension for Indigent Senior Citizens (SPISC) Program as mandated under Republic Act No. 9994
+
+                    </label>
+
+                </div>
+            </div>
 
             <button type="submit" class="btn">Submit</button>
             </form>
@@ -818,15 +835,38 @@
         }
     });
 
-    document.getElementById('living_status').addEventListener('change', function () {
-    const otherInput = document.getElementById('other_living_status_input');
-    if (this.value === 'Others') {
-        otherInput.style.display = 'block';
-    } else {
-        otherInput.style.display = 'none';
-        document.getElementById('other_living_status').value = ''; // Clear the input field when not in use
-    }
-});
+    document.getElementById('living_status').addEventListener('change', function() {
+        const otherInput = document.getElementById('other_living_status_input');
+        if (this.value === 'Others') {
+            otherInput.style.display = 'block';
+        } else {
+            otherInput.style.display = 'none';
+            document.getElementById('other_living_status').value = ''; // Clear the input field when not in use
+        }
+    });
 
+    // Fetch and populate the dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/address-options')
+            .then(response => response.json())
+            .then(data => {
+                populateDropdown('present_house', data.houses);
+                populateDropdown('present_barangay', data.barangays);
+                populateDropdown('present_city', data.cities);
+                populateDropdown('present_province', data.provinces);
+                populateDropdown('present_region', data.regions);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+
+    function populateDropdown(elementId, options) {
+        const dropdown = document.getElementById(elementId);
+        options.forEach(option => {
+            const opt = document.createElement('option');
+            opt.value = option.id; // Assuming the ID is the unique identifier
+            opt.textContent = option.name; // Assuming there's a name or description field
+            dropdown.appendChild(opt);
+        });
+    }
 </script>
 @endsection
