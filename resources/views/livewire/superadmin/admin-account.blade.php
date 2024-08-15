@@ -84,12 +84,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 
     <!-- Edit Admin Modal -->
     @foreach ($admins as $admin)
@@ -101,7 +102,7 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editAdminModalLabel">Edit Admin</h5>
+                            <h5 class="modal-title" id="editAdminModalLabel">Edit Admin Info</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -148,7 +149,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -156,15 +157,192 @@
         </div>
     @endforeach
 
+    <!-- Delete Admin Confirmation Modal -->
+    <div class="modal fade" id="deleteAdminModal" tabindex="-1" aria-labelledby="deleteAdminModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAdminModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this admin?
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteForm" method="POST">
+                        @csrf
+                        @method('GET')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activate/Deactivate Admin Confirmation Modal -->
+    <div class="modal fade" id="toggleAdminStatusModal" tabindex="-1" aria-labelledby="toggleAdminStatusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toggleAdminStatusModalLabel">Confirm Status Change</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to {{ $admin->is_active ? 'deactivate' : 'activate' }} this admin?
+                </div>
+                <div class="modal-footer">
+                    <form id="toggleStatusForm" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Information Updated Successfully Modal -->
+    <div class="modal fade" id="updateSuccessModal" tabindex="-1" aria-labelledby="updateSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateSuccessModalLabel">Update Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Admin information updated successfully.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Account Deleted Successfully Modal -->
+    <div class="modal fade" id="deleteSuccessModal" tabindex="-1" aria-labelledby="deleteSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSuccessModalLabel">Deletion Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Admin account deleted successfully.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Account Activated Successfully Modal -->
+    <div class="modal fade" id="activateSuccessModal" tabindex="-1" aria-labelledby="activateSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activateSuccessModalLabel">Activation Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Admin account activated successfully.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Account Deactivated Successfully Modal -->
+    <div class="modal fade" id="deactivateSuccessModal" tabindex="-1" aria-labelledby="deactivateSuccessModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deactivateSuccessModalLabel">Deactivation Successful</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Admin account deactivated successfully.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function deleteAdmin(id) {
-            if (confirm('Are you sure you want to delete this admin?')) {
-                window.location.href = '/admin/delete/' + id;
+            var form = document.getElementById('deleteForm');
+            form.action = '/admin/delete/' + id;
+            var deleteModalElement = document.getElementById('deleteAdminModal');
+            if (deleteModalElement) {
+                var deleteModal = new bootstrap.Modal(deleteModalElement);
+                deleteModal.show();
+            } else {
+                console.error('Delete Admin Modal element not found');
             }
         }
 
         function toggleAdminStatus(id) {
-            window.location.href = '/admin/toggle-status/' + id;
+            var form = document.getElementById('toggleStatusForm');
+            form.action = '/admin/toggle-status/' + id;
+            var toggleModalElement = document.getElementById('toggleAdminStatusModal');
+            if (toggleModalElement) {
+                var toggleModal = new bootstrap.Modal(toggleModalElement);
+                toggleModal.show();
+            } else {
+                console.error('Toggle Admin Status Modal element not found');
+            }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                var successMessage = "{{ session('success') }}";
+                if (successMessage.includes('deleted')) {
+                    var deleteSuccessModalElement = document.getElementById('deleteSuccessModal');
+                    if (deleteSuccessModalElement) {
+                        var deleteSuccessModal = new bootstrap.Modal(deleteSuccessModalElement);
+                        deleteSuccessModal.show();
+                    } else {
+                        console.error('Delete Success Modal element not found');
+                    }
+                } else if (successMessage.includes('activated')) {
+                    var activateSuccessModalElement = document.getElementById('activateSuccessModal');
+                    if (activateSuccessModalElement) {
+                        var activateSuccessModal = new bootstrap.Modal(activateSuccessModalElement);
+                        activateSuccessModal.show();
+                    } else {
+                        console.error('Activate Success Modal element not found');
+                    }
+                } else if (successMessage.includes('deactivated')) {
+                    var deactivateSuccessModalElement = document.getElementById('deactivateSuccessModal');
+                    if (deactivateSuccessModalElement) {
+                        var deactivateSuccessModal = new bootstrap.Modal(deactivateSuccessModalElement);
+                        deactivateSuccessModal.show();
+                    } else {
+                        console.error('Deactivate Success Modal element not found');
+                    }
+                } else {
+                    var updateSuccessModalElement = document.getElementById('updateSuccessModal');
+                    if (updateSuccessModalElement) {
+                        var updateSuccessModal = new bootstrap.Modal(updateSuccessModalElement);
+                        updateSuccessModal.show();
+                    } else {
+                        console.error('Update Success Modal element not found');
+                    }
+                }
+            @endif
+        });
     </script>
 @endsection
