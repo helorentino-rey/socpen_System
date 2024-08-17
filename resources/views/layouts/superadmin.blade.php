@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Super Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -69,8 +66,14 @@
         }
 
         .sidebar .nav-link i {
-            margin-right: 10px;
+            width: 30px;
+            text-align: center;
             flex-shrink: 0;
+            transition: font-size 0.3s;
+        }
+
+        .sidebar.retracted .nav-link i {
+            font-size: 20px;
         }
 
         .sidebar .nav-link span {
@@ -105,25 +108,6 @@
             margin-left: 80px;
         }
 
-        .card {
-            border-left: 4px solid #1C4CB1;
-        }
-
-        .card-title {
-            font-weight: bold;
-        }
-
-        .logo {
-            width: 150px;
-            margin: 20px auto;
-            display: block;
-        }
-
-        .search-bar {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
         .plus-button {
             position: absolute;
             bottom: 20px;
@@ -154,52 +138,49 @@
             cursor: pointer;
             font-size: 16px;
         }
-    </style>
 
+        .chevron-icon {
+            position: relative;
+            top: 5px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
-
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
         <div class="profile-pic"></div>
-        <div class="profile-name">Admin</div>
+        <div class="profile-name">Super Admin</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                <a href="{{ route('superadmin.dashboard') }}" class="nav-link">
                     <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
-            <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#beneficiaryMenu"
-                    aria-expanded="false" aria-controls="beneficiaryMenu">
-                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
-                </a>
-                <div class="collapse" id="beneficiaryMenu">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> <span>Approve Beneficiaries</span></a></li>
-                        <li><a href="{{ route('admin.beneficiaries.list') }}" class="nav-link"><i
-                                    class="bi bi-list-ul"></i> <span>List of Beneficiaries</span></a></li>
-                    </ul>
-                </div>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#staffMenu"
-                    aria-expanded="false" aria-controls="staffMenu">
-                    <i class="bi bi-person-fill"></i> <span>Staff</span>
+                <a href="{{ route('superadmin.admin-account') }}" class="nav-link">
+                    <i class="bi bi-person-circle"></i> <span>Admin</span>
                 </a>
-                <div class="collapse" id="staffMenu">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="{{ route('admin.staff.approve') }}" class="nav-link"><i
-                                    class="bi bi-check-circle"></i> <span>Approve Staff</span></a></li>
-                        <li><a href="{{ route('admin.staff.list') }}" class="nav-link"><i class="bi bi-list-ul"></i>
-                                <span>List of Staff</span></a></li>
-                    </ul>
-                </div>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.account') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> <span>Account Information</span>
+                <a href="{{ route('superadmin.approved-staff') }}" class="nav-link">
+                    <i class="bi bi-people-fill"></i> <span>Staff</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('superadmin.approved-beneficiary') }}" class="nav-link">
+                    <i class="bi bi-person-lines-fill"></i> <span>Beneficiaries</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="account-information" class="nav-link">
+                    <i class="bi bi-person-fill"></i> <span>Account Information</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="notifications" class="nav-link">
+                    <i class="bi bi-bell-fill"></i> <span>Notifications</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -207,67 +188,19 @@
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
                 </a>
-                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
             </li>
         </ul>
+        <form id="logout-form" action="{{ route('superadmin.logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         <div class="toggle-button" id="toggleButton">
-            <i class="bi bi-chevron-left"></i>
+            <i class="bi bi-chevron-left chevron-icon"></i>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="content" id="content">
-        <img src="path/to/dswd-logo.png" alt="DSWD Logo" class="logo">
-        <h1>Department of Social Welfare and Development</h1>
-        <input type="text" class="form-control search-bar" placeholder="Search Beneficiaries">
-
-        <!-- Bootstrap Card Example -->
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4 text-center">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1 card-title">
-                                    Approved Beneficiaries
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="bi bi-person-check-fill fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4 text-center">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1 card-title">
-                                    Pending Beneficiaries
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="bi bi-person-dash-fill fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Add more cards as needed -->
-        </div>
-    </div>
-
-    <!-- Floating Plus Button -->
-    <div class="plus-button">
-        <i class="bi bi-plus-lg"></i>
+        @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -275,10 +208,11 @@
         document.getElementById('toggleButton').addEventListener('click', function() {
             var sidebar = document.getElementById('sidebar');
             var content = document.getElementById('content');
+            var icon = this.querySelector('i');
+
             sidebar.classList.toggle('retracted');
             content.classList.toggle('retracted');
 
-            var icon = this.querySelector('i');
             if (sidebar.classList.contains('retracted')) {
                 icon.classList.remove('bi-chevron-left');
                 icon.classList.add('bi-chevron-right');
@@ -288,7 +222,4 @@
             }
         });
     </script>
-
 </body>
-
-</html>

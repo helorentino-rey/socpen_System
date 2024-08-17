@@ -171,22 +171,22 @@
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
         <div class="profile-pic"></div>
-        <div class="profile-name">Admin</div>
+        <div class="profile-name">Staff</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                <a href="{{ route('staff.dashboard') }}" class="nav-link">
                     <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link">
-                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
+                <a href="{{ route('staff.listBeneficiary') }}" class="nav-link">
+                    <i class="bi bi-people-fill"></i> <span>List of Beneficiaries</span>
                 </a>
             </li>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.account') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> <span>Account Information</span>
+                <a href="{{ route('staff.staffInformation') }}" class="nav-link">
+                    <i class="bi bi-info-circle-fill"></i> <span>Staff Information</span>
                 </a>
             </li>
             <li class="nav-item">

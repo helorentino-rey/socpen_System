@@ -1,166 +1,114 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin Login</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Raleway:wght@500&display=swap"
+        rel="stylesheet">
     @livewireStyles
     <style>
-        body {
-            background-color: #f8f9fa;
+        .login-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .blue-sidebar {
+            background: linear-gradient(45deg, #43232e 0%, #101727 50%, #43232e 100%);
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .login-form-container {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .dswd-logo {
+            max-width: 450px;
+            margin-bottom: 20px;
+        }
+
+        .field-office-text {
+            background-color: white;
+            color: #101727;
+            padding: 10px 0;
+            margin-bottom: 100px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            width: 50%;
+            text-align: center;
+        }
+
+        .social-pension-text {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 32px;
+            font-family: 'Roboto', sans-serif;
         }
 
         .card {
             width: 100%;
-            max-width: 500px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-primary {
-            background-color: #1C4CB1;
-            border: none;
-            font-size: 1.2rem;
-            padding: 0.75rem;
-        }
-
-        .btn-primary:hover {
-            background-color: #163a8c;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .logo-container img {
-            max-width: 150px;
-        }
-
-        .form-label {
-            font-size: 1.1rem;
-        }
-
-        .form-control {
-            font-size: 1.1rem;
-            padding: 0.75rem;
-        }
-
-        .form-check-label {
-            font-size: 1rem;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #1C4CB1;
-            color: white;
-            padding: 1rem;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .header img {
-            max-height: 50px;
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-
-        @media (min-width: 768px) {
-            .card {
-                max-width: 600px;
-            }
-
-            .btn-primary {
-                font-size: 1.5rem;
-                padding: 1rem;
-            }
-
-            .card-title {
-                font-size: 2rem;
-            }
-
-            .form-label,
-            .form-control {
-                font-size: 1.3rem;
-                padding: 1rem;
-            }
-
-            .form-check-label {
-                font-size: 1.2rem;
-            }
+            max-width: 400px;
         }
     </style>
 </head>
 
 <body>
-    <div class="card shadow-sm">
-        <div class="header">
-            <img src="path/to/DSWD-logo.png" alt="DSWD Logo">
-            <h1>DSWD Social Pension Unit</h1>
+    <div class="login-container">
+        <div class="blue-sidebar">
+            <img src="{{ asset('img/DSWD_Logo.png') }}" alt="DSWD Logo" class="dswd-logo">
+            <div class="field-office-text">Field Office XI - Davao Region</div>
+            <div class="social-pension-text">Social Pension Unit</div>
         </div>
-        <div class="card-body">
-            <h5 class="card-title text-center mb-4">Super Admin Login</h5>
+        <div class="login-form-container">
+            <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="logo">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Super Admin Login</h5>
 
-            @if ($errors->has('login_error'))
-                <div class="alert alert-danger">
-                    {{ $errors->first('login_error') }}
-                </div>
-            @endif
+                    @if ($errors->has('login_error'))
+                        <div class="alert alert-danger">
+                            {{ $errors->first('login_error') }}
+                        </div>
+                    @endif
 
-            <form method="POST" action="{{ route('superadmin.login') }}">
-                @csrf
-                <div class="mb-3">
-                    <label for="employeeId" class="form-label">Employee ID</label>
-                    <input type="text" class="form-control" id="employeeId" name="employee_id" 
-                        required>
+                    <form method="POST" action="{{ route('superadmin.login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="employeeId" class="form-label">Employee ID</label>
+                            <input type="text" class="form-control" id="employeeId" name="employee_id"pattern="R\d{2}-\d{4}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" minlength="8"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" minlength="8" required>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
-                    <label class="form-check-label" for="rememberMe">Remember Me</label>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
+            </div>
         </div>
     </div>
-</body>
 
-<!-- jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-@livewireScripts
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html>

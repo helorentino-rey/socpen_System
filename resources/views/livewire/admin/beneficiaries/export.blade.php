@@ -5,10 +5,10 @@
 @section('content')
 <style>
     .navbar {
-    background-color: #f8f9fa; 
-    border-bottom: 2px solid #343a40;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #343a40; 
+    padding: 1rem 2rem; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -19,14 +19,14 @@
     text-transform: uppercase;
 }
 
+
 .navbar-nav .nav-link {
     font-size: 1rem;
-    color: #495057;
+    color: #495057; 
     padding: 0.5rem 1rem;
     transition: color 0.3s ease-in-out;
     border-radius: 0.25rem;
 }
-
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
@@ -36,8 +36,6 @@
     text-decoration-color: #007bff; 
     text-decoration-thickness: 3px; 
 }
-
-
 /* Navbar for mobile view */
 @media (max-width: 991px) {
     .navbar {
@@ -79,7 +77,6 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.beneficiaries.export') }}" class="nav-link" style="color: black;">Export List of Beneficiaries</a>
-                    </li>
                    </ul>
             </div>
         </div>
@@ -87,7 +84,7 @@
     
      <!-- Page Content -->
      <div class="container">
-        <h1>Approve Beneficiaries</h1>
+        <h1>Export Beneficiaries</h1>
         
     </div>
 @endsection

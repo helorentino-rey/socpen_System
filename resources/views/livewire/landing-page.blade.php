@@ -1,178 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Employee Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Raleway:wght@500&display=swap"
+        rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-            /* Light grey background */
-            margin: 0;
+        .login-container {
+            display: flex;
             height: 100vh;
         }
 
-        .wrapper {
-            background-color: white;
-            /* Default background color for the whole window */
-            height: 100vh;
+        .blue-sidebar {
+            background: linear-gradient(45deg, #48488f 0%, #1e4bb0 50%, #48488f 100%);
+            width: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: background-color 0.3s ease;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-            display: flex;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: auto;
-            padding: 20px;
-            /* Ensure padding inside the container */
-        }
-
-        .section {
-            flex: 1;
-            padding: 20px;
-            display: flex;
             flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .login-form-container {
+            width: 50%;
+            display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 15px;
+            flex-direction: column;
         }
 
-        .left-section {
-            background-color: #1C4CB1;
-            /* DSWD Blue */
-            color: white;
-            border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            padding: 20px;
-            box-sizing: border-box;
-            min-height: 200px;
-            /* Adjust based on content */
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
         }
 
-        .right-section {
+        .dswd-logo {
+            max-width: 450px;
+            margin-bottom: 20px;
+        }
+
+        .field-office-text {
             background-color: white;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-            padding: 20px;
-            box-sizing: border-box;
-            min-height: 200px;
-            /* Adjust based on content */
+            color: #1c4cb0;
+            padding: 10px 0;
+            margin-bottom: 100px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            width: 50%;
+            text-align: center;
         }
 
-        .btn-admin,
-        .btn-superadmin,
-        .btn-staff {
-            color: white;
-            border: none;
+        .social-pension-text {
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 32px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .card {
             width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .btn-admin {
-            background-color: #1C4CB1;
-            /* DSWD Blue */
-        }
-
-        .btn-admin:hover,
-        .btn-superadmin:hover {
-            background-color: #163a8c;
-        }
-
-        .btn-superadmin {
-            background-color: #4a4791;
-            /* Another shade of blue */
-        }
-
-        .btn-staff {
-            background-color: #FF0000;
-            /* DSWD Red */
-        }
-
-        .btn-staff:hover {
-            background-color: #4a4791;
-            /* Updated hover color */
-        }
-
-        .logo-container img {
-            max-width: 300px;
-            /* Adjust this value to make the logo larger */
-            display: block;
-            margin: 0 auto 20px;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
+            max-width: 400px;
         }
     </style>
+    <script>
+        data: {
+                email: email,
+                _token: '{{ csrf_token() }}' // Include CSRF token for security
+            },
+            dataType: 'json'
+        }).then(response => {
+            return response.exists;
+        }).catch(error => {
+            console.error('Error checking email:', error);
+            return false;
+        });
+    </script>
 </head>
 
 <body>
-    <div class="wrapper" id="wrapper">
-        <div class="container">
-            <div class="section left-section">
-                <div class="logo-container">
-                    <img src="{{ asset('img/DSWD_Logo.png') }}" alt="DSWD Logo">
-                    <h2>Field Office XI - Davao Region</h2>
-                    <h3>Social Pension Unit</h3>
-                </div>
-            </div>
-            <div class="section right-section">
-                <div class="logo-container">
-                    <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo">
-                </div>
-                <h1>Welcome back</h1>
-                <p class="text-muted">Login as</p>
-                <div class="mt-4">
-                    <a href="{{ route('superadmin.login') }}" class="btn btn-superadmin btn-lg">Super Admin</a>
-                    <a href="{{ route('admin.login') }}" class="btn btn-admin btn-lg">Admin</a>
-                    <a href="{{ route('staff.login') }}" class="btn btn-staff btn-lg">Staff</a>
+    <div class="login-container">
+        <div class="blue-sidebar">
+            <img src="{{ asset('img/DSWD_Logo.png') }}" alt="DSWD Logo" class="dswd-logo">
+            <div class="field-office-text">Field Office XI - Davao Region</div>
+            <div class="social-pension-text">Social Pension Unit</div>
+        </div>
+        <div class="login-form-container">
+            <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="logo">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Employee Login</h5>
+                    
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+                
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                    <form action="{{ route('new-login') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="employee_id" class="form-label">Employee ID</label>
+                            <input type="text" id="employee_id" name="employee_id" class="form-control"
+                                maxlength="10" required pattern="[0-9\-]+"
+                                title="Please enter a valid Employee ID (numbers and hyphens only)">
+                            <div class="invalid-feedback">
+                                Please enter a valid Employee ID (numbers and hyphens only).
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="password" minlength="8"
+                                maxlength="15" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+
+                    <div id="emailHelp" class="form-text text-center mt-2">(For Staff only) Don't have an account yet?
+                    </div>
+                    <form method="POST" action="{{ route('new-register') }}">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary w-100 mt-2">Register</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // JavaScript to handle background color changes
-        document.querySelector('.btn-superadmin').addEventListener('mouseover', function() {
-            document.getElementById('wrapper').style.backgroundColor =
-            '#4a4791'; // Updated color for super admin button hover
-        });
-        document.querySelector('.btn-admin').addEventListener('mouseover', function() {
-            document.getElementById('wrapper').style.backgroundColor = '#111828';
-        });
-        document.querySelector('.btn-admin').addEventListener('mouseout', function() {
-            document.getElementById('wrapper').style.backgroundColor = 'white';
-        });
-        document.querySelector('.btn-staff').addEventListener('mouseover', function() {
-            document.getElementById('wrapper').style.backgroundColor =
-            '#4a4791'; // Updated color for staff button hover
-        });
-        document.querySelector('.btn-staff').addEventListener('mouseout', function() {
-            document.getElementById('wrapper').style.backgroundColor = 'white';
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html>

@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Raleway:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Raleway:wght@500&display=swap"
+        rel="stylesheet">
     <style>
         .login-container {
             display: flex;
@@ -98,15 +96,16 @@
                         @csrf
                         <div class="mb-3">
                             <label for="employee_id" class="form-label">Employee ID</label>
-                            <input type="text" name="employee_id" class="form-control" id="employee_id" required>
+                            <input type="text" id="employee_id" name="employee_id" class="form-control" maxlength="10" required
+                                pattern="[0-9\-]+"
+                                title="Please enter a valid Employee ID (numbers and hyphens only)">
+                            <div class="invalid-feedback">
+                                Please enter a valid Employee ID (numbers and hyphens only).
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Remember Me</label>
+                            <input type="password" name="password" class="form-control" id="password" minlength="8" maxlength="8" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>
 
@@ -121,5 +120,3 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html>
