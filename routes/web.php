@@ -30,7 +30,7 @@ use App\Http\Controllers\OtpController;
 
 //To add- Dashboard with authentication
 // });
-
+    
 //Route for Landing Page
 Route::get('/', function () {
     return view('livewire.landing-page');

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('contact_number', 13);
             $table->string('address', 50);
             $table->string('employee_id', 10)->unique();
-            $table->string('email', 25)->unique();
+            $table->string('email', 50)->unique();
             $table->string('password', 150);
             $table->string('assigned_province', 20);
             $table->string('profile_picture')->nullable();
