@@ -174,7 +174,7 @@
         <div class="profile-name">Admin</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('admin.mainDashboard') }}" class="nav-link">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link">
                     <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>

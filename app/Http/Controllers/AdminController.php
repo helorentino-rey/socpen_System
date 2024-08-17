@@ -43,6 +43,7 @@ class AdminController extends Controller
     {
         $admins = Admin::all();
         return view('livewire.superadmin.admin-account', compact('admins'));
+        
     }
 
     // Create a new admin

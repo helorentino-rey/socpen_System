@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('employee_id', 10)->unique();
             $table->string('password', 255);
+            $table->string('usertype', 15)->default('super_admin');
             $table->timestamps();
         });
     }

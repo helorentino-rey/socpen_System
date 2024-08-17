@@ -14,7 +14,7 @@ class SuperAdminSeeder extends Seeder
     public function run()
     {
         SuperAdmin::create([
-            'employee_id' => 'R11-6730',
+            'employee_id' => '11-6730',
             'password' => Hash::make('superadmin'),
         ]);
     }

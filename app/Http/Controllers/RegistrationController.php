@@ -21,7 +21,7 @@ class RegistrationController extends Controller
             'employee_id.unique' => 'The employee ID has already been taken.',
         ];
 
-        $validatedData = $request->validate([
+        $validatedData = $request->validate([  
             'lastname' => 'required|string|max:15',
             'firstname' => 'required|string|max:15',
             'middlename' => 'nullable|string|max:15',

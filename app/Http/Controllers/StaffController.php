@@ -32,10 +32,9 @@ class StaffController extends Controller
                 : null,
             'status' => 'pending', // Set status to pending
         ]);
-
-        return redirect()->route('staff.login')->with('success', 'Registration successful. Awaiting admin approval.');
+        // Redirect to the landing page with a success message
+        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
     }
-
     public function dashboard()
     {
         // Return the view for the staff dashboard

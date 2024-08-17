@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password', 255);
             $table->string('assigned_province', 25);
             $table->boolean('is_active')->default(false);
+            $table->string('usertype', 15)->default('admin');
             $table->timestamps();
         });
     }

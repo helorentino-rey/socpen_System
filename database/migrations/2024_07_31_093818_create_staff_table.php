@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('assigned_province', 20);
             $table->string('profile_picture')->nullable();
             $table->enum('status', ['pending', 'active'])->default('pending');
+            $table->string('usertype', 15)->default('staff');
             $table->timestamps();
         });
     }

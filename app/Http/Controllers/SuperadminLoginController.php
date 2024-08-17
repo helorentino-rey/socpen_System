@@ -11,7 +11,7 @@ class SuperadminLoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('livewire.superadmin.superadmin-login'); // Update to match your view location
+        return view('livewire.superadmin.landing-page'); // Update to match your view location
     }
 
     public function login(Request $request)
@@ -20,13 +20,11 @@ class SuperadminLoginController extends Controller
             'employee_id' => 'required',
             'password' => 'required',
         ]);
-    
+
         $superAdmin = SuperAdmin::where('employee_id', $request->employee_id)->first();
-    
+
         if ($superAdmin && Hash::check($request->password, $superAdmin->password)) {
             Auth::guard('superadmin')->login($superAdmin);
-    
-            // Use the correct route name without extra prefixes
             return redirect()->route('superadmin.dashboard')->with('success', 'Welcome Super Admin!');
         } else {
             return back()->withErrors(['login_error' => 'Invalid Employee ID or Password']);

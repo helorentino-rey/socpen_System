@@ -31,5 +31,3 @@ public function getHousesByBarangay($barangayId)
 }
 
 }
-
-}

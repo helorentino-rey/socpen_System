@@ -206,8 +206,7 @@
 </div>
 
 <!-- Activate/Deactivate Admin Confirmation Modal -->
-<div class="modal fade" id="toggleAdminStatusModal" tabindex="-1" aria-labelledby="toggleAdminStatusModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="toggleAdminStatusModal" tabindex="-1" aria-labelledby="toggleAdminStatusModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -218,7 +217,7 @@
                 Are you sure you want to {{ $admin->is_active ? 'deactivate' : 'activate' }} this admin?
             </div>
             <div class="modal-footer">
-                <form id="toggleStatusForm" method="POST">
+                <form id="toggleStatusForm" method="POST" action="{{ route('admin.toggleStatus', ['id' => $admin->id]) }}">
                     @csrf
                     @method('PUT')
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -228,7 +227,6 @@
         </div>
     </div>
 </div>
-
 <!-- Admin Information Updated Successfully Modal -->
 <div class="modal fade" id="updateSuccessModal" tabindex="-1" aria-labelledby="updateSuccessModalLabel"
     aria-hidden="true">
