@@ -55,13 +55,16 @@ Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::c
 Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
 Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
 
-//Staff Register
-Route::post('new-register', function () {
-    return view('livewire.staff.register');
-})->name('new-register');
+//Staff Register Controller
+Route::get('/register', [RegistrationController::class, 'register'])->name('new-register');
+Route::post('/register', [RegistrationController::class, 'registerSubmit'])->name('register.submit');
+Route::post('/check-email', [RegistrationController::class, 'checkEmail'])->name('check-email');
+Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId'])->name('check-employee-id');
 
-//Route to Save in the Database
-Route::post('/register', [StaffController::class, 'store'])->name('register.submit');
+Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+Route::get('/staff/{id}', [StaffController::class, 'show'])->name('staff.show');
+Route::get('/list-beneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
+Route::get('/staff-information', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
 
 //Route for Check Email Duplication in Staff Registration
 Route::post('/check-email', [RegistrationController::class, 'checkEmail']);
@@ -91,12 +94,6 @@ Route::put('/admin/edit/{id}', [AdminController::class, 'editAdmin'])->name('adm
 Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
-
-
-//Route for the Staff Dashboard
-Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
-Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
 
 //for creating beneficiary
 Route::get('/api/provinces/{regionId}', [GetAddressOptions::class, 'getProvincesByRegion']);

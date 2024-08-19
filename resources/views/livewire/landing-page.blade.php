@@ -65,19 +65,6 @@
             max-width: 400px;
         }
     </style>
-    <script>
-        data: {
-                email: email,
-                _token: '{{ csrf_token() }}' // Include CSRF token for security
-            },
-            dataType: 'json'
-        }).then(response => {
-            return response.exists;
-        }).catch(error => {
-            console.error('Error checking email:', error);
-            return false;
-        });
-    </script>
 </head>
 
 <body>
@@ -112,16 +99,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-    
-                <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
-                    @csrf
-                    <form action="{{ route('new-login') }}" method="POST">
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('new-login') }}">
                         @csrf
                         <div class="mb-3">
                             <label for="employee_id" class="form-label">Employee ID</label>
@@ -142,7 +127,7 @@
 
                     <div id="emailHelp" class="form-text text-center mt-2">(For Staff only) Don't have an account yet?
                     </div>
-                    <form method="POST" action="{{ route('new-register') }}">
+                    <form method="GET" action="{{ route('new-register') }}">
                         @csrf
                         <button type="submit" class="btn btn-secondary w-100 mt-2">Register</button>
                     </form>
