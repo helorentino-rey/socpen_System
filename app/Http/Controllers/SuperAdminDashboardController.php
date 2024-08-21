@@ -26,7 +26,7 @@ class SuperAdminDashboardController extends Controller
     {
         return view('livewire.superadmin.approved-beneficiary');
     }
-    
+
     public function accountInformation()
     {
         return view('livewire.superadmin.account-information');
@@ -35,5 +35,26 @@ class SuperAdminDashboardController extends Controller
     public function notifications()
     {
         return view('livewire.superadmin.notifications');
+    }
+    
+    //For Beneficiaries
+    public function approve()
+    {
+        return view('livewire.superadmin.beneficiaries.approve');
+    }
+
+    public function create()
+    {
+        return view('livewire.superadmin.beneficiaries.create');
+    }
+
+    public function export()
+    {
+        return view('livewire.superadmin.beneficiaries.export');
+    }
+
+    public function list()
+    {
+        return view('livewire.superadmin.beneficiaries.list');
     }
 }

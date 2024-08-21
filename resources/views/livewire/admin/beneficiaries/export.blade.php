@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'export')
+@section('title', 'Export Beneficiaries')
 @section('content')
 <style>
     .navbar {

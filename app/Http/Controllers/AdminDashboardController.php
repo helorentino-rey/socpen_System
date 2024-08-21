@@ -9,7 +9,7 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        return view('livewire.admin.mainDashboard'); // Ensure this view exists
+        return view('livewire.admin.dashboard'); // Ensure this view exists
     }
 
     public function mDashboard()

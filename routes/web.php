@@ -13,7 +13,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\getAddressOptions;
-use App\Http\Controllers\OtpController;
+use App\Http\Controllers\AddressController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -30,7 +30,7 @@ use App\Http\Controllers\OtpController;
 
 //To add- Dashboard with authentication
 // });
-    
+
 //Route for Landing Page
 Route::get('/', function () {
     return view('livewire.landing-page');
@@ -55,6 +55,18 @@ Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::c
 Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
 Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
 
+//Super Admin Beneficiary Controller
+Route::get('/superadmin/beneficiaries/approve', [SuperAdminDashboardController::class, 'approve'])->name('superadmin.beneficiaries.approve');
+Route::get('/superadmin/beneficiaries/create', [SuperAdminDashboardController::class, 'create'])->name('superadmin.beneficiaries.create');
+Route::get('/superadmin/beneficiaries/list', [SuperAdminDashboardController::class, 'list'])->name('superadmin.beneficiaries.list');
+Route::get('/superadmin/beneficiaries/export', [SuperAdminDashboardController::class, 'export'])->name('superadmin.beneficiaries.export');
+
+//Route for Address
+Route::get('/address/provinces/{region_psgc}', [AddressController::class, 'getProvinces']);
+Route::get('/address/cities/{province_psgc}', [AddressController::class, 'getCities']);
+Route::get('/address/barangays/{citymuni_psgc}', [AddressController::class, 'getBarangays']);
+Route::get('/address/create', [AddressController::class, 'create']);
+
 //Staff Register Controller
 Route::get('/register', [RegistrationController::class, 'register'])->name('new-register');
 Route::post('/register', [RegistrationController::class, 'registerSubmit'])->name('register.submit');
@@ -70,7 +82,7 @@ Route::get('/staff-information', [StaffController::class, 'staffInformation'])->
 Route::post('/check-email', [RegistrationController::class, 'checkEmail']);
 Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId']);
 
-//Route for Dashboard
+//Route for Admin Dashboard
 Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name('admin.dashboard');
 Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
@@ -95,7 +107,7 @@ Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name(
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
-//for creating beneficiary
+//Address Options
 Route::get('/api/provinces/{regionId}', [GetAddressOptions::class, 'getProvincesByRegion']);
 Route::get('/api/cities/{provinceId}', [GetAddressOptions::class, 'getCitiesByProvince']);
 Route::get('/api/barangays/{cityId}', [GetAddressOptions::class, 'getBarangaysByCity']);
