@@ -8,26 +8,33 @@
     <style>
 body {
     font-family: Arial, sans-serif;
-    background: url('{{ asset('img/background.jpg') }}') no-repeat center center fixed;
-    background-size: 60% auto;
+    background: url('{{ asset('img/background.jpg') }}') no-repeat left center fixed, 
+                rgba(0, 123, 255, 0.3); 
+    background-size: 90% 100%, cover; 
+    background-blend-mode: normal; 
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .form-container {
     position: relative;
-    background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
-    padding: 2rem 1.5rem;
-    border: 2px solid rgba(0, 0, 0, 0.2); /* Black border with 20% opacity */
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 1rem; 
+    border: 2px solid rgba(0, 0, 0, 0.2); 
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px; 
     margin: 0 auto;
-    backdrop-filter: blur(5px); /* Optional: adds a subtle blur effect behind the form */
+    max-height: 90vh; 
+    overflow-y: auto; 
+    backdrop-filter: blur(5px); 
 }
 
 .close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 8px; 
+    right: 8px;
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -42,21 +49,32 @@ body {
 }
 
 .form-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem; 
     font-weight: bold;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem; 
+}
+
+.form-section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem; 
+}
+
+.form-section {
+    margin-bottom: 1rem; 
 }
 
 .submit-button {
-    padding: 0.75rem;
+    padding: 0.4rem 0.9rem;
     background-color: #3b82f6;
     color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100%;
+    width: auto; 
+    font-size: 0.85rem; 
 }
 
 .submit-button:hover {
@@ -69,8 +87,11 @@ body {
 }
 
 .form-control {
-    font-size: 1rem;
+    font-size: 0.95rem; 
+    padding: 0.35rem 0.75rem; 
+    margin-bottom: 0.75rem; 
 }
+
     </style>
 
     <script>
@@ -174,6 +195,11 @@ body {
         <div class="form-container">
             <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="d-flex justify-content-center mb-4">
+                <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 80px; margin-right: 10px;">
+                    <img src="{{ asset('img/BagongPilipinas.png') }}" alt="Bagong Pilipinas Logo" class="img-fluid" style="max-height: 80px; margin-right: 10px;">
+                    <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="img-fluid" style="max-height: 80px;">
+                </div>
                 <button type="button" id="close-button" class="close-button" aria-label="Close">&times;</button>
                 <h2 class="form-title">Staff Registration</h2>
                 <!-- Personal Information Section -->
