@@ -6,71 +6,89 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        .form-container {
-            background-color: #f9f9f9;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: url('{{ asset('img/background.jpg') }}') no-repeat center center fixed;
+    background-size: 60% auto;
+}
 
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
+.form-container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+    padding: 2rem 1.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Black border with 20% opacity */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+    backdrop-filter: blur(5px); /* Optional: adds a subtle blur effect behind the form */
+}
 
-        .form-section {
-            margin-bottom: 2rem;
-        }
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+}
 
-        .form-section-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
+.close-button:hover {
+    color: #ff0000;
+}
 
-        .form-group label {
-            font-weight: bold;
-        }
+.form-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
 
-        .form-group input,
-        .form-group select {
-            padding: 0.5rem;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            width: 100%;
-        }
+.submit-button {
+    padding: 0.75rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        }
+.submit-button:hover {
+    background-color: #2563eb;
+}
 
-        .submit-button {
-            padding: 0.75rem;
-            background-color: #3b82f6;
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+.submit-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
 
-        .submit-button:hover {
-            background-color: #2563eb;
-        }
-
-        .submit-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
-        }
+.form-control {
+    font-size: 1rem;
+}
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const closeButton = document.getElementById('close-button');
+
+            closeButton.addEventListener('click', function() {
+                const confirmClose = confirm('Are you sure you want to close this page? Any unsaved changes will be lost.');
+
+                if (confirmClose) {
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href = '/';
+                    }
+                }
+            });
+
             const birthdateInput = document.getElementById('birthday');
             const ageInput = document.getElementById('age');
             const form = document.querySelector('form');
@@ -89,7 +107,7 @@
             });
 
             form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent form submission until checks are done
+                event.preventDefault();
 
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('password_confirmation').value;
@@ -107,7 +125,7 @@
                             if (employeeExists) {
                                 alert('Employee ID already exists.');
                             } else {
-                                form.submit(); // Submit the form if all checks pass
+                                form.submit();
                             }
                         });
                     }
@@ -120,7 +138,7 @@
                     method: 'POST',
                     data: {
                         employee_id: employeeId,
-                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                        _token: '{{ csrf_token() }}'
                     },
                     dataType: 'json'
                 }).then(response => {
@@ -137,7 +155,7 @@
                     method: 'POST',
                     data: {
                         email: email,
-                        _token: '{{ csrf_token() }}' // Include CSRF token for security
+                        _token: '{{ csrf_token() }}'
                     },
                     dataType: 'json'
                 }).then(response => {
@@ -154,30 +172,31 @@
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
     <div class="container">
         <div class="form-container">
-            <h2 class="form-title">Staff Registration</h2>
             <form method="POST" action="{{ route('register.submit') }}" enctype="multipart/form-data">
                 @csrf
+                <button type="button" id="close-button" class="close-button" aria-label="Close">&times;</button>
+                <h2 class="form-title">Staff Registration</h2>
                 <!-- Personal Information Section -->
                 <div class="form-section">
                     <h6 class="form-section-title">Personal Information</h6>
                     <div class="row">
                         <div class="col-md-4 mb-3 form-group">
                             <label for="lastname">Lastname</label>
-                            <input type="text" id="lastname" name="lastname" maxlength="15" required>
+                            <input type="text" id="lastname" name="lastname" maxlength="15" class="form-control" required>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="firstname">Firstname</label>
-                            <input type="text" id="firstname" name="firstname" maxlength="15" required>
+                            <input type="text" id="firstname" name="firstname" maxlength="15" class="form-control" required>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="middlename">Middlename</label>
-                            <input type="text" id="middlename" name="middlename" maxlength="15">
+                            <input type="text" id="middlename" name="middlename" maxlength="15" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3 form-group">
                             <label for="name_extension">Name Extension</label>
-                            <select id="name_extension" name="name_extension" required>
+                            <select id="name_extension" name="name_extension" class="form-control" required>
                                 <option value="">Choose...</option>
                                 <option value="Jr.">Jr.</option>
                                 <option value="Sr.">Sr.</option>
@@ -195,7 +214,7 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="sex">Sex</label>
-                            <select id="sex" name="sex" required>
+                            <select id="sex" name="sex" class="form-control" required>
                                 <option value="">Choose...</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -204,17 +223,17 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="birthday">Birthday</label>
-                            <input type="date" id="birthday" name="birthday" required>
+                            <input type="date" id="birthday" name="birthday" class="form-control" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3 form-group">
                             <label for="age">Age</label>
-                            <input type="number" id="age" name="age" required readonly>
+                            <input type="number" id="age" name="age" class="form-control" required readonly>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="marital_status">Marital Status</label>
-                            <select id="marital_status" name="marital_status" required>
+                            <select id="marital_status" name="marital_status" class="form-control" required>
                                 <option value="">Choose...</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
@@ -224,7 +243,7 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="contact_number">Contact Number</label>
-                            <input type="text" id="contact_number" name="contact_number" maxlength="13" required
+                            <input type="text" id="contact_number" name="contact_number" class="form-control" maxlength="13" required
                                 pattern="\+639[0-9]{9}" title="Please enter a valid PH contact number starting with +63"
                                 onfocus="prependCountryCode()" oninput="enforceCountryCode()">
                             <div class="invalid-feedback">
@@ -234,9 +253,10 @@
                     </div>
                     <div class="mb-3 form-group">
                         <label for="address">Address</label>
-                        <input type="text" id="address" name="address" maxlength="50" required>
+                        <input type="text" id="address" name="address" maxlength="50" class="form-control" required>
                     </div>
                 </div>
+                <br>
 
                 <!-- Employee Information Section -->
                 <div class="form-section">
@@ -244,7 +264,7 @@
                     <div class="row">
                         <div class="col-md-4 mb-3 form-group">
                             <label for="employee_id">Employee ID</label>
-                            <input type="text" id="employee_id" name="employee_id" maxlength="10" required
+                            <input type="text" id="employee_id" name="employee_id" maxlength="10" class="form-control" required
                                 pattern="[0-9\-]+"
                                 title="Please enter a valid Employee ID (numbers and hyphens only)">
                             <div class="invalid-feedback">
@@ -253,23 +273,23 @@
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" maxlength="25" required>
+                            <input type="email" id="email" name="email" maxlength="25" class="form-control" required>
                         </div>
                         <div class="col-md-4 mb-3 form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" required minlength="8"
+                            <input type="password" id="password" name="password" class="form-control" required minlength="8"
                                 maxlength="8">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3 form-group">
                             <label for="password_confirmation">Confirm Password</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" required
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required
                                 minlength="8" maxlength="8">
                         </div>
                         <div class="col-md-6 mb-3 form-group">
                             <label for="assigned_province">Assigned Province</label>
-                            <select id="assigned_province" name="assigned_province" required>
+                            <select id="assigned_province" name="assigned_province" class="form-control" required>
                                 <option value="">Choose...</option>
                                 <option value="Davao City">Davao City</option>
                                 <option value="Davao del Sur">Davao del Sur</option>
@@ -282,11 +302,11 @@
                     </div>
                     <div class="mb-3 form-group">
                         <label for="profile_picture">Profile Picture</label>
-                        <input type="file" id="profile_picture" name="profile_picture" required>
+                        <input type="file" id="profile_picture" name="profile_picture" class="form-control" required>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-button w-100">Register</button>
+                <button type="submit" class="submit-button">Register</button>
             </form>
         </div>
     </div>
