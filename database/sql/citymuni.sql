@@ -27,13 +27,16 @@ CREATE TABLE `tbl_citymuni` (
   `col_citymuni` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`psgc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 ALTER TABLE `tbl_citymuni`
 ADD COLUMN `province_psgc` VARCHAR(20);
-UPDATE `tbl_citymuni` SET `province_psgc` = '112300000' WHERE `psgc` LIKE '11230%';
-UPDATE `tbl_citymuni` SET `province_psgc` = '112400000' WHERE `psgc` LIKE '11240%';
-UPDATE `tbl_citymuni` SET `province_psgc` = '112500000' WHERE `psgc` LIKE '11250%';
-UPDATE `tbl_citymuni` SET `province_psgc` = '118200000' WHERE `psgc` LIKE '11820%';
-UPDATE `tbl_citymuni` SET `province_psgc` = '118600000' WHERE `psgc` LIKE '11860%';
+
+UPDATE `tbl_citymuni` SET `province_psgc` = '112300000' WHERE `psgc` BETWEEN '112300000' AND '112399999';
+UPDATE `tbl_citymuni` SET `province_psgc` = '112400000' WHERE `psgc` BETWEEN '112400000' AND '112499999';
+UPDATE `tbl_citymuni` SET `province_psgc` = '112500000' WHERE `psgc` BETWEEN '112500000' AND '112599999';
+UPDATE `tbl_citymuni` SET `province_psgc` = '118200000' WHERE `psgc` BETWEEN '118200000' AND '118299999';
+UPDATE `tbl_citymuni` SET `province_psgc` = '118600000' WHERE `psgc` BETWEEN '118600000' AND '118699999';
+
 ALTER TABLE `tbl_citymuni`
 ADD CONSTRAINT `fk_province_psgc`
 FOREIGN KEY (`province_psgc`) REFERENCES `tbl_province`(`psgc`);
