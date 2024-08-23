@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\getAddressOptions;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\AddBeneficiaryController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -63,7 +64,7 @@ Route::get('/superadmin/beneficiaries/export', [SuperAdminDashboardController::c
 
 //Route for Address
 Route::get('/address/provinces/{region_psgc}', [AddressController::class, 'getProvinces']);
-Route::get('/address/cities/{province_psgc}', [AddressController::class, 'getCities']);
+Route::get('/address/cities/{provincePsgc}', [AddressController::class, 'getCities']);
 Route::get('/address/barangays/{citymuni_psgc}', [AddressController::class, 'getBarangays']);
 Route::get('/address/create', [AddressController::class, 'create']);
 
@@ -107,8 +108,5 @@ Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name(
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
-//Address Options
-Route::get('/api/provinces/{regionId}', [GetAddressOptions::class, 'getProvincesByRegion']);
-Route::get('/api/cities/{provinceId}', [GetAddressOptions::class, 'getCitiesByProvince']);
-Route::get('/api/barangays/{cityId}', [GetAddressOptions::class, 'getBarangaysByCity']);
-Route::get('/api/houses/{barangayId}', [GetAddressOptions::class, 'getHousesByBarangay']);
+//Add Beneficiary Controller
+Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('add.submit');
