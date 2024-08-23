@@ -1,3 +1,4 @@
+@ -0,0 +1,1086 @@
 @section('content')
     <style>
         .container {
@@ -257,11 +258,96 @@
         </div>
     </nav>
 
-    
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#permanent_address_region').change(function() {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        //Permanent Address
+        $(document).ready(function() {
+            $('#permanent_address_region').change(function() {
+                var regionPsgc = $(this).val();
+                if (regionPsgc) {
+                    $.ajax({
+                        url: '/address/provinces/' + regionPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#permanent_address_province').empty().append(
+                                '<option value="">Select Province</option>');
+                            $('#permanent_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#permanent_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#permanent_address_province').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_province + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#permanent_address_province').empty().append(
+                        '<option value="">Select Province</option>');
+                    $('#permanent_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#permanent_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+
+            $('#permanent_address_province').change(function() {
+                var provincePsgc = $(this).val();
+                if (provincePsgc) {
+                    $.ajax({
+                        url: '/address/cities/' + provincePsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#permanent_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#permanent_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#permanent_address_city').append('<option value="' +
+                                    value.psgc + '">' + value.col_citymuni +
+                                    '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#permanent_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#permanent_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+
+            $('#permanent_address_city').change(function() {
+                var cityMuniPsgc = $(this).val();
+                if (cityMuniPsgc) {
+                    $.ajax({
+                        url: '/address/barangays/' + cityMuniPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#permanent_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#permanent_address_barangay').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_brgy + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#permanent_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+        });
+
+        //Present Address
+        $(document).ready(function() {
+        $('#present_address_region').change(function() {
             var regionPsgc = $(this).val();
             if (regionPsgc) {
                 $.ajax({
@@ -269,22 +355,22 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#permanent_address_province').empty().append('<option value="">Select Province</option>');
-                        $('#permanent_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                        $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                        $('#present_address_province').empty().append('<option value="">Select Province</option>');
+                        $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
+                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
                         $.each(data, function(key, value) {
-                            $('#permanent_address_province').append('<option value="' + value.psgc + '">' + value.col_province + '</option>');
+                            $('#present_address_province').append('<option value="' + value.psgc + '">' + value.col_province + '</option>');
                         });
                     }
                 });
             } else {
-                $('#permanent_address_province').empty().append('<option value="">Select Province</option>');
-                $('#permanent_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                $('#present_address_province').empty().append('<option value="">Select Province</option>');
+                $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
+                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
             }
         });
 
-        $('#permanent_address_province').change(function() {
+        $('#present_address_province').change(function() {
             var provincePsgc = $(this).val();
             if (provincePsgc) {
                 $.ajax({
@@ -292,20 +378,20 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#permanent_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                        $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                        $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
+                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
                         $.each(data, function(key, value) {
-                            $('#permanent_address_city').append('<option value="' + value.psgc + '">' + value.col_citymuni + '</option>');
+                            $('#present_address_city').append('<option value="' + value.psgc + '">' + value.col_citymuni + '</option>');
                         });
                     }
                 });
             } else {
-                $('#permanent_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
+                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
             }
         });
 
-        $('#permanent_address_city').change(function() {
+        $('#present_address_city').change(function() {
             var cityMuniPsgc = $(this).val();
             if (cityMuniPsgc) {
                 $.ajax({
@@ -313,18 +399,17 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(data) {
-                        $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
                         $.each(data, function(key, value) {
-                            $('#permanent_address_barangay').append('<option value="' + value.psgc + '">' + value.col_brgy + '</option>');
+                            $('#present_address_barangay').append('<option value="' + value.psgc + '">' + value.col_brgy + '</option>');
                         });
                     }
                 });
             } else {
-                $('#permanent_address_barangay').empty().append('<option value="">Select Barangay</option>');
+                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
             }
         });
     });
-
     </script>
 
 
@@ -335,30 +420,15 @@
                 <h2 class="text-center mt-5">SOCIAL PENSION VALIDATION FORM</h2>
                 <h4 class="text-center">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h4>
 
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('add.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="province">Province</label>
-                        <input type="text" class="form-control" name="province" id="province" required>
-                    </div>
+                        <label for="osca_id">OSCA ID No.</label>
+                        <input type="text" class="form-control" name="osca_id" id="osca_id" required>
 
-                    <div class="form-group">
-                        <label for="city_municipality">City / Municipality</label>
-                        <input type="text" class="form-control" name="city_municipality" id="city_municipality" required>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="osca_id">OSCA ID No.</label>
-                                <input type="text" class="form-control" name="osca_id" id="osca_id" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label for="ncsc_rrn">NCSC RRN (If Applicable)</label>
                         <input type="text" class="form-control" name="ncsc_rrn" id="ncsc_rrn">
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="profile_upload">Upload Profile Picture:</label>
@@ -367,7 +437,6 @@
                             </div>
                         </div>
                     </div>
-
                     <br><br>
 
                     <h4 class="mt-4">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
@@ -404,6 +473,11 @@
                         </div>
                     </div>
 
+                    <div class="form-group text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+
                     <div class="form-group mt-3">
                         <label for="mother_maiden_name">MOTHER’S MAIDEN NAME</label>
                         <div class="form-row">
@@ -431,11 +505,11 @@
                             <div class="col-md-2">
 
                                 @php
-                                    $regions = App\Models\Region::all();
-                                    $provinces = App\Models\Province::all();
-                                    $cities = App\Models\CityMuni::all();
-                                    $barangays = App\Models\Barangay::all();
-                                @endphp
+                                $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                                $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                                $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                                $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                            @endphp
 
                                 <select class="form-control" id="permanent_address_region"
                                     name="permanent_address_region" required>
@@ -480,15 +554,17 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>
-                            <input type="checkbox" id="same_address"> Same as Permanent Address
-                        </label>
-                    </div>
-
-                    <div class="form-group mt-3">
                         <label>PRESENT ADDRESS</label>
                         <div class="form-row">
                             <div class="col-md-2">
+
+                                @php
+                                $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                                $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                                $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                                $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                            @endphp
+
                                 <select class="form-control" id="present_address_region" name="present_address_region"
                                     required>
                                     <option value="">Select Region</option>
@@ -539,12 +615,22 @@
                         </div>
                         <div class="col-md-3">
                             <label for="place_of_birth_city">PLACE OF BIRTH</label>
-                            <input type="text" class="form-control" name="place_of_birth_city"
-                                id="place_of_birth_city" placeholder="City/Municipality" required>
+                            <select class="form-control" id="place_of_birth_city" name="place_of_birth_city"
+                            required>
+                            <option value="">Select City/Municipality</option>
+                            @foreach ($cities as $city)
+                                <option value="{{ $city->psgc }}">{{ $city->col_citymuni }}</option>
+                            @endforeach
+                        </select>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control mt-4" name="place_of_birth_province"
-                                placeholder="Province" required>
+                            <select class="form-control" id="place_of_birth_province"
+                                    name="place_of_birth_province" required>
+                                    <option value="">Select Province</option>
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province->psgc }}">{{ $province->col_province }}</option>
+                                    @endforeach
+                                </select>
                         </div>
                     </div>
 
@@ -988,88 +1074,6 @@
                                 value="Not Eligible">
                             <label class="form-check-label" for="not_eligible">Not Eligible </label>
                         </div>
-                    </div>
-
-                    <h4 class="mt-4">Validated by:</h4>
-                    <div class="form-group">
-                        <label>Signature over Printed Name</label>
-                        <input type="text" class="form-control" name="validated_by_signature"
-                            id="validated_by_signature">
-                    </div>
-                    <div class="form-group">
-                        <label>Designation</label>
-                        <input type="text" class="form-control" name="validated_by_designation"
-                            id="validated_by_designation">
-                    </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" class="form-control" name="validated_by_date" id="validated_by_date">
-                    </div>
-
-                    <h4 class="mt-4">Encoded by:</h4>
-                    <div class="form-group">
-                        <label>Signature over Printed Name</label>
-                        <input type="text" class="form-control" name="encoded_by_signature"
-                            id="encoded_by_signature">
-                    </div>
-                    <div class="form-group">
-                        <label>Designation</label>
-                        <input type="text" class="form-control" name="encoded_by_designation"
-                            id="encoded_by_designation">
-                    </div>
-                    <div class="form-group">
-                        <label>Date Encoded</label>
-                        <input type="date" class="form-control" name="encoded_by_date" id="encoded_by_date">
-                    </div>
-
-                    <div class="form-group">
-                        <p>By signing this form, I grant my free and voluntary consent for the Department of Social Welfare
-                            and Development (DSWD) to collect, process, and share my personal information for the purpose of
-                            validation, eligibility test, and cross-matching to serve as the basis in granting my
-                            entitlements as a qualified beneficiary of the Social Pension for Indigent Senior Citizens
-                            (SPISC) Program. As a data subject, I understand that I have the right to be informed, access,
-                            object, block, file complaints or damages or rectify my personal information obtained,
-                            processed, or shared as well as the purpose and reason for processing or sharing this personal
-                            information.</p>
-                        <p>Sa paglagda nito, binibigyan ko ang aking malaya at boluntaryong pahintulot sa Department of
-                            Social Welfare and Development (DSWD) na kolektahin, iproseso, at ibahagi ang aking personal na
-                            impormasyon para sa layunin ng validation, eligibility test, at cross-matching para magsilbing
-                            batayan sa pagbibigay ng aking mga karapatan bilang isang kwalipikadong benepisyaryo ng Social
-                            Pension for Indigent Senior Citizens (SPISC) Program. Bilang isang paksa ng datos, nauunawaan ko
-                            na may karapatan akong malaman, ma-access, tumanggi, harangan, maghain ng mga reklamo o pinsala
-                            o itama ang aking personal na impormasyong nakuha, naproseso, o ibinahagi pati na rin ang
-                            layunin at dahilan para sa pagproseso o pagbabahagi ng personal na impormasyon na ito.</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="applicant_name">Conformed by:</label>
-                        <input type="text" class="form-control" name="applicant_name" id="applicant_name"
-                            placeholder="Name of Applicant or Respondent (Pangalan ng Aplikante)">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="applicant_signature">Signature or Thumbmark (Lagda o Thumbmark)</label>
-                        <input type="text" class="form-control" name="applicant_signature" id="applicant_signature">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="applicant_date">Date (Petsa)</label>
-                        <input type="date" class="form-control" name="applicant_date" id="applicant_date">
-                    </div>
-
-                    <h4>DATA PRIVACY</h4>
-                    <div class="form-group">
-                        <p>In compliance with the provisions of Republic Act No. 10173, also known as the Data Privacy Act
-                            of 2012 and its Implementing Rules and Regulations (IRR), the Department of Social Welfare and
-                            Development (DSWD) ensures that the personal information provided is collected and processed by
-                            authorized personnel and is only used for the implementation of the Social Pension for Indigent
-                            Senior Citizens (SPISC) Program as mandated under Republic Act No. 9994.</p>
-                        <p>Bilang pagsunod sa mga probisyon ng Batas Republika 10173, na kilala rin bilang Data Privacy Act
-                            of 2012 at ang Implementing Rules and Regulations (IRR) nito, tinitiyak ng Department of Social
-                            Welfare and Development (DSWD) na ang personal na impormasyong ibinigay ay kinokolekta at
-                            pinoproseso ng awtorisadong mga tauhan at ginagamit lamang para sa pagpapatupad ng Social
-                            Pension for Indigent Senior Citizens (SPISC) Program ayon sa mandato sa ilalim ng Batas
-                            Republika 9994.</p>
                     </div>
 
                     <div class="form-group text-center mt-4">

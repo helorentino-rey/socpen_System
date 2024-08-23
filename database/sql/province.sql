@@ -27,6 +27,16 @@ CREATE TABLE `tbl_province` (
   `col_province` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`psgc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `tbl_province`
+ADD COLUMN `region_psgc` VARCHAR(20);
+
+
+UPDATE `tbl_province` SET `region_psgc` = '110000000'WHERE 'psgc' LIKE '11%';
+
+ALTER TABLE `tbl_province`
+ADD CONSTRAINT `fk_region_psgc`
+FOREIGN KEY (`region_psgc`) REFERENCES `tbl_region`(`psgc`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

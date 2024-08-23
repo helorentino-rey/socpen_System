@@ -174,12 +174,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="account-information" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="bi bi-person-fill"></i> <span>Account Information</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="notifications" class="nav-link">
+                <a href="#" class="nav-link">
                     <i class="bi bi-bell-fill"></i> <span>Notifications</span>
                 </a>
             </li>
