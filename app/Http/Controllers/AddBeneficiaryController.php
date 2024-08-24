@@ -24,6 +24,30 @@ use Illuminate\Support\Facades\Log;
 
 class AddBeneficiaryController extends Controller
 {
+
+    public function list()
+    {
+        $beneficiaries = Beneficiary::with([
+            'addresses',
+            'affiliation',
+            'assessmentRecommendation',
+            'beneficiaryInfo',
+            'caregiver',
+            'child',
+            'economicInformation',
+            'healthInformation',
+            'housingLivingStatus',
+            'mothersMaidenName',
+            'representative',
+            'spouse'
+        ])->get();
+        
+        dd($beneficiaries); // Check the output here
+    
+        return view('layouts.file', compact('beneficiaries'));
+    }
+    
+
     public function store(Request $request)
     {
         // Validate the request data

@@ -16,6 +16,18 @@ return new class extends Migration
             $table->integer('osca_id')->unique();
             $table->integer('ncsc_rrn')->nullable();
             $table->string('profile_upload');
+            $table->enum('status', [
+                'ACTIVE',
+                'WAITLISTED',
+                'SUSPENDED',
+                'UNVALIDATED',
+                'NOT LOCATED',
+                'DOUBLE ENTRY',
+                'TRANSFER OF RESIDENCE',
+                'RECEIVING SUPPORT FROM THE FAMILY',
+                'RECEIVING PENSION FROM OTHER AGENCY',
+                'WITH PERMANENT INCOME'
+            ])->default('UNVALIDATED');
             $table->timestamps();
         });
     }

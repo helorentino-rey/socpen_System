@@ -1,4 +1,3 @@
-@ -0,0 +1,1086 @@
 @section('content')
     <style>
         .container {
@@ -237,22 +236,23 @@
             <div class="navbar-brand" style="color: black;">Beneficiary</div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('superadmin.beneficiaries.approve') }}" class="nav-link"
                             style="color: black;">Approve Beneficiaries</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
-                            Beneficiary</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link" style="color: black;">List
                             of Beneficiaries</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
+                            Beneficiary</a>
+                    </li>
+
+                    {{-- <li class="nav-item">
                         <a href="{{ route('superadmin.beneficiaries.export') }}" class="nav-link"
                             style="color: black;">Export List of Beneficiaries</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -597,8 +597,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="mother_first_name">First Name</label>
-                                <input type="text" class="form-control" name="mother_first_name"
-                                    id="mother_first_name" required>
+                                <input type="text" class="form-control" name="mother_first_name" id="mother_first_name"
+                                    required>
                             </div>
                             <div class="col-md-3">
                                 <label for="mother_middle_name">Middle Name</label>

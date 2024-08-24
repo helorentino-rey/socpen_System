@@ -110,3 +110,4 @@ Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword
 
 //Add Beneficiary Controller
 Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('add.submit');
+Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');

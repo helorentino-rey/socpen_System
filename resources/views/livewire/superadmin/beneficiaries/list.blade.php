@@ -1,7 +1,9 @@
 @extends('layouts.superadmin')
 
-@section('title', 'Add Beneficiary')
+@section('title', 'List of Beneficiary')
 
 @section('content')
-  @include('layouts.beneficiary')
+
+@include('layouts.file')
+
 @endsection
