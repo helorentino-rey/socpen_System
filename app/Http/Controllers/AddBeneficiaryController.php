@@ -41,12 +41,19 @@ class AddBeneficiaryController extends Controller
             'representative',
             'spouse'
         ])->get();
-        
-        dd($beneficiaries); // Check the output here
     
+       // Pass the beneficiaries to the view
         return view('layouts.file', compact('beneficiaries'));
     }
     
+    public function updateStatus(Request $request, $id)
+    {
+        $beneficiary = Beneficiary::findOrFail($id);
+        $beneficiary->status = $request->input('status');
+        $beneficiary->save();
+
+        return redirect()->back()->with('success', 'Status updated successfully.');
+    }
 
     public function store(Request $request)
     {

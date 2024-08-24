@@ -22,6 +22,11 @@ class Beneficiary extends Model
     {
         return $this->hasMany(Address::class);
     }
+    
+    public function presentAddress()
+    {
+        return $this->hasOne(Address::class)->where('type', 'present');
+    }
 
     public function affiliation()
     {
