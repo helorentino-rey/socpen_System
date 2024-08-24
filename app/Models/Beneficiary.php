@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Beneficiary extends Model
 {
     use HasFactory;
+    
     protected $table = 'beneficiary';
+    
     protected $fillable = [
         'osca_id',
         'ncsc_rrn',

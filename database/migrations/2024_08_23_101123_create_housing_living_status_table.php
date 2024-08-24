@@ -9,14 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('affiliations', function (Blueprint $table) {
+        Schema::create('housing_living_status', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->enum('affiliation_type', ['Listahanan', 'Pantawid Beneficiary', 'Indigenous People']);
-            $table->string('hh_id', 25)->nullable();
-            $table->string('indigenous_specify', 30)->nullable();
+            $table->enum('house_status', ['Owned', 'Rent', 'Others']);
+            $table->string('house_status_others_input')->nullable();
+            $table->enum('living_status', ['Living Alone', 'Living with spouse', 'Living with children', 'Others']);
+            $table->string('living_status_others_input')->nullable();
             $table->timestamps();
 
             $table->foreign('beneficiary_id')->references('id')->on('beneficiary')->onDelete('cascade');
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('affiliations');
+        Schema::dropIfExists('housing_living_status');
     }
 };

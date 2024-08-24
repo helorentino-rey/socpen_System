@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BeneficiaryInfo extends Model
+class HousingLivingStatus extends Model
 {
     use HasFactory;
 
-    protected $table = 'beneficiary_info';
+    protected $table = 'housing_living_status';
 
     protected $fillable = [
         'beneficiary_id',
-        'last_name',
-        'first_name',
-        'middle_name',
-        'name_extension',
+        'house_status',
+        'house_status_others_input',
+        'living_status',
+        'living_status_others_input',
     ];
 
     public function beneficiary()

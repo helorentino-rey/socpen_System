@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BeneficiaryInfo extends Model
+class AssessmentRecommendation extends Model
 {
     use HasFactory;
 
-    protected $table = 'beneficiary_info';
+    protected $table = 'assessment_recommendation';
 
     protected $fillable = [
         'beneficiary_id',
-        'last_name',
-        'first_name',
-        'middle_name',
-        'name_extension',
+        'remarks',
+        'eligibility',
     ];
 
     public function beneficiary()

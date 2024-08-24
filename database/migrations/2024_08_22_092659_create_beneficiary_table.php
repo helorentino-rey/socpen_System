@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('beneficiary', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('osca_id')->unique();
+            $table->integer('osca_id')->unique();
             $table->integer('ncsc_rrn')->nullable();
-            $table->binary('profile_upload');
+            $table->string('profile_upload');
             $table->timestamps();
         });
     }

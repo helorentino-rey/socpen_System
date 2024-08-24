@@ -347,78 +347,192 @@
 
         //Present Address
         $(document).ready(function() {
-        $('#present_address_region').change(function() {
-            var regionPsgc = $(this).val();
-            if (regionPsgc) {
-                $.ajax({
-                    url: '/address/provinces/' + regionPsgc,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#present_address_province').empty().append('<option value="">Select Province</option>');
-                        $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-                        $.each(data, function(key, value) {
-                            $('#present_address_province').append('<option value="' + value.psgc + '">' + value.col_province + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#present_address_province').empty().append('<option value="">Select Province</option>');
-                $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-            }
+            $('#present_address_region').change(function() {
+                var regionPsgc = $(this).val();
+                if (regionPsgc) {
+                    $.ajax({
+                        url: '/address/provinces/' + regionPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#present_address_province').empty().append(
+                                '<option value="">Select Province</option>');
+                            $('#present_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#present_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#present_address_province').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_province + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#present_address_province').empty().append(
+                        '<option value="">Select Province</option>');
+                    $('#present_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#present_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+
+            $('#present_address_province').change(function() {
+                var provincePsgc = $(this).val();
+                if (provincePsgc) {
+                    $.ajax({
+                        url: '/address/cities/' + provincePsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#present_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#present_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#present_address_city').append('<option value="' +
+                                    value.psgc + '">' + value.col_citymuni +
+                                    '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#present_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#present_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+
+            $('#present_address_city').change(function() {
+                var cityMuniPsgc = $(this).val();
+                if (cityMuniPsgc) {
+                    $.ajax({
+                        url: '/address/barangays/' + cityMuniPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#present_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#present_address_barangay').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_brgy + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#present_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
         });
 
-        $('#present_address_province').change(function() {
-            var provincePsgc = $(this).val();
-            if (provincePsgc) {
-                $.ajax({
-                    url: '/address/cities/' + provincePsgc,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-                        $.each(data, function(key, value) {
-                            $('#present_address_city').append('<option value="' + value.psgc + '">' + value.col_citymuni + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#present_address_city').empty().append('<option value="">Select City/Municipality</option>');
-                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-            }
-        });
+        // Spouse Address
+        $(document).ready(function() {
+            $('#spouse_address_region').change(function() {
+                var regionPsgc = $(this).val();
+                if (regionPsgc) {
+                    $.ajax({
+                        url: '/address/provinces/' + regionPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#spouse_address_province').empty().append(
+                                '<option value="">Select Province</option>');
+                            $('#spouse_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#spouse_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#spouse_address_province').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_province + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#spouse_address_province').empty().append(
+                        '<option value="">Select Province</option>');
+                    $('#spouse_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#spouse_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
 
-        $('#present_address_city').change(function() {
-            var cityMuniPsgc = $(this).val();
-            if (cityMuniPsgc) {
-                $.ajax({
-                    url: '/address/barangays/' + cityMuniPsgc,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-                        $.each(data, function(key, value) {
-                            $('#present_address_barangay').append('<option value="' + value.psgc + '">' + value.col_brgy + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#present_address_barangay').empty().append('<option value="">Select Barangay</option>');
-            }
+            $('#spouse_address_province').change(function() {
+                var provincePsgc = $(this).val();
+                if (provincePsgc) {
+                    $.ajax({
+                        url: '/address/cities/' + provincePsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#spouse_address_city').empty().append(
+                                '<option value="">Select City/Municipality</option>');
+                            $('#spouse_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#spouse_address_city').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_citymuni + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#spouse_address_city').empty().append(
+                        '<option value="">Select City/Municipality</option>');
+                    $('#spouse_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
+
+            $('#spouse_address_city').change(function() {
+                var cityMuniPsgc = $(this).val();
+                if (cityMuniPsgc) {
+                    $.ajax({
+                        url: '/address/barangays/' + cityMuniPsgc,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#spouse_address_barangay').empty().append(
+                                '<option value="">Select Barangay</option>');
+                            $.each(data, function(key, value) {
+                                $('#spouse_address_barangay').append(
+                                    '<option value="' + value.psgc + '">' + value
+                                    .col_brgy + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#spouse_address_barangay').empty().append(
+                        '<option value="">Select Barangay</option>');
+                }
+            });
         });
-    });
     </script>
-
 
     <!-- Page Content -->
     <div class="container">
+
         <div class="card">
             <div class="card-body">
                 <h2 class="text-center mt-5">SOCIAL PENSION VALIDATION FORM</h2>
                 <h4 class="text-center">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h4>
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
 
                 <form action="{{ route('add.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -473,11 +587,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-
                     <div class="form-group mt-3">
                         <label for="mother_maiden_name">MOTHER’S MAIDEN NAME</label>
                         <div class="form-row">
@@ -505,11 +614,11 @@
                             <div class="col-md-2">
 
                                 @php
-                                $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
-                                $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
-                                $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
-                                $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
-                            @endphp
+                                    $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                                    $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                                    $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                                    $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                                @endphp
 
                                 <select class="form-control" id="permanent_address_region"
                                     name="permanent_address_region" required>
@@ -559,11 +668,11 @@
                             <div class="col-md-2">
 
                                 @php
-                                $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
-                                $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
-                                $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
-                                $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
-                            @endphp
+                                    $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                                    $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                                    $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                                    $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                                @endphp
 
                                 <select class="form-control" id="present_address_region" name="present_address_region"
                                     required>
@@ -614,30 +723,22 @@
                                 max="{{ date('Y-m-d', strtotime('-60 years')) }}" required>
                         </div>
                         <div class="col-md-3">
-                            <label for="place_of_birth_city">PLACE OF BIRTH</label>
-                            <select class="form-control" id="place_of_birth_city" name="place_of_birth_city"
-                            required>
-                            <option value="">Select City/Municipality</option>
-                            @foreach ($cities as $city)
-                                <option value="{{ $city->psgc }}">{{ $city->col_citymuni }}</option>
-                            @endforeach
-                        </select>
+                            <label for="place_of_birth">PLACE OF BIRTH</label>
+                            <label for="place_of_birth_city">City/Municipality</label>
+                            <input type="text" class="form-control" name="place_of_birth_city"
+                                id="place_of_birth_city" required>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" id="place_of_birth_province"
-                                    name="place_of_birth_province" required>
-                                    <option value="">Select Province</option>
-                                    @foreach ($provinces as $province)
-                                        <option value="{{ $province->psgc }}">{{ $province->col_province }}</option>
-                                    @endforeach
-                                </select>
+                            <label for="place_of_birth_city">Province</label>
+                            <input type="text" class="form-control" name="place_of_birth_province"
+                                id="place_of_birth_province" required>
                         </div>
                     </div>
 
                     <div class="form-row mt-3">
                         <div class="col-md-3">
                             <label for="age">AGE</label>
-                            <input type="number" class="form-control" name="age" id="age" required>
+                            <input type="number" class="form-control" name="age" id="age" required readonly>
                         </div>
 
                         <div class="col-md-3">
@@ -690,6 +791,7 @@
                                 id="indigenous_specify">
                         </div>
                     </div>
+
                     <br><br>
 
                     <h4 class="mt-4">II. FAMILY INFORMATION (Impormasyon ng Pamilya)</h4>
@@ -698,20 +800,24 @@
                         <label for="spouse_name">NAME OF SPOUSE</label>
                         <div class="form-row">
                             <div class="col-md-3">
-                                <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" required>
+                                <label for="spouse_last_name">Last Name</label>
+                                <input type="text" class="form-control" name="spouse_last_name" id="spouse_last_name"
+                                    required>
                             </div>
                             <div class="col-md-3">
-                                <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" required>
+                                <label for="spouse_first_name">First Name</label>
+                                <input type="text" class="form-control" name="spouse_first_name"
+                                    id="spouse_first_name" required>
                             </div>
                             <div class="col-md-3">
-                                <label for="middle_name">Middle Name</label>
-                                <input type="text" class="form-control" name="middle_name" id="middle_name">
+                                <label for="spouse_middle_name">Middle Name</label>
+                                <input type="text" class="form-control" name="spouse_middle_name"
+                                    id="spouse_middle_name">
                             </div>
                             <div class="col-md-3">
                                 <label for="name_extension">Name Extension</label>
-                                <select id="name_extension" name="name_extension" class="form-control" required>
+                                <select id="spouse_name_extension" name="spouse_name_extension" class="form-control"
+                                    required>
                                     <option value="">Choose...</option>
                                     <option value="Jr.">Jr.</option>
                                     <option value="Sr.">Sr.</option>
@@ -731,42 +837,49 @@
                     </div>
 
                     <div class="form-group mt-3">
-                        <label>ADDRESS</label>
+                        <label>SPOUSE ADDRESS</label>
                         <div class="form-row">
                             <div class="col-md-2">
-                                <select class="form-control" id="present_address_region" name="present_address_region"
+                                <select class="form-control" id="spouse_address_region" name="spouse_address_region"
                                     required>
                                     <option value="">Select Region</option>
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->psgc }}">{{ $region->col_region }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-control" id="present_address_province"
-                                    name="present_address_province" required>
+                                <select class="form-control" id="spouse_address_province" name="spouse_address_province"
+                                    required>
                                     <option value="">Select Province</option>
+                                    @foreach ($provinces as $province)
+                                        <option value="{{ $province->psgc }}">{{ $province->col_province }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" id="present_address_city" name="present_address_city"
+                                <select class="form-control" id="spouse_address_city" name="spouse_address_city"
                                     required>
                                     <option value="">Select City/Municipality</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city->psgc }}">{{ $city->col_citymuni }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
-                                <select class="form-control" id="present_address_barangay"
-                                    name="present_address_barangay" required>
+                                <select class="form-control" id="spouse_address_barangay" name="spouse_address_barangay"
+                                    required>
                                     <option value="">Select Barangay</option>
+                                    @foreach ($barangays as $barangay)
+                                        <option value="{{ $barangay->psgc }}">{{ $barangay->col_brgy }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="present_address_sitio"
-                                    placeholder="Sitio/House No./Purok/Street" required>
+                                <input type="text" class="form-control" id="spouse_address_sitio"
+                                    name="spouse_address_sitio" placeholder="Sitio/House No./Purok/Street" required>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="spouse_contact">CONTACT NUMBER</label>
-                        <input type="text" class="form-control" name="spouse_contact" id="spouse_contact">
                     </div>
 
                     <div class="form-group">
@@ -779,7 +892,8 @@
                                     <th>OCCUPATION</th>
                                     <th>INCOME</th>
                                     <th>CONTACT NUMBER</th>
-                                    <th><button type="button" class="btn btn-success" id="add_child">Add Child</button>
+                                    <th>
+                                        <button type="button" class="btn btn-success" id="add_child">Add Child</button>
                                     </th>
                                 </tr>
                             </thead>
@@ -792,8 +906,8 @@
                                             <option value="">Civil Status</option>
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
                                             <option value="Widowed">Widowed</option>
+                                            <option value="Separated">Separated</option>
                                         </select>
                                     </td>
                                     <td><input type="text" class="form-control" name="children[0][occupation]"
@@ -810,32 +924,33 @@
 
                     <div class="form-group">
                         <label>NAME OF AUTHORIZED REPRESENTATIVES</label>
-                        <table class="table table-bordered" id="children_table">
+                        <table class="table table-bordered" id="representatives_table">
                             <thead>
                                 <tr>
                                     <th>NAME</th>
                                     <th>CIVIL STATUS</th>
                                     <th>CONTACT NUMBER</th>
-                                    <th><button type="button" class="btn btn-success" id="add_child">Add
+                                    <th><button type="button" class="btn btn-success" id="add_representative">Add
                                             Representative</button></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control" name="children[0][name]" required>
-                                    </td>
+                                    <td><input type="text" class="form-control" name="representatives[0][name]"
+                                            required></td>
                                     <td>
-                                        <select class="form-control" name="children[0][civil_status]" required>
+                                        <select class="form-control" name="representatives[0][civil_status]" required>
                                             <option value="">Civil Status</option>
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
                                             <option value="Widowed">Widowed</option>
+                                            <option value="Separated">Separated</option>
                                         </select>
                                     </td>
-                                    <td><input type="text" class="form-control" name="children[0][contact_number]"
-                                            required></td>
-                                    <td><button type="button" class="btn btn-danger remove_child">Remove</button></td>
+                                    <td><input type="text" class="form-control"
+                                            name="representatives[0][contact_number]" required></td>
+                                    <td><button type="button"
+                                            class="btn btn-danger remove_representative">Remove</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -846,15 +961,18 @@
                         <div class="form-row">
                             <div class="col-md-3">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" required>
+                                <input type="text" class="form-control" name="caregiver_last_name"
+                                    id="caregiver_last_name" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="first_name">First Name</label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" required>
+                                <input type="text" class="form-control" name="caregiver_first_name"
+                                    id="caregiver_first_name" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="middle_name">Middle Name</label>
-                                <input type="text" class="form-control" name="middle_name" id="middle_name">
+                                <input type="text" class="form-control" name="caregiver_middle_name"
+                                    id="caregiver_middle_name">
                             </div>
 
                         </div>
@@ -863,7 +981,8 @@
                     <div class="form-row mt-3">
                         <div class="col-md-3">
                             <label for="name_extension">Name Extension</label>
-                            <select id="name_extension" name="name_extension" class="form-control" required>
+                            <select id="caregiver_name_extension" name="caregiver_name_extension" class="form-control"
+                                required>
                                 <option value="">Choose...</option>
                                 <option value="Jr.">Jr.</option>
                                 <option value="Sr.">Sr.</option>
@@ -881,10 +1000,11 @@
                         </div>
                         <div class="col-md-3">
                             <label for="spouse_contact">RELATIONSHIP (to Beneficiary)</label>
-                            <input type="text" class="form-control" name="relationship" id="relationship">
+                            <input type="text" class="form-control" name="caregiver_relationship"
+                                id="caregiver_relationship">
                         </div>
                         <div class="col-md-3">
-                            <label for="spouse_contact">CONTACT NUMBER</label>
+                            <label for="caregiver_contact">CONTACT NUMBER</label>
                             <input type="text" class="form-control" name="caregiver_contact" id="caregiver_contact">
                         </div>
                     </div>
@@ -892,29 +1012,36 @@
                     <div class="form-group mt-3">
                         <div class="col-md-3">
                             <label for="house_status">HOUSE STATUS</label>
-                            <select class="form-control" name="house_status" id="house_status">
-                                <option value="Owned">Owned</option>
-                                <option value="Rent">Rent</option>
-                                <option value="Others">Others</option>
-                            </select>
-                            <input type="text" class="form-control mt-2" name="house_status_others"
-                                id="house_status_others" style="display:none;" placeholder="Specify other house status">
+                            <div>
+                                <input type="radio" name="house_status" value="Owned"
+                                    onclick="toggleInput('house_status', false)"> Owned
+                                <input type="radio" name="house_status" value="Rent"
+                                    onclick="toggleInput('house_status', false)"> Rent
+                                <input type="radio" name="house_status" value="Others"
+                                    onclick="toggleInput('house_status', true)"> Others
+                            </div>
+                            <input type="text" class="form-control mt-2" name="house_status_others_input"
+                                id="house_status_others_input" style="display:none;"
+                                placeholder="Specify other house status">
                         </div>
 
                         <div class="col-md-3">
                             <label for="living_status">LIVING STATUS</label>
-                            <select class="form-control" name="living_status" id="living_status">
-                                <option value="Living Alone">Living Alone</option>
-                                <option value="Living with spouse">Living with spouse</option>
-                                <option value="Living with children">Living with children</option>
-                                <option value="Others (Iba pa)">Others</option>
-                            </select>
-                            <input type="text" class="form-control mt-2" name="living_status_others"
-                                id="living_status_others" style="display:none;"
+                            <div>
+                                <input type="radio" name="living_status" value="Living Alone"
+                                    onclick="toggleInput('living_status', false)"> Living Alone
+                                <input type="radio" name="living_status" value="Living with spouse"
+                                    onclick="toggleInput('living_status', false)"> Living with spouse
+                                <input type="radio" name="living_status" value="Living with children"
+                                    onclick="toggleInput('living_status', false)"> Living with children
+                                <input type="radio" name="living_status" value="Others"
+                                    onclick="toggleInput('living_status', true)"> Others
+                            </div>
+                            <input type="text" class="form-control mt-2" name="living_status_others_input"
+                                id="living_status_others_input" style="display:none;"
                                 placeholder="Specify other living status">
                         </div>
                     </div>
-
                     <br><br>
 
                     <h4 class="mt-4">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
@@ -929,45 +1056,42 @@
                                 <div>
                                     <label for="pension">Receiving Pension</label>
                                     <br />
-                                    <input type="radio" id="pension_yes" name="receivingPension" />
-                                    <label for="pension_yes">Yes</label>
-                                    <input type="radio" id="pension_no" name="receivingPension" />
-                                    <label for="pension_no">No</label>
+                                    <input type="radio" id="receiving_pension_yes" name="receiving_pension"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="receiving_pension_no" name="receiving_pension"
+                                        value="No" /> No
                                 </div>
-                                <div><input type="text" id="pension_amount" name="receivingPension"
-                                        placeholder="Enter amount" />
-                                </div>
-                                <div><input type="text" id="pension_source" name="receivingPension"
+                                <div><input type="text" id="pension_amount" name="pension_amount"
+                                        placeholder="Enter amount" /></div>
+                                <div><input type="text" id="pension_source" name="pension_source"
                                         placeholder="Enter source" /></div>
                             </div>
                             <div class="income-row">
                                 <div>
                                     <label for="wages">Permanent Income</label>
                                     <br />
-                                    <input type="radio" id="income_yes" name="permanentIncome" />
-                                    <label for="income_yes">Yes</label>
-                                    <input type="radio" id="income_no" name="permanentIncome" />
-                                    <label for="income_no">No</label>
+                                    <input type="radio" id="permanent_income_yes" name="permanent_income"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="permanent_income_none" name="permanent_income"
+                                        value="None" /> None
                                 </div>
-                                <div><input type="text" id="income_amount" name="permanentIncome"
-                                        placeholder="Enter amount" />
-                                </div>
-                                <div><input type="text" id="income_source" name="permanentIncome"
+                                <div><input type="text" id="income_amount" name="income_amount"
+                                        placeholder="Enter amount" /></div>
+                                <div><input type="text" id="income_source" name="income_source"
                                         placeholder="Enter source" /></div>
                             </div>
                             <div class="income-row">
                                 <div>
                                     <label for="wages">Regular Support</label>
                                     <br />
-                                    <input type="radio" id="support_yes" name="regularSupport" />
-                                    <label for="support_yes">Yes</label>
-                                    <input type="radio" id="support_no" name="regularSupport" />
-                                    <label for="support_no">No</label>
+                                    <input type="radio" id="regular_support_yes" name="regular_support"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="regular_support_none" name="regular_support"
+                                        value="None" /> None
                                 </div>
-                                <div><input type="text" id="support_amount" name="regularSupport"
-                                        placeholder="Enter amount" />
-                                </div>
-                                <div><input type="text" id="support_source" name="regularSupport"
+                                <div><input type="text" id="support_amount" name="support_amount"
+                                        placeholder="Enter amount" /></div>
+                                <div><input type="text" id="support_source" name="support_source"
                                         placeholder="Enter source" /></div>
                             </div>
                         </div>
@@ -986,24 +1110,26 @@
                                 <div>
                                     <label>With Existing Illness</label>
                                 </div>
-                                <div><input type="radio" id="illness_yes" name="existingIllness" />
-                                    <label for="illness_yes">Yes</label>
-                                    <input type="radio" id="illness_no" name="existingIllness" />
-                                    <label for="illness_no">No</label>
+                                <div>
+                                    <input type="radio" id="existing_illness_yes" name="existing_illness"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="existing_illness_none" name="existing_illness"
+                                        value="None" /> None
                                 </div>
-                                <div><input type="text" id="illness_specify" name="existingIllness"
+                                <div><input type="text" id="illness_specify" name="illness_specify"
                                         placeholder="Specify" /></div>
                             </div>
                             <div class="income-row">
                                 <div>
                                     <label>With Disability</label>
                                 </div>
-                                <div><input type="radio" id="disability_yes" name="withDisability" />
-                                    <label for="disability_yes">Yes</label>
-                                    <input type="radio" id="disability_no" name="withDisability" />
-                                    <label for="disability_no">No</label>
+                                <div>
+                                    <input type="radio" id="with_disability_yes" name="with_disability"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="with_disability_none" name="with_disability"
+                                        value="None" /> None
                                 </div>
-                                <div><input type="text" id="disability_specify" name="withDisability"
+                                <div><input type="text" id="disability_specify" name="disability_specify"
                                         placeholder="Specify" /></div>
                             </div>
                         </div>
@@ -1020,10 +1146,11 @@
                                 <div>
                                     <label>1. Do you experience difficulty in doing your ADLs?</label>
                                 </div>
-                                <div><input type="radio" id="difficultadl_yes" name="difficultADL" />
-                                    <label for="difficultadl_yes">Yes</label>
-                                    <input type="radio" id="difficultadl_no" name="difficultADL" />
-                                    <label for="difficultadl_no">No</label>
+                                <div>
+                                    <input type="radio" id="difficult_adl_yes" name="difficult_adl" value="Yes" />
+                                    Yes
+                                    <input type="radio" id="difficult_adl_no" name="difficult_adl" value="No" />
+                                    No
                                 </div>
                                 <div></div>
                             </div>
@@ -1031,10 +1158,11 @@
                                 <div>
                                     <label>2. Are you completely dependent on someone in doing your IADLs?</label>
                                 </div>
-                                <div><input type="radio" id="dependentiadl_yes" name="dependentIADL" />
-                                    <label for="dependentiadl_yes">Yes</label>
-                                    <input type="radio" id="dependentiadl_no" name="dependentIADL" />
-                                    <label for="dependentiadl_no">No</label>
+                                <div>
+                                    <input type="radio" id="dependent_iadl_yes" name="dependent_iadl"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="dependent_iadl_no" name="dependent_iadl" value="No" />
+                                    No
                                 </div>
                                 <div></div>
                             </div>
@@ -1042,10 +1170,11 @@
                                 <div>
                                     <label>3. Are you experiencing weight loss, weakness, exhaustion?</label>
                                 </div>
-                                <div><input type="radio" id="experienceoss_yes" name="experienceLoss" />
-                                    <label for="experienceoss_yes">Yes</label>
-                                    <input type="radio" id="experienceoss_no" name="experienceLoss" />
-                                    <label for="experienceoss_no">No</label>
+                                <div>
+                                    <input type="radio" id="experience_loss_yes" name="experience_loss"
+                                        value="Yes" /> Yes
+                                    <input type="radio" id="experience_loss_no" name="experience_loss"
+                                        value="No" /> No
                                 </div>
                                 <div></div>
                             </div>
@@ -1054,8 +1183,8 @@
 
                     <h4 class="mt-4">V. ASSESSMENT (Pagtatasa)</h4>
                     <div class="form-row">
-                        <div class="remarks">
-                            <textarea rows="4" cols="50"></textarea>
+                        <div class="remarks" id="remarks">
+                            <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="100"></textarea>
                         </div>
                     </div>
                     <br><br>
@@ -1065,14 +1194,14 @@
                     <div class="form-group mt-3">
                         <label>Eligibility</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="eligibility" id="eligible"
+                            <input class="form-check-input" type="radio" name="eligibility" id="eligibility_eligible"
                                 value="Eligible">
-                            <label class="form-check-label" for="eligible">Eligible </label>
+                            <label class="form-check-label" for="eligibility_eligible">Eligible</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="eligibility" id="not_eligible"
-                                value="Not Eligible">
-                            <label class="form-check-label" for="not_eligible">Not Eligible </label>
+                            <input class="form-check-input" type="radio" name="eligibility"
+                                id="eligibility_not_eligible" value="Not Eligible">
+                            <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
                         </div>
                     </div>
 
@@ -1084,7 +1213,94 @@
         </div>
     </div>
 
+    <script>
+        //House Status
+        function toggleInput(field, show) {
+            const inputField = document.getElementById(field + '_others_input');
+            if (show) {
+                inputField.style.display = 'block';
+            } else {
+                inputField.style.display = 'none';
+                inputField.value = ''; // Clear the input field if not shown
+            }
+        }
+        //Age
+        document.getElementById('date_of_birth').addEventListener('change', function() {
+            const dob = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            document.getElementById('age').value = age;
+        });
+        //Children
 
+        let childIndex = 1;
+
+        document.getElementById('add_child').addEventListener('click', function() {
+            const table = document.getElementById('children_table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            newRow.innerHTML = `
+        <td><input type="text" class="form-control" name="children[${childIndex}][name]" required></td>
+        <td>
+            <select class="form-control" name="children[${childIndex}][civil_status]" required>
+                <option value="">Civil Status</option>
+               <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][occupation]" required></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][income]" required></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][contact_number]" required></td>
+        <td><button type="button" class="btn btn-danger remove_child">Remove</button></td>
+    `;
+
+            childIndex++;
+        });
+
+        document.getElementById('children_table').addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove_child')) {
+                const row = e.target.closest('tr');
+                row.remove();
+            }
+        });
+        //Representatives
+        let representativeIndex = 1;
+
+        document.getElementById('add_representative').addEventListener('click', function() {
+            const table = document.getElementById('representatives_table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+
+            newRow.innerHTML = `
+        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][name]" required></td>
+        <td>
+            <select class="form-control" name="representatives[${representativeIndex}][civil_status]" required>
+                <option value="">Civil Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+            </select>
+        </td>
+        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][contact_number]" required></td>
+        <td><button type="button" class="btn btn-danger remove_representative">Remove</button></td>
+    `;
+
+            representativeIndex++;
+        });
+
+        document.getElementById('representatives_table').addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove_representative')) {
+                const row = e.target.closest('tr');
+                row.remove();
+            }
+        });
+    </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('js/address.js') }}"></script>
 @endsection

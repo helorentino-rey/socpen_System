@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BeneficiaryInfo extends Model
+class Spouse extends Model
 {
     use HasFactory;
 
-    protected $table = 'beneficiary_info';
+    protected $table = 'spouses';
 
     protected $fillable = [
         'beneficiary_id',
-        'last_name',
-        'first_name',
-        'middle_name',
-        'name_extension',
+        'spouse_last_name',
+        'spouse_first_name',
+        'spouse_middle_name',
+        'spouse_name_extension',
+        // 'spouse_contact',
     ];
 
     public function beneficiary()
