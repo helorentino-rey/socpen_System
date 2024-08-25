@@ -75,7 +75,7 @@ class Beneficiary extends Model
 
     public function representative()
     {
-        return $this->hasOne(Representative::class);
+        return $this->hasMany(Representative::class);
     }
 
     public function spouse()

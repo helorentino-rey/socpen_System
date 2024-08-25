@@ -112,3 +112,5 @@ Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword
 Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('add.submit');
 Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');
 Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
+Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
+Route::put('/beneficiary/{id}', [AddBeneficiaryController::class, 'update'])->name('beneficiary.update');

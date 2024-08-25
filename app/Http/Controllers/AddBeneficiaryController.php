@@ -55,6 +55,148 @@ class AddBeneficiaryController extends Controller
         return redirect()->back()->with('success', 'Status updated successfully.');
     }
 
+//Display
+public function show($id)
+{
+    $beneficiary = Beneficiary::with([
+        'addresses',
+        'affiliation',
+        'assessmentRecommendation',
+        'beneficiaryInfo',
+        'caregiver',
+        'child',
+        'economicInformation',
+        'healthInformation',
+        'housingLivingStatus',
+        'mothersMaidenName',
+        'representative',
+        'spouse',
+    ])->find($id);
+
+    if (!$beneficiary) {
+        return response()->json(['error' => 'Beneficiary not found'], 404);
+    }
+
+    return view('layouts.show', compact('beneficiary'));
+}
+
+//Update
+
+// public function update(Request $request, $id)
+// {
+//     $beneficiary = Beneficiary::findOrFail($id);
+
+//     // Update the beneficiary and related information
+//     // Handle the photo upload
+//     if ($request->hasFile('profile_upload')) {
+//         $file = $request->file('profile_upload');
+//         $filePath = $file->store('profile_pictures', 'public'); // Store in the 'profile_photos' directory in the 'public' disk
+
+//         // Add the file path to the request data
+//         $request->merge(['profile_upload' => $filePath]);
+//     }
+
+//     // Update the beneficiary and related information
+//     $beneficiary->update($request->only([
+//         'osca_id', 'ncsc_rrn', 'profile_upload'
+//         // Add other fields as needed
+//     ]));
+
+//     if ($beneficiary->beneficiaryInfo) {
+//         $beneficiary->beneficiaryInfo->update($request->only([
+//             'last_name',
+//         'first_name',
+//         'middle_name',
+//         'name_extension',
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->addresses) {
+//         foreach ($beneficiary->addresses as $address) {
+//             $address->update($request->only([
+//                 'street', 'city', 'state', 'zip'
+//                 // Add other fields as needed
+//             ]));
+//         }
+//     }
+
+//     if ($beneficiary->affiliation) {
+//         $beneficiary->affiliation->update($request->only([
+//             'organization', 'role'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->assessmentRecommendation) {
+//         $beneficiary->assessmentRecommendation->update($request->only([
+//             'recommendation', 'notes'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->caregiver) {
+//         $beneficiary->caregiver->update($request->only([
+//             'name', 'relationship'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->child) {
+//         $beneficiary->child->update($request->only([
+//             'name', 'age'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->economicInformation) {
+//         $beneficiary->economicInformation->update($request->only([
+//             'income', 'employment_status'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->healthInformation) {
+//         $beneficiary->healthInformation->update($request->only([
+//             'health_status', 'medical_conditions'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->housingLivingStatus) {
+//         $beneficiary->housingLivingStatus->update($request->only([
+//             'housing_type', 'living_conditions'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->mothersMaidenName) {
+//         $beneficiary->mothersMaidenName->update($request->only([
+//             'maiden_name'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->representative) {
+//         $beneficiary->representative->update($request->only([
+//             'name', 'relationship'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     if ($beneficiary->spouse) {
+//         $beneficiary->spouse->update($request->only([
+//             'name', 'age'
+//             // Add other fields as needed
+//         ]));
+//     }
+
+//     // Return a success response
+//     return response()->json(['success' => true]);
+// }
+
+
+
     public function store(Request $request)
     {
         // Validate the request data

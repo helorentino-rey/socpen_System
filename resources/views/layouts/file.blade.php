@@ -37,7 +37,6 @@
             text-decoration-thickness: 3px;
         }
 
-        /* Navbar for mobile view */
         @media (max-width: 991px) {
             .navbar {
                 padding: 0.75rem 1.5rem;
@@ -52,7 +51,6 @@
             }
         }
 
-        /* Responsive adjustments */
         @media (max-width: 576px) {
             .navbar-brand {
                 font-size: 1rem;
@@ -123,9 +121,14 @@
                 <tbody>
                     @foreach ($beneficiaries as $beneficiary)
                         <tr>
-                            <td>{{ $beneficiary->BeneficiaryInfo->last_name }}
-                                {{ $beneficiary->BeneficiaryInfo->first_name }},
-                                {{ $beneficiary->BeneficiaryInfo->middle_name }}</td>
+                            <td>
+                                <a href="#" class="beneficiary-name" data-id="{{ $beneficiary->id }}"
+                                    style="color: inherit; text-decoration: none;">
+                                    {{ $beneficiary->BeneficiaryInfo->last_name }}
+                                    {{ $beneficiary->BeneficiaryInfo->first_name }},
+                                    {{ $beneficiary->BeneficiaryInfo->middle_name }}
+                                </a>
+                            </td>
                             <td>{{ $beneficiary->mothersMaidenName->age }}</td>
                             <td>{{ $beneficiary->presentAddress->province }}</td>
                             <td id="status-{{ $beneficiary->id }}">{{ $beneficiary->status }}</td>
@@ -135,7 +138,7 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
 
-                                <!-- The Modal -->
+                                <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
                                     aria-labelledby="statusModalLabel{{ $beneficiary->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -223,46 +226,49 @@
     <!-- Floating Button -->
     <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
         style="bottom: 20px; right: 20px;">
-        <i class="bi bi-file-earmark-arrow-up"></i>
+        <i class="bi bi-plus-lg"></i>
     </button>
-    <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
-        style="bottom: 80px; right: 20px;">
-        <i class="bi bi-file-earmark-arrow-down"></i>
-    </button>
-@endsection
 
-@section('scripts')
+    <!-- Modal to Display Beneficiary Information -->
+    <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap and jQuery JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            @foreach ($beneficiaries as $beneficiary)
-                document.getElementById('statusForm{{ $beneficiary->id }}').addEventListener('submit', function(
-                e) {
-                    e.preventDefault();
-                    var form = this;
-                    var formData = new FormData(form);
-                    fetch(form.action, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                document.getElementById('status-{{ $beneficiary->id }}').innerText =
-                                    formData.get('status');
-                                var modal = bootstrap.Modal.getInstance(document.getElementById(
-                                    'statusModal{{ $beneficiary->id }}'));
-                                modal.hide();
-                            } else {
-                                alert('Failed to update status');
-                            }
-                        })
-                        .catch(error => console.error('Error:', error));
+        $(document).ready(function() {
+            $('.beneficiary-name').click(function(e) {
+                e.preventDefault();
+                const beneficiaryId = $(this).data('id');
+
+                $.ajax({
+                    url: '/beneficiaries/' + beneficiaryId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#beneficiaryModal .modal-body').html(response);
+                        $('#beneficiaryModal').modal('show');
+                    },
+                    error: function() {
+                        $('#beneficiaryModal .modal-body').html(
+                            'Error loading beneficiary information.');
+                    }
                 });
-            @endforeach
+            });
         });
     </script>
 @endsection
