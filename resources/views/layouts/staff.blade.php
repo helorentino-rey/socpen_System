@@ -39,6 +39,19 @@
             background-color: #fff;
             margin: 0 auto;
             transition: opacity 0.3s;
+            position: relative;
+        }
+
+        .invisible-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            z-index: 1;
         }
 
         .sidebar.retracted .profile-pic {
@@ -50,9 +63,18 @@
             margin-top: 10px;
             font-weight: bold;
             transition: opacity 0.3s;
+            position: relative;
         }
 
-        .sidebar.retracted .profile-name {
+        .sidebar .profile-title {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #ddd;
+            margin-top: 5px;
+        }
+
+        .sidebar.retracted .profile-name,
+        .sidebar.retracted .profile-title {
             opacity: 0;
         }
 
@@ -65,14 +87,12 @@
             position: relative;
             overflow: hidden;
             white-space: nowrap;
-            /* Ensure text stays on one line */
         }
 
         .sidebar .nav-link i {
             width: 30px;
             text-align: center;
             flex-shrink: 0;
-            /* Prevent icon from shrinking */
         }
 
         .sidebar .nav-link span {
@@ -80,7 +100,6 @@
             margin-left: 10px;
             opacity: 1;
             flex-grow: 1;
-            /* Allow the text to grow within the available space */
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -92,7 +111,6 @@
 
         .sidebar.retracted .nav-link {
             padding-left: 15px;
-            /* Ensure icon is still aligned correctly */
         }
 
         .sidebar .nav-link:hover {
@@ -170,8 +188,15 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
-        <div class="profile-pic"></div>
-        <div class="profile-name">Staff</div>
+        <div class="profile-pic">
+            <img src="{{ $profilePicUrl }}" alt="Profile Picture" class="img-fluid rounded-circle">
+            <button class="invisible-button" onclick="window.location='{{ route('staff.staffInformation') }}'"></button>
+        </div>
+        <div class="profile-name">
+            {{ $firstName }}
+            <button class="invisible-button" onclick="window.location='{{ route('staff.staffInformation') }}'"></button>
+        </div>
+        <div class="profile-title">Staff</div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('staff.dashboard') }}" class="nav-link">
@@ -183,15 +208,8 @@
                     <i class="bi bi-people-fill"></i> <span>List of Beneficiaries</span>
                 </a>
             </li>
-            </li>
             <li class="nav-item">
-                <a href="{{ route('staff.staffInformation') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> <span>Staff Information</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
                 </a>
                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
@@ -229,5 +247,3 @@
         });
     </script>
 </body>
-
-</html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use Illuminate\Http\Request;
+<<<<<<< Updated upstream
 
 class StaffController extends Controller
 {
@@ -11,6 +12,43 @@ class StaffController extends Controller
     {
         // Return the view for the staff dashboard
         return view('livewire.staff.dashboard'); // Ensure this view exists
+=======
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage; //php artisan storage:link
+
+class StaffController extends Controller
+{
+    // $userId = Auth::id();
+    // $staff = Staff::find($userId);
+
+    public function store(Request $request)
+    {
+        // Save the staff data with default 'pending' status
+        Staff::create([
+            'lastname' => $request->lastname,
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+            'name_extension' => $request->name_extension,
+            'sex' => $request->sex,
+            'birthday' => $request->birthday,
+            'age' => $request->age,
+            'marital_status' => $request->marital_status,
+            'contact_number' => $request->contact_number,
+            'address' => $request->address,
+            'employee_id' => $request->employee_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'assigned_province' => $request->assigned_province,
+            'profile_picture' => $request->file('profile_picture')
+                ? $request->file('profile_picture')->store('profile_photos', 'public')
+                : null,
+            'status' => 'pending', // Set status to pending
+        ]);
+        // Redirect to the landing page with a success message
+        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
+>>>>>>> Stashed changes
     }
 
     public function show($id)
@@ -18,7 +56,7 @@ class StaffController extends Controller
         $staff = Staff::find($id);
 
         if ($staff) {
-            return response()->json([
+            return [
                 'lastname' => $staff->lastname,
                 'firstname' => $staff->firstname,
                 'middlename' => $staff->middlename,
@@ -34,19 +72,78 @@ class StaffController extends Controller
                 'assigned_province' => $staff->assigned_province,
                 'status' => $staff->status,
                 'image_url' => $staff->profile_picture ? asset('storage/' . $staff->profile_picture) : null,
-            ]);
+            ];
         }
 
-        return response()->json(['error' => 'Staff not found'], 404);
+        return ['error' => 'Staff not found'];
     }
 
+<<<<<<< Updated upstream
+=======
+    public function checkEmployeeId(Request $request)
+    {
+        $exists = DB::table('staff')->where('employee_id', $request->employee_id)->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
+    public function dashboard()
+    {
+        // Return the view for the staff dashboard with the profile picture URL
+        $data = $this->show(Auth::id());
+        $profilePicUrl = $data['image_url'];
+        $firstName = $data['firstname'];
+
+        return view('livewire.staff.dashboard', compact('profilePicUrl', 'firstName'));
+    }
+
+>>>>>>> Stashed changes
     public function listBeneficiary()
     {
-        return view('livewire.staff.listbeneficiary');
+        $data = $this->show(Auth::id());
+        $profilePicUrl = $data['image_url'];
+        $firstName = $data['firstname'];
+
+        return view('livewire.staff.listbeneficiary', compact('profilePicUrl', 'firstName'));
     }
+
 
     public function staffInformation()
     {
-        return view('livewire.staff.staffinformation');
+        $data = $this->show(Auth::id());
+        $profilePicUrl = $data['image_url'];
+        $firstName = $data['firstname'];
+        $lastName = $data['lastname'];
+        $middleName = $data['middlename'];
+        $nameExtension = $data['name_extension'];
+        $sex = $data['sex'];
+        $birthday = (new \DateTime($data['birthday']))->format('Y-m-d'); // Reformat the date
+        $age = $data['age'];
+        $maritalStatus = $data['marital_status'];
+        $contactNumber = $data['contact_number'];
+        $address = $data['address'];
+        $employeeId = $data['employee_id'];
+        $email = $data['email'];
+        $assignedProvince = $data['assigned_province'];
+        $status = $data['status'];
+
+
+        return view('livewire.staff.staffinformation', compact(
+            'profilePicUrl',
+            'firstName',
+            'firstName',
+            'lastName',
+            'middleName',
+            'nameExtension',
+            'sex',
+            'birthday',
+            'age',
+            'maritalStatus',
+            'contactNumber',
+            'address',
+            'employeeId',
+            'email',
+            'assignedProvince',
+            'status'
+        ));
     }
 }
