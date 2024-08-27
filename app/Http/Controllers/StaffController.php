@@ -4,25 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use Illuminate\Http\Request;
-<<<<<<< Updated upstream
-
-class StaffController extends Controller
-{
-    public function dashboard()
-    {
-        // Return the view for the staff dashboard
-        return view('livewire.staff.dashboard'); // Ensure this view exists
-=======
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage; //php artisan storage:link
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
-    // $userId = Auth::id();
-    // $staff = Staff::find($userId);
-
     public function store(Request $request)
     {
         // Save the staff data with default 'pending' status
@@ -46,9 +34,9 @@ class StaffController extends Controller
                 : null,
             'status' => 'pending', // Set status to pending
         ]);
+
         // Redirect to the landing page with a success message
         return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
->>>>>>> Stashed changes
     }
 
     public function show($id)
@@ -78,8 +66,6 @@ class StaffController extends Controller
         return ['error' => 'Staff not found'];
     }
 
-<<<<<<< Updated upstream
-=======
     public function checkEmployeeId(Request $request)
     {
         $exists = DB::table('staff')->where('employee_id', $request->employee_id)->exists();
@@ -96,7 +82,6 @@ class StaffController extends Controller
         return view('livewire.staff.dashboard', compact('profilePicUrl', 'firstName'));
     }
 
->>>>>>> Stashed changes
     public function listBeneficiary()
     {
         $data = $this->show(Auth::id());
@@ -105,7 +90,6 @@ class StaffController extends Controller
 
         return view('livewire.staff.listbeneficiary', compact('profilePicUrl', 'firstName'));
     }
-
 
     public function staffInformation()
     {
@@ -126,10 +110,8 @@ class StaffController extends Controller
         $assignedProvince = $data['assigned_province'];
         $status = $data['status'];
 
-
         return view('livewire.staff.staffinformation', compact(
             'profilePicUrl',
-            'firstName',
             'firstName',
             'lastName',
             'middleName',
