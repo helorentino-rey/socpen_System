@@ -349,11 +349,10 @@ select:invalid option {
                         <option value="Davao Oriental">Davao Oriental</option>
                         <option value="Davao Occidental">Davao Occidental</option>
                     </select>
-                </div>
-
-                <div class="input-group">
                     <input type="file" id="profile_picture" name="profile_picture" required>
                 </div>
+
+               
             </div>
 
             <button type="submit" class="register-button">Register</button>
