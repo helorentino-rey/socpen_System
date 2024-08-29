@@ -5,6 +5,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap JS and its dependencies -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -195,12 +202,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-person-fill"></i> <span>Account Information</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('superadmin.notifications') }}" class="nav-link">
                     <i class="bi bi-bell-fill"></i> <span>Notifications</span>
                 </a>
             </li>

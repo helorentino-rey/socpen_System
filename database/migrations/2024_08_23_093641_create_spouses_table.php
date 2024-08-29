@@ -15,8 +15,8 @@ class CreateSpousesTable extends Migration
         Schema::create('spouses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->string('spouse_last_name', 20);
-            $table->string('spouse_first_name', 20);
+            $table->string('spouse_last_name', 20)->nullable();
+            $table->string('spouse_first_name', 20)->nullable();
             $table->string('spouse_middle_name', 20)->nullable();
             $table->string('spouse_name_extension', 4)->nullable();
             // $table->string('spouse_contact', 13);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('beneficiary', function (Blueprint $table) {
             $table->id();
-            $table->integer('osca_id')->unique();
+            $table->string('osca_id')->unique();
             $table->integer('ncsc_rrn')->nullable();
             $table->string('profile_upload');
             $table->enum('status', [

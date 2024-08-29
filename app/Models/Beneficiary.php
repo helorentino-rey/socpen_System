@@ -20,12 +20,12 @@ class Beneficiary extends Model
 
     public function addresses()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasMany(Address::class)->whereIn('type', ['present', 'permanent', 'spouse_address']);
     }
     
     public function presentAddress()
     {
-        return $this->hasOne(Address::class)->where('type', 'present');
+        return $this->hasOne(Address::class)->where('type', 'present',);
     }
 
     public function affiliation()

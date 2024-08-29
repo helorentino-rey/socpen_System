@@ -16,10 +16,10 @@ return new class extends Migration
             $table->enum('receiving_pension', ['Yes', 'No']);
             $table->string('pension_amount', 10)->nullable();
             $table->string('pension_source', 30)->nullable();
-            $table->enum('permanent_income', ['Yes', 'None']);
+            $table->enum('permanent_income', ['Yes', 'No']);
             $table->string('income_amount', 10)->nullable();
             $table->string('income_source', 30)->nullable();
-            $table->enum('regular_support', ['Yes', 'None']);
+            $table->enum('regular_support', ['Yes', 'No']);
             $table->string('support_amount', 10)->nullable();
             $table->string('support_source', 30)->nullable();
             $table->timestamps();
