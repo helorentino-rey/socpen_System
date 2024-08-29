@@ -92,10 +92,31 @@
 
         .sidebar.retracted .nav-link {
             padding-left: 15px;
+            justify-content: center;
         }
 
+        /* Hover effect for expanded sidebar */
         .sidebar .nav-link:hover {
             background-color: #567be9;
+        }
+
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link:hover span {
+            color: #fff;
+        }
+
+        /* Hover effect for retracted sidebar */
+        .sidebar.retracted .nav-link:hover {
+            background-color: transparent;
+        }
+
+        .sidebar.retracted .nav-link:hover i {
+            background-color: #567be9;
+            border-radius: 50%;
+        }
+
+        .sidebar.retracted .nav-link:hover span {
+            background-color: transparent;
         }
 
         .content {
