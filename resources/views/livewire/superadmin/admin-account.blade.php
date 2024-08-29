@@ -214,10 +214,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to {{ $admin->is_active ? 'deactivate' : 'activate' }} this admin?
+                {{-- Are you sure you want to {{ $admin->is_active ? 'deactivate' : 'activate' }} this admin? --}}
             </div>
             <div class="modal-footer">
-                <form id="toggleStatusForm" method="POST" action="{{ route('admin.toggleStatus', ['id' => $admin->id]) }}">
+                {{-- <form id="toggleStatusForm" method="POST" action="{{ route('admin.toggleStatus', ['id' => $admin->id]) }}"> --}}
                     @csrf
                     @method('PUT')
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

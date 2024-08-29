@@ -15,11 +15,11 @@ class CreateChildrenTable extends Migration
         Schema::create('children', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->string('children_name', 50);
-            $table->enum('children_civil_status', ['Single', 'Married', 'Widowed', 'Separated']);
-            $table->string('children_occupation', 50);
-            $table->string('children_income', 10);
-            $table->string('children_contact_number', 13);
+            $table->string('children_name', 50) ->nullable();
+            $table->enum('children_civil_status', ['Single', 'Married', 'Widowed', 'Separated'])->nullable();
+            $table->string('children_occupation', 50)->nullable();
+            $table->string('children_income', 10)->nullable();
+            $table->string('children_contact_number', 13)->nullable();
             $table->timestamps();
 
             $table->foreign('beneficiary_id')->references('id')->on('beneficiary')->onDelete('cascade');

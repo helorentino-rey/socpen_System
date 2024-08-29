@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
             $table->text('remarks', 200)->nullable();
-            $table->enum('eligibility', ['Eligible', 'Not Eligible']);
+            $table->enum('eligibility', ['Eligible', 'Not Eligible'])->nullable();
             $table->timestamps();
 
             $table->foreign('beneficiary_id')->references('id')->on('beneficiary')->onDelete('cascade');

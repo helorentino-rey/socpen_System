@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('caregivers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->string('caregiver_last_name', 25);
-            $table->string('caregiver_first_name', 25);
+            $table->string('caregiver_last_name', 25)->nullable();
+            $table->string('caregiver_first_name', 25)->nullable();
             $table->string('caregiver_middle_name', 25)->nullable();
             $table->string('caregiver_name_extension', 4)->nullable();
             $table->string('caregiver_relationship', 25)->nullable();

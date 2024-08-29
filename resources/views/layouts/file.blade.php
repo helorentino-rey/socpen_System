@@ -61,6 +61,19 @@
                 padding: 0.4rem 0;
             }
         }
+
+        /* Search Bar */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .beneficiary-status {
+            margin-left: auto;
+            padding-left: 10px;
+            font-weight: bold;
+        }
     </style>
 
     <!-- Top nav bar -->
@@ -87,7 +100,9 @@
 
             <!-- Search Bar -->
             <div class="mb-4">
-                <input type="text" class="form-control form-control-lg" placeholder="Search">
+                <input type="text" id="beneficiary-search" class="form-control form-control-lg"
+                    placeholder="Search for a beneficiary...">
+                <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 96%;"></div>
             </div>
 
             @php
@@ -223,11 +238,12 @@
             </nav>
         </div>
     </div>
+
     <!-- Floating Button -->
-    <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
-        style="bottom: 20px; right: 20px;">
-        <i class="bi bi-plus-lg"></i>
-    </button>
+            <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
+                style="bottom: 20px; right: 20px;">
+                <i class="bi bi-plus-lg"></i>
+            </button>
 
     <!-- Modal to Display Beneficiary Information -->
     <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
@@ -251,6 +267,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
     <script>
+        //Display Beneficiary Information Modal
         $(document).ready(function() {
             $('.beneficiary-name').click(function(e) {
                 e.preventDefault();
@@ -268,6 +285,67 @@
                             'Error loading beneficiary information.');
                     }
                 });
+            });
+        });
+
+        //Search for a Beneficiary
+        $(document).ready(function() {
+            $('#beneficiary-search').on('keyup', function() {
+                const query = $(this).val();
+
+                if (query.length > 2) {
+                    $.ajax({
+                        url: '{{ route('beneficiaries.search') }}',
+                        method: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
+                            let searchResults = $('#search-results');
+                            searchResults.empty();
+
+                            if (data.length > 0) {
+                                data.forEach(function(beneficiary) {
+                                    searchResults.append(`
+                              <a href="#" class="list-group-item list-group-item-action beneficiary-item" data-id="${beneficiary.id}">
+    <span class="beneficiary-name">${beneficiary.name}</span>
+    <span class="beneficiary-status">${beneficiary.status}</span>
+</a>
+                            `);
+                                });
+                            } else {
+                                searchResults.append(
+                                    '<div class="list-group-item">No results found</div>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#search-results').empty();
+                }
+            });
+
+
+
+            // Handle click on a search result
+            $(document).on('click', '.beneficiary-item', function(e) {
+                e.preventDefault();
+                const beneficiaryId = $(this).data('id');
+
+                $.ajax({
+                    url: '/beneficiaries/' + beneficiaryId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#beneficiaryModal .modal-body').html(response);
+                        $('#beneficiaryModal').modal('show');
+                    },
+                    error: function() {
+                        $('#beneficiaryModal .modal-body').html(
+                            'Error loading beneficiary information.');
+                    }
+                });
+
+                $('#search-results').empty();
+                $('#beneficiary-search').val(''); // Clear the search input
             });
         });
     </script>
