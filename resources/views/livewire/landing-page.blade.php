@@ -78,17 +78,18 @@
 
         .register-button {
             display: block;
-            width: 40%;
-            padding: 8px;
+            width: 30%;
+            padding: 6px;
             background-color: #007bff;
             border: none;
             border-radius: 4px;
             color: #fff;
-            font-size: 18px;
+            font-size: 14px;
             cursor: pointer;
             text-align: center;
             transition: background-color 0.3s ease;
             margin: 30px auto 0 auto;
+            margin-top: 15px;
 
         }
 
@@ -98,17 +99,17 @@
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 700;
             color: #333;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .form-section-title {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #555;
-            font-size: 1.25rem;
+            font-size: 1rem;
             text-align: left;
         }
 
@@ -118,12 +119,10 @@
 
         .input-group input,
         .input-group select {
-            padding: 10px;
-            /* Reduced padding for smaller fields */
+            padding: 6px;
             border: 1px solid #007bff;
             border-radius: 4px;
-            font-size: 18px;
-            /* Reduced font size */
+            font-size: 14px;
             width: 100%;
             box-sizing: border-box;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -132,17 +131,14 @@
         .input-group {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            /* Reduced gap between fields */
-            margin-bottom: 15px;
-            /* Adjusted margin */
+            gap: 4px;
+            margin-bottom: 8px;
         }
 
         .input-group input:focus,
         .input-group select:focus {
             border-color: #007bff;
             box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
-            /* Adjusted shadow for focus */
             outline: none;
         }
 
@@ -181,54 +177,39 @@
         }
 
         .modal-dialog.modal-lg {
-            max-width: 50%;
-            /* Increased width to make the form larger */
+            max-width: 40%;
+            /* Decrease width */
             margin: auto;
-            /* Keeps the form centered */
-            margin-top: 15px;
+            margin-top: 5px;
         }
 
         .modal-content {
-            padding: 20px;
-            /* Increase padding for a more spacious feel */
+            padding: 15px;
+            /* Decrease padding */
             border-radius: 8px;
         }
 
         .modal-body {
-            padding: 10px 15px;
-            /* Added padding for a bigger appearance */
+            padding: 10px;
         }
 
-        /* Custom styling for the modal close button */
-        /* Styles for the close button */
-        /* Styles for the close button */
         .modal-header .btn-close {
-            position: relative;
-            width: 1.2rem;
-            /* Reduced size */
-            height: 1.2rem;
-            /* Reduced size */
-            background-color: transparent;
-            border: none;
-            outline: none;
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            /* Make the close button circular */
-            box-shadow: 0 0 6px rgba(0, 0, 255, 0.5);
-            /* Slightly smaller blue shadow */
+            border: 2px solid blue;
+            ;
         }
 
         .modal-header .btn-close::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(0, 0, 255, 0.7);
-            /* Slightly smaller blue border */
-            box-shadow: 0 0 10px rgba(0, 0, 255, 0.4);
-            /* Slightly smaller additional blue shadow */
+            font-size: 14px;
+            color: #000;
+            line-height: 1;
+            padding: 4px;
         }
     </style>
 </head>
@@ -308,7 +289,7 @@
                         <div class="modal-title-container">
                             <h5 class="modal-title" id="registrationModalLabel">Staff Registration</h5>
                         </div>
-                        <button type="button" class="btn-close" aria-label="Close"></button>
+                        <button type="button" class="btn-close"></button>
                     </div>
                     <div class="modal-body">
 
