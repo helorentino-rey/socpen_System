@@ -148,10 +148,12 @@
                             <td>{{ $beneficiary->presentAddress->province }}</td>
                             <td id="status-{{ $beneficiary->id }}">{{ $beneficiary->status }}</td>
                             <td>
-                                <button class="btn btn-light border rounded-circle" data-bs-toggle="modal"
-                                    data-bs-target="#statusModal{{ $beneficiary->id }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
+                                <i class="bi bi-pencil-square" data-bs-toggle="modal"
+                                    data-bs-target="#statusModal{{ $beneficiary->id }}"
+                                    style="cursor: pointer; color: black;"></i>
+                                    <a href="{{ route('layouts.edit', ['model' => 'beneficiary', 'id' => $beneficiary->id]) }}" style="cursor: pointer;" title="Edit" onclick="return confirmEdit();">
+                                        <i class="bi bi-pencil" style="color: black;"></i>
+                                    </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -240,10 +242,10 @@
     </div>
 
     <!-- Floating Button -->
-            <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
-                style="bottom: 20px; right: 20px;">
-                <i class="bi bi-plus-lg"></i>
-            </button>
+    <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
+        style="bottom: 20px; right: 20px;">
+        <i class="bi bi-plus-lg"></i>
+    </button>
 
     <!-- Modal to Display Beneficiary Information -->
     <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
@@ -348,5 +350,10 @@
                 $('#beneficiary-search').val(''); // Clear the search input
             });
         });
+
+        //Edit beneficiary
+        function confirmEdit() {
+            return confirm('Do you want to edit beneficiary information?');
+        }
     </script>
 @endsection

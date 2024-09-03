@@ -551,7 +551,7 @@
                             </div>
                         </div>
                     </div>
-                <br><br>
+                    <br><br>
 
                     <h4 class="mt-4">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
                     <div class="form-row">
@@ -765,26 +765,31 @@
                     <label for="affiliation">AFFILIATION</label>
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan" value="Listahanan">
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan"
+                                value="Listahanan">
                             <label class="form-check-label" for="listahanan">Listahanan</label>
                         </div>
-                    
+
                         <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary">
-                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid"
+                                value="Pantawid Beneficiary">
+                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng
+                                4Ps)</label>
                         </div>
                         <div class="form-group mt-2" id="hh_id_group" style="display: none;">
                             <label for="hh_id">Specify HH ID (Itala):</label>
                             <input type="text" class="form-control" name="hh_id" id="hh_id">
                         </div>
-                    
+
                         <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous" value="Indigenous People">
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous"
+                                value="Indigenous People">
                             <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
                         </div>
                         <div class="form-group mt-2" id="indigenous_specify_group" style="display: none;">
                             <label for="indigenous_specify">Specify (Itala):</label>
-                            <input type="text" class="form-control" name="indigenous_specify" id="indigenous_specify">
+                            <input type="text" class="form-control" name="indigenous_specify"
+                                id="indigenous_specify">
                         </div>
                     </div>
                     <br><br>
@@ -876,7 +881,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                     <div class="form-group">
                         <label>CHILDREN</label>
                         <table class="table table-bordered" id="children_table">
@@ -1044,41 +1049,64 @@
                                 <div>How much</div>
                                 <div>Source</div>
                             </div>
-                    
+
                             <!-- Receiving Pension -->
                             <div class="income-row">
                                 <div>
                                     <label for="pension">Receiving Pension</label>
                                     <br />
-                                    <input type="checkbox" id="receiving_pension_yes" name="receiving_pension" value="Yes" onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" /> Yes
-                                    <input type="checkbox" id="receiving_pension_no" name="receiving_pension" value="No" onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" /> No
+                                    <input type="checkbox" id="receiving_pension_yes" name="receiving_pension"
+                                        value="Yes"
+                                        onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" />
+                                    Yes
+                                    <input type="checkbox" id="receiving_pension_no" name="receiving_pension"
+                                        value="No"
+                                        onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" />
+                                    No
                                 </div>
-                                <div><input type="text" id="pension_amount" name="pension_amount" placeholder="Enter amount" style="display:none;" /></div>
-                                <div><input type="text" id="pension_source" name="pension_source" placeholder="Enter source" style="display:none;" /></div>
+                                <div><input type="text" id="pension_amount" name="pension_amount"
+                                        placeholder="Enter amount" style="display:none;" /></div>
+                                <div><input type="text" id="pension_source" name="pension_source"
+                                        placeholder="Enter source" style="display:none;" /></div>
                             </div>
-                    
+
                             <!-- Permanent Income -->
                             <div class="income-row">
                                 <div>
                                     <label for="permanent_income">Permanent Income</label>
                                     <br />
-                                    <input type="checkbox" id="permanent_income_yes" name="permanent_income" value="Yes" onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" /> Yes
-                                    <input type="checkbox" id="permanent_income_no" name="permanent_income" value="No" onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" /> No
+                                    <input type="checkbox" id="permanent_income_yes" name="permanent_income"
+                                        value="Yes"
+                                        onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" />
+                                    Yes
+                                    <input type="checkbox" id="permanent_income_no" name="permanent_income"
+                                        value="No"
+                                        onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" />
+                                    No
                                 </div>
-                                <div><input type="text" id="income_amount" name="income_amount" placeholder="Enter amount" style="display:none;" /></div>
-                                <div><input type="text" id="income_source" name="income_source" placeholder="Enter source" style="display:none;" /></div>
+                                <div><input type="text" id="income_amount" name="income_amount"
+                                        placeholder="Enter amount" style="display:none;" /></div>
+                                <div><input type="text" id="income_source" name="income_source"
+                                        placeholder="Enter source" style="display:none;" /></div>
                             </div>
-                    
+
                             <!-- Regular Support -->
                             <div class="income-row">
                                 <div>
                                     <label for="regular_support">Regular Support</label>
                                     <br />
-                                    <input type="checkbox" id="regular_support_yes" name="regular_support" value="Yes" onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" /> Yes
-                                    <input type="checkbox" id="regular_support_no" name="regular_support" value="No" onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" /> No
+                                    <input type="checkbox" id="regular_support_yes" name="regular_support"
+                                        value="Yes"
+                                        onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" />
+                                    Yes
+                                    <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
+                                        onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" />
+                                    No
                                 </div>
-                                <div><input type="text" id="support_amount" name="support_amount" placeholder="Enter amount" style="display:none;" /></div>
-                                <div><input type="text" id="support_source" name="support_source" placeholder="Enter source" style="display:none;" /></div>
+                                <div><input type="text" id="support_amount" name="support_amount"
+                                        placeholder="Enter amount" style="display:none;" /></div>
+                                <div><input type="text" id="support_source" name="support_source"
+                                        placeholder="Enter source" style="display:none;" /></div>
                             </div>
                         </div>
                     </div>
@@ -1097,24 +1125,34 @@
                                     <label>With Existing Illness</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="existing_illness_yes" name="existing_illness" value="Yes" onclick="toggleFields('existing_illness', 'illness_specify')" /> Yes
-                                    <input type="checkbox" id="existing_illness_none" name="existing_illness" value="None" onclick="toggleFields('existing_illness', 'illness_specify')" /> None
+                                    <input type="checkbox" id="existing_illness_yes" name="existing_illness"
+                                        value="Yes" onclick="toggleFields('existing_illness', 'illness_specify')" />
+                                    Yes
+                                    <input type="checkbox" id="existing_illness_none" name="existing_illness"
+                                        value="None" onclick="toggleFields('existing_illness', 'illness_specify')" />
+                                    None
                                 </div>
-                                <div><input type="text" id="illness_specify" name="illness_specify" placeholder="Specify" style="display:none;" /></div>
+                                <div><input type="text" id="illness_specify" name="illness_specify"
+                                        placeholder="Specify" style="display:none;" /></div>
                             </div>
                             <div class="income-row">
                                 <div>
                                     <label>With Disability</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="with_disability_yes" name="with_disability" value="Yes" onclick="toggleFields('with_disability', 'disability_specify')" /> Yes
-                                    <input type="checkbox" id="with_disability_none" name="with_disability" value="None" onclick="toggleFields('with_disability', 'disability_specify')" /> None
+                                    <input type="checkbox" id="with_disability_yes" name="with_disability"
+                                        value="Yes" onclick="toggleFields('with_disability', 'disability_specify')" />
+                                    Yes
+                                    <input type="checkbox" id="with_disability_none" name="with_disability"
+                                        value="None" onclick="toggleFields('with_disability', 'disability_specify')" />
+                                    None
                                 </div>
-                                <div><input type="text" id="disability_specify" name="disability_specify" placeholder="Specify" style="display:none;" /></div>
+                                <div><input type="text" id="disability_specify" name="disability_specify"
+                                        placeholder="Specify" style="display:none;" /></div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <h6 class="mt-4">Frailty Questions</h6>
                     <div class="form-row">
                         <div class="income-table">
@@ -1123,44 +1161,51 @@
                                 <div></div>
                                 <div></div>
                             </div>
-                    
+
                             <!-- Question 1 -->
                             <div class="income-row">
                                 <div>
                                     <label>1. Do you experience difficulty in doing your ADLs?</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes" onclick="handleCheckboxSelectionFra('difficult_adl', true)" /> Yes
-                                    <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No" onclick="handleCheckboxSelectionFra('difficult_adl', false)" /> No
+                                    <input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes"
+                                        onclick="handleCheckboxSelectionFra('difficult_adl', true)" /> Yes
+                                    <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No"
+                                        onclick="handleCheckboxSelectionFra('difficult_adl', false)" /> No
                                 </div>
                                 <div></div>
                             </div>
-                    
+
                             <!-- Question 2 -->
                             <div class="income-row">
                                 <div>
                                     <label>2. Are you completely dependent on someone in doing your IADLs?</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes" onclick="handleCheckboxSelectionFra('dependent_iadl', true)" /> Yes
-                                    <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No" onclick="handleCheckboxSelectionFra('dependent_iadl', false)" /> No
+                                    <input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
+                                        onclick="handleCheckboxSelectionFra('dependent_iadl', true)" /> Yes
+                                    <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No"
+                                        onclick="handleCheckboxSelectionFra('dependent_iadl', false)" /> No
                                 </div>
                                 <div></div>
                             </div>
-                    
+
                             <!-- Question 3 -->
                             <div class="income-row">
                                 <div>
                                     <label>3. Are you experiencing weight loss, weakness, exhaustion?</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" id="experience_loss_yes" name="experience_loss" value="Yes" onclick="handleCheckboxSelectionFra('experience_loss', true)" /> Yes
-                                    <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No" onclick="handleCheckboxSelectionFra('experience_loss', false)" /> No
+                                    <input type="checkbox" id="experience_loss_yes" name="experience_loss"
+                                        value="Yes" onclick="handleCheckboxSelectionFra('experience_loss', true)" />
+                                    Yes
+                                    <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No"
+                                        onclick="handleCheckboxSelectionFra('experience_loss', false)" /> No
                                 </div>
                                 <div></div>
                             </div>
                         </div>
-                    </div>   
+                    </div>
 
                     <h4 class="mt-4">V. ASSESSMENT (Pagtatasa)</h4>
                     <div class="form-row">

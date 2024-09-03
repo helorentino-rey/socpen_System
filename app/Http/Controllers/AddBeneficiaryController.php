@@ -60,7 +60,7 @@ class AddBeneficiaryController extends Controller
             'present_address_barangay' => 'required|string|max:50',
             'present_address_sitio' => 'required|string|max:50',
 
-            'affiliation' => 'required|array',
+            'affiliation' => 'nullable|array',
             'affiliation.*' => 'in:Listahanan,Pantawid Beneficiary,Indigenous People',
             'hh_id' => 'nullable|string|max:25',
             'indigenous_specify' => 'nullable|string|max:30',
@@ -77,11 +77,11 @@ class AddBeneficiaryController extends Controller
             'spouse_address_sitio' => 'required|string|max:30',
 
             'children' => 'present|array',
-    'children.*.name' => 'nullable|string|max:50',
-    'children.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
-    'children.*.occupation' => 'nullable|string|max:50',
-    'children.*.income' => 'nullable|string|max:10',
-    'children.*.contact_number' => 'nullable|string|max:13',
+            'children.*.name' => 'nullable|string|max:50',
+            'children.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
+            'children.*.occupation' => 'nullable|string|max:50',
+            'children.*.income' => 'nullable|string|max:10',
+            'children.*.contact_number' => 'nullable|string|max:13',
 
             'representatives.*.name' => 'nullable|string|max:50',
             'representatives.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
@@ -101,15 +101,15 @@ class AddBeneficiaryController extends Controller
             'living_status.*' => 'required|string|in:Living Alone,Living with spouse,Living with children,Others',
             'living_status_others_input' => 'nullable|string',
 
-           'receiving_pension' => 'required|in:Yes,No',
-        'pension_amount' => 'nullable|string|max:10',
-        'pension_source' => 'nullable|string|max:30',
-        'permanent_income' => 'required|in:Yes,No', // Adjusted to match enum
-        'income_amount' => 'nullable|string|max:10',
-        'income_source' => 'nullable|string|max:30',
-        'regular_support' => 'required|in:Yes,No', // Adjusted to match enum
-        'support_amount' => 'nullable|string|max:10',
-        'support_source' => 'nullable|string|max:30',
+            'receiving_pension' => 'required|in:Yes,No',
+            'pension_amount' => 'nullable|string|max:10',
+            'pension_source' => 'nullable|string|max:30',
+            'permanent_income' => 'required|in:Yes,No', // Adjusted to match enum
+            'income_amount' => 'nullable|string|max:10',
+            'income_source' => 'nullable|string|max:30',
+            'regular_support' => 'required|in:Yes,No', // Adjusted to match enum
+            'support_amount' => 'nullable|string|max:10',
+            'support_source' => 'nullable|string|max:30',
 
             'existing_illness' => 'required|in:Yes,None',
             'illness_specify' => 'nullable|string|max:30',
@@ -120,7 +120,7 @@ class AddBeneficiaryController extends Controller
             'experience_loss' => 'required|in:Yes,No',
 
             'remarks' => 'nullable|string|max:200',
-            'eligibility' => 'nullable|in:Eligible,Not Eligible',
+            'eligibility' => 'required|in:Eligible,Not Eligible',
         ]);
 
         // Handle file upload
@@ -215,16 +215,18 @@ class AddBeneficiaryController extends Controller
         ]);
         Log::info('Mother\'s maiden name created for beneficiary: ' . $beneficiary->id);
 
-        //Affiliation
-        foreach ($request->input('affiliation') as $affiliation) {
-            Affiliation::create([
-                'beneficiary_id' => $beneficiary->id,
-                'affiliation_type' => $affiliation,
-                'hh_id' => $validatedData['hh_id'] ?? null,
-                'indigenous_specify' => $validatedData['indigenous_specify'] ?? null,
-            ]);
-            Log::info('Affiliation created for beneficiary: ' . $beneficiary->id . ' with type: ' . $affiliation);
-        }
+        // Concatenate the selected affiliations into a comma-separated string
+        $affiliationTypeString = implode(', ', $validatedData['affiliation']);
+
+        // Save the affiliation data
+        Affiliation::create([
+            'beneficiary_id' => $beneficiary->id,
+            'affiliation_type' => $affiliationTypeString,
+            'hh_id' => $validatedData['hh_id'] ?? null,
+            'indigenous_specify' => $validatedData['indigenous_specify'] ?? null,
+        ]);
+
+        Log::info('Affiliation created for beneficiary: ' . $beneficiary->id . ' with types: ' . $affiliationTypeString);
 
         // Create a new spouse record
         Spouse::create([
@@ -278,21 +280,21 @@ class AddBeneficiaryController extends Controller
             'caregiver_contact' => $validatedData['caregiver_contact'] ?? null,
         ]);
         Log::info('Caregiver created for beneficiary: ' . $beneficiary->id);
-    
-    // Process the checkbox values
-     $houseStatus = implode(',', $validatedData['house_status']);
-     $livingStatus = implode(',', $validatedData['living_status']);
- 
-     // Create a new housing living status record
-     HousingLivingStatus::create([
-         'beneficiary_id' => $beneficiary->id,
-         'house_status' => $houseStatus,
-         'house_status_others_input' => $validatedData['house_status_others_input'] ?? null,
-         'living_status' => $livingStatus,
-         'living_status_others_input' => $validatedData['living_status_others_input'] ?? null,
-     ]);
- 
-     Log::info('Housing living status created for beneficiary: ' . $beneficiary->id);
+
+        // Process the checkbox values
+        $houseStatus = implode(', ', $validatedData['house_status']);
+        $livingStatus = implode(', ', $validatedData['living_status']);
+
+        // Create a new housing living status record
+        HousingLivingStatus::create([
+            'beneficiary_id' => $beneficiary->id,
+            'house_status' => $houseStatus,
+            'house_status_others_input' => $validatedData['house_status_others_input'] ?? null,
+            'living_status' => $livingStatus,
+            'living_status_others_input' => $validatedData['living_status_others_input'] ?? null,
+        ]);
+
+        Log::info('Housing living status created for beneficiary: ' . $beneficiary->id);
 
         //Economic Information
         EconomicInformation::create([
@@ -307,9 +309,9 @@ class AddBeneficiaryController extends Controller
             'support_amount' => $validatedData['support_amount'] ?? null,
             'support_source' => $validatedData['support_source'] ?? null,
         ]);
-    
+
         Log::info('Economic information created for beneficiary: ' . $beneficiary->id);
-        
+
         //Health Information
         HealthInformation::create([
             'beneficiary_id' => $beneficiary->id,
@@ -321,15 +323,15 @@ class AddBeneficiaryController extends Controller
             'dependent_iadl' => $validatedData['dependent_iadl'],
             'experience_loss' => $validatedData['experience_loss'],
         ]);
-    
+
         Log::info('Health information created for beneficiary: ' . $beneficiary->id);
-    
+
 
         //Eligibility and Remarks
         AssessmentRecommendation::create([
             'beneficiary_id' => $beneficiary->id,
             'remarks' => $validatedData['remarks'] ?? null,
-            'eligibility' => $validatedData['eligibility'] ?? null,
+            'eligibility' => $validatedData['eligibility'],
         ]);
         Log::info('Assessment recommendation created for beneficiary: ' . $beneficiary->id);
 
@@ -393,133 +395,18 @@ class AddBeneficiaryController extends Controller
         return view('layouts.show', compact('beneficiary'));
     }
 
-    //Update
-
-    // public function update(Request $request, $id)
-    // {
-    //     $beneficiary = Beneficiary::findOrFail($id);
-
-    //     // Update the beneficiary and related information
-    //     // Handle the photo upload
-    //     if ($request->hasFile('profile_upload')) {
-    //         $file = $request->file('profile_upload');
-    //         $filePath = $file->store('profile_pictures', 'public'); // Store in the 'profile_photos' directory in the 'public' disk
-
-    //         // Add the file path to the request data
-    //         $request->merge(['profile_upload' => $filePath]);
-    //     }
-
-    //     // Update the beneficiary and related information
-    //     $beneficiary->update($request->only([
-    //         'osca_id', 'ncsc_rrn', 'profile_upload'
-    //         // Add other fields as needed
-    //     ]));
-
-    //     if ($beneficiary->beneficiaryInfo) {
-    //         $beneficiary->beneficiaryInfo->update($request->only([
-    //             'last_name',
-    //         'first_name',
-    //         'middle_name',
-    //         'name_extension',
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->addresses) {
-    //         foreach ($beneficiary->addresses as $address) {
-    //             $address->update($request->only([
-    //                 'street', 'city', 'state', 'zip'
-    //                 // Add other fields as needed
-    //             ]));
-    //         }
-    //     }
-
-    //     if ($beneficiary->affiliation) {
-    //         $beneficiary->affiliation->update($request->only([
-    //             'organization', 'role'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->assessmentRecommendation) {
-    //         $beneficiary->assessmentRecommendation->update($request->only([
-    //             'recommendation', 'notes'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->caregiver) {
-    //         $beneficiary->caregiver->update($request->only([
-    //             'name', 'relationship'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->child) {
-    //         $beneficiary->child->update($request->only([
-    //             'name', 'age'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->economicInformation) {
-    //         $beneficiary->economicInformation->update($request->only([
-    //             'income', 'employment_status'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->healthInformation) {
-    //         $beneficiary->healthInformation->update($request->only([
-    //             'health_status', 'medical_conditions'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->housingLivingStatus) {
-    //         $beneficiary->housingLivingStatus->update($request->only([
-    //             'housing_type', 'living_conditions'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->mothersMaidenName) {
-    //         $beneficiary->mothersMaidenName->update($request->only([
-    //             'maiden_name'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->representative) {
-    //         $beneficiary->representative->update($request->only([
-    //             'name', 'relationship'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     if ($beneficiary->spouse) {
-    //         $beneficiary->spouse->update($request->only([
-    //             'name', 'age'
-    //             // Add other fields as needed
-    //         ]));
-    //     }
-
-    //     // Return a success response
-    //     return response()->json(['success' => true]);
-    // }
-
     //Search
     public function search(Request $request)
     {
         $query = $request->input('query');
-    
+
         // Use whereHas to search within related BeneficiaryInfo model
         $beneficiaries = Beneficiary::whereHas('beneficiaryInfo', function ($q) use ($query) {
             $q->where('last_name', 'LIKE', "%{$query}%")
                 ->orWhere('first_name', 'LIKE', "%{$query}%")
                 ->orWhere('middle_name', 'LIKE', "%{$query}%");
         })->get();
-    
+
         // If the request is AJAX, return a JSON response
         if ($request->ajax()) {
             $response = $beneficiaries->map(function ($beneficiary) {
@@ -529,11 +416,11 @@ class AddBeneficiaryController extends Controller
                     'status' => $beneficiary->status, // Include status in the response
                 ];
             });
-    
+
             return response()->json($response);
         }
-    
+
         // If not an AJAX request, render the view
         return view('layouts.file', compact('beneficiaries'));
-    }    
+    }
 }

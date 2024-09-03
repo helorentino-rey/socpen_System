@@ -15,20 +15,20 @@ class AddressController extends Controller
         return response()->json(Region::all());
     }
 
-    public function getProvinces($region_psgc)
+    public function getProvinces($regionPsgc)
     {
-        return response()->json(Province::where('region_psgc', $region_psgc)->get());
+        return response()->json(Province::where('region_psgc', $regionPsgc)->get());
     }
 
     public function getCities($provincePsgc)
-{
-    $cities = CityMuni::where('province_psgc', $provincePsgc)->get();
-    return response()->json($cities);
-}
-
-    public function getBarangays($citymuni_psgc)
     {
-        return response()->json(Barangay::where('citymuni_psgc', $citymuni_psgc)->get());
+        $cities = CityMuni::where('province_psgc', $provincePsgc)->get();
+        return response()->json($cities);
+    }
+
+    public function getBarangays($cityMuniPsgc)
+    {
+        return response()->json(Barangay::where('citymuni_psgc', $cityMuniPsgc)->get());
     }
 
     public function create()

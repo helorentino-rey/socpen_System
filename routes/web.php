@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\getAddressOptions;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ShowAddressController;
 use App\Http\Controllers\AddBeneficiaryController;
+use App\Http\Controllers\EditBeneficiaryController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -68,6 +70,11 @@ Route::get('/address/cities/{provincePsgc}', [AddressController::class, 'getCiti
 Route::get('/address/barangays/{citymuni_psgc}', [AddressController::class, 'getBarangays']);
 Route::get('/address/create', [AddressController::class, 'create']);
 
+//Routes Address for Show
+Route::get('/get-provinces', [ShowAddressController::class, 'getProvinces'])->name('getProvinces');
+Route::get('/get-cities', [ShowAddressController::class, 'getCities'])->name('getCities');
+Route::get('/get-barangays', [ShowAddressController::class, 'getBarangays'])->name('getBarangays');
+
 //Staff Register Controller
 Route::get('/register', [RegistrationController::class, 'register'])->name('new-register');
 Route::post('/register', [RegistrationController::class, 'registerSubmit'])->name('register.submit');
@@ -108,10 +115,13 @@ Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name(
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
-//Add Beneficiary Controller
+//Add, Search and Modal Display Beneficiary Controller
 Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('add.submit');
 Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');
 Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
 Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
 Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('beneficiaries.search');
-Route::put('/beneficiary/{id}', [AddBeneficiaryController::class, 'update'])->name('beneficiary.update');
+
+//Edit and Display Beneficiary Controller
+Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->name('layouts.edit');
+Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])->name('beneficiaries.update');
