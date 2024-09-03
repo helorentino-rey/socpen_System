@@ -68,10 +68,6 @@
             <div class="navbar-brand" style="color: black;">Beneficiary</div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.approve') }}" class="nav-link"
-                            style="color: black;">Approve Beneficiaries</a>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link" style="color: black;">List
                             of Beneficiaries</a>
@@ -80,10 +76,6 @@
                         <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
                             Beneficiary</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.export') }}" class="nav-link"
-                            style="color: black;">Export List of Beneficiaries</a>
-                    </li> --}}
                 </ul>
             </div>
         </div>

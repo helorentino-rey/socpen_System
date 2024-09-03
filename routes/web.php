@@ -17,6 +17,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\ShowAddressController;
 use App\Http\Controllers\AddBeneficiaryController;
 use App\Http\Controllers\EditBeneficiaryController;
+use App\Http\Controllers\PaginationController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -62,7 +63,7 @@ Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, '
 Route::get('/superadmin/beneficiaries/approve', [SuperAdminDashboardController::class, 'approve'])->name('superadmin.beneficiaries.approve');
 Route::get('/superadmin/beneficiaries/create', [SuperAdminDashboardController::class, 'create'])->name('superadmin.beneficiaries.create');
 Route::get('/superadmin/beneficiaries/list', [SuperAdminDashboardController::class, 'list'])->name('superadmin.beneficiaries.list');
-Route::get('/superadmin/beneficiaries/export', [SuperAdminDashboardController::class, 'export'])->name('superadmin.beneficiaries.export');
+// Route::get('/superadmin/beneficiaries/export', [SuperAdminDashboardController::class, 'export'])->name('superadmin.beneficiaries.export');
 
 //Route for Address
 Route::get('/address/provinces/{region_psgc}', [AddressController::class, 'getProvinces']);
@@ -92,7 +93,7 @@ Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployee
 
 //Route for Admin Dashboard
 Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name('admin.dashboard');
-Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
+// Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
 Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
 Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
@@ -125,3 +126,6 @@ Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('benefi
 //Edit and Display Beneficiary Controller
 Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->name('layouts.edit');
 Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])->name('beneficiaries.update');
+
+//Pagination Controller
+Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagination.list');
