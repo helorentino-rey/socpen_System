@@ -1019,344 +1019,470 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><input type="text" class="form-control" name="children[0][name]">
-                                </td>
-                                <td>
-                                    <select class="form-control" name="children[0][civil_status]">
-                                        <option value="">Civil Status</option>
-                                        <option value="Single">Single</option>
-                                        <option value="Married">Married</option>
-                                        <option value="Widowed">Widowed</option>
-                                        <option value="Separated">Separated</option>
-                                    </select>
-                                </td>
-                                <td><input type="text" class="form-control" name="children[0][occupation]"></td>
-                                <td><input type="text" class="form-control" name="children[0][income]">
-                                </td>
-                                <td><input type="text" class="form-control" name="children[0][contact_number]">
-                                </td>
-                                <td><button type="button" class="btn btn-danger remove_child">Remove</button></td>
-                            </tr>
+                            @foreach ($beneficiary->child as $index => $child)
+                                <tr>
+                                    <td><input type="text" class="form-control"
+                                            name="children[{{ $index }}][name]"
+                                            value="{{ $child->children_name }}" required></td>
+                                    <td>
+                                        <select class="form-control"
+                                            name="children[{{ $index }}][civil_status]" required>
+                                            <option value="">Civil Status</option>
+                                            <option value="Single"
+                                                {{ $child->children_civil_status == 'Single' ? 'selected' : '' }}>
+                                                Single</option>
+                                            <option value="Married"
+                                                {{ $child->children_civil_status == 'Married' ? 'selected' : '' }}>
+                                                Married</option>
+                                            <option value="Widowed"
+                                                {{ $child->children_civil_status == 'Widowed' ? 'selected' : '' }}>
+                                                Widowed</option>
+                                            <option value="Separated"
+                                                {{ $child->children_civil_status == 'Separated' ? 'selected' : '' }}>
+                                                Separated</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control"
+                                            name="children[{{ $index }}][occupation]"
+                                            value="{{ $child->children_occupation }}" required></td>
+                                    <td><input type="text" class="form-control"
+                                            name="children[{{ $index }}][income]"
+                                            value="{{ $child->children_income }}" required></td>
+                                    <td><input type="text" class="form-control"
+                                            name="children[{{ $index }}][contact_number]"
+                                            value="{{ $child->children_contact_number }}" required></td>
+                                    <td><button type="button" class="btn btn-danger remove_child">Remove</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
 
+                <div class="form-group">
+                    <label>NAME OF AUTHORIZED REPRESENTATIVES</label>
+                    <table class="table table-bordered" id="representatives_table">
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>CIVIL STATUS</th>
+                                <th>CONTACT NUMBER</th>
+                                <th>
+                                    <button type="button" class="btn btn-success" id="add_representative">Add
+                                        Representative</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($beneficiary->representative as $index => $representative)
+                                <tr>
+                                    <td><input type="text" class="form-control"
+                                            name="representatives[{{ $index }}][name]"
+                                            value="{{ $representative->representative_name }}" required></td>
+                                    <td>
+                                        <select class="form-control"
+                                            name="representatives[{{ $index }}][civil_status]" required>
+                                            <option value="">Civil Status</option>
+                                            <option value="Single"
+                                                {{ $representative->representative_civil_status == 'Single' ? 'selected' : '' }}>
+                                                Single</option>
+                                            <option value="Married"
+                                                {{ $representative->representative_civil_status == 'Married' ? 'selected' : '' }}>
+                                                Married</option>
+                                            <option value="Widowed"
+                                                {{ $representative->representative_civil_status == 'Widowed' ? 'selected' : '' }}>
+                                                Widowed</option>
+                                            <option value="Separated"
+                                                {{ $representative->representative_civil_status == 'Separated' ? 'selected' : '' }}>
+                                                Separated</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-control"
+                                            name="representatives[{{ $index }}][contact_number]"
+                                            value="{{ $representative->representative_contact_number }}" required>
+                                    </td>
+                                    <td><button type="button"
+                                            class="btn btn-danger remove_representative">Remove</button></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-group">
+                    <label for="spouse_name">NAME OF CAREGIVER</label>
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" name="caregiver_last_name"
+                                id="caregiver_last_name"
+                                value="{{ old('caregiver_last_name', $beneficiary->caregiver->caregiver_last_name ?? '') }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" name="caregiver_first_name"
+                                id="caregiver_first_name"
+                                value="{{ old('caregiver_first_name', $beneficiary->caregiver->caregiver_first_name ?? '') }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="middle_name">Middle Name</label>
+                            <input type="text" class="form-control" name="caregiver_middle_name"
+                                id="caregiver_middle_name"
+                                value="{{ old('caregiver_middle_name', $beneficiary->caregiver->caregiver_middle_name ?? '') }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row mt-3">
+                    <div class="col-md-3">
+                        <label for="name_extension">Name Extension</label>
+                        <select id="caregiver_name_extension" name="caregiver_name_extension" class="form-control">
+                            <option value="">Choose...</option>
+                            <option value="Jr."
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'Jr.' ? 'selected' : '' }}>
+                                Jr.</option>
+                            <option value="Sr."
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'Sr.' ? 'selected' : '' }}>
+                                Sr.</option>
+                            <option value="II"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'II' ? 'selected' : '' }}>
+                                II</option>
+                            <option value="III"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'III' ? 'selected' : '' }}>
+                                III</option>
+                            <option value="IV"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'IV' ? 'selected' : '' }}>
+                                IV</option>
+                            <option value="V"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'V' ? 'selected' : '' }}>
+                                V</option>
+                            <option value="VI"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'VI' ? 'selected' : '' }}>
+                                VI</option>
+                            <option value="VII"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'VII' ? 'selected' : '' }}>
+                                VII</option>
+                            <option value="VIII"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'VIII' ? 'selected' : '' }}>
+                                VIII</option>
+                            <option value="IX"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'IX' ? 'selected' : '' }}>
+                                IX</option>
+                            <option value="X"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'X' ? 'selected' : '' }}>
+                                X</option>
+                            <option value="N/A"
+                                {{ old('caregiver_name_extension', $beneficiary->caregiver->caregiver_name_extension ?? '') == 'N/A' ? 'selected' : '' }}>
+                                N/A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="spouse_contact">RELATIONSHIP (to Beneficiary)</label>
+                        <input type="text" class="form-control" name="caregiver_relationship"
+                            id="caregiver_relationship"
+                            value="{{ old('caregiver_relationship', $beneficiary->caregiver->caregiver_relationship ?? '') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="caregiver_contact">CONTACT NUMBER</label>
+                        <input type="text" class="form-control" name="caregiver_contact" id="caregiver_contact"
+                            value="{{ old('caregiver_contact', $beneficiary->caregiver->caregiver_contact ?? '') }}">
+                    </div>
+                </div>
+
+
+                @php
+                    $houseStatus = explode(',', $beneficiary->housingLivingStatus->house_status ?? '');
+                    $livingStatus = explode(',', $beneficiary->housingLivingStatus->living_status ?? '');
+                @endphp
+
+                <div class="form-group mt-3">
+                    <div class="col-md-3">
+                        <label for="house_status">HOUSE STATUS</label>
+                        <div>
+                            <input type="checkbox" name="house_status[]" value="Owned"
+                                onclick="toggleCheckbox('house_status', this, false)"
+                                {{ in_array('Owned', $houseStatus) ? 'checked' : '' }}> Owned
+                            <input type="checkbox" name="house_status[]" value="Rent"
+                                onclick="toggleCheckbox('house_status', this, false)"
+                                {{ in_array('Rent', $houseStatus) ? 'checked' : '' }}> Rent
+                            <input type="checkbox" name="house_status[]" value="Others"
+                                onclick="toggleCheckbox('house_status', this, true)"
+                                {{ in_array('Others', $houseStatus) ? 'checked' : '' }}> Others
+                        </div>
+                        <input type="text" class="form-control mt-2" name="house_status_others_input"
+                            id="house_status_others_input"
+                            style="display: {{ in_array('Others', $houseStatus) ? 'block' : 'none' }};"
+                            placeholder="Specify other house status"
+                            value="{{ $beneficiary->housingLivingStatus->house_status_others_input ?? '' }}">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="living_status">LIVING STATUS</label>
+                        <div>
+                            <input type="checkbox" name="living_status[]" value="Living Alone"
+                                onclick="toggleCheckbox('living_status', this, false)"
+                                {{ in_array('Living Alone', $livingStatus) ? 'checked' : '' }}> Living Alone
+                            <input type="checkbox" name="living_status[]" value="Living with spouse"
+                                onclick="toggleCheckbox('living_status', this, false)"
+                                {{ in_array('Living with spouse', $livingStatus) ? 'checked' : '' }}> Living with
+                            spouse
+                            <input type="checkbox" name="living_status[]" value="Living with children"
+                                onclick="toggleCheckbox('living_status', this, false)"
+                                {{ in_array('Living with children', $livingStatus) ? 'checked' : '' }}> Living with
+                            children
+                            <input type="checkbox" name="living_status[]" value="Others"
+                                onclick="toggleCheckbox('living_status', this, true)"
+                                {{ in_array('Others', $livingStatus) ? 'checked' : '' }}> Others
+                        </div>
+                        <input type="text" class="form-control mt-2" name="living_status_others_input"
+                            id="living_status_others_input"
+                            style="display: {{ in_array('Others', $livingStatus) ? 'block' : 'none' }};"
+                            placeholder="Specify other living status"
+                            value="{{ $beneficiary->housingLivingStatus->living_status_others_input ?? '' }}">
+                    </div>
+                </div>
+                <br><br>
+
+                <h4 class="mt-4">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
+                <div class="form-row">
+                    <div class="income-table">
+                        <div class="income-header">
+                            <div></div>
+                            <div>How much</div>
+                            <div>Source</div>
+                        </div>
+
+                        <!-- Receiving Pension -->
+                        <div class="income-row">
+                            <div>
+                                <label for="pension">Receiving Pension</label>
+                                <br />
+                                <input type="checkbox" id="receiving_pension_yes" name="receiving_pension"
+                                    value="Yes"
+                                    onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')"
+                                    {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="receiving_pension_no" name="receiving_pension"
+                                    value="No"
+                                    onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')"
+                                    {{ $beneficiary->economicInformation->receiving_pension == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div><input type="text" id="pension_amount" name="pension_amount"
+                                    placeholder="Enter amount"
+                                    value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                            <div><input type="text" id="pension_source" name="pension_source"
+                                    placeholder="Enter source"
+                                    value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                        </div>
+
+                        <!-- Permanent Income -->
+                        <div class="income-row">
+                            <div>
+                                <label for="permanent_income">Permanent Income</label>
+                                <br />
+                                <input type="checkbox" id="permanent_income_yes" name="permanent_income"
+                                    value="Yes"
+                                    onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')"
+                                    {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="permanent_income_no" name="permanent_income"
+                                    value="No"
+                                    onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')"
+                                    {{ $beneficiary->economicInformation->permanent_income == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div><input type="text" id="income_amount" name="income_amount"
+                                    placeholder="Enter amount"
+                                    value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                            <div><input type="text" id="income_source" name="income_source"
+                                    placeholder="Enter source"
+                                    value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                        </div>
+
+                        <!-- Regular Support -->
+                        <div class="income-row">
+                            <div>
+                                <label for="regular_support">Regular Support</label>
+                                <br />
+                                <input type="checkbox" id="regular_support_yes" name="regular_support"
+                                    value="Yes"
+                                    onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')"
+                                    {{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
+                                    onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')"
+                                    {{ $beneficiary->economicInformation->regular_support == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div><input type="text" id="support_amount" name="support_amount"
+                                    placeholder="Enter amount"
+                                    value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                            <div><input type="text" id="support_source" name="support_source"
+                                    placeholder="Enter source"
+                                    value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
+                                    style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+
+                <h4 class="mt-4">IV. HEALTH INFORMATION (Impormasyon sa Kalusugan)</h4>
+                <div class="form-row">
+                    <div class="income-table">
+                        <div class="income-header">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="income-row">
+                            <div>
+                                <label>With Existing Illness</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="existing_illness_yes" name="existing_illness"
+                                    value="Yes" onclick="toggleFields('existing_illness', 'illness_specify')"
+                                    {{ $beneficiary->healthInformation->existing_illness == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="existing_illness_none" name="existing_illness"
+                                    value="None" onclick="toggleFields('existing_illness', 'illness_specify')"
+                                    {{ $beneficiary->healthInformation->existing_illness == 'None' ? 'checked' : '' }} />
+                                None
+                            </div>
+                            <div><input type="text" id="illness_specify" name="illness_specify"
+                                    placeholder="Specify"
+                                    style="display:{{ $beneficiary->healthInformation->existing_illness == 'Yes' ? 'block' : 'none' }};"
+                                    value="{{ $beneficiary->healthInformation->illness_specify ?? '' }}" /></div>
+                        </div>
+                        <div class="income-row">
+                            <div>
+                                <label>With Disability</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="with_disability_yes" name="with_disability"
+                                    value="Yes" onclick="toggleFields('with_disability', 'disability_specify')"
+                                    {{ $beneficiary->healthInformation->with_disability == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="with_disability_none" name="with_disability"
+                                    value="None" onclick="toggleFields('with_disability', 'disability_specify')"
+                                    {{ $beneficiary->healthInformation->with_disability == 'None' ? 'checked' : '' }} />
+                                None
+                            </div>
+                            <div><input type="text" id="disability_specify" name="disability_specify"
+                                    placeholder="Specify"
+                                    style="display:{{ $beneficiary->healthInformation->with_disability == 'Yes' ? 'block' : 'none' }};"
+                                    value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" /></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mt-4">Frailty Questions</h6>
+                <div class="form-row">
+                    <div class="income-table">
+                        <div class="income-header">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+
+                        <!-- Question 1 -->
+                        <div class="income-row">
+                            <div>
+                                <label>1. Do you experience difficulty in doing your ADLs?</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes"
+                                    onclick="handleCheckboxSelectionFra('difficult_adl', true)"
+                                    {{ $beneficiary->healthInformation->difficult_adl == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No"
+                                    onclick="handleCheckboxSelectionFra('difficult_adl', false)"
+                                    {{ $beneficiary->healthInformation->difficult_adl == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div></div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="income-row">
+                            <div>
+                                <label>2. Are you completely dependent on someone in doing your IADLs?</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
+                                    onclick="handleCheckboxSelectionFra('dependent_iadl', true)"
+                                    {{ $beneficiary->healthInformation->dependent_iadl == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No"
+                                    onclick="handleCheckboxSelectionFra('dependent_iadl', false)"
+                                    {{ $beneficiary->healthInformation->dependent_iadl == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div></div>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="income-row">
+                            <div>
+                                <label>3. Are you experiencing weight loss, weakness, exhaustion?</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="experience_loss_yes" name="experience_loss"
+                                    value="Yes" onclick="handleCheckboxSelectionFra('experience_loss', true)"
+                                    {{ $beneficiary->healthInformation->experience_loss == 'Yes' ? 'checked' : '' }} />
+                                Yes
+                                <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No"
+                                    onclick="handleCheckboxSelectionFra('experience_loss', false)"
+                                    {{ $beneficiary->healthInformation->experience_loss == 'No' ? 'checked' : '' }} />
+                                No
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="mt-4">V. ASSESSMENT (Pagtatasa)</h4>
+                <div class="form-row">
+                    <div class="remarks" id="remarks">
+                        <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="100">{{ $beneficiary->assessmentRecommendation->remarks ?? '' }}</textarea>
+                    </div>
+                </div>
+                <br><br>
+
+                <h4 class="mt-4">VI. RECOMMENDATION (Rekomendasyon)</h4>
+
+                <div class="form-group mt-3">
+                    <label>Eligibility</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="eligibility_eligible" value="Eligible"
+                            onclick="handleCheckboxSelection('eligibility', true)"
+                            {{ $beneficiary->assessmentRecommendation->eligibility == 'Eligible' ? 'checked' : '' }} />
+                        <label class="form-check-label" for="eligibility_eligible">Eligible</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="eligibility_not_eligible"
+                            value="Not Eligible" onclick="handleCheckboxSelection('eligibility', false)"
+                            {{ $beneficiary->assessmentRecommendation->eligibility == 'Not Eligible' ? 'checked' : '' }} />
+                        <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
+                    </div>
+                </div>
+
+                <input type="hidden" name="eligibility" id="eligibility_hidden"
+                    value="{{ $beneficiary->assessmentRecommendation->eligibility }}">
+
                 <div class="form-group text-center mt-4">
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
-            </form>
-
-
-            <div class="form-group">
-                <label>NAME OF AUTHORIZED REPRESENTATIVES</label>
-                <table class="table table-bordered" id="representatives_table">
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>CIVIL STATUS</th>
-                            <th>CONTACT NUMBER</th>
-                            <th><button type="button" class="btn btn-success" id="add_representative">Add
-                                    Representative</button></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="text" class="form-control" name="representatives[0][name]"></td>
-                            <td>
-                                <select class="form-control" name="representatives[0][civil_status]">
-                                    <option value="">Civil Status</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separated">Separated</option>
-                                </select>
-                            </td>
-                            <td><input type="text" class="form-control" name="representatives[0][contact_number]">
-                            </td>
-                            <td><button type="button" class="btn btn-danger remove_representative">Remove</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="form-group">
-                <label for="spouse_name">NAME OF CAREGIVER</label>
-                <div class="form-row">
-                    <div class="col-md-3">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" class="form-control" name="caregiver_last_name"
-                            id="caregiver_last_name">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="first_name">First Name</label>
-                        <input type="text" class="form-control" name="caregiver_first_name"
-                            id="caregiver_first_name">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="middle_name">Middle Name</label>
-                        <input type="text" class="form-control" name="caregiver_middle_name"
-                            id="caregiver_middle_name">
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="form-row mt-3">
-                <div class="col-md-3">
-                    <label for="name_extension">Name Extension</label>
-                    <select id="caregiver_name_extension" name="caregiver_name_extension" class="form-control">
-                        <option value="">Choose...</option>
-                        <option value="Jr.">Jr.</option>
-                        <option value="Sr.">Sr.</option>
-                        <option value="II">II</option>
-                        <option value="III">III</option>
-                        <option value="IV">IV</option>
-                        <option value="V">V</option>
-                        <option value="VI">VI</option>
-                        <option value="VII">VII</option>
-                        <option value="VIII">VIII</option>
-                        <option value="IX">IX</option>
-                        <option value="X">X</option>
-                        <option value="N/A">N/A</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="spouse_contact">RELATIONSHIP (to Beneficiary)</label>
-                    <input type="text" class="form-control" name="caregiver_relationship"
-                        id="caregiver_relationship">
-                </div>
-                <div class="col-md-3">
-                    <label for="caregiver_contact">CONTACT NUMBER</label>
-                    <input type="text" class="form-control" name="caregiver_contact" id="caregiver_contact">
-                </div>
-            </div>
-
-            <div class="form-group mt-3">
-                <div class="col-md-3">
-                    <label for="house_status">HOUSE STATUS</label>
-                    <div>
-                        <input type="checkbox" name="house_status[]" value="Owned"
-                            onclick="toggleCheckbox('house_status', this, false)"> Owned
-                        <input type="checkbox" name="house_status[]" value="Rent"
-                            onclick="toggleCheckbox('house_status', this, false)"> Rent
-                        <input type="checkbox" name="house_status[]" value="Others"
-                            onclick="toggleCheckbox('house_status', this, true)"> Others
-                    </div>
-                    <input type="text" class="form-control mt-2" name="house_status_others_input"
-                        id="house_status_others_input" style="display:none;"
-                        placeholder="Specify other house status">
-                </div>
-
-                <div class="col-md-3">
-                    <label for="living_status">LIVING STATUS</label>
-                    <div>
-                        <input type="checkbox" name="living_status[]" value="Living Alone"
-                            onclick="toggleCheckbox('living_status', this, false)"> Living Alone
-                        <input type="checkbox" name="living_status[]" value="Living with spouse"
-                            onclick="toggleCheckbox('living_status', this, false)"> Living with spouse
-                        <input type="checkbox" name="living_status[]" value="Living with children"
-                            onclick="toggleCheckbox('living_status', this, false)"> Living with children
-                        <input type="checkbox" name="living_status[]" value="Others"
-                            onclick="toggleCheckbox('living_status', this, true)"> Others
-                    </div>
-                    <input type="text" class="form-control mt-2" name="living_status_others_input"
-                        id="living_status_others_input" style="display:none;"
-                        placeholder="Specify other living status">
-                </div>
-            </div>
-            <br><br>
-
-            <h4 class="mt-4">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
-            <div class="form-row">
-                <div class="income-table">
-                    <div class="income-header">
-                        <div></div>
-                        <div>How much</div>
-                        <div>Source</div>
-                    </div>
-
-                    <!-- Receiving Pension -->
-                    <div class="income-row">
-                        <div>
-                            <label for="pension">Receiving Pension</label>
-                            <br />
-                            <input type="checkbox" id="receiving_pension_yes" name="receiving_pension"
-                                value="Yes"
-                                onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" />
-                            Yes
-                            <input type="checkbox" id="receiving_pension_no" name="receiving_pension" value="No"
-                                onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" />
-                            No
-                        </div>
-                        <div><input type="text" id="pension_amount" name="pension_amount"
-                                placeholder="Enter amount" style="display:none;" /></div>
-                        <div><input type="text" id="pension_source" name="pension_source"
-                                placeholder="Enter source" style="display:none;" /></div>
-                    </div>
-
-                    <!-- Permanent Income -->
-                    <div class="income-row">
-                        <div>
-                            <label for="permanent_income">Permanent Income</label>
-                            <br />
-                            <input type="checkbox" id="permanent_income_yes" name="permanent_income" value="Yes"
-                                onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" />
-                            Yes
-                            <input type="checkbox" id="permanent_income_no" name="permanent_income" value="No"
-                                onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" />
-                            No
-                        </div>
-                        <div><input type="text" id="income_amount" name="income_amount"
-                                placeholder="Enter amount" style="display:none;" /></div>
-                        <div><input type="text" id="income_source" name="income_source"
-                                placeholder="Enter source" style="display:none;" /></div>
-                    </div>
-
-                    <!-- Regular Support -->
-                    <div class="income-row">
-                        <div>
-                            <label for="regular_support">Regular Support</label>
-                            <br />
-                            <input type="checkbox" id="regular_support_yes" name="regular_support" value="Yes"
-                                onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" />
-                            Yes
-                            <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
-                                onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" />
-                            No
-                        </div>
-                        <div><input type="text" id="support_amount" name="support_amount"
-                                placeholder="Enter amount" style="display:none;" /></div>
-                        <div><input type="text" id="support_source" name="support_source"
-                                placeholder="Enter source" style="display:none;" /></div>
-                    </div>
-                </div>
-            </div>
-            <br><br>
-
-            <h4 class="mt-4">IV. HEALTH INFORMATION (Impormasyon sa Kalusugan)</h4>
-            <div class="form-row">
-                <div class="income-table">
-                    <div class="income-header">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                    <div class="income-row">
-                        <div>
-                            <label>With Existing Illness</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="existing_illness_yes" name="existing_illness" value="Yes"
-                                onclick="toggleFields('existing_illness', 'illness_specify')" />
-                            Yes
-                            <input type="checkbox" id="existing_illness_none" name="existing_illness" value="None"
-                                onclick="toggleFields('existing_illness', 'illness_specify')" />
-                            None
-                        </div>
-                        <div><input type="text" id="illness_specify" name="illness_specify" placeholder="Specify"
-                                style="display:none;" /></div>
-                    </div>
-                    <div class="income-row">
-                        <div>
-                            <label>With Disability</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="with_disability_yes" name="with_disability" value="Yes"
-                                onclick="toggleFields('with_disability', 'disability_specify')" />
-                            Yes
-                            <input type="checkbox" id="with_disability_none" name="with_disability" value="None"
-                                onclick="toggleFields('with_disability', 'disability_specify')" />
-                            None
-                        </div>
-                        <div><input type="text" id="disability_specify" name="disability_specify"
-                                placeholder="Specify" style="display:none;" /></div>
-                    </div>
-                </div>
-            </div>
-
-            <h6 class="mt-4">Frailty Questions</h6>
-            <div class="form-row">
-                <div class="income-table">
-                    <div class="income-header">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-
-                    <!-- Question 1 -->
-                    <div class="income-row">
-                        <div>
-                            <label>1. Do you experience difficulty in doing your ADLs?</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes"
-                                onclick="handleCheckboxSelectionFra('difficult_adl', true)" /> Yes
-                            <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No"
-                                onclick="handleCheckboxSelectionFra('difficult_adl', false)" /> No
-                        </div>
-                        <div></div>
-                    </div>
-
-                    <!-- Question 2 -->
-                    <div class="income-row">
-                        <div>
-                            <label>2. Are you completely dependent on someone in doing your IADLs?</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
-                                onclick="handleCheckboxSelectionFra('dependent_iadl', true)" /> Yes
-                            <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No"
-                                onclick="handleCheckboxSelectionFra('dependent_iadl', false)" /> No
-                        </div>
-                        <div></div>
-                    </div>
-
-                    <!-- Question 3 -->
-                    <div class="income-row">
-                        <div>
-                            <label>3. Are you experiencing weight loss, weakness, exhaustion?</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="experience_loss_yes" name="experience_loss" value="Yes"
-                                onclick="handleCheckboxSelectionFra('experience_loss', true)" />
-                            Yes
-                            <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No"
-                                onclick="handleCheckboxSelectionFra('experience_loss', false)" /> No
-                        </div>
-                        <div></div>
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="mt-4">V. ASSESSMENT (Pagtatasa)</h4>
-            <div class="form-row">
-                <div class="remarks" id="remarks">
-                    <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="100"></textarea>
-                </div>
-            </div>
-            <br><br>
-
-            <h4 class="mt-4">VI. RECOMMENDATION (Rekomendasyon)</h4>
-
-            <div class="form-group mt-3">
-                <label>Eligibility</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="eligibility_eligible" value="Eligible"
-                        onclick="handleCheckboxSelection('eligibility', true)" />
-                    <label class="form-check-label" for="eligibility_eligible">Eligible</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="eligibility_not_eligible"
-                        value="Not Eligible" onclick="handleCheckboxSelection('eligibility', false)" />
-                    <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
-                </div>
-            </div>
-
-            <div class="form-group text-center mt-4">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
             </form>
         </div>
     </div>
@@ -1477,6 +1603,7 @@
         noCheckbox.addEventListener('change', () => {
             if (noCheckbox.checked) {
                 specifyField.style.display = 'none';
+                specifyField.value = ''; // Clear the input field
                 yesCheckbox.checked = false;
             }
         });
@@ -1506,6 +1633,9 @@
         } else {
             yesCheckbox.checked = false;
         }
+
+        // Update hidden input value
+        document.getElementById(`${field}_hidden`).value = isYes ? 'Eligible' : 'Not Eligible';
     }
 
     //Age
@@ -1521,7 +1651,7 @@
     });
 
     //Children
-    let childIndex = 1;
+    let childIndex = {{ count($beneficiary->child) }};
 
     document.getElementById('add_child').addEventListener('click', function() {
         const table = document.getElementById('children_table').getElementsByTagName('tbody')[0];
@@ -1532,7 +1662,7 @@
         <td>
             <select class="form-control" name="children[${childIndex}][civil_status]" required>
                 <option value="">Civil Status</option>
-               <option value="Single">Single</option>
+                <option value="Single">Single</option>
                 <option value="Married">Married</option>
                 <option value="Widowed">Widowed</option>
                 <option value="Separated">Separated</option>
@@ -1553,8 +1683,9 @@
             row.remove();
         }
     });
+
     //Representatives
-    let representativeIndex = 1;
+    let representativeIndex = {{ count($beneficiary->representative) }};
 
     document.getElementById('add_representative').addEventListener('click', function() {
         const table = document.getElementById('representatives_table').getElementsByTagName('tbody')[0];

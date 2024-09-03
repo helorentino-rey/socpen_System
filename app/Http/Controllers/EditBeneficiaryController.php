@@ -7,6 +7,8 @@ use App\Models\BeneficiaryInfo;
 use App\Models\Address;
 use App\Models\MothersMaidenName;
 use App\Models\Child;
+use App\Models\Representative;
+use App\Models\AssessmentRecommendation;
 use App\Models\Region;
 use App\Models\Province;
 use App\Models\CityMuni;
@@ -95,11 +97,50 @@ class EditBeneficiaryController extends Controller
 
             'children' => 'present|array',
             'children.*.name' => 'nullable|string|max:50',
-            'children.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
+            'children.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
             'children.*.occupation' => 'nullable|string|max:50',
             'children.*.income' => 'nullable|string|max:10',
             'children.*.contact_number' => 'nullable|string|max:13',
-            // Add other validation rules as needed
+
+            'representatives' => 'present|array',
+            'representatives.*.name' => 'nullable|string|max:50',
+            'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
+            'representatives.*.contact_number' => 'nullable|string|max:13',
+
+            'caregiver_last_name' => 'nullable|string|max:25',
+            'caregiver_first_name' => 'nullable|string|max:25',
+            'caregiver_middle_name' => 'nullable|string|max:25',
+            'caregiver_name_extension' => 'nullable|string|max:4',
+            'caregiver_relationship' => 'nullable|string|max:25',
+            'caregiver_contact' => 'nullable|string|max:13',
+
+            'house_status' => 'required|array',
+            'house_status.*' => 'required|string|in:Owned,Rent,Others',
+            'house_status_others_input' => 'nullable|string',
+            'living_status' => 'required|array',
+            'living_status.*' => 'required|string|in:Living Alone,Living with spouse,Living with children,Others',
+            'living_status_others_input' => 'nullable|string',
+
+            'receiving_pension' => 'required|in:Yes,No',
+            'pension_amount' => 'nullable|string|max:10',
+            'pension_source' => 'nullable|string|max:30',
+            'permanent_income' => 'required|in:Yes,No',
+            'income_amount' => 'nullable|string|max:10',
+            'income_source' => 'nullable|string|max:30',
+            'regular_support' => 'required|in:Yes,No',
+            'support_amount' => 'nullable|string|max:10',
+            'support_source' => 'nullable|string|max:30',
+
+            'existing_illness' => 'required|in:Yes,None',
+            'illness_specify' => 'nullable|string|max:30',
+            'with_disability' => 'required|in:Yes,None',
+            'disability_specify' => 'nullable|string|max:30',
+            'difficult_adl' => 'required|in:Yes,No',
+            'dependent_iadl' => 'required|in:Yes,No',
+            'experience_loss' => 'required|in:Yes,No',
+
+            'remarks' => 'nullable|string|max:200',
+            'eligibility' => 'nullable|in:Eligible,Not Eligible',
         ]);
 
         // Find the beneficiary by ID
@@ -253,38 +294,133 @@ class EditBeneficiaryController extends Controller
         Log::info('Spouse updated for beneficiary: ' . $beneficiary->id);
 
         // Handle children update or deletion
-        if ($request->has('children')) {
-            foreach ($request->input('children') as $childData) {
-                if (isset($childData['delete']) && $childData['delete'] == '1') {
-                    if (isset($childData['id'])) {
-                        // Delete the child record from the database
-                        Child::where('id', $childData['id'])->delete();
-                    }
-                } else {
-                    if (isset($childData['id'])) {
-                        // Update existing child record
-                        $child = Child::findOrFail($childData['id']);
-                        $child->update([
-                            'children_name' => $childData['name'],
-                            'children_civil_status' => $childData['civil_status'],
-                            'children_occupation' => $childData['occupation'],
-                            'children_income' => $childData['income'],
-                            'children_contact_number' => $childData['contact_number'],
-                        ]);
-                    } else {
-                        // Create a new child record
-                        $beneficiary->child()->create([
-                            'children_name' => $childData['name'],
-                            'children_civil_status' => $childData['civil_status'],
-                            'children_occupation' => $childData['occupation'],
-                            'children_income' => $childData['income'],
-                            'children_contact_number' => $childData['contact_number'],
-                        ]);
-                    }
-                }
-            }
+        // Delete all existing children for the beneficiary
+        $beneficiary->child()->delete();
+
+        // Insert the new or updated children
+        foreach ($validatedData['children'] as $childData) {
+            $beneficiary->child()->create([
+                'children_name' => $childData['name'] ?? null,
+                'children_civil_status' => $childData['civil_status'] ?? null,
+                'children_occupation' => $childData['occupation'] ?? null,
+                'children_income' => $childData['income'] ?? null,
+                'children_contact_number' => $childData['contact_number'] ?? null,
+            ]);
         }
         Log::info('Children updated for beneficiary: ' . $beneficiary->id);
+
+        // Handle representatives update or deletion
+        // Delete all existing representatives for the beneficiary
+        $beneficiary->representative()->delete();
+
+        // Insert the new or updated representatives
+        foreach ($validatedData['representatives'] as $representativeData) {
+            $beneficiary->representative()->create([
+                'representative_name' => $representativeData['name'] ?? null,
+                'representative_civil_status' => $representativeData['civil_status'] ?? null,
+                'representative_contact_number' => $representativeData['contact_number'] ?? null,
+            ]);
+        }
+        Log::info('Representatives updated for beneficiary: ' . $beneficiary->id);
+
+        // Update or create caregiver record
+        $beneficiary->caregiver()->updateOrCreate(
+            ['beneficiary_id' => $beneficiary->id],
+            [
+                'caregiver_last_name' => $validatedData['caregiver_last_name'],
+                'caregiver_first_name' => $validatedData['caregiver_first_name'],
+                'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
+                'caregiver_name_extension' => $validatedData['caregiver_name_extension'],
+                'caregiver_relationship' => $validatedData['caregiver_relationship'],
+                'caregiver_contact' => $validatedData['caregiver_contact'],
+            ]
+        );
+        Log::info('Caregiver updated for beneficiary: ' . $beneficiary->id);
+
+        // Handle "Others" fields for house and living status
+        $houseStatusOthersInput = in_array('Others', $validatedData['house_status']) ? $validatedData['house_status_others_input'] : null;
+        $livingStatusOthersInput = in_array('Others', $validatedData['living_status']) ? $validatedData['living_status_others_input'] : null;
+
+        // Update or create housing and living status
+        $beneficiary->housingLivingStatus()->updateOrCreate(
+            ['beneficiary_id' => $beneficiary->id],
+            [
+                'house_status' => implode(',', $validatedData['house_status']),
+                'house_status_others_input' => $houseStatusOthersInput,
+                'living_status' => implode(',', $validatedData['living_status']),
+                'living_status_others_input' => $livingStatusOthersInput,
+            ]
+        );
+        Log::info('Housing and living status updated for beneficiary: ' . $beneficiary->id);
+
+        // Update or create economic information
+        // Clear fields if "No" is selected
+        if ($validatedData['receiving_pension'] == 'No') {
+            $validatedData['pension_amount'] = null;
+            $validatedData['pension_source'] = null;
+        }
+        if ($validatedData['permanent_income'] == 'No') {
+            $validatedData['income_amount'] = null;
+            $validatedData['income_source'] = null;
+        }
+        if ($validatedData['regular_support'] == 'No') {
+            $validatedData['support_amount'] = null;
+            $validatedData['support_source'] = null;
+        }
+
+        // Update the beneficiary's economic information
+        $beneficiary->economicInformation->update([
+            'receiving_pension' => $validatedData['receiving_pension'],
+            'pension_amount' => $validatedData['pension_amount'],
+            'pension_source' => $validatedData['pension_source'],
+            'permanent_income' => $validatedData['permanent_income'],
+            'income_amount' => $validatedData['income_amount'],
+            'income_source' => $validatedData['income_source'],
+            'regular_support' => $validatedData['regular_support'],
+            'support_amount' => $validatedData['support_amount'],
+            'support_source' => $validatedData['support_source'],
+        ]);
+        Log::info('Economic information updated for beneficiary: ' . $beneficiary->id);
+
+        // Update or create health information  
+        if ($request->has('existing_illness')) {
+            $beneficiary->healthInformation->existing_illness = $request->input('existing_illness');
+            $beneficiary->healthInformation->illness_specify = $request->input('existing_illness') == 'Yes' ? $request->input('illness_specify') : null;
+        }
+
+        if ($request->has('with_disability')) {
+            $beneficiary->healthInformation->with_disability = $request->input('with_disability');
+            $beneficiary->healthInformation->disability_specify = $request->input('with_disability') == 'Yes' ? $request->input('disability_specify') : null;
+        }
+
+        if ($request->has('difficult_adl')) {
+            $beneficiary->healthInformation->difficult_adl = $request->input('difficult_adl');
+        }
+
+        if ($request->has('dependent_iadl')) {
+            $beneficiary->healthInformation->dependent_iadl = $request->input('dependent_iadl');
+        }
+
+        if ($request->has('experience_loss')) {
+            $beneficiary->healthInformation->experience_loss = $request->input('experience_loss');
+        }
+
+        $beneficiary->healthInformation->save();
+
+        Log::info('Health information updated for beneficiary: ' . $beneficiary->id);
+
+        // Ensure 'eligibility' is set in $validatedData
+        $validatedData['eligibility'] = $validatedData['eligibility'] ?? null;
+
+        // Update or create assessment recommendation record
+        AssessmentRecommendation::updateOrCreate(
+            ['beneficiary_id' => $beneficiary->id],
+            [
+                'remarks' => $validatedData['remarks'],
+                'eligibility' => $validatedData['eligibility'],
+            ]
+        );
+        Log::info('Assessment recommendation updated for beneficiary: ' . $beneficiary->id);
 
         // Redirect back with a success message
         return redirect()->route('layouts.edit', $id)->with('success', 'Beneficiary updated successfully.');

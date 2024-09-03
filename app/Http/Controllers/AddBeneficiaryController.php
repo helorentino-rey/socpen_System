@@ -78,13 +78,13 @@ class AddBeneficiaryController extends Controller
 
             'children' => 'present|array',
             'children.*.name' => 'nullable|string|max:50',
-            'children.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
+            'children.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
             'children.*.occupation' => 'nullable|string|max:50',
             'children.*.income' => 'nullable|string|max:10',
             'children.*.contact_number' => 'nullable|string|max:13',
 
             'representatives.*.name' => 'nullable|string|max:50',
-            'representatives.*.civil_status' => 'nullable|in:Single,Married,Divorced,Widowed',
+            'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
             'representatives.*.contact_number' => 'nullable|string|max:13',
 
             'caregiver_last_name' => 'nullable|string|max:25',
@@ -104,10 +104,10 @@ class AddBeneficiaryController extends Controller
             'receiving_pension' => 'required|in:Yes,No',
             'pension_amount' => 'nullable|string|max:10',
             'pension_source' => 'nullable|string|max:30',
-            'permanent_income' => 'required|in:Yes,No', // Adjusted to match enum
+            'permanent_income' => 'required|in:Yes,No',
             'income_amount' => 'nullable|string|max:10',
             'income_source' => 'nullable|string|max:30',
-            'regular_support' => 'required|in:Yes,No', // Adjusted to match enum
+            'regular_support' => 'required|in:Yes,No',
             'support_amount' => 'nullable|string|max:10',
             'support_source' => 'nullable|string|max:30',
 
@@ -120,7 +120,7 @@ class AddBeneficiaryController extends Controller
             'experience_loss' => 'required|in:Yes,No',
 
             'remarks' => 'nullable|string|max:200',
-            'eligibility' => 'required|in:Eligible,Not Eligible',
+            'eligibility' => 'nullable|in:Eligible,Not Eligible',
         ]);
 
         // Handle file upload
@@ -331,7 +331,7 @@ class AddBeneficiaryController extends Controller
         AssessmentRecommendation::create([
             'beneficiary_id' => $beneficiary->id,
             'remarks' => $validatedData['remarks'] ?? null,
-            'eligibility' => $validatedData['eligibility'],
+            'eligibility' => $validatedData['eligibility'] ?? null,
         ]);
         Log::info('Assessment recommendation created for beneficiary: ' . $beneficiary->id);
 

@@ -1230,6 +1230,7 @@
                             <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
                         </div>
                     </div>
+                    <input type="hidden" name="eligibility" id="eligibility_value" value="">
 
                     <div class="form-group text-center mt-4">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -1348,12 +1349,15 @@
         function handleCheckboxSelection(field, isYes) {
             const yesCheckbox = document.getElementById(`${field}_eligible`);
             const noCheckbox = document.getElementById(`${field}_not_eligible`);
+            const hiddenInput = document.getElementById(`${field}_value`);
 
             // Uncheck the other checkbox if one is checked
             if (isYes) {
                 noCheckbox.checked = false;
+                hiddenInput.value = yesCheckbox.value;
             } else {
                 yesCheckbox.checked = false;
+                hiddenInput.value = noCheckbox.value;
             }
         }
 
