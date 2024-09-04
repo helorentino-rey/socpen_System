@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage; //php artisan storage:link
 
 class StaffController extends Controller
 {
+    // $userId = Auth::id();
+    // $staff = Staff::find($userId);
+
     public function store(Request $request)
     {
         // Save the staff data with default 'pending' status
@@ -34,7 +37,6 @@ class StaffController extends Controller
                 : null,
             'status' => 'pending', // Set status to pending
         ]);
-
         // Redirect to the landing page with a success message
         return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
     }
@@ -91,6 +93,9 @@ class StaffController extends Controller
         return view('livewire.staff.listbeneficiary', compact('profilePicUrl', 'firstName'));
     }
 
+
+    // Show the staff information (profile) page
+    // Used by the Staff navigation bar and Staff information page
     public function staffInformation()
     {
         $data = $this->show(Auth::id());
@@ -113,6 +118,7 @@ class StaffController extends Controller
         return view('livewire.staff.staffinformation', compact(
             'profilePicUrl',
             'firstName',
+            'firstName',
             'lastName',
             'middleName',
             'nameExtension',
@@ -125,7 +131,48 @@ class StaffController extends Controller
             'employeeId',
             'email',
             'assignedProvince',
-            'status'
+            'status',
         ));
+    }
+
+    // Update the staff information
+    public function updateStaffInformation(Request $request)
+    {
+        $staff = Staff::find(Auth::id()); // Assuming the staff is the authenticated user
+
+        $staff->update([
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'middlename' => $request->input('middlename'),
+            'name_extension' => $request->input('name_extension'),
+            'sex' => $request->input('sex'),
+            'birthday' => $request->input('birthday'),
+            'age' => $request->input('age'),
+            'marital_status' => $request->input('marital_status'),
+            'contact_number' => $request->input('contact_number'),
+            'address' => $request->input('address'),
+            'employee_id' => $request->input('employee_id'),
+            'email' => $request->input('email'),
+            'assigned_province' => $request->input('assigned_province'),
+        ]);
+
+        return redirect()->back()->with('success', 'Staff information updated successfully.');
+    }
+
+    // Update the staff password
+    public function updatePassword(Request $request)
+    {
+        $staff = Staff::find(Auth::id());
+
+        if (!Hash::check($request->input('current_password'), $staff->password)) {
+            return redirect()->back()->with('error', 'current password is incorrect.');
+        }
+
+        // Update the password
+        $staff->update([
+            'password' => Hash::make($request->input('new_password')),
+            // 'password' => $request->input('new_password'),
+        ]);
+        return redirect()->back()->with('success', 'Password updated successfully.');
     }
 }

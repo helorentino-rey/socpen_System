@@ -18,6 +18,7 @@ use App\Http\Controllers\ShowAddressController;
 use App\Http\Controllers\AddBeneficiaryController;
 use App\Http\Controllers\EditBeneficiaryController;
 use App\Http\Controllers\PaginationController;
+use App\Http\Controllers\PDFController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -83,9 +84,10 @@ Route::post('/check-email', [RegistrationController::class, 'checkEmail'])->name
 Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId'])->name('check-employee-id');
 
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-Route::get('/staff/{id}', [StaffController::class, 'show'])->name('staff.show');
-Route::get('/list-beneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
-Route::get('/staff-information', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
+Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
+Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
+Route::post('/staff/update', [StaffController::class, 'updateStaffInformation'])->name('staff.update');
+Route::post('/staff/update-password', [StaffController::class, 'updatePassword'])->name('staff.updatePassword');
 
 //Route for Check Email Duplication in Staff Registration
 Route::post('/check-email', [RegistrationController::class, 'checkEmail']);
@@ -129,3 +131,6 @@ Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])-
 
 //Pagination Controller
 Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagination.list');
+
+// routes/web.php
+Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export.pdf');

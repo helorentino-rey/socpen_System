@@ -1,14 +1,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Admin Dashboard</title>
+    <title>@yield('title', 'Admin Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
 
         .sidebar {
@@ -30,20 +32,26 @@
             width: 80px;
         }
 
-        .sidebar .profile-pic {
+        .profile-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             background-color: #fff;
             margin: 0 auto;
-            transition: opacity 0.3s;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
         }
 
         .sidebar.retracted .profile-pic {
-            opacity: 0;
+            width: 40px;
+            height: 40px;
         }
 
-        .sidebar .profile-name {
+        .profile-name {
             text-align: center;
             margin-top: 10px;
             font-weight: bold;
@@ -52,6 +60,29 @@
 
         .sidebar.retracted .profile-name {
             opacity: 0;
+        }
+
+        .profile-title {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #ddd;
+            margin-top: 5px;
+        }
+
+        .sidebar.retracted .profile-title {
+            opacity: 0;
+        }
+
+        .invisible-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            z-index: 1;
         }
 
         .sidebar .nav-link {
@@ -65,15 +96,44 @@
             white-space: nowrap;
         }
 
+        .sidebar.retracted .nav-link {
+            justify-content: center;
+            padding: 10px 0;
+            margin-left: 10px;
+            /* Adjusted margin to align icons */
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: white;
+            /* Hover color for expanded sidebar */
+            color: #1C4CB1;
+            /* Change text color for better visibility on white background */
+        }
+
+        .sidebar.retracted .nav-link:hover {
+            background-color: #567be9;
+            /* Hover color for retracted sidebar */
+        }
+
+        .sidebar.retracted .nav-link:hover i {
+            color: #567be9;
+            /* Match the hover color of the retracted sidebar */
+            background-color: #fff;
+            border-radius: 8px;
+            /* Larger square for retracted sidebar */
+            padding: 8px;
+            /* Increase padding for the hover effect */
+            display: inline-block;
+        }
+
         .sidebar .nav-link i {
             width: 30px;
             text-align: center;
             flex-shrink: 0;
-            transition: font-size 0.3s;
         }
 
         .sidebar.retracted .nav-link i {
-            font-size: 20px;
+            width: auto;
         }
 
         .sidebar .nav-link span {
@@ -90,35 +150,6 @@
             transform: translateX(-100%);
         }
 
-        .sidebar.retracted .nav-link {
-            padding-left: 15px;
-            justify-content: center;
-        }
-
-        /* Hover effect for expanded sidebar */
-        .sidebar .nav-link:hover {
-            background-color: #567be9;
-        }
-
-        .sidebar .nav-link:hover i,
-        .sidebar .nav-link:hover span {
-            color: #fff;
-        }
-
-        /* Hover effect for retracted sidebar */
-        .sidebar.retracted .nav-link:hover {
-            background-color: transparent;
-        }
-
-        .sidebar.retracted .nav-link:hover i {
-            background-color: #567be9;
-            border-radius: 50%;
-        }
-
-        .sidebar.retracted .nav-link:hover span {
-            background-color: transparent;
-        }
-
         .content {
             margin-left: 250px;
             padding: 20px;
@@ -127,6 +158,25 @@
 
         .content.retracted {
             margin-left: 80px;
+        }
+
+        .card {
+            border-left: 4px solid #1C4CB1;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 150px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .plus-button {
@@ -171,49 +221,37 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
-        <div class="profile-pic"></div>
-        <div class="profile-name">Super Admin</div>
+        <div class="profile-container">
+            <div class="profile-pic">
+                <img src="{{ $profilePicUrl }}" alt="Profile Picture" class="img-fluid rounded-circle">
+                <button class="invisible-button" onclick="window.location='{{ route('staff.staffInformation') }}'"></button>
+            </div>
+            <div class="profile-name">
+                {{ $firstName }}
+                <button class="invisible-button" onclick="window.location='{{ route('staff.staffInformation') }}'"></button>
+            </div>
+            <div class="profile-title">Staff</div>
+        </div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('superadmin.dashboard') }}" class="nav-link">
+                <a href="{{ route('staff.dashboard') }}" class="nav-link">
                     <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('superadmin.admin-account') }}" class="nav-link">
-                    <i class="bi bi-person-circle"></i> <span>Admin</span>
+                <a href="{{ route('staff.listBeneficiary') }}" class="nav-link">
+                    <i class="bi bi-people-fill"></i> <span>List of Beneficiaries</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('superadmin.approved-staff') }}" class="nav-link">
-                    <i class="bi bi-people-fill"></i> <span>Staff</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('superadmin.approved-beneficiary') }}" class="nav-link">
-                    <i class="bi bi-person-lines-fill"></i> <span>Beneficiaries</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-person-fill"></i> <span>Account Information</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="bi bi-bell-fill"></i> <span>Notifications</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
                 </a>
+                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
         </ul>
-        <form id="logout-form" action="{{ route('superadmin.logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
         <div class="toggle-button" id="toggleButton">
             <i class="bi bi-chevron-left chevron-icon"></i>
         </div>
@@ -243,4 +281,6 @@
             }
         });
     </script>
+
+    @yield('scripts')
 </body>
