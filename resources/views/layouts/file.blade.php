@@ -104,12 +104,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link" style="color: black;">List
-                            of Beneficiaries</a>
+                        <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link" style="color: black;">
+                            List of Beneficiaries
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
-                            Beneficiary</a>
+                        <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">
+                            Add Beneficiary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
+                            data-bs-target="#importModal">
+                            <i class="bi bi-file-earmark-arrow-down"></i> Import Beneficiary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
+                            data-bs-target="#exportModal">
+                            <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -247,11 +261,81 @@
                 </ul>
             </nav>
 
-            <!-- Floating Button -->
-            <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
-                style="bottom: 20px; right: 20px;">
-                <i class="bi bi-plus-lg"></i>
-            </button>
+            <!-- Import Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="importModalLabel">Import Beneficiaries</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('beneficiaries.import') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="importFile" class="form-label">Choose CSV File</label>
+                                    <input type="file" class="form-control" id="importFile" name="importFile"
+                                        required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Modal -->
+            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exportModalLabel">Export Beneficiaries</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Error Message Section -->
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <form action="{{ route('beneficiaries.export') }}" method="GET">
+                                <div class="mb-3">
+                                    <label for="filename" class="form-label">Filename</label>
+                                    <input type="text" class="form-control" id="filename" name="filename" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="min_age" class="form-label">Min Age</label>
+                                    <input type="number" class="form-control" id="min_age" name="min_age"
+                                        placeholder="e.g., 60">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="max_age" class="form-label">Max Age</label>
+                                    <input type="number" class="form-control" id="max_age" name="max_age"
+                                        placeholder="e.g., 70">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="province" class="form-label">Province</label>
+                                    <select class="form-control" id="province" name="province">
+                                        <option value="">Select Province</option>
+                                        <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
+                                        <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
+                                        <option value="DAVAO ORIENTA">DAVAO ORIENTAL</option>
+                                        <option value="DAVAO DE ORO">DAVAO DE ORO</option>
+                                        <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Export</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Modal to Display Beneficiary Information -->
             <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"

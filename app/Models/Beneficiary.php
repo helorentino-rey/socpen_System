@@ -23,9 +23,19 @@ class Beneficiary extends Model
         return $this->hasMany(Address::class)->whereIn('type', ['present', 'permanent', 'spouse_address']);
     }
     
+    public function permanentAddress()
+    {
+        return $this->hasOne(Address::class)->where('type', 'permanent');
+    }
+
     public function presentAddress()
     {
-        return $this->hasOne(Address::class)->where('type', 'present',);
+        return $this->hasOne(Address::class)->where('type', 'present');
+    }
+
+    public function spouseAddress()
+    {
+        return $this->hasOne(Address::class)->where('type', 'spouse_address');
     }
 
     public function affiliation()
