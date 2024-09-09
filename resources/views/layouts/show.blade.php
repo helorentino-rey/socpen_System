@@ -171,6 +171,7 @@
          <p><strong>First Name:</strong> {{ $beneficiary->spouse->spouse_first_name ?? 'N/A' }}</p>
          <p><strong>Middle Name:</strong> {{ $beneficiary->spouse->spouse_middle_name ?? 'N/A' }}</p>
          <p><strong>Name Extension:</strong> {{ $beneficiary->spouse->spouse_name_extension ?? 'N/A' }}</p>
+         <p><strong>Spouse Contact:</strong> {{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</p>
      </div>
  
  

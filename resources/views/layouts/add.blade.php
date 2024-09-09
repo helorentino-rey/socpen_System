@@ -236,10 +236,6 @@
             <div class="navbar-brand" style="color: black;">Beneficiary</div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.approve') }}" class="nav-link"
-                            style="color: black;">Approve Beneficiaries</a>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link" style="color: black;">List
                             of Beneficiaries</a>
@@ -248,11 +244,6 @@
                         <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
                             Beneficiary</a>
                     </li>
-
-                    {{-- <li class="nav-item">
-                        <a href="{{ route('superadmin.beneficiaries.export') }}" class="nav-link"
-                            style="color: black;">Export List of Beneficiaries</a>
-                    </li> --}}
                 </ul>
             </div>
         </div>
@@ -878,6 +869,16 @@
                             <div class="col-md-3">
                                 <input type="text" class="form-control" id="spouse_address_sitio"
                                     name="spouse_address_sitio" placeholder="Sitio/House No./Purok/Street" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><strong>13. Contact Number</strong></label>
+                        <div class="form-row custom-form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="spouse_contact"></label>
+                                <input type="text" class="form-control" id="spouse_contact" name="spouse_contact">
                             </div>
                         </div>
                     </div>

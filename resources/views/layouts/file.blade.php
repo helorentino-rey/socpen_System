@@ -115,12 +115,6 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
-                            data-bs-target="#importModal">
-                            <i class="bi bi-file-earmark-arrow-down"></i> Import Beneficiary
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
                             data-bs-target="#exportModal">
                             <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
                         </a>
@@ -254,38 +248,30 @@
                 </tbody>
             </table>
 
+            <!-- Modal to Display Beneficiary Information -->
+            <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
+                                Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Pagination -->
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
                 <ul class="pagination">
                     {{ $beneficiaries->links('pagination::bootstrap-4') }}
                 </ul>
             </nav>
-
-            <!-- Import Modal -->
-            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="importModalLabel">Import Beneficiaries</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="{{ route('beneficiaries.import') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="mb-3">
-                                    <label for="importFile" class="form-label">Choose CSV File</label>
-                                    <input type="file" class="form-control" id="importFile" name="importFile"
-                                        required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Import</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Export Modal -->
             <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
@@ -305,162 +291,117 @@
                                 </div>
                             @endif
                             <form action="{{ route('beneficiaries.export') }}" method="GET">
-                                <div class="mb-3">
-                                    <label for="filename" class="form-label">Filename</label>
-                                    <input type="text" class="form-control" id="filename" name="filename" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="min_age" class="form-label">Min Age</label>
-                                    <input type="number" class="form-control" id="min_age" name="min_age"
-                                        placeholder="e.g., 60">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="max_age" class="form-label">Max Age</label>
-                                    <input type="number" class="form-control" id="max_age" name="max_age"
-                                        placeholder="e.g., 70">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="province" class="form-label">Province</label>
-                                    <select class="form-control" id="province" name="province">
-                                        <option value="">Select Province</option>
-                                        <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
-                                        <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
-                                        <option value="DAVAO ORIENTA">DAVAO ORIENTAL</option>
-                                        <option value="DAVAO DE ORO">DAVAO DE ORO</option>
-                                        <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
-                                    </select>
-                                </div>
+                                <input type="text" name="filename" placeholder="Enter filename" class="form-control mb-2">
                                 <button type="submit" class="btn btn-primary">Export</button>
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Modal to Display Beneficiary Information -->
-            <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner Information</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Content will be populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <!-- Include Bootstrap and jQuery JavaScript files -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
-            <!-- Include Bootstrap and jQuery JavaScript files -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+                            <script>
+                                //Display Beneficiary Information Modal
+                                $(document).ready(function() {
+                                    $('.beneficiary-name').click(function(e) {
+                                        e.preventDefault();
+                                        const beneficiaryId = $(this).data('id');
 
-            <script>
-                //Display Beneficiary Information Modal
-                $(document).ready(function() {
-                    $('.beneficiary-name').click(function(e) {
-                        e.preventDefault();
-                        const beneficiaryId = $(this).data('id');
+                                        $.ajax({
+                                            url: '/beneficiaries/' + beneficiaryId,
+                                            type: 'GET',
+                                            success: function(response) {
+                                                $('#beneficiaryModal .modal-body').html(response);
+                                                $('#beneficiaryModal').modal('show');
+                                            },
+                                            error: function() {
+                                                $('#beneficiaryModal .modal-body').html(
+                                                    'Error loading beneficiary information.');
+                                            }
+                                        });
+                                    });
+                                });
 
-                        $.ajax({
-                            url: '/beneficiaries/' + beneficiaryId,
-                            type: 'GET',
-                            success: function(response) {
-                                $('#beneficiaryModal .modal-body').html(response);
-                                $('#beneficiaryModal').modal('show');
-                            },
-                            error: function() {
-                                $('#beneficiaryModal .modal-body').html(
-                                    'Error loading beneficiary information.');
-                            }
-                        });
-                    });
-                });
+                                //Search for a Beneficiary
+                                $(document).ready(function() {
+                                    $('#beneficiary-search').on('keyup', function() {
+                                        const query = $(this).val();
 
-                //Search for a Beneficiary
-                $(document).ready(function() {
-                    $('#beneficiary-search').on('keyup', function() {
-                        const query = $(this).val();
+                                        if (query.length > 2) {
+                                            $.ajax({
+                                                url: '{{ route('beneficiaries.search') }}',
+                                                method: 'GET',
+                                                data: {
+                                                    query: query
+                                                },
+                                                success: function(data) {
+                                                    let searchResults = $('#search-results');
+                                                    searchResults.empty();
 
-                        if (query.length > 2) {
-                            $.ajax({
-                                url: '{{ route('beneficiaries.search') }}',
-                                method: 'GET',
-                                data: {
-                                    query: query
-                                },
-                                success: function(data) {
-                                    let searchResults = $('#search-results');
-                                    searchResults.empty();
-
-                                    if (data.length > 0) {
-                                        data.forEach(function(beneficiary) {
-                                            searchResults.append(`
+                                                    if (data.length > 0) {
+                                                        data.forEach(function(beneficiary) {
+                                                            searchResults.append(`
                               <a href="#" class="list-group-item list-group-item-action beneficiary-item" data-id="${beneficiary.id}">
     <span class="beneficiary-name">${beneficiary.name}</span>
     <span class="beneficiary-status">${beneficiary.status}</span>
 </a>
                             `);
+                                                        });
+                                                    } else {
+                                                        searchResults.append(
+                                                            '<div class="list-group-item">No results found</div>');
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            $('#search-results').empty();
+                                        }
+                                    });
+
+
+
+                                    // Handle click on a search result
+                                    $(document).on('click', '.beneficiary-item', function(e) {
+                                        e.preventDefault();
+                                        const beneficiaryId = $(this).data('id');
+
+                                        $.ajax({
+                                            url: '/beneficiaries/' + beneficiaryId,
+                                            type: 'GET',
+                                            success: function(response) {
+                                                $('#beneficiaryModal .modal-body').html(response);
+                                                $('#beneficiaryModal').modal('show');
+                                            },
+                                            error: function() {
+                                                $('#beneficiaryModal .modal-body').html(
+                                                    'Error loading beneficiary information.');
+                                            }
                                         });
-                                    } else {
-                                        searchResults.append(
-                                            '<div class="list-group-item">No results found</div>');
-                                    }
+
+                                        $('#search-results').empty();
+                                        $('#beneficiary-search').val(''); // Clear the search input
+                                    });
+                                });
+
+                                //Edit beneficiary
+                                function confirmEdit() {
+                                    return confirm('Do you want to edit beneficiary information?');
                                 }
-                            });
-                        } else {
-                            $('#search-results').empty();
-                        }
-                    });
 
+                                //Pagination
+                                $(document).on('click', '.pagination a', function(e) {
+                                    e.preventDefault();
+                                    let page = $(this).attr('href').split('page=')[1];
+                                    fetchBeneficiaries(page);
+                                });
 
-
-                    // Handle click on a search result
-                    $(document).on('click', '.beneficiary-item', function(e) {
-                        e.preventDefault();
-                        const beneficiaryId = $(this).data('id');
-
-                        $.ajax({
-                            url: '/beneficiaries/' + beneficiaryId,
-                            type: 'GET',
-                            success: function(response) {
-                                $('#beneficiaryModal .modal-body').html(response);
-                                $('#beneficiaryModal').modal('show');
-                            },
-                            error: function() {
-                                $('#beneficiaryModal .modal-body').html(
-                                    'Error loading beneficiary information.');
-                            }
-                        });
-
-                        $('#search-results').empty();
-                        $('#beneficiary-search').val(''); // Clear the search input
-                    });
-                });
-
-                //Edit beneficiary
-                function confirmEdit() {
-                    return confirm('Do you want to edit beneficiary information?');
-                }
-
-                //Pagination
-                $(document).on('click', '.pagination a', function(e) {
-                    e.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    fetchBeneficiaries(page);
-                });
-
-                function fetchBeneficiaries(page) {
-                    $.ajax({
-                        url: '/beneficiaries?page=' + page,
-                        success: function(data) {
-                            $('.card').html(data);
-                        }
-                    });
-                }
-            </script>
-        @endsection
+                                function fetchBeneficiaries(page) {
+                                    $.ajax({
+                                        url: '/beneficiaries?page=' + page,
+                                        success: function(data) {
+                                            $('.card').html(data);
+                                        }
+                                    });
+                                }
+                            </script>
+                        @endsection

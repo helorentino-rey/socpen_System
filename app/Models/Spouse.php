@@ -17,7 +17,7 @@ class Spouse extends Model
         'spouse_first_name',
         'spouse_middle_name',
         'spouse_name_extension',
-        // 'spouse_contact',
+        'spouse_contact',
     ];
 
     public function beneficiary()

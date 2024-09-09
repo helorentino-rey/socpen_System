@@ -135,7 +135,7 @@ Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagi
 
 //Export and Import Controller
 Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('beneficiaries.import');
-Route::get('/beneficiaries/export', [CsvController::class, 'export'])->name('beneficiaries.export');
+Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
 
 //Pdf Controller
 Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export.pdf');

@@ -201,11 +201,11 @@
                     <i class="bi bi-person-lines-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="{{ route('superadmin.notifications') }}" class="nav-link">
                     <i class="bi bi-bell-fill"></i> <span>Notifications</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a href="#" class="nav-link"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

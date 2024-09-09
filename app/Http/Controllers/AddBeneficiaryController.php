@@ -69,6 +69,7 @@ class AddBeneficiaryController extends Controller
             'spouse_first_name' => 'required|string|max:20',
             'spouse_middle_name' => 'nullable|string|max:20',
             'spouse_name_extension' => 'required|string|max:4',
+            'spouse_contact' => 'nullable|string|max:13',
 
             'spouse_address_region' => 'required|string|max:20',
             'spouse_address_province' => 'required|string|max:20',
@@ -235,6 +236,7 @@ class AddBeneficiaryController extends Controller
             'spouse_first_name' => $validatedData['spouse_first_name'],
             'spouse_middle_name' => $validatedData['spouse_middle_name'] ?? null,
             'spouse_name_extension' => $validatedData['spouse_name_extension'],
+            'spouse_contact' => $validatedData['spouse_contact'] ?? null,
         ]);
         Log::info('Spouse created for beneficiary: ' . $beneficiary->id);
 

@@ -1002,6 +1002,17 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label><strong>13. Spouse Contact Number</strong></label>
+                    <div class="form-row custom-form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="spouse_contact"></label>
+                            <input type="text" class="form-control" id="spouse_contact" name="spouse_contact"
+                                   value="{{ old('spouse_contact', $beneficiary->spouse->spouse_contact ?? '') }}">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label>CHILDREN</label>

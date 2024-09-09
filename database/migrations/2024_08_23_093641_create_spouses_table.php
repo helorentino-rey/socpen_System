@@ -19,7 +19,7 @@ class CreateSpousesTable extends Migration
             $table->string('spouse_first_name', 20)->nullable();
             $table->string('spouse_middle_name', 20)->nullable();
             $table->string('spouse_name_extension', 4)->nullable();
-            // $table->string('spouse_contact', 13);
+            $table->string('spouse_contact', 13)->nullable();
             $table->timestamps();
 
             $table->foreign('beneficiary_id')->references('id')->on('beneficiary')->onDelete('cascade');
