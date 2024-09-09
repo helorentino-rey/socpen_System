@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -488,8 +485,40 @@
                 <tr>
                     <td colspan="5">{{ $beneficiary->assessmentRecommendation->eligibility ?? 'N/A' }}</td>
                 </tr>
+                <tr>
+                    <th colspan="5">Validated by:</th>
+                </tr>
+                <tr>
+                    <td colspan="2">Signature over Printed Name<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
+                    <td colspan="2">Designation<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
+                    <td colspan="1">Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
+                </tr>
+                <tr>
+                    <th colspan="5">Econded by:</th>
+                </tr>
+                <tr>
+                    <td colspan="2">Signature over Printed Name<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
+                    <td colspan="2">Designation<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
+                    <td colspan="1">Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
+                </tr>
+                <tr>
+                    <th colspan="5">By signing this form, I grant my free and voluntary consent for the Department of Social Welfare and Development (DSWD) to collect, process, and share my personal information for the purpose of validation, eligibility test, and cross-matching to serve as the basis in granting my entitlements as a qualified beneficiary of the Social Pension for Indigent Senior Citizens (SPISC) Program. As a data subject, I understand that I have the right to be informed, access, object, block, file complaints or damages or rectify my personal information obtained, processed, or shared as well as the purpose and reason for processing or sharing this personal information.
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="5">Confirmed by:</th>
+                </tr>
+                <tr>
+                    <td colspan="2">Name of Applicant or Respondent<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
+                    <td colspan="2">Signature or Thumbmark<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
+                    <td colspan="1">Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
+                </tr>
+                <tr>
+                    <th colspan="5">DATA PRIVACY
+                        In compliance with the provisions of Republic Act No. 10173, also known as the Data Privacy Act of 2012 and its Implementing Rules and Regulations (IRR), the Department of Social Welfare and Development (DSWD) ensures that the personal information provided is collected and processed by authorized personnel and is only used for the implementation of the Social Pension for Indigent Senior Citizens (SPISC) Program as mandated under Republic Act No. 9994
+                    </th>
+                </tr>
             </table>
             <a href="{{ route('export.pdf') }}" class="btn btn-primary export-button no-print">Export to PDF</a>
         </div>
 </body>
-</html>
