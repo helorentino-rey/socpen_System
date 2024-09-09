@@ -135,15 +135,16 @@
     }
 
     .text-center {
-        font-size: 20px;
+        font-size: 25px;
         margin-top: 30px;
         font-weight: bold;
     }
 
     .soc {
         text-align: center;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: bold;
+        /* margin-bottom: 80px; */
     }
 
     .logos {
@@ -238,11 +239,12 @@
         font-weight: bold;
         background-color: #f8f9fa;
         padding: 10px;
-        text-align: left;
+        text-align: center;
         border-bottom: 2px solid #dee2e6;
     }
 
     .table td {
+        font-size: 12px;
         padding: 8px;
         border-bottom: 1px solid #dee2e6;
     }
@@ -385,7 +387,7 @@
 
     .form-group1 {
         margin-bottom: 10px;
-        margin-top: 30px;
+        margin-top: 60px;
     }
 
 
@@ -393,6 +395,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: -15px;
+        margin-inline: 0;
     }
 
 
@@ -758,17 +762,17 @@
             <div class="form-group1 row">
                 <div class="col-md-4">
                     <label class="label" for="osca_id"><strong>OSCA ID No. <span class="text-danger">*</span></strong></label>
-                    <input type="text" class="form-control1" name="osca_id" id="osca_id" required>
+                    <input type="text" class="form-control" name="osca_id" id="osca_id" required>
                 </div>
 
                 <div class="col-md-4">
                     <label class="label" for="ncsc_rrn"><strong>NCSC RRN (If Applicable)</strong></label>
-                    <input type="text" class="form-control1" name="ncsc_rrn" id="ncsc_rrn">
+                    <input type="text" class="form-control" name="ncsc_rrn" id="ncsc_rrn">
                 </div>
 
                 <div class="col-md-4">
                     <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span class="text-danger">*</span></strong></label>
-                    <input type="file" class="form-control-file1" name="profile_upload" id="profile_upload" required>
+                    <input type="file" class="form-control" name="profile_upload" id="profile_upload" required>
                 </div>
             </div>
             <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
@@ -829,7 +833,8 @@
 
             <!-- Address Section -->
             <div class="form-group mt-4">
-                <label class="label"><strong>3. Permanent Address</strong></label>
+                <label class="label">
+                    <strong>3. Permanent Address</strong> - <em>Select region first, then province, then city, and finally your barangay.</em></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         @php
@@ -886,7 +891,7 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label"><strong>4. Present Address</strong></label>
+                <label class="label"><strong>4. Present Address</strong> - <em>Select region first, then province, then city, and finally your barangay.</em></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         @php
@@ -1061,7 +1066,7 @@
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>12. Spouse Address - </strong> Select region first, then province, then city, and finally your barangay</label>
+                <label class="label"><strong>12. Spouse Address</strong> - <em>Select region first, then province, then city, and finally your barangay.</em></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
@@ -1140,7 +1145,7 @@
                             </td>
                             <td>
                                 <select class="form-control" name="children[0][civil_status]">
-                                    <option value="">Civil Status</option>
+                                    <option value="">Select</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                     <option value="Widowed">Widowed</option>
@@ -1173,7 +1178,7 @@
                             <td><input type="text" class="form-control" name="representatives[0][name]"></td>
                             <td>
                                 <select class="form-control" name="representatives[0][civil_status]">
-                                    <option value="">Civil Status</option>
+                                    <option value="Select">Select</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                     <option value="Widowed">Widowed</option>

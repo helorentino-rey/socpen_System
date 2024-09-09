@@ -876,6 +876,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label><strong>13. Contact Number</strong></label>
+                        <div class="form-row custom-form-row">
+                            <div class="col-md-3 mb-3">
+                                <label for="spouse_contact"></label>
+                                <input type="text" class="form-control" id="spouse_contact" name="spouse_contact">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>CHILDREN</label>
                         <table class="table table-bordered" id="children_table">
                             <thead>

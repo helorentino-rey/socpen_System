@@ -21,8 +21,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        return Beneficiary::with([
-            'child',
+        $query = Beneficiary::with('child',
             'representative',
             'beneficiaryInfo',
             'mothersMaidenName',
@@ -35,8 +34,21 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'economicInformation',
             'healthInformation',
             'housingLivingStatus',
-            'spouse'
-        ]);
+            'spouse');
+
+        if ($this->request->has('age') && $this->request->age) {
+            $query->whereHas('beneficiaryInfo', function ($q) {
+                $q->where('age', '>=', $this->request->age);
+            });
+        }
+
+        if ($this->request->has('province') && $this->request->province) {
+            $query->whereHas('presentAddress', function ($q) {
+                $q->where('province', $this->request->province);
+            });
+        }
+
+        return $query;
     }
 
     public function headings(): array
@@ -83,6 +95,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'Spouse First Name',
             'Spouse Middle Name',
             'Spouse Name Extension',
+            'Spouse Contact Number',
 
             'Spouse Address Region',
             'Spouse Address Province',
@@ -111,6 +124,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'House Status Others Input',
             'Living Status',
             'Living Status Others Input',
+
             'Receiving Pension',
             'Pension Amount',
             'Pension Source',
@@ -188,6 +202,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'spouse_first_name' => $beneficiary->spouse->spouse_first_name ?? 'N/A',
             'spouse_middle_name' => $beneficiary->spouse->spouse_middle_name ?? 'N/A',
             'spouse_name_extension' => $beneficiary->spouse->spouse_name_extension ?? 'N/A',
+            'spouse_contact' => $beneficiary->spouse->spouse_contact ?? 'N/A',
 
             'spouse_address_region' => $beneficiary->spouseAddress->region ?? 'N/A',
             'spouse_address_province' => $beneficiary->spouseAddress->province ?? 'N/A',

@@ -13,6 +13,12 @@ class CsvController extends Controller
     public function export(Request $request)
     {
         $filename = $request->input('filename', 'beneficiaries.csv'); // Default to 'beneficiaries.csv' if no filename is provided
+    
+        // Ensure the filename ends with '.csv'
+        if (pathinfo($filename, PATHINFO_EXTENSION) !== 'csv') {
+            $filename .= '.csv';
+        }
+    
         return (new BeneficiariesExport($request))->download($filename);
     }
 }
