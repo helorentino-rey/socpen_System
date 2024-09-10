@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Admin Dashboard</title>
+    <title>Super Admin Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
@@ -180,10 +180,11 @@
     <div class="sidebar d-flex flex-column" id="sidebar">
         <div class="profile-pic"></div>
         <div class="profile-name">Super Admin</div>
+
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('superadmin.dashboard') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
+                    <i class="bi bi-house-door-fill"></i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -201,11 +202,6 @@
                     <i class="bi bi-person-lines-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
-            {{-- <li class="nav-item">
-                <a href="{{ route('superadmin.notifications') }}" class="nav-link">
-                    <i class="bi bi-bell-fill"></i> <span>Notifications</span>
-                </a>
-            </li> --}}
             <li class="nav-item">
                 <a href="#" class="nav-link"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

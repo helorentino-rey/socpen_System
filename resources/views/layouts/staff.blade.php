@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard')</title>
+    <title>Staff Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -96,44 +96,15 @@
             white-space: nowrap;
         }
 
-        .sidebar.retracted .nav-link {
-            justify-content: center;
-            padding: 10px 0;
-            margin-left: 10px;
-            /* Adjusted margin to align icons */
-        }
-
-        .sidebar .nav-link:hover {
-            background-color: white;
-            /* Hover color for expanded sidebar */
-            color: #1C4CB1;
-            /* Change text color for better visibility on white background */
-        }
-
-        .sidebar.retracted .nav-link:hover {
-            background-color: #567be9;
-            /* Hover color for retracted sidebar */
-        }
-
-        .sidebar.retracted .nav-link:hover i {
-            color: #567be9;
-            /* Match the hover color of the retracted sidebar */
-            background-color: #fff;
-            border-radius: 8px;
-            /* Larger square for retracted sidebar */
-            padding: 8px;
-            /* Increase padding for the hover effect */
-            display: inline-block;
-        }
-
         .sidebar .nav-link i {
             width: 30px;
             text-align: center;
             flex-shrink: 0;
+            transition: font-size 0.3s;
         }
 
         .sidebar.retracted .nav-link i {
-            width: auto;
+            font-size: 20px;
         }
 
         .sidebar .nav-link span {
@@ -150,6 +121,35 @@
             transform: translateX(-100%);
         }
 
+        .sidebar.retracted .nav-link {
+            padding-left: 15px;
+            justify-content: center;
+        }
+
+        /* Hover effect for expanded sidebar */
+        .sidebar .nav-link:hover {
+            background-color: #567be9;
+        }
+
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link:hover span {
+            color: #fff;
+        }
+
+        /* Hover effect for retracted sidebar */
+        .sidebar.retracted .nav-link:hover {
+            background-color: transparent;
+        }
+
+        .sidebar.retracted .nav-link:hover i {
+            background-color: #567be9;
+            border-radius: 50%;
+        }
+
+        .sidebar.retracted .nav-link:hover span {
+            background-color: transparent;
+        }
+
         .content {
             margin-left: 250px;
             padding: 20px;
@@ -158,25 +158,6 @@
 
         .content.retracted {
             margin-left: 80px;
-        }
-
-        .card {
-            border-left: 4px solid #1C4CB1;
-        }
-
-        .card-title {
-            font-weight: bold;
-        }
-
-        .logo {
-            width: 150px;
-            margin: 20px auto;
-            display: block;
-        }
-
-        .search-bar {
-            margin-top: 20px;
-            margin-bottom: 20px;
         }
 
         .plus-button {
@@ -235,12 +216,12 @@
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('staff.dashboard') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
+                    <i class="bi bi-house-door-fill"></i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('staff.listBeneficiary') }}" class="nav-link">
-                    <i class="bi bi-people-fill"></i> <span>List of Beneficiaries</span>
+                <a href="{{ route('staff.beneficiaries.list') }}" class="nav-link">
+                    <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
             <li class="nav-item">

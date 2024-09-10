@@ -38,7 +38,7 @@ class StaffController extends Controller
             'status' => 'pending', // Set status to pending
         ]);
         // Redirect to the landing page with a success message
-        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
+        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting super admin approval.');
     }
 
     public function show($id)
@@ -84,13 +84,22 @@ class StaffController extends Controller
         return view('livewire.staff.dashboard', compact('profilePicUrl', 'firstName'));
     }
 
-    public function listBeneficiary()
+    public function list()
     {
         $data = $this->show(Auth::id());
         $profilePicUrl = $data['image_url'];
         $firstName = $data['firstname'];
 
-        return view('livewire.staff.listbeneficiary', compact('profilePicUrl', 'firstName'));
+        return view('livewire.staff.beneficiaries.list', compact('profilePicUrl', 'firstName'));
+    }
+
+    public function create()
+    {
+        $data = $this->show(Auth::id());
+        $profilePicUrl = $data['image_url'];
+        $firstName = $data['firstname'];
+
+        return view('livewire.staff.beneficiaries.create', compact('profilePicUrl', 'firstName'));
     }
 
 

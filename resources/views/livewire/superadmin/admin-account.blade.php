@@ -12,7 +12,7 @@
     @endif
 
     <!-- Main Content -->
-    <div id="main-content" class="col-md-10 content">
+    <div id="main-content" class="col-mb-10 content">
         <button class="btn btn-primary float-end mb-3" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add New</button>
     </div>
 

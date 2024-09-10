@@ -86,6 +86,8 @@ Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployee
 
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
 Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
+Route::get('/beneficiary/create', [StaffController::class, 'create'])->name('staff.beneficiaries.create');
+Route::get('/beneficiary/list', [StaffController::class, 'list'])->name('staff.beneficiaries.list');
 Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
 Route::post('/staff/update', [StaffController::class, 'updateStaffInformation'])->name('staff.update');
 Route::post('/staff/update-password', [StaffController::class, 'updatePassword'])->name('staff.updatePassword');
@@ -125,6 +127,8 @@ Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->
 Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
 Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
 Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('beneficiaries.search');
+Route::get('/searchStaff', [AddBeneficiaryController::class, 'searchStaff'])->name('beneficiary.search');
+Route::get('/searchSuper', [AddBeneficiaryController::class, 'searchSuper'])->name('benefi.search');
 
 //Edit and Display Beneficiary Controller
 Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->name('layouts.edit');

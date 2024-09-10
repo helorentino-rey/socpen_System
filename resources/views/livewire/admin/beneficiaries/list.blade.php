@@ -97,25 +97,33 @@
         }
     </style>
 
-       <!-- Top nav bar -->
-       <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4" style="border: 1px solid black;">
+    <!-- Top nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4" style="border: 1px solid black;">
         <div class="container-fluid">
             <div class="navbar-brand" style="color: black;">Beneficiary</div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="{{ route('admin.beneficiaries.list') }}" class="nav-link" style="color: black;">List
-                            of Beneficiaries</a>
+                        <a href="{{ route('admin.beneficiaries.list') }}" class="nav-link" style="color: black;">
+                            List of Beneficiaries
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.beneficiaries.create') }}" class="nav-link" style="color: black;">Add
-                            Beneficiary</a>
+                        <a href="{{ route('admin.beneficiaries.create') }}" class="nav-link" style="color: black;">
+                            Add Beneficiary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
+                            data-bs-target="#exportModal">
+                            <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     <div class="my-5 px-4">
         <div class="card shadow-sm p-4 rounded">
 
@@ -240,6 +248,24 @@
                 </tbody>
             </table>
 
+            <!-- Modal to Display Beneficiary Information -->
+            <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
+                                Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Pagination -->
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
                 <ul class="pagination">
@@ -247,24 +273,63 @@
                 </ul>
             </nav>
 
-            <!-- Floating Button -->
-            <button type="submit" class="btn btn-primary rounded-circle shadow-lg position-fixed"
-                style="bottom: 20px; right: 20px;">
-                <i class="bi bi-plus-lg"></i>
-            </button>
-
-            <!-- Modal to Display Beneficiary Information -->
-            <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
+            <!-- Export Modal -->
+            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-lg">
+                <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner Information</h5>
+                            <h5 class="modal-title" id="exportModalLabel">Export Beneficiaries</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="{{ route('beneficiaries.export') }}" method="GET">
+                                <div class="alert alert-info" role="alert">
+                                    If you want to export everything, just add a filename and click export.
+                                </div>
+                                <div class="mb-2">
+                                    <label for="filename">Filename</label>
+                                    <input type="text" id="filename" name="filename" placeholder="Enter filename"
+                                        class="form-control" required>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="province">Province</label>
+                                    <select id="province" name="province" class="form-control">
+                                        <option value="">All Provinces</option>
+                                        <!-- Add options for provinces here -->
+                                        <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
+                                        <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
+                                        <option value="DAVAO ORIENTAL">DAVAO ORIENTAL</option>
+                                        <option value="DAVAO DE ORO">DAVAO DE ORO</option>
+                                        <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
+                                        <!-- Add more provinces as needed -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Export</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <!-- Content will be populated by JavaScript -->
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -276,6 +341,12 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
             <script>
+                //Display Error Modal
+                @if (session('error'))
+                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+                @endif
+
                 //Display Beneficiary Information Modal
                 $(document).ready(function() {
                     $('.beneficiary-name').click(function(e) {

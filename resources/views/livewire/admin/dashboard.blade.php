@@ -1,156 +1,161 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard')
-
 @section('content')
+    <style>
+        /* Search Bar */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Dashboard</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        .beneficiary-status {
+            margin-left: auto;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+    </style>
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f8f9fa;
-            }
+    <!-- Main Content -->
+    <div class="content text-center" id="content"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+        <!-- DSWD Logo and Title -->
+        <div class="mt-5">
+            <img src="{{ asset('path/to/logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
+            <img src="{{ asset('path/to/logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
+        </div>
+        <h1 class="mt-3" style="font-weight: bold; color: #1C4CB1; font-size: 2.5rem;">
+            SOCIAL PENSION UNIT
+        </h1>
 
-
-
-            .content {
-                margin-left: 250px;
-                padding: 20px;
-                transition: margin-left 0.3s;
-            }
-
-            .content.retracted {
-                margin-left: 80px;
-            }
-
-            .card {
-                border-left: 4px solid #1C4CB1;
-            }
-
-            .card-title {
-                font-weight: bold;
-            }
-
-            .logo {
-                width: 150px;
-                margin: 20px auto;
-                display: block;
-            }
-
-            .search-bar {
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-
-            .plus-button {
-                position: absolute;
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                background-color: #1C4CB1;
-                border-radius: 50%;
-                color: white;
-                text-align: center;
-                line-height: 50px;
-                font-size: 24px;
-                cursor: pointer;
-            }
-
-            .toggle-button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                right: -15px;
-                width: 30px;
-                height: 30px;
-                background-color: #1C4CB1;
-                border-radius: 50%;
-                color: white;
-                text-align: center;
-                line-height: 30px;
-                cursor: pointer;
-                font-size: 16px;
-            }
-        </style>
-
-    </head>
-
-    <body>
-
-        <!-- Main Content -->
-        <div class="content" id="content">
-
-            <h1>Department of Social Welfare and Development</h1>
-            <input type="text" class="form-control search-bar" placeholder="Search Beneficiaries">
-
-            <!-- Bootstrap Card Example -->
-            <div class="row">
-                <div class="col-xl-3 col-md-6 mb-4 text-center">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1 card-title">
-                                        Approved Beneficiaries
-                                    </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-person-check-fill fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-md-6 mb-4 text-center">
-                    <div class="card border-left-info shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-uppercase mb-1 card-title">
-                                        Pending Beneficiaries
-                                    </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="bi bi-person-dash-fill fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add more cards as needed -->
+        <!-- Search Bar -->
+        <div class="search-bar mt-4" style="width: 60%; max-width: 800px;">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1"
+                    style="background-color: white; border-radius: 50px 0 0 50px; border-right: none;">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" id="beneficiary-search" class="form-control" placeholder="Search..."
+                    style="border-radius: 0 50px 50px 0; border-left: none;">
             </div>
+            <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 37%;"></div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            document.getElementById('toggleButton').addEventListener('click', function() {
-                var sidebar = document.getElementById('sidebar');
-                var content = document.getElementById('content');
-                sidebar.classList.toggle('retracted');
-                content.classList.toggle('retracted');
+        <!-- Navigation Links -->
+        <div class="mt-4 d-flex justify-content-center" style="gap: 50px;">
+            <a href="{{ route('admin.beneficiaries.list') }}" class="text-decoration-none nav-link"
+                style="font-size: 1.25rem; font-weight: 500; color: black;">
+                <span class="hover-effect">List of Beneficiaries</span>
+            </a>
+            <a href="{{ route('admin.beneficiaries.create') }}" class="text-decoration-none nav-link"
+                style="font-size: 1.25rem; font-weight: 500; color: black;">
+                <span class="hover-effect">Add Beneficiary</span>
+            </a>
+        </div>
+    </div>
 
-                var icon = this.querySelector('i');
-                if (sidebar.classList.contains('retracted')) {
-                    icon.classList.remove('bi-chevron-left');
-                    icon.classList.add('bi-chevron-right');
+    <!-- Modal to Display Beneficiary Information -->
+    <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
+                        Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        //Display Beneficiary Information Modal
+        $(document).ready(function() {
+            $('.beneficiary-name').click(function(e) {
+                e.preventDefault();
+                const beneficiaryId = $(this).data('id');
+
+                $.ajax({
+                    url: '/beneficiaries/' + beneficiaryId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#beneficiaryModal .modal-body').html(response);
+                        $('#beneficiaryModal').modal('show');
+                    },
+                    error: function() {
+                        $('#beneficiaryModal .modal-body').html(
+                            'Error loading beneficiary information.');
+                    }
+                });
+            });
+        });
+
+        // Search for a Beneficiary
+        $(document).ready(function() {
+            $('#beneficiary-search').on('keyup', function() {
+                const query = $(this).val();
+
+                if (query.length > 2) {
+                    $.ajax({
+                        url: '{{ route('benefi.search') }}',
+                        method: 'GET',
+                        data: {
+                            query: query
+                        },
+                        success: function(data) {
+                            let searchResults = $('#search-results');
+                            searchResults.empty();
+
+                            if (data.length > 0) {
+                                data.forEach(function(beneficiary) {
+                                    searchResults.append(`
+                                        <a href="#" class="list-group-item list-group-item-action beneficiary-item" data-id="${beneficiary.id}">
+                                            <span class="beneficiary-name">${beneficiary.name}</span>
+                                            <span class="beneficiary-status">${beneficiary.status}</span>
+                                        </a>
+                                    `);
+                                });
+                            } else {
+                                searchResults.append(
+                                    '<div class="list-group-item">No results found</div>');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX Error: ' + status + error);
+                        }
+                    });
                 } else {
-                    icon.classList.remove('bi-chevron-right');
-                    icon.classList.add('bi-chevron-left');
+                    $('#search-results').empty();
                 }
             });
-        </script>
 
-    </body>
+            // Handle click on a search result
+            $(document).on('click', '.beneficiary-item', function(e) {
+                e.preventDefault();
+                const beneficiaryId = $(this).data('id');
 
-    </html>
+                $.ajax({
+                    url: '/beneficiaries/' + beneficiaryId,
+                    type: 'GET',
+                    success: function(response) {
+                        $('#beneficiaryModal .modal-body').html(response);
+                        $('#beneficiaryModal').modal('show');
+                    },
+                    error: function() {
+                        $('#beneficiaryModal .modal-body').html(
+                            'Error loading beneficiary information.');
+                    }
+                });
+
+                $('#search-results').empty();
+                $('#beneficiary-search').val(''); // Clear the search input
+            });
+        });
+    </script>
+@endsection

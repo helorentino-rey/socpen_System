@@ -397,7 +397,7 @@ class AddBeneficiaryController extends Controller
         return view('layouts.show', compact('beneficiary'));
     }
 
-    //Search
+    //Search in file
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -424,5 +424,63 @@ class AddBeneficiaryController extends Controller
 
         // If not an AJAX request, render the view
         return view('layouts.file', compact('beneficiaries'));
+    }
+
+    //Search in Staff Dashboard
+    public function searchStaff(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Use whereHas to search within related BeneficiaryInfo model
+        $beneficiaries = Beneficiary::whereHas('beneficiaryInfo', function ($q) use ($query) {
+            $q->where('last_name', 'LIKE', "%{$query}%")
+                ->orWhere('first_name', 'LIKE', "%{$query}%")
+                ->orWhere('middle_name', 'LIKE', "%{$query}%");
+        })->get();
+
+        // If the request is AJAX, return a JSON response
+        if ($request->ajax()) {
+            $response = $beneficiaries->map(function ($beneficiary) {
+                return [
+                    'id' => $beneficiary->id,
+                    'name' => "{$beneficiary->beneficiaryInfo->last_name}, {$beneficiary->beneficiaryInfo->first_name} {$beneficiary->beneficiaryInfo->middle_name}",
+                    'status' => $beneficiary->status, // Include status in the response
+                ];
+            });
+
+            return response()->json($response);
+        }
+
+        // If not an AJAX request, render the view
+        return view('livewire.staff.dashboard', compact('beneficiaries'));
+    }
+
+    //Search in Super admin Dashboard
+    public function searchSuper(Request $request)
+    {
+        $query = $request->input('query');
+    
+        // Use whereHas to search within related BeneficiaryInfo model
+        $beneficiaries = Beneficiary::whereHas('beneficiaryInfo', function ($q) use ($query) {
+            $q->where('last_name', 'LIKE', "%{$query}%")
+                ->orWhere('first_name', 'LIKE', "%{$query}%")
+                ->orWhere('middle_name', 'LIKE', "%{$query}%");
+        })->get();
+    
+        // If the request is AJAX, return a JSON response
+        if ($request->ajax()) {
+            $response = $beneficiaries->map(function ($beneficiary) {
+                return [
+                    'id' => $beneficiary->id,
+                    'name' => "{$beneficiary->beneficiaryInfo->last_name}, {$beneficiary->beneficiaryInfo->first_name} {$beneficiary->beneficiaryInfo->middle_name}",
+                    'status' => $beneficiary->status, // Include status in the response
+                ];
+            });
+    
+            return response()->json($response);
+        }
+    
+        // If not an AJAX request, render the view
+        return view('livewire.superadmin.dashboard', compact('beneficiaries'));
     }
 }

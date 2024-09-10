@@ -56,7 +56,7 @@ class RegistrationController extends Controller
         // Save staff record
         $staff->save();
 
-        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting admin approval.');
+        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting super admin approval.');
     }
 
     public function checkEmail(Request $request)

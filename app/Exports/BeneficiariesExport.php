@@ -36,12 +36,6 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'housingLivingStatus',
             'spouse');
 
-        if ($this->request->has('age') && $this->request->age) {
-            $query->whereHas('beneficiaryInfo', function ($q) {
-                $q->where('age', '>=', $this->request->age);
-            });
-        }
-
         if ($this->request->has('province') && $this->request->province) {
             $query->whereHas('presentAddress', function ($q) {
                 $q->where('province', $this->request->province);
