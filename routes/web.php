@@ -13,7 +13,13 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\getAddressOptions;
-use App\Http\Controllers\OtpController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ShowAddressController;
+use App\Http\Controllers\AddBeneficiaryController;
+use App\Http\Controllers\EditBeneficiaryController;
+use App\Http\Controllers\PaginationController;
+use App\Http\Controllers\CsvController;
+use App\Http\Controllers\PDFController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -55,21 +61,44 @@ Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::c
 Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
 Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
 
-//Staff Register
-Route::post('new-register', function () {
-    return view('livewire.staff.register');
-})->name('new-register');
+//Super Admin Beneficiary Controller
+Route::get('/superadmin/beneficiaries/approve', [SuperAdminDashboardController::class, 'approve'])->name('superadmin.beneficiaries.approve');
+Route::get('/superadmin/beneficiaries/create', [SuperAdminDashboardController::class, 'create'])->name('superadmin.beneficiaries.create');
+Route::get('/superadmin/beneficiaries/list', [SuperAdminDashboardController::class, 'list'])->name('superadmin.beneficiaries.list');
+// Route::get('/superadmin/beneficiaries/export', [SuperAdminDashboardController::class, 'export'])->name('superadmin.beneficiaries.export');
 
-//Route to Save in the Database
-Route::post('/register', [StaffController::class, 'store'])->name('register.submit');
+//Route for Address
+Route::get('/address/provinces/{region_psgc}', [AddressController::class, 'getProvinces']);
+Route::get('/address/cities/{provincePsgc}', [AddressController::class, 'getCities']);
+Route::get('/address/barangays/{citymuni_psgc}', [AddressController::class, 'getBarangays']);
+Route::get('/address/create', [AddressController::class, 'create']);
+
+//Routes Address for Show
+Route::get('/get-provinces', [ShowAddressController::class, 'getProvinces'])->name('getProvinces');
+Route::get('/get-cities', [ShowAddressController::class, 'getCities'])->name('getCities');
+Route::get('/get-barangays', [ShowAddressController::class, 'getBarangays'])->name('getBarangays');
+
+//Staff Register Controller
+Route::get('/register', [RegistrationController::class, 'register'])->name('new-register');
+Route::post('/register', [RegistrationController::class, 'registerSubmit'])->name('register.submit');
+Route::post('/check-email', [RegistrationController::class, 'checkEmail'])->name('check-email');
+Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId'])->name('check-employee-id');
+
+Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
+Route::get('/beneficiary/create', [StaffController::class, 'create'])->name('staff.beneficiaries.create');
+Route::get('/beneficiary/list', [StaffController::class, 'list'])->name('staff.beneficiaries.list');
+Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
+Route::post('/staff/update', [StaffController::class, 'updateStaffInformation'])->name('staff.update');
+Route::post('/staff/update-password', [StaffController::class, 'updatePassword'])->name('staff.updatePassword');
 
 //Route for Check Email Duplication in Staff Registration
 Route::post('/check-email', [RegistrationController::class, 'checkEmail']);
 Route::post('/check-employee-id', [RegistrationController::class, 'checkEmployeeId']);
 
-//Route for Dashboard
+//Route for Admin Dashboard
 Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name('admin.dashboard');
-Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
+// Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
 Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
 Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
@@ -92,14 +121,25 @@ Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name(
 Route::put('/admin/toggle-status/{id}', [AdminController::class, 'toggleAdminStatus'])->name('admin.toggleStatus');
 Route::put('/admin/reset-password/{id}', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
 
+//Add, Search and Modal Display Beneficiary Controller
+Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('add.submit');
+Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');
+Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
+Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
+Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('beneficiaries.search');
+Route::get('/searchStaff', [AddBeneficiaryController::class, 'searchStaff'])->name('beneficiary.search');
+Route::get('/searchSuper', [AddBeneficiaryController::class, 'searchSuper'])->name('benefi.search');
 
-//Route for the Staff Dashboard
-Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-Route::get('/staff/listBeneficiary', [StaffController::class, 'listBeneficiary'])->name('staff.listBeneficiary');
-Route::get('/staff/staffInformation', [StaffController::class, 'staffInformation'])->name('staff.staffInformation');
+//Edit and Display Beneficiary Controller
+Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->name('layouts.edit');
+Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])->name('beneficiaries.update');
 
-//for creating beneficiary
-Route::get('/api/provinces/{regionId}', [GetAddressOptions::class, 'getProvincesByRegion']);
-Route::get('/api/cities/{provinceId}', [GetAddressOptions::class, 'getCitiesByProvince']);
-Route::get('/api/barangays/{cityId}', [GetAddressOptions::class, 'getBarangaysByCity']);
-Route::get('/api/houses/{barangayId}', [GetAddressOptions::class, 'getHousesByBarangay']);
+//Pagination Controller
+Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagination.list');
+
+//Export and Import Controller
+Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('beneficiaries.import');
+Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
+
+//Pdf Controller
+Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export.pdf');

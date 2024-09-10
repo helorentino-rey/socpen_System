@@ -21,7 +21,7 @@ class RegistrationController extends Controller
             'employee_id.unique' => 'The employee ID has already been taken.',
         ];
 
-        $validatedData = $request->validate([  
+        $validatedData = $request->validate([
             'lastname' => 'required|string|max:15',
             'firstname' => 'required|string|max:15',
             'middlename' => 'nullable|string|max:15',
@@ -39,18 +39,6 @@ class RegistrationController extends Controller
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], $messages);
 
-        // Check for existing email and employee ID
-        $existingEmail = Staff::where('email', $request->email)->first();
-        $existingEmployeeId = Staff::where('employee_id', $request->employee_id)->first();
-
-        if ($existingEmail) {
-            return back()->withErrors(['email' => 'The email address has already been taken.'])->withInput();
-        }
-
-        if ($existingEmployeeId) {
-            return back()->withErrors(['employee_id' => 'The employee ID has already been taken.'])->withInput();
-        }
-
         // Create new staff instance
         $staff = new Staff();
         $staff->fill($validatedData);
@@ -62,10 +50,13 @@ class RegistrationController extends Controller
             $staff->profile_picture = $path;
         }
 
+        // Set status to pending
+        $staff->status = 'pending';
+
         // Save staff record
         $staff->save();
 
-        return redirect()->route('register.success');
+        return redirect()->route('landing-page')->with('success', 'Registration successful. Awaiting super admin approval.');
     }
 
     public function checkEmail(Request $request)

@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard')</title>
+    <title>@yield('title', 'Admin Page')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -65,14 +65,17 @@
             position: relative;
             overflow: hidden;
             white-space: nowrap;
-            /* Ensure text stays on one line */
         }
 
         .sidebar .nav-link i {
             width: 30px;
             text-align: center;
             flex-shrink: 0;
-            /* Prevent icon from shrinking */
+            transition: font-size 0.3s;
+        }
+
+        .sidebar.retracted .nav-link i {
+            font-size: 20px;
         }
 
         .sidebar .nav-link span {
@@ -80,7 +83,6 @@
             margin-left: 10px;
             opacity: 1;
             flex-grow: 1;
-            /* Allow the text to grow within the available space */
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -92,11 +94,31 @@
 
         .sidebar.retracted .nav-link {
             padding-left: 15px;
-            /* Ensure icon is still aligned correctly */
+            justify-content: center;
         }
 
+        /* Hover effect for expanded sidebar */
         .sidebar .nav-link:hover {
             background-color: #567be9;
+        }
+
+        .sidebar .nav-link:hover i,
+        .sidebar .nav-link:hover span {
+            color: #fff;
+        }
+
+        /* Hover effect for retracted sidebar */
+        .sidebar.retracted .nav-link:hover {
+            background-color: transparent;
+        }
+
+        .sidebar.retracted .nav-link:hover i {
+            background-color: #567be9;
+            border-radius: 50%;
+        }
+
+        .sidebar.retracted .nav-link:hover span {
+            background-color: transparent;
         }
 
         .content {
@@ -175,7 +197,7 @@
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link">
-                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
+                    <i class="bi bi-house-door-fill"></i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -183,11 +205,6 @@
                     <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('admin.account') }}" class="nav-link">
-                    <i class="bi bi-info-circle-fill"></i> <span>Account Information</span>
-                </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link"

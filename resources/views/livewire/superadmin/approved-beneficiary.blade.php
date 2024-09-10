@@ -1,7 +1,5 @@
-@extends('layouts.superadmin')
+
+@extends('layouts.beneficiary')
 
 @section('title', 'Approved Beneficiary')
-@section('content')
-    <h1>Approved Beneficiary</h1>
-    <!-- Search Beneficiaries content -->
-@endsection
+@include('layouts.file')
