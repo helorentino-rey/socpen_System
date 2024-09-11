@@ -8,8 +8,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PDFController extends Controller
 {
-
-    // Display the form
     public function show($id)
     {
         $beneficiary = Beneficiary::with([
@@ -36,7 +34,26 @@ class PDFController extends Controller
 
     public function export()
     {
-        $pdf = PDF::loadView('layouts.form');
+        $beneficiary = Beneficiary::with([
+            'addresses',
+            'affiliation',
+            'assessmentRecommendation',
+            'beneficiaryInfo',
+            'caregiver',
+            'child',
+            'economicInformation',
+            'healthInformation',
+            'housingLivingStatus',
+            'mothersMaidenName',
+            'representative',
+            'spouse',
+        ])->first(); // Fetch the first beneficiary
+    
+        if (!$beneficiary) {
+            return response()->json(['error' => 'Beneficiary not found'], 404);
+        }
+    
+        $pdf = PDF::loadView('layouts.form', compact('beneficiary'));
         return $pdf->stream('social_pension_validation_form.pdf');
     }
 }

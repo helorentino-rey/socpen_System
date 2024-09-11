@@ -17,11 +17,16 @@
             padding: 0;
         }
 
+        @media print {
+            .no-print {
+                display: none;
+            }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-
+    }
         .header {
             display: flex;
             justify-content: space-between;
@@ -262,12 +267,20 @@
                 <!-- Picture Upload Section -->
                 @if ($beneficiary->profile_upload)
                     <div class="picture-frame">
-                        <span>1x1 picture</span>
+                        {{-- <span>1x1 picture</span> --}}
                         <img src="{{ asset('storage/' . $beneficiary->profile_upload) }}" alt="Profile Photo">
                     </div>
                 @endif
             </div>
         </div>
+
+        {{-- Marc ang header diri na Province and City Municipality --}}
+        <td>City/Municipality (Lungsod):
+            <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}</span>
+        </td>
+        <td>Province (Lalawigan):
+            <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}</span>
+        </td>
 
         <!-- Form Section -->
         <div class="container mt-5">
@@ -276,8 +289,9 @@
             <table class="table">
                 <tr>
                     <td colspan="3"><strong>OSCA ID No.:</strong> {{ $beneficiary->osca_id }}</td>
-                    <td colspan="2"><strong>NCSC RRN:</strong> {{ $beneficiary->ncsc_rrn }}</td>
+                    <td colspan="2"><strong>NCSC RRN: (if Applicable)</strong> {{ $beneficiary->ncsc_rrn }}</td>
                 </tr>
+
                 <tr>
                     <th colspan="5">NAME (Pangalan):</th>
                 </tr>
@@ -293,6 +307,7 @@
                     <td colspan="1">Ext. (Jr., II): <span>{{ $beneficiary->BeneficiaryInfo->name_extension }}</span>
                     </td>
                 </tr>
+
                 <tr>
                     <th colspan="5">MOTHER'S MAIDEN NAME (Pangalan ng Ina sa Pagkadalaga):</th>
                 </tr>
@@ -307,6 +322,7 @@
                         <span>{{ $beneficiary->MothersMaidenName->mother_middle_name }}</span>
                     </td>
                 </tr>
+
                 <tr>
                     <th colspan="5">PERMANENT ADDRESS (Permanenting Tirahan):</th>
                 </tr>
@@ -327,6 +343,7 @@
                         <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->region ?? 'N/A' }}</span>
                     </td>
                 </tr>
+
                 <tr>
                     <th colspan="5">PRESENT ADDRESS (Kasalukuyang Tirahan):</th>
                 </tr>
@@ -347,6 +364,7 @@
                         <span>{{ $beneficiary->addresses->where('type', 'present')->first()->region ?? 'N/A' }}</span>
                     </td>
                 </tr>
+
                 <tr>
                     <th colspan="1">DATE OF BIRTH (Araw ng Kapanganakan):</th>
                     <th colspan="4">PLACE OF BIRTH (Lugar ng Kapanganakan):</th>
@@ -361,6 +379,7 @@
                     <td colspan="2">Province
                         (Lalawigan)<span>{{ $beneficiary->MothersMaidenName->place_of_birth_province }}</span></td>
                 </tr>
+
                 <tr>
                     <th colspan="1">AGE (Edad):</th>
                     <th colspan="1">SEX (Kasarian):</th>
@@ -371,6 +390,7 @@
                     <td colspan="1"><span>{{ $beneficiary->MothersMaidenName->sex }}</span></td>
                     <td colspan="3"><span>{{ $beneficiary->MothersMaidenName->civil_status }}</span></td>
                 </tr>
+
                 <tr>
                     <th colspan="5">AFFILIATION (Pagkakaugnay):</th>
                 </tr>
@@ -404,14 +424,31 @@
                         <span>{{ $beneficiary->spouse->spouse_name_extension ?? 'N/A' }}</span>
                     </td>
                 </tr>
+
                 <tr>
-                    <th colspan="3">ADDRESS (Tirahan):</th>
-                    <th colspan="2">CONTACT NUMBER (Numero ng Telepono):</th>
-                </tr>
-                <tr>
+                    <th colspan="5">ADDRESS (Tirahan):</th>
+                     <tr>
+                    <td>Sitio/House No./Purok/Street:
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>
+                    </td>
+                    <td>Barangay:
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->barangay ?? 'N/A' }}</span>
+                    </td>
+                    <td>City/Municipality (Lungsod):
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->city ?? 'N/A' }}</span>
+                    </td>
+                    <td>Province (Lalawigan):
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_addresst')->first()->province ?? 'N/A' }}</span>
+                    </td>
+                    <td>Region (Rehiyon):
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
+                    </td>
                     <td colspan="1"><span></span></td>
-                    <td colspan="1"><span></span></td>
                 </tr>
+                <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
+                    <span>{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</span>
+                </td>
+               
                 <tr>
                     <th colspan="5">CHILDREN (Mga Anak):</th>
                 </tr>
@@ -435,7 +472,7 @@
                         <td colspan="3">NAME(Pangalan):
                             <span>{{ $representative->representative_name ?? 'N/A' }}</span>
                         </td>
-                        <td colspan="1">CIVIL STATUS(Katayuang Sibil):
+                        <td colspan="1">RELATIONSHIP(Relasyon sa Benepisyaryo):
                             <span>{{ $representative->representative_civil_status ?? 'N/A' }}</span>
                         </td>
                         <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
@@ -444,36 +481,17 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th colspan="5">NAME OF CAREGIVER (Pangalan ng Tagapag-alaga):</th>
-                </tr>
-                <tr>
-                    <td>Last Name (Apelyido): <span>{{ $beneficiary->caregiver->caregiver_last_name ?? 'N/A' }}</span>
-                    </td>
-                    <td>First Name (Unang Pangalan): <span>
-                            {{ $beneficiary->caregiver->caregiver_first_name ?? 'N/A' }}</span></td>
-                    <td>Middle Name (Gitnang Pangalan):
-                        <span>{{ $beneficiary->caregiver->caregiver_middle_name ?? 'N/A' }}</span>
-                    </td>
-                    <td>Ext. (Jr., II): <span>{{ $beneficiary->caregiver->caregiver_name_extension ?? 'N/A' }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="3">RELATIONSHIP (Relasyon sa Benepisyaryo):</th>
-                    <th colspan="2">CONTACT NUMBER (Numero ng telepono):</th>
-                </tr>
-                <tr>
-                    <td colspan="3"><span>{{ $beneficiary->caregiver->caregiver_relationship ?? 'N/A' }}</span></td>
-                    <td colspan="2"><span>{{ $beneficiary->caregiver->caregiver_contact ?? 'N/A' }}</span></td>
-                </tr>
-                <tr>
                     <th colspan="5">LIVING ARRANGEMENT (Kaayusan sa Pamumuhay Anak):</th>
                 </tr>
                 <tr>
                     <td colspan="3">Housing Situation(Sitwasyon ng Pamamahay):
                         <span>{{ $beneficiary->housingLivingStatus->house_status ?? 'N/A' }}</span>
+                        <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A'}}</span>
                     </td>
+
                     <td colspan="2">Living Arrangement (kaayusan sa pamumuhay):
                         <span>{{ $beneficiary->housingLivingStatus->living_status ?? 'N/A' }}</span>
+                        {{ $beneficiary->housingLivingStatus->living_status_others_input ?? 'N/A' }}</span>
                     </td>
                 </tr>
             </table>
@@ -624,206 +642,7 @@
                     </th>
                 </tr>
             </table>
-            {{-- <a href="{{ route('export.pdf') }}" class="btn btn-primary export-button no-print">Export to PDF</a> --}}
         </div>
 
-        <!-- Existing body content -->
-
-        <button onclick="generatePDF()" class="export-button no-print">Export to PDF</button>
-
-        <script>
-            function generatePDF() {
-                const {
-                    jsPDF
-                } = window.jspdf;
-                const exportButton = document.querySelector('.export-button');
-
-                // Hide the export button
-                exportButton.style.display = 'none';
-
-                // Create a new jsPDF instance
-                const pdf = new jsPDF('p', 'mm', 'a4');
-
-                // Load images
-                const dswdLogo = new Image();
-                dswdLogo.src = '{{ public_path('img/DSWDColored.png') }}';
-                const socialPensionLogo = new Image();
-                socialPensionLogo.src = '{{ public_path('img/social-pension-logo.png') }}';
-                const bagongPilipinasLogo = new Image();
-                bagongPilipinasLogo.src = '{{ public_path('img/BagongPilipinas.png') }}';
-
-                dswdLogo.onload = function() {
-                    socialPensionLogo.onload = function() {
-                        bagongPilipinasLogo.onload = function() {
-                            // Add images to PDF
-                            pdf.addImage(dswdLogo, 'PNG', 10, 10, 30, 30);
-                            pdf.addImage(socialPensionLogo, 'PNG', 50, 10, 30, 30);
-                            pdf.addImage(bagongPilipinasLogo, 'PNG', 90, 10, 30, 30);
-
-                            // Add header text
-                            pdf.setFontSize(10);
-                            pdf.text('DSWD-GF-0104 | REV 00 | 22 SEP 2023', 10, 50);
-
-                            // Add content
-                            pdf.setFontSize(14);
-                            pdf.text('SOCIAL PENSION VALIDATION FORM', 10, 60);
-                            pdf.text('SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS', 10, 70);
-
-                            pdf.setFontSize(12);
-                            pdf.text('I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)', 10, 80);
-
-                            pdf.text('OSCA ID No.:', 10, 90);
-                            pdf.text('{{ $beneficiary->osca_id }}', 60, 90);
-
-                            pdf.text('NCSC RRN:', 10, 100);
-                            pdf.text('{{ $beneficiary->ncsc_rrn }}', 60, 100);
-
-                            // Personal Info
-                            pdf.text('NAME (Pangalan):', 10, 110);
-
-                            pdf.text('Last Name (Apelyido):', 10, 120);
-                            pdf.text('{{ $beneficiary->BeneficiaryInfo->last_name }}', 60, 120);
-
-                            pdf.text('First Name (Unang Pangalan):', 10, 130);
-                            pdf.text('{{ $beneficiary->BeneficiaryInfo->first_name }}', 60, 130);
-
-                            pdf.text('Middle Name (Gitnang Pangalan):', 10, 140);
-                            pdf.text('{{ $beneficiary->BeneficiaryInfo->middle_name }}', 60, 140);
-
-                            pdf.text('Ext. (Jr., II):', 10, 150);
-                            pdf.text('{{ $beneficiary->BeneficiaryInfo->name_extension }}', 60, 150);
-
-                            // Add mother's maiden name content
-                            pdf.setFontSize(14);
-                            pdf.text("MOTHER'S MAIDEN NAME (Pangalan ng Ina sa Pagkadalaga):", 10, 160);
-
-                            pdf.setFontSize(12);
-                            pdf.text('Last Name (Apelyido):', 10, 170);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->mother_last_name }}', 60, 170);
-
-                            pdf.text('First Name (Unang Pangalan):', 10, 180);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->mother_first_name }}', 60, 180);
-
-                            pdf.text('Middle Name (Gitnang Pangalan):', 10, 190);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->mother_middle_name }}', 60, 190);
-
-                            // Add date of birth and place of birth content
-                            pdf.setFontSize(14);
-                            pdf.text('DATE OF BIRTH (Araw ng Kapanganakan):', 10, 200);
-                            pdf.text('PLACE OF BIRTH (Lugar ng Kapanganakan):', 100, 200);
-
-                            pdf.setFontSize(12);
-                            pdf.text(
-                                '{{ \Carbon\Carbon::parse($beneficiary->MothersMaidenName->date_of_birth)->format('F j, Y') }}',
-                                10, 210);
-                            pdf.text('City/Municipality (Lungsod):', 100, 210);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->place_of_birth_city }}', 140, 210);
-
-                            pdf.text('Province (Lalawigan):', 100, 220);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->place_of_birth_province }}', 140, 220);
-
-                            // Add age, sex, and civil status content
-                            pdf.setFontSize(14);
-                            pdf.text('AGE (Edad):', 10, 230);
-                            pdf.text('SEX (Kasarian):', 60, 230);
-                            pdf.text('CIVIL STATUS (Katayuang Sibil):', 110, 230);
-
-                            pdf.setFontSize(12);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->age }}', 10, 240);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->sex }}', 60, 240);
-                            pdf.text('{{ $beneficiary->MothersMaidenName->civil_status }}', 110, 240);
-
-                            // Add permanent address content
-                            pdf.setFontSize(14);
-                            pdf.text('PERMANENT ADDRESS (Permanenting Tirahan):', 10, 250);
-
-                            pdf.setFontSize(12);
-                            pdf.text('Sitio/House No./Purok/Street:', 10, 260);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'permanent')->first()->sitio ?? 'N/A' }}',
-                                60, 260);
-
-                            pdf.text('Barangay:', 10, 270);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'permanent')->first()->barangay ?? 'N/A' }}',
-                                60, 270);
-
-                            pdf.text('City/Municipality (Lungsod):', 10, 280);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}',
-                                60, 280);
-
-                            pdf.text('Province (Lalawigan):', 10, 290);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}',
-                                60, 290);
-
-                            pdf.text('Region (Rehiyon):', 10, 300);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'permanent')->first()->region ?? 'N/A' }}',
-                                60, 300);
-
-                            // Add present address content
-                            pdf.setFontSize(14);
-                            pdf.text('PRESENT ADDRESS (Kasalukuyang Tirahan):', 10, 310);
-
-                            pdf.setFontSize(12);
-                            pdf.text('Sitio/House No./Purok/Street:', 10, 320);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'present')->first()->sitio ?? 'N/A' }}',
-                                60, 320);
-
-                            pdf.text('Barangay:', 10, 330);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'present')->first()->barangay ?? 'N/A' }}',
-                                60, 330);
-
-                            pdf.text('City/Municipality (Lungsod):', 10, 340);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'present')->first()->city ?? 'N/A' }}',
-                                60, 340);
-
-                            pdf.text('Province (Lalawigan):', 10, 350);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'present')->first()->province ?? 'N/A' }}',
-                                60, 350);
-
-                            pdf.text('Region (Rehiyon):', 10, 360);
-                            pdf.text(
-                                '{{ $beneficiary->addresses->where('type', 'present')->first()->region ?? 'N/A' }}',
-                                60, 360);
-
-                            // Add affiliation content
-                            pdf.setFontSize(14);
-                            pdf.text('AFFILIATION (Pagkakaugnay):', 10, 370);
-
-                            pdf.setFontSize(12);
-                            pdf.text('Affiliation Type:', 10, 380);
-                            pdf.text('{{ $beneficiary->affiliation->affiliation_type ?? 'N/A' }}', 60, 380);
-
-                            pdf.text('Household ID:', 10, 390);
-                            pdf.text('{{ $beneficiary->affiliation->hh_id ?? 'N/A' }}', 60, 390);
-
-                            pdf.text('Indigenous Specify:', 10, 400);
-                            pdf.text('{{ $beneficiary->affiliation->indigenous_specify ?? 'N/A' }}', 60, 400);
-
-                            // Add footer
-                            const pageCount = pdf.internal.getNumberOfPages();
-                            for (let i = 1; i <= pageCount; i++) {
-                                pdf.setPage(i);
-                                pdf.setFontSize(10);
-                                pdf.text('Page ' + String(i) + ' of ' + String(pageCount), 10, 287);
-                                pdf.text('Generated on: ' + new Date().toLocaleDateString(), 150, 287);
-                            }
-
-                            // Save the PDF
-                            pdf.save('Beneficiary.pdf');
-
-                            // Show the export button again
-                            exportButton.style.display = 'block';
-                        };
-                    };
-                };
-            }
-        </script>
+        <a href="{{ route('export.pdf') }}" class="btn btn-primary export-button no-print">Export to PDF</a>
 </body>

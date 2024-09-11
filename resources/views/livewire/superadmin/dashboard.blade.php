@@ -58,7 +58,7 @@
     }
 
     .nav-link:hover {
-        color: #1C4CB1; /* Change color to blue on hover */
+        color: #567be9; /* Change color to blue on hover */
         
     }
 
@@ -70,7 +70,6 @@
         margin-bottom: -30px;
     }
 </style>
-
     <!-- Main Content -->
     <div class="design" id="content">
         <!-- DSWD Logo and Title -->

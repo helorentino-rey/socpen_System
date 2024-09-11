@@ -144,5 +144,5 @@ Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('ben
 
 //Pdf Controller
 Route::get('/pdf-show/{id}', [PDFController::class, 'show'])->name('pdf.show');
-Route::get('/export-pdf', [PDFController::class, 'export'])->name('export.pdf');
+Route::get('/export', [PDFController::class, 'export'])->name('export.pdf');
 
