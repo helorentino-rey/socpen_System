@@ -32,11 +32,11 @@
         }
 
         .navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: #007bff;
+        .navbar-nav .nav-link.active {
+            color: #007bff;
             text-decoration-color: #007bff;
             text-decoration-thickness: 3px;
-}
+        }
 
         @media (max-width: 991px) {
             .navbar {
@@ -101,13 +101,13 @@
         }
 
         .table {
-    font-family: 'Arial', sans-serif;
-    font-size: 12px;
-}
+            font-family: 'Arial', sans-serif;
+            font-size: 12px;
+        }
 
-.form-control{
-    font-size: 12px;
-}
+        .form-control {
+            font-size: 12px;
+        }
     </style>
 
     <!-- Top nav bar -->
@@ -142,15 +142,15 @@
 
             <!-- Search Bar -->
             <div class="mb-4 position-relative">
-    <div class="input-group">
-        <span class="input-group-text" id="search-icon">
-            <i class="bi bi-search"></i>
-        </span>
-        <input type="text" id="beneficiary-search" class="form-control form-control-lg"
-            placeholder="Search for a beneficiary...">
-    </div>
-    <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 100%;"></div>
-</div>
+                <div class="input-group">
+                    <span class="input-group-text" id="search-icon">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" id="beneficiary-search" class="form-control form-control-lg"
+                        placeholder="Search for a beneficiary...">
+                </div>
+                <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 100%;"></div>
+            </div>
 
             @php
                 $beneficiaries = Beneficiary::with([
@@ -170,7 +170,7 @@
             @endphp
 
             <!-- Beneficiary List Table -->
-            <table class="table table-borderless w-100" >
+            <table class="table table-borderless w-100">
                 <thead class="border-bottom">
                     <tr>
                         <th scope="col">Name</th>
@@ -198,9 +198,16 @@
                                 <i class="bi bi-pencil-square" data-bs-toggle="modal"
                                     data-bs-target="#statusModal{{ $beneficiary->id }}"
                                     style="cursor: pointer; color: black;"></i>
-                                    <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}" style="cursor: pointer;" title="Edit">
-    <i class="bi bi-pencil" style="color: black;"></i>
-</a>
+
+                                <a href="{{ route('layouts.edit', ['model' => 'beneficiary', 'id' => $beneficiary->id]) }}"
+                                    style="cursor: pointer;" title="Edit" onclick="return confirmEdit();">
+                                    <i class="bi bi-pencil" style="color: black;"></i>
+                                </a>
+
+                                <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
+                                    style="cursor: pointer; text-decoration: none;" title="Show Form">
+                                    <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
+                                </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -283,21 +290,22 @@
                 </div>
             </div>
 
-             <!-- Modal to Update Beneficiary Information -->
-            <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Modal to Update Beneficiary Information -->
+            <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Content will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <!-- Content will be populated by JavaScript -->
-            </div>
-        </div>
-    </div>
-</div>
-
 
             <!-- Pagination -->
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
@@ -437,8 +445,6 @@
                         }
                     });
 
-
-
                     // Handle click on a search result
                     $(document).on('click', '.beneficiary-item', function(e) {
                         e.preventDefault();
@@ -479,54 +485,55 @@
                 }
             </script>
             <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Function to handle the close button with confirmation
-        document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            const confirmation = confirm("Are you sure you want to close the form? Any unsaved changes will be lost.");
-            
-            if (confirmation) {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
-                modal.hide();
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Function to handle the close button with confirmation
+                    document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
+                        event.preventDefault();
 
-                // Redirect to the specified route after closing
-                window.location.href = '/approved-beneficiary'; // Replace with your desired route
-            }
-        });
+                        const confirmation = confirm(
+                            "Are you sure you want to close the form? Any unsaved changes will be lost.");
 
-        // Function to confirm editing a beneficiary
-        function confirmEdit(beneficiaryId) {
-            if (confirm("Are you sure you want to edit this beneficiary?")) {
-                // Fetch the beneficiary edit form via AJAX only if confirmed
-                $.ajax({
-                    url: '/beneficiaries/edit/' + beneficiaryId,
-                    type: 'GET',
-                    success: function(response) {
-                        // Populate the modal body with the response (edit form)
-                        $('#editBeneficiaryModal .modal-body').html(response);
-                        // Show the modal after successful AJAX call
-                        $('#editBeneficiaryModal').modal('show');
-                    },
-                    error: function() {
-                        alert('Error loading beneficiary information.');
+                        if (confirmation) {
+                            const modal = bootstrap.Modal.getInstance(document.getElementById(
+                                'editBeneficiaryModal'));
+                            modal.hide();
+
+                            // Redirect to the specified route after closing
+                            window.location.href = '/approved-beneficiary'; // Replace with your desired route
+                        }
+                    });
+
+                    // Function to confirm editing a beneficiary
+                    function confirmEdit(beneficiaryId) {
+                        if (confirm("Are you sure you want to edit this beneficiary?")) {
+                            // Fetch the beneficiary edit form via AJAX only if confirmed
+                            $.ajax({
+                                url: '/beneficiaries/edit/' + beneficiaryId,
+                                type: 'GET',
+                                success: function(response) {
+                                    // Populate the modal body with the response (edit form)
+                                    $('#editBeneficiaryModal .modal-body').html(response);
+                                    // Show the modal after successful AJAX call
+                                    $('#editBeneficiaryModal').modal('show');
+                                },
+                                error: function() {
+                                    alert('Error loading beneficiary information.');
+                                }
+                            });
+                        }
                     }
+
+                    // Set up event listener for the edit button
+                    $(document).ready(function() {
+                        // Trigger when the edit button is clicked
+                        $('.edit-beneficiary').click(function(e) {
+                            e.preventDefault();
+                            const beneficiaryId = $(this).data('id');
+
+                            // Call confirmEdit function for confirmation
+                            confirmEdit(beneficiaryId);
+                        });
+                    });
                 });
-            }
-        }
-
-        // Set up event listener for the edit button
-        $(document).ready(function() {
-            // Trigger when the edit button is clicked
-            $('.edit-beneficiary').click(function(e) {
-                e.preventDefault();
-                const beneficiaryId = $(this).data('id');
-                
-                // Call confirmEdit function for confirmation
-                confirmEdit(beneficiaryId);
-            });
-        });
-    });
-</script>
-
+            </script>
         @endsection

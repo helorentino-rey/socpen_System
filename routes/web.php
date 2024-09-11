@@ -143,4 +143,6 @@ Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('be
 Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
 
 //Pdf Controller
-Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export.pdf');
+Route::get('/pdf-show/{id}', [PDFController::class, 'show'])->name('pdf.show');
+Route::get('/export-pdf', [PDFController::class, 'export'])->name('export.pdf');
+

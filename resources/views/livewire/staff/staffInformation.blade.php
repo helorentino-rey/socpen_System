@@ -1,28 +1,62 @@
 <!-- resources/views/staff/show.blade.php -->
 @extends('layouts.staff')
 @section('content')
-<div class="container">
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @elseif (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-    @endif
 
-    <h2 class="form-title">Staff Information</h2>
+<!-- Modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Update Successful</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          @if (session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+          @elseif (session('error'))
+          <div class="alert alert-danger">
+            {{ session('error') }}
+          </div>
+          @endif
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JavaScript and its dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Script to automatically show the modal if there is a session message -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var successMessage = '{{ session('success') }}';
+      var errorMessage = '{{ session('error') }}';
+  
+      if (successMessage || errorMessage) {
+        var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+        alertModal.show();
+      }
+    });
+  </script>
+  
+
+    <h2 class="form-title text-center">Staff Information</h2>
     <form id="staffForm">
         <div class="form-section">
-            <h6 class="form-section-title">Personal Information</h6>
+          
             <div class="row">
-                <div class="mb-3 d-flex justify-content-between  ">
+                <div class="mb-3 text-center">
                     <div class="mb-3 form-group">
-                        <label>Profile Picture</label><br>
+                        <label></label><br>
                         <img id="staff-image" src="{{ $profilePicUrl }}" alt="Profile Picture" class="img-thumbnail" width="150">
                     </div>
-                    <div class="d-flex gap-2 mb-3 align-items-end">
+                    <div class="mb-3 text-center">
                         <button id="btn-updateInfo" type="button" class="btn btn-primary">Update Information</button>
                         <button id="btn-changePass" type="button" class="btn btn-primary">Change Password</button>
                     </div>
@@ -103,10 +137,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="updateInfoModalLabel">Update Information</h5>
-                <div class="d-grid gap-2 d-md-block">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="saveUpdateBtn">Save</button>
-                </div>
             </div>
             <div class="modal-body">
                 <form id="updateStaffForm" action="{{ route('staff.update') }}" method="POST">
@@ -184,24 +214,24 @@
                     </div>
                 </form>
             </div>
+            <div class="modal-footer text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveUpdateBtn">Save</button>
+            </div>
         </div>
     </div>
 </div>
 
 
+
 <!----------->
 <!-- Modal (CHANGE PASSWORD) -->
 <!----------->
-<div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="changePassModalLabel" aria-hidden="true aria-modal=" true">
+<div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="changePassModalLabel" aria-hidden="true" aria-modal="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="changePassModalLabel">Change Password</h5>
-                <div class="d-grid gap
-                -2 d-md-block">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="saveChangePassBtn">Save</button>
-                </div>
             </div>
             <div class="modal-body">
                 <form id="changePassForm" action="{{ route('staff.updatePassword') }}" method="POST">
@@ -222,9 +252,14 @@
                     </div>
                 </form>
             </div>
+            <div class="modal-footer text-end">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveChangePassBtn">Save</button>
+            </div>
         </div>
     </div>
 </div>
+
 
 @endsection
 

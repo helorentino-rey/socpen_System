@@ -37,14 +37,15 @@
             margin-bottom: 20px;
         }
 
-        .profile-pic {
+        .sidebar .profile-pic {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             background-color: #fff;
             margin: 0 auto;
-            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            transition: opacity 0.3s;
         }
+
 
         .sidebar.retracted .profile-pic {
             width: 40px;
