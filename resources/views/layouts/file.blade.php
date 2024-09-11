@@ -11,6 +11,7 @@
             border-bottom: 2px solid #343a40;
             padding: 1rem 2rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
         }
 
         .navbar-brand {
@@ -18,6 +19,7 @@
             font-weight: bold;
             color: #343a40;
             text-transform: uppercase;
+
         }
 
         .navbar-nav .nav-link {
@@ -26,16 +28,15 @@
             padding: 0.5rem 1rem;
             transition: color 0.3s ease-in-out;
             border-radius: 0.25rem;
+
         }
 
         .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
-            color: #007bff;
-            background-color: transparent;
-            text-decoration: underline;
+.navbar-nav .nav-link.active {
+    color: #007bff;
             text-decoration-color: #007bff;
             text-decoration-thickness: 3px;
-        }
+}
 
         @media (max-width: 991px) {
             .navbar {
@@ -67,12 +68,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 12px;
+
         }
 
         .beneficiary-status {
             margin-left: auto;
             padding-left: 10px;
             font-weight: bold;
+
         }
 
         /* Pagination */
@@ -95,6 +99,15 @@
             border-color: #0056b3;
             /* Keep the border color */
         }
+
+        .table {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+}
+
+.form-control{
+    font-size: 12px;
+}
     </style>
 
     <!-- Top nav bar -->
@@ -124,15 +137,20 @@
         </div>
     </nav>
 
-    <div class="my-5 px-4">
+    <div class="my-5 px-4" style="font-family: 'Arial', sans-serif;">
         <div class="card shadow-sm p-4 rounded">
 
             <!-- Search Bar -->
-            <div class="mb-4">
-                <input type="text" id="beneficiary-search" class="form-control form-control-lg"
-                    placeholder="Search for a beneficiary...">
-                <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 96%;"></div>
-            </div>
+            <div class="mb-4 position-relative">
+    <div class="input-group">
+        <span class="input-group-text" id="search-icon">
+            <i class="bi bi-search"></i>
+        </span>
+        <input type="text" id="beneficiary-search" class="form-control form-control-lg"
+            placeholder="Search for a beneficiary...">
+    </div>
+    <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 100%;"></div>
+</div>
 
             @php
                 $beneficiaries = Beneficiary::with([
@@ -152,7 +170,7 @@
             @endphp
 
             <!-- Beneficiary List Table -->
-            <table class="table table-borderless w-100">
+            <table class="table table-borderless w-100" >
                 <thead class="border-bottom">
                     <tr>
                         <th scope="col">Name</th>
@@ -180,10 +198,9 @@
                                 <i class="bi bi-pencil-square" data-bs-toggle="modal"
                                     data-bs-target="#statusModal{{ $beneficiary->id }}"
                                     style="cursor: pointer; color: black;"></i>
-                                <a href="{{ route('layouts.edit', ['model' => 'beneficiary', 'id' => $beneficiary->id]) }}"
-                                    style="cursor: pointer;" title="Edit" onclick="return confirmEdit();">
-                                    <i class="bi bi-pencil" style="color: black;"></i>
-                                </a>
+                                    <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}" style="cursor: pointer;" title="Edit">
+    <i class="bi bi-pencil" style="color: black;"></i>
+</a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -265,6 +282,22 @@
                     </div>
                 </div>
             </div>
+
+             <!-- Modal to Update Beneficiary Information -->
+            <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Pagination -->
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
@@ -429,11 +462,6 @@
                     });
                 });
 
-                //Edit beneficiary
-                function confirmEdit() {
-                    return confirm('Do you want to edit beneficiary information?');
-                }
-
                 //Pagination
                 $(document).on('click', '.pagination a', function(e) {
                     e.preventDefault();
@@ -450,4 +478,55 @@
                     });
                 }
             </script>
+            <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to handle the close button with confirmation
+        document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            const confirmation = confirm("Are you sure you want to close the form? Any unsaved changes will be lost.");
+            
+            if (confirmation) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
+                modal.hide();
+
+                // Redirect to the specified route after closing
+                window.location.href = '/approved-beneficiary'; // Replace with your desired route
+            }
+        });
+
+        // Function to confirm editing a beneficiary
+        function confirmEdit(beneficiaryId) {
+            if (confirm("Are you sure you want to edit this beneficiary?")) {
+                // Fetch the beneficiary edit form via AJAX only if confirmed
+                $.ajax({
+                    url: '/beneficiaries/edit/' + beneficiaryId,
+                    type: 'GET',
+                    success: function(response) {
+                        // Populate the modal body with the response (edit form)
+                        $('#editBeneficiaryModal .modal-body').html(response);
+                        // Show the modal after successful AJAX call
+                        $('#editBeneficiaryModal').modal('show');
+                    },
+                    error: function() {
+                        alert('Error loading beneficiary information.');
+                    }
+                });
+            }
+        }
+
+        // Set up event listener for the edit button
+        $(document).ready(function() {
+            // Trigger when the edit button is clicked
+            $('.edit-beneficiary').click(function(e) {
+                e.preventDefault();
+                const beneficiaryId = $(this).data('id');
+                
+                // Call confirmEdit function for confirmation
+                confirmEdit(beneficiaryId);
+            });
+        });
+    });
+</script>
+
         @endsection

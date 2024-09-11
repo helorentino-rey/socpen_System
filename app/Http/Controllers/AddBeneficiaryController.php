@@ -88,12 +88,12 @@ class AddBeneficiaryController extends Controller
             'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
             'representatives.*.contact_number' => 'nullable|string|max:13',
 
-            'caregiver_last_name' => 'nullable|string|max:25',
-            'caregiver_first_name' => 'nullable|string|max:25',
-            'caregiver_middle_name' => 'nullable|string|max:25',
-            'caregiver_name_extension' => 'nullable|string|max:4',
-            'caregiver_relationship' => 'nullable|string|max:25',
-            'caregiver_contact' => 'nullable|string|max:13',
+            // 'caregiver_last_name' => 'nullable|string|max:25',
+            // 'caregiver_first_name' => 'nullable|string|max:25',
+            // 'caregiver_middle_name' => 'nullable|string|max:25',
+            // 'caregiver_name_extension' => 'nullable|string|max:4',
+            // 'caregiver_relationship' => 'nullable|string|max:25',
+            // 'caregiver_contact' => 'nullable|string|max:13',
 
             'house_status' => 'required|array',
             'house_status.*' => 'required|string|in:Owned,Rent,Others',
@@ -272,16 +272,16 @@ class AddBeneficiaryController extends Controller
         }
 
         // Create a new caregiver record
-        Caregiver::create([
-            'beneficiary_id' => $beneficiary->id,
-            'caregiver_last_name' => $validatedData['caregiver_last_name'] ?? null,
-            'caregiver_first_name' => $validatedData['caregiver_first_name'] ?? null,
-            'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
-            'caregiver_name_extension' => $validatedData['caregiver_name_extension'] ?? null,
-            'caregiver_relationship' => $validatedData['caregiver_relationship'] ?? null,
-            'caregiver_contact' => $validatedData['caregiver_contact'] ?? null,
-        ]);
-        Log::info('Caregiver created for beneficiary: ' . $beneficiary->id);
+        // Caregiver::create([
+        //     'beneficiary_id' => $beneficiary->id,
+        //     'caregiver_last_name' => $validatedData['caregiver_last_name'] ?? null,
+        //     'caregiver_first_name' => $validatedData['caregiver_first_name'] ?? null,
+        //     'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
+        //     'caregiver_name_extension' => $validatedData['caregiver_name_extension'] ?? null,
+        //     'caregiver_relationship' => $validatedData['caregiver_relationship'] ?? null,
+        //     'caregiver_contact' => $validatedData['caregiver_contact'] ?? null,
+        // ]);
+        // Log::info('Caregiver created for beneficiary: ' . $beneficiary->id);
 
         // Process the checkbox values
         $houseStatus = implode(', ', $validatedData['house_status']);
@@ -349,7 +349,7 @@ class AddBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
+            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -380,7 +380,7 @@ class AddBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
+            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -396,6 +396,15 @@ class AddBeneficiaryController extends Controller
 
         return view('layouts.show', compact('beneficiary'));
     }
+
+    // Update Beneficiary
+    public function edit($id)
+    {
+        $beneficiary = Beneficiary::find($id);
+
+        return view('layouts.edit', compact('beneficiary'));
+    }
+
 
     //Search in file
     public function search(Request $request)
@@ -459,14 +468,14 @@ class AddBeneficiaryController extends Controller
     public function searchSuper(Request $request)
     {
         $query = $request->input('query');
-    
+
         // Use whereHas to search within related BeneficiaryInfo model
         $beneficiaries = Beneficiary::whereHas('beneficiaryInfo', function ($q) use ($query) {
             $q->where('last_name', 'LIKE', "%{$query}%")
                 ->orWhere('first_name', 'LIKE', "%{$query}%")
                 ->orWhere('middle_name', 'LIKE', "%{$query}%");
         })->get();
-    
+
         // If the request is AJAX, return a JSON response
         if ($request->ajax()) {
             $response = $beneficiaries->map(function ($beneficiary) {
@@ -476,10 +485,10 @@ class AddBeneficiaryController extends Controller
                     'status' => $beneficiary->status, // Include status in the response
                 ];
             });
-    
+
             return response()->json($response);
         }
-    
+
         // If not an AJAX request, render the view
         return view('livewire.superadmin.dashboard', compact('beneficiaries'));
     }

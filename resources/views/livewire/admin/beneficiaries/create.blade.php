@@ -106,23 +106,16 @@
 
     .table th,
     .table td {
-        padding: 0.75rem;
-        vertical-align: top;
-        border-top: 1px solid #dee2e6;
-        text-align: left;
-        font-family: 'Arial', sans-serif;
-    }
-
-    .table th {
-        font-weight: bold;
-        background-color: #f8f9fa;
-        font-family: 'Arial', sans-serif;
-    }
-
-    .table td {
-        border-top: 1px solid #dee2e6;
+        text-align: center;
         vertical-align: middle;
         font-family: 'Arial', sans-serif;
+    }
+
+    .table .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
     }
 
     .input-group-text {
@@ -185,20 +178,20 @@
     }
 
     .dswd-logo {
-        height: 50px;
+        height: 60px;
         margin-right: 10px;
         object-fit: contain;
     }
 
     .social-pension-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 5px;
     }
 
     .bagong-pilipinas-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 2px;
@@ -263,6 +256,15 @@
         width: 100%;
         margin-top: 10px;
         border-collapse: collapse;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+        text-align: left;
         font-family: 'Arial', sans-serif;
     }
 
@@ -1221,7 +1223,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="label" for="spouse_name"><strong>16. Name of Caregiver </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
@@ -1258,7 +1260,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="form-row custom-form-row">
                 <div class="col-md-4 mb-3">
                     <label class="ltitle" for="spouse_contact">Relationship (to Beneficiary)</label>

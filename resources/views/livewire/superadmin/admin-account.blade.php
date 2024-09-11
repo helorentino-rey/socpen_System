@@ -2,6 +2,12 @@
 
 @section('title', 'Admin Account')
 @section('content')
+<style>
+    .table {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+}
+</style>
     <h1>Admin Account</h1>
 
     <!-- Display Success Message -->

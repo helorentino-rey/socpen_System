@@ -112,14 +112,18 @@
     }
 
     .table th {
+        font-size: 12px;
         font-weight: bold;
         background-color: #f8f9fa;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #dee2e6;
         font-family: 'Arial', sans-serif;
     }
 
     .table td {
-        border-top: 1px solid #dee2e6;
-        vertical-align: middle;
+        padding: 8px;
+        border-bottom: 1px solid #dee2e6;
         font-family: 'Arial', sans-serif;
     }
 
@@ -142,7 +146,7 @@
         background-color: #007bff;
         border-color: #007bff;
         border-radius: 5px;
-        padding: 10px 20px;
+        padding: 10px 40px;
         font-size: 16px;
         margin: 10px;
         font-family: 'Arial', sans-serif;
@@ -155,7 +159,7 @@
     }
 
     .text-center {
-        font-size: 20px;
+        font-size: 25px;
         margin-top: 30px;
         font-weight: bold;
         font-family: 'Arial', sans-serif;
@@ -183,20 +187,20 @@
     }
 
     .dswd-logo {
-        height: 50px;
+        height: 60px;
         margin-right: 10px;
         object-fit: contain;
     }
 
     .social-pension-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 5px;
     }
 
     .bagong-pilipinas-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 2px;
@@ -264,20 +268,18 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table th {
-        font-size: 12px;
-        font-weight: bold;
-        background-color: #f8f9fa;
-        padding: 10px;
-        text-align: left;
-        border-bottom: 2px solid #dee2e6;
+    .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
         font-family: 'Arial', sans-serif;
     }
 
-    .table td {
-        padding: 8px;
-        border-bottom: 1px solid #dee2e6;
-        font-family: 'Arial', sans-serif;
+    .table .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
     }
 
     .table input.form-control,
@@ -452,6 +454,7 @@
     #add_representative {
         background-color: blue;
         border-color: blue;
+
     }
 
     .flex-wrap {
@@ -799,7 +802,7 @@
 
                 <div class="col-md-4">
                     <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span class="text-danger">*</span></strong></label>
-                    <input type="file" class="form-control-file1" name="profile_upload" id="profile_upload" required>
+                    <input type="file" class="form-control" name="profile_upload" id="profile_upload" required>
                 </div>
             </div>
             <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
@@ -1171,7 +1174,7 @@
                             </td>
                             <td>
                                 <select class="form-control" name="children[0][civil_status]">
-                                    <option value="">Civil Status</option>
+                                    <option value="">Select</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                     <option value="Widowed">Widowed</option>
@@ -1204,7 +1207,7 @@
                             <td><input type="text" class="form-control" name="representatives[0][name]"></td>
                             <td>
                                 <select class="form-control" name="representatives[0][civil_status]">
-                                    <option value="">Civil Status</option>
+                                    <option value="">Select</option>
                                     <option value="Single">Single</option>
                                     <option value="Married">Married</option>
                                     <option value="Widowed">Widowed</option>
@@ -1219,7 +1222,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="label" for="spouse_name"><strong>16. Name of Caregiver </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
@@ -1267,17 +1270,7 @@
                     <label class="ltitle" for="caregiver_contact">Contact Number</label>
                     <input type="text" class="form-control" name="caregiver_contact" id="caregiver_contact">
                 </div>
-                <div class="col-md-4 mb-3">
-                    <label class="ltitle" for="civil_status">CIVIL STATUS:</label>
-                    <select name="civil_status" id="civil_status" class="form-control" required>
-                        <option value="">Select Status</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                        <option value="Widowed">Widowed</option>
-                        <option value="Separated">Separated</option>
-                    </select>
-                </div>
-            </div>
+            </div> -->
 
             <div class="form-group mt-4">
                 <label class="label"><strong>17. Living Arrangement</strong></label>

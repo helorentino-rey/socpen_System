@@ -114,14 +114,18 @@
     }
 
     .table th {
+        font-size: 12px;
         font-weight: bold;
         background-color: #f8f9fa;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #dee2e6;
         font-family: 'Arial', sans-serif;
     }
 
     .table td {
-        border-top: 1px solid #dee2e6;
-        vertical-align: middle;
+        padding: 8px;
+        border-bottom: 1px solid #dee2e6;
         font-family: 'Arial', sans-serif;
     }
 
@@ -185,20 +189,20 @@
     }
 
     .dswd-logo {
-        height: 50px;
+        height: 60px;
         margin-right: 10px;
         object-fit: contain;
     }
 
     .social-pension-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 5px;
     }
 
     .bagong-pilipinas-logo {
-        height: 70px;
+        height: 80px;
         margin-right: 10px;
         object-fit: contain;
         margin-top: 2px;
@@ -266,20 +270,18 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table th {
-        font-size: 12px;
-        font-weight: bold;
-        background-color: #f8f9fa;
-        padding: 10px;
-        text-align: left;
-        border-bottom: 2px solid #dee2e6;
+    .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
         font-family: 'Arial', sans-serif;
     }
 
-    .table td {
-        padding: 8px;
-        border-bottom: 1px solid #dee2e6;
-        font-family: 'Arial', sans-serif;
+    .table .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
     }
 
     .table input.form-control,
@@ -1222,7 +1224,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="label" for="spouse_name"><strong>16. Name of Caregiver </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
@@ -1280,7 +1282,7 @@
                         <option value="Separated">Separated</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group mt-4">
                 <label class="label"><strong>17. Living Arrangement</strong></label>

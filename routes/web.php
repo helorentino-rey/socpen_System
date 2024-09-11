@@ -126,6 +126,7 @@ Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('ad
 Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');
 Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
 Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
+Route::get('/beneficiaries/edit/{id}', [AddBeneficiaryController::class, 'edit'])->name('layouts.edit');
 Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('beneficiaries.search');
 Route::get('/searchStaff', [AddBeneficiaryController::class, 'searchStaff'])->name('beneficiary.search');
 Route::get('/searchSuper', [AddBeneficiaryController::class, 'searchSuper'])->name('benefi.search');

@@ -215,7 +215,7 @@
      </div>
  
  
-     <div class="info-section">
+     <!-- <div class="info-section">
          <h5>Caregiver Information</h5>
          <p><strong>Last Name:</strong> {{ $beneficiary->caregiver->caregiver_last_name ?? 'N/A' }}</p>
          <p><strong>First Name:</strong> {{ $beneficiary->caregiver->caregiver_first_name ?? 'N/A' }}</p>
@@ -223,7 +223,7 @@
          <p><strong>Name Extension:</strong> {{ $beneficiary->caregiver->caregiver_name_extension ?? 'N/A' }}</p>
          <p><strong>Relationship:</strong> {{ $beneficiary->caregiver->caregiver_relationship ?? 'N/A' }}</p>
          <p><strong>Contact:</strong> {{ $beneficiary->caregiver->caregiver_contact ?? 'N/A' }}</p>
-     </div>
+     </div> -->
  
  
      <div class="info-section">

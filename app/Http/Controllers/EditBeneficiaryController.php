@@ -25,7 +25,7 @@ class EditBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
+            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -108,12 +108,12 @@ class EditBeneficiaryController extends Controller
             'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
             'representatives.*.contact_number' => 'nullable|string|max:13',
 
-            'caregiver_last_name' => 'nullable|string|max:25',
-            'caregiver_first_name' => 'nullable|string|max:25',
-            'caregiver_middle_name' => 'nullable|string|max:25',
-            'caregiver_name_extension' => 'nullable|string|max:4',
-            'caregiver_relationship' => 'nullable|string|max:25',
-            'caregiver_contact' => 'nullable|string|max:13',
+            // 'caregiver_last_name' => 'nullable|string|max:25',
+            // 'caregiver_first_name' => 'nullable|string|max:25',
+            // 'caregiver_middle_name' => 'nullable|string|max:25',
+            // 'caregiver_name_extension' => 'nullable|string|max:4',
+            // 'caregiver_relationship' => 'nullable|string|max:25',
+            // 'caregiver_contact' => 'nullable|string|max:13',
 
             'house_status' => 'required|array',
             'house_status.*' => 'required|string|in:Owned,Rent,Others',
@@ -150,7 +150,7 @@ class EditBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
+            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -326,18 +326,18 @@ class EditBeneficiaryController extends Controller
         Log::info('Representatives updated for beneficiary: ' . $beneficiary->id);
 
         // Update or create caregiver record
-        $beneficiary->caregiver()->updateOrCreate(
-            ['beneficiary_id' => $beneficiary->id],
-            [
-                'caregiver_last_name' => $validatedData['caregiver_last_name'],
-                'caregiver_first_name' => $validatedData['caregiver_first_name'],
-                'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
-                'caregiver_name_extension' => $validatedData['caregiver_name_extension'],
-                'caregiver_relationship' => $validatedData['caregiver_relationship'],
-                'caregiver_contact' => $validatedData['caregiver_contact'],
-            ]
-        );
-        Log::info('Caregiver updated for beneficiary: ' . $beneficiary->id);
+        // $beneficiary->caregiver()->updateOrCreate(
+        //     ['beneficiary_id' => $beneficiary->id],
+        //     [
+        //         'caregiver_last_name' => $validatedData['caregiver_last_name'],
+        //         'caregiver_first_name' => $validatedData['caregiver_first_name'],
+        //         'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
+        //         'caregiver_name_extension' => $validatedData['caregiver_name_extension'],
+        //         'caregiver_relationship' => $validatedData['caregiver_relationship'],
+        //         'caregiver_contact' => $validatedData['caregiver_contact'],
+        //     ]
+        // );
+        // Log::info('Caregiver updated for beneficiary: ' . $beneficiary->id);
 
         // Handle "Others" fields for house and living status
         $houseStatusOthersInput = in_array('Others', $validatedData['house_status']) ? $validatedData['house_status_others_input'] : null;
@@ -425,6 +425,6 @@ class EditBeneficiaryController extends Controller
         Log::info('Assessment recommendation updated for beneficiary: ' . $beneficiary->id);
 
         // Redirect back with a success message
-        return redirect()->route('layouts.edit', $id)->with('success', 'Beneficiary updated successfully.');
+        return redirect()->route('layouts.file', $id)->with('success', 'Beneficiary updated successfully.');
     }
 }

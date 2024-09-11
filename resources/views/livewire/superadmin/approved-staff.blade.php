@@ -2,7 +2,26 @@
 
 @section('title', 'Approved Staff')
 @section('content')
-<h1>Approved Staff</h1>
+<style>
+    .table {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+}
+
+.heading-border {
+    border-bottom: 2px solid #343a40;
+    padding-bottom: 10px; 
+    margin-bottom: 20px; 
+}
+
+.custom-btn-sm {
+    font-size: 12px; /* Smaller font size */
+    padding: 0.10rem 0.15rem; /* Adjust padding for a smaller button */
+    border-radius: 0.25rem; /* Adjust border radius for a smaller, rounded button */
+}
+
+</style>
+<h1 class="heading-border">Approve Staff</h1>
 <br>
 <br>
 <!-- Search Beneficiaries content -->
@@ -33,9 +52,9 @@
                     @csrf
                     @method('PATCH')
                     @if ($staffMember->status == 'pending')
-                    <button type="submit" class="btn btn-sm btn-primary">Approve</button>
+                    <button type="submit" class="btn btn-sm btn-primary custom-btn-sm">Approve</button>
                     @else
-                    <button type="submit" class="btn btn-sm btn-warning">Deactivate</button>
+                    <button type="submit" class="btn btn-sm btn-warning custom-btn-sm">Deactivate</button>
                     @endif
                 </form>
             </td>
