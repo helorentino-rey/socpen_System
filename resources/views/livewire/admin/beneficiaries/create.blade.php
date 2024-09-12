@@ -122,7 +122,7 @@
         background-color: #ffffff;
         border: 1px solid #ced4da;
         border-radius: 5px;
-        font-size: 12px;
+        font-size: 14px;
         padding: 5px;
         font-family: 'Arial', sans-serif;
     }
@@ -150,7 +150,7 @@
     }
 
     .text-center {
-        font-size: 20px;
+        font-size: 25px;
         margin-top: 30px;
         font-weight: bold;
         font-family: 'Arial', sans-serif;
@@ -158,7 +158,7 @@
 
     .soc {
         text-align: center;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: bold;
         font-family: 'Arial', sans-serif;
     }
@@ -215,13 +215,13 @@
 
     .custom-form-row .form-control {
         height: 35px;
-        font-size: 12px;
+        font-size: 14px;
         border-radius: 5px;
         font-family: 'Arial', sans-serif;
     }
 
     .custom-section label {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
         font-family: 'Arial', sans-serif;
     }
@@ -246,7 +246,7 @@
 
     .child-information-section label {
         font-weight: bold;
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 10px;
         display: block;
         font-family: 'Arial', sans-serif;
@@ -269,7 +269,7 @@
     }
 
     .table th {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: bold;
         background-color: #f8f9fa;
         padding: 10px;
@@ -287,7 +287,7 @@
     .table input.form-control,
     .table select.form-control {
         height: 30px;
-        font-size: 12px;
+        font-size: 14px;
         border-radius: 5px;
         font-family: 'Arial', sans-serif;
     }
@@ -299,7 +299,7 @@
     }
 
     .form-control {
-        font-size: 12px;
+        font-size: 14px;
         padding: 5px;
         font-family: 'Arial', sans-serif;
     }
@@ -410,12 +410,12 @@
     }
 
     .label {
-        font-size: 14px;
+        font-size: 16px;
         font-family: 'Arial', sans-serif;
     }
 
     .ltitle {
-        font-size: 14px;
+        font-size: 16px;
         font-family: 'Arial', sans-serif;
     }
 
@@ -423,7 +423,7 @@
         border-radius: 5px;
         border: 1px solid #ced4da;
         height: 30px;
-        font-size: 12px;
+        font-size: 14px;
         width: 100%;
         max-width: 250px;
         font-family: 'Arial', sans-serif;
@@ -469,7 +469,7 @@
     .small-input {
         width: 200px;
         height: 30px;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .row {

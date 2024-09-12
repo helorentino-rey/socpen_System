@@ -31,8 +31,7 @@
 
         }
 
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-link.active {
+        .navbar-nav .nav-link:hover {
             color: #007bff;
             text-decoration-color: #007bff;
             text-decoration-thickness: 3px;
@@ -199,10 +198,9 @@
                                     data-bs-target="#statusModal{{ $beneficiary->id }}"
                                     style="cursor: pointer; color: black;"></i>
 
-                                <a href="{{ route('layouts.edit', ['model' => 'beneficiary', 'id' => $beneficiary->id]) }}"
-                                    style="cursor: pointer;" title="Edit" onclick="return confirmEdit();">
-                                    <i class="bi bi-pencil" style="color: black;"></i>
-                                </a>
+                                    <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}" style="cursor: pointer;" title="Edit">
+    <i class="bi bi-pencil" style="color: black;"></i>
+</a>
 
                                 <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
                                     style="cursor: pointer; text-decoration: none;" title="Show Form">

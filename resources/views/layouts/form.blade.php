@@ -568,12 +568,12 @@
                     <th colspan="5">FRAILTY QUESTIONS:</th>
                 </tr>
                 <tr>
-                    <td>1. Do you experience difficulty in doing your ADLs? (Yes/No)
+                    <td colspan="2">1. Do you experience difficulty in doing your ADLs? (Yes/No)
                         <span>{{ $beneficiary->healthInformation->difficult_adl ?? 'N/A' }}</span>
                     </td>
-                    <td>2. Are you completely dependent on someone in doing your IADLs?
+                    <td colspan="2">2. Are you completely dependent on someone in doing your IADLs?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->dependent_iadl ?? 'N/A' }}</span></td>
-                    <td>3. Are you experiencing weight loss, weakness, exhaustion?
+                    <td colspan="1">3. Are you experiencing weight loss, weakness, exhaustion?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->experience_loss ?? 'N/A' }}</span></td>
                 </tr>
             </table>
@@ -604,11 +604,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">Signature over Printed
-                        Name<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
+                        Name<span></span></td>
                     <td colspan="2">
-                        Designation<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
+                        Designation<span></span></td>
                     <td colspan="1">
-                        Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
+                        Date<span></span></td>
                 </tr>
                 <tr>
                     <th colspan="5">By signing this form, I grant my free and voluntary consent for the Department
@@ -626,11 +626,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">Name of Applicant or
-                        Respondent<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
+                        Respondent<span></span></td>
                     <td colspan="2">Signature or
-                        Thumbmark<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
+                        Thumbmark<span></span></td>
                     <td colspan="1">
-                        Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
+                        Date<span></span></td>
                 </tr>
                 <tr>
                     <th colspan="5">DATA PRIVACY
