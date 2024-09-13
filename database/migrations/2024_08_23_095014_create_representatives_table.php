@@ -16,7 +16,7 @@ class CreateRepresentativesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
             $table->string('representative_name', 50)->nullable();
-            $table->enum('representative_civil_status', ['Single', 'Married', 'Widowed', 'Separated'])->nullable();
+            $table->string('representative_relationship', 50)->nullable();
             $table->string('representative_contact_number', 13)->nullable();
             $table->timestamps();
 

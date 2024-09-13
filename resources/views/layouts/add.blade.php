@@ -90,7 +90,6 @@
     }
 
     a:hover {
-        text-decoration: underline;
         font-family: 'Arial', sans-serif;
     }
 
@@ -1196,7 +1195,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Civil Status</th>
+                            <th>Relationship</th>
                             <th>Contact Number</th>
                             <th><button type="button" class="bi bi-plus-square btn btn-success" id="add_representative"></button></th>
                         </tr>
@@ -1204,15 +1203,7 @@
                     <tbody>
                         <tr>
                             <td><input type="text" class="form-control" name="representatives[0][name]"></td>
-                            <td>
-                                <select class="form-control" name="representatives[0][civil_status]">
-                                    <option value="">Select</option>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Widowed">Widowed</option>
-                                    <option value="Separated">Separated</option>
-                                </select>
-                            </td>
+                            <td><input type="text" class="form-control" name="representatives[0][relationship]"></td>
                             <td><input type="text" class="form-control"
                                     name="representatives[0][contact_number]"></td>
                             <td><button type="button"
@@ -1221,55 +1212,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- <div class="form-group">
-                <label class="label" for="spouse_name"><strong>16. Name of Caregiver </strong></label>
-                <div class="form-row custom-form-row">
-                    <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="last_name">Last Name</label>
-                        <input type="text" class="form-control" name="caregiver_last_name"
-                            id="caregiver_last_name">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="first_name">First Name</label>
-                        <input type="text" class="form-control" name="caregiver_first_name"
-                            id="caregiver_first_name">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="middle_name">Middle Name</label>
-                        <input type="text" class="form-control" name="caregiver_middle_name"
-                            id="caregiver_middle_name">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="name_extension">Name Extension *</label>
-                        <select id="caregiver_name_extension" name="caregiver_name_extension" class="form-control">
-                            <option value="">Choose...</option>
-                            <option value="Jr.">Jr.</option>
-                            <option value="Sr.">Sr.</option>
-                            <option value="II">II</option>
-                            <option value="III">III</option>
-                            <option value="IV">IV</option>
-                            <option value="V">V</option>
-                            <option value="VI">VI</option>
-                            <option value="VII">VII</option>
-                            <option value="VIII">VIII</option>
-                            <option value="IX">IX</option>
-                            <option value="X">X</option>
-                            <option value="N/A">N/A</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row custom-form-row">
-                <div class="col-md-4 mb-3">
-                    <label class="ltitle" for="spouse_contact">Relationship (to Beneficiary)</label>
-                    <input type="text" class="form-control" name="caregiver_relationship"
-                        id="caregiver_relationship">
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="ltitle" for="caregiver_contact">Contact Number</label>
-                    <input type="text" class="form-control" name="caregiver_contact" id="caregiver_contact">
-                </div>
-            </div> -->
 
             <div class="form-group mt-4">
                 <label class="label"><strong>17. Living Arrangement</strong></label>
@@ -1661,15 +1603,7 @@
 
         newRow.innerHTML = `
         <td><input type="text" class="form-control" name="representatives[${representativeIndex}][name]" required></td>
-        <td>
-            <select class="form-control" name="representatives[${representativeIndex}][civil_status]" required>
-                <option value="">Civil Status</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Widowed">Widowed</option>
-                <option value="Separated">Separated</option>
-            </select>
-        </td>
+         <td><input type="text" class="form-control" name="representatives[${representativeIndex}][relationship]" required></td>
         <td><input type="text" class="form-control" name="representatives[${representativeIndex}][contact_number]" required></td>
         <td><button type="button" class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button></td>
     `;

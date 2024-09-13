@@ -1,5 +1,5 @@
 <style>
-   body {
+    body {
         font-family: 'Arial', sans-serif;
         background-color: #f4f4f9;
         margin: 0;
@@ -741,6 +741,7 @@
 </script>
 
 <!-- Page Content -->
+
 <body>
     <div class="container mt-5">
         <div class="logos">
@@ -752,15 +753,15 @@
         <h3 class="soc">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h3>
 
         @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
         @if (session('message'))
-        <div class="alert alert-success">
-            {{ session('message') }}
-        </div>
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
         @endif
         <!-- Form Section -->
         <form action="{{ route('beneficiaries.update', ['id' => $beneficiary->id]) }}" method="POST"
@@ -769,7 +770,8 @@
             @method('PUT')
             <div class="form-group1 row">
                 <div class="col-md-4">
-                    <label class="label" for="osca_id"><strong>OSCA ID No. <span class="text-danger">*</span></strong></label>
+                    <label class="label" for="osca_id"><strong>OSCA ID No. <span
+                                class="text-danger">*</span></strong></label>
                     <input type="text" class="form-control1" name="osca_id" id="osca_id"
                         value="{{ $beneficiary->osca_id }}" required>
                 </div>
@@ -781,7 +783,8 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span class="text-danger">*</span></strong></label>
+                    <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span
+                                class="text-danger">*</span></strong></label>
                     <input type="file" class="form-control" name="profile_upload" id="profile_upload">
                 </div>
             </div>
@@ -806,7 +809,8 @@
                             value="{{ $beneficiary->BeneficiaryInfo->middle_name }}">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="name_extension">Name Extension <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="name_extension">Name Extension <span
+                                class="text-danger">*</span></label>
                         <select id="name_extension" name="name_extension" class="form-control" required>
                             <option value="">Choose...</option>
                             <option value="Jr."
@@ -852,14 +856,18 @@
                 <label class="label"><strong>2. Mother's Maiden Name</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="mother_last_name">Last Name <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="mother_last_name">Last Name <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="mother_last_name" id="mother_last_name"
-                            value="{{ old('mother_last_name', $beneficiary->MothersMaidenName->mother_last_name) }}" required>
+                            value="{{ old('mother_last_name', $beneficiary->MothersMaidenName->mother_last_name) }}"
+                            required>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="mother_first_name">First Name <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="mother_first_name">First Name <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="mother_first_name" id="mother_first_name"
-                            value="{{ old('mother_first_name', $beneficiary->MothersMaidenName->mother_first_name) }}" required>
+                            value="{{ old('mother_first_name', $beneficiary->MothersMaidenName->mother_first_name) }}"
+                            required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_middle_name">Middle Name </label>
@@ -875,21 +883,21 @@
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         @php
-                        $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
-                        $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
-                        $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
-                        $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
-                        $permanentAddress = $beneficiary->addresses->where('type', 'permanent')->first();
+                            $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                            $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                            $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                            $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                            $permanentAddress = $beneficiary->addresses->where('type', 'permanent')->first();
                         @endphp
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
-                        <select class="form-control" id="permanent_address_region"
-                            name="permanent_address_region" required>
+                        <select class="form-control" id="permanent_address_region" name="permanent_address_region"
+                            required>
                             <option value="">Select Region</option>
                             @foreach ($regions as $region)
-                            <option value="{{ $region->psgc }}"
-                                {{ $permanentAddress && $permanentAddress->region == $region->col_region ? 'selected' : '' }}>
-                                {{ $region->col_region }}
-                            </option>
+                                <option value="{{ $region->psgc }}"
+                                    {{ $permanentAddress && $permanentAddress->region == $region->col_region ? 'selected' : '' }}>
+                                    {{ $region->col_region }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -899,10 +907,10 @@
                             name="permanent_address_province" required>
                             <option value="">Select Province</option>
                             @foreach ($provinces as $province)
-                            <option value="{{ $province->psgc }}"
-                                {{ $permanentAddress && $permanentAddress->province == $province->col_province ? 'selected' : '' }}>
-                                {{ $province->col_province }}
-                            </option>
+                                <option value="{{ $province->psgc }}"
+                                    {{ $permanentAddress && $permanentAddress->province == $province->col_province ? 'selected' : '' }}>
+                                    {{ $province->col_province }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -912,10 +920,10 @@
                             required>
                             <option value="">Select City</option>
                             @foreach ($cities as $city)
-                            <option value="{{ $city->psgc }}"
-                                {{ $permanentAddress && $permanentAddress->city == $city->col_citymuni ? 'selected' : '' }}>
-                                {{ $city->col_citymuni }}
-                            </option>
+                                <option value="{{ $city->psgc }}"
+                                    {{ $permanentAddress && $permanentAddress->city == $city->col_citymuni ? 'selected' : '' }}>
+                                    {{ $city->col_citymuni }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -925,15 +933,16 @@
                             name="permanent_address_barangay" required>
                             <option value="">Select Barangay</option>
                             @foreach ($barangays as $barangay)
-                            <option value="{{ $barangay->psgc }}"
-                                {{ $permanentAddress && $permanentAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
-                                {{ $barangay->col_brgy }}
-                            </option>
+                                <option value="{{ $barangay->psgc }}"
+                                    {{ $permanentAddress && $permanentAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
+                                    {{ $barangay->col_brgy }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="permanent_address_sitio"
                             placeholder="Sitio/House No./Purok/Street"
                             value="{{ old('permanent_address_sitio', $permanentAddress->sitio ?? '') }}" required>
@@ -946,64 +955,64 @@
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         @php
-                        $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
-                        $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
-                        $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
-                        $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
-                        $presentAddress = $beneficiary->addresses->where('type', 'present')->first();
+                            $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                            $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                            $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                            $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                            $presentAddress = $beneficiary->addresses->where('type', 'present')->first();
                         @endphp
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_region" name="present_address_region"
                             required>
                             @foreach ($regions as $region)
-                            <option value="{{ $region->psgc }}"
-                                {{ $presentAddress && $presentAddress->region == $region->col_region ? 'selected' : '' }}>
-                                {{ $region->col_region }}
-                            </option>
+                                <option value="{{ $region->psgc }}"
+                                    {{ $presentAddress && $presentAddress->region == $region->col_region ? 'selected' : '' }}>
+                                    {{ $region->col_region }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
-                        <select class="form-control" id="present_address_province"
-                            name="present_address_province" required>
+                        <select class="form-control" id="present_address_province" name="present_address_province"
+                            required>
                             <option value="">Select Province</option>
                             @foreach ($provinces as $province)
-                            <option value="{{ $province->psgc }}"
-                                {{ $presentAddress && $presentAddress->province == $province->col_province ? 'selected' : '' }}>
-                                {{ $province->col_province }}
-                            </option>
+                                <option value="{{ $province->psgc }}"
+                                    {{ $presentAddress && $presentAddress->province == $province->col_province ? 'selected' : '' }}>
+                                    {{ $province->col_province }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
-                        <select class="form-control" id="present_address_city" name="present_address_city"
-                            required>
+                        <select class="form-control" id="present_address_city" name="present_address_city" required>
                             <option value="">Select City/Municipality</option>
                             @foreach ($cities as $city)
-                            <option value="{{ $city->psgc }}"
-                                {{ $presentAddress && $presentAddress->city == $city->col_citymuni ? 'selected' : '' }}>
-                                {{ $city->col_citymuni }}
-                            </option>
+                                <option value="{{ $city->psgc }}"
+                                    {{ $presentAddress && $presentAddress->city == $city->col_citymuni ? 'selected' : '' }}>
+                                    {{ $city->col_citymuni }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
-                        <select class="form-control" id="present_address_barangay"
-                            name="present_address_barangay" required>
+                        <select class="form-control" id="present_address_barangay" name="present_address_barangay"
+                            required>
                             <option value="">Select Barangay</option>
                             @foreach ($barangays as $barangay)
-                            <option value="{{ $barangay->psgc }}"
-                                {{ $presentAddress && $presentAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
-                                {{ $barangay->col_brgy }}
-                            </option>
+                                <option value="{{ $barangay->psgc }}"
+                                    {{ $presentAddress && $presentAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
+                                    {{ $barangay->col_brgy }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="present_address_sitio"
                             placeholder="Sitio/House No./Purok/Street"
                             value="{{ old('present_address_sitio', $presentAddress->sitio ?? '') }}" required>
@@ -1017,20 +1026,28 @@
                 <label class="place"><strong>6. Place of Birth</strong></label></span>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="date_of_birth">DATE OF BIRTH <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="date_of_birth">DATE OF BIRTH <span
+                                class="text-danger">*</span></label>
                         <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
                             max="{{ date('Y-m-d', strtotime('-60 years')) }}"
-                            value="{{ old('date_of_birth', $beneficiary->MothersMaidenName->date_of_birth ?? '') }}" required>
+                            value="{{ old('date_of_birth', $beneficiary->MothersMaidenName->date_of_birth ?? '') }}"
+                            required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="place_of_birth_city">City/Municipality <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="place_of_birth_city">City/Municipality <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="place_of_birth_city"
-                            id="place_of_birth_city" value="{{ old('place_of_birth_city', $beneficiary->MothersMaidenName->place_of_birth_city ?? '') }}" required>
+                            id="place_of_birth_city"
+                            value="{{ old('place_of_birth_city', $beneficiary->MothersMaidenName->place_of_birth_city ?? '') }}"
+                            required>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="place_of_birth_city">Province <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="place_of_birth_city">Province <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="place_of_birth_province"
-                            id="place_of_birth_province" value="{{ old('place_of_birth_province', $beneficiary->MothersMaidenName->place_of_birth_province ?? '') }}" required>
+                            id="place_of_birth_province"
+                            value="{{ old('place_of_birth_province', $beneficiary->MothersMaidenName->place_of_birth_province ?? '') }}"
+                            required>
                     </div>
                 </div>
             </div>
@@ -1042,7 +1059,8 @@
                         value="{{ old('age', $beneficiary->MothersMaidenName->age ?? '') }}" required readonly>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="sex"><strong>8. SEX <span class="text-danger">*</span></strong></label>
+                    <label class="label" for="sex"><strong>8. SEX <span
+                                class="text-danger">*</span></strong></label>
                     <select name="sex" id="sex" class="form-control" required>
                         <option value="">Select Gender</option>
                         <option value="Male"
@@ -1054,7 +1072,8 @@
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="civil_status"><strong>8. Civil Status <span class="text-danger">*</span></strong></label>
+                    <label class="label" for="civil_status"><strong>8. Civil Status <span
+                                class="text-danger">*</span></strong></label>
                     <select name="civil_status" id="civil_status" class="form-control" required>
                         <option value="">Select Status</option>
                         <option value="Single"
@@ -1074,7 +1093,8 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label" for="affiliation"><strong>10. Affiliation <span class="text-danger">*</span></strong> (Check all applicable)</label>
+                <label class="label" for="affiliation"><strong>10. Affiliation <span
+                            class="text-danger">*</span></strong> (Check all applicable)</label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4">
                         <div class="form-check">
@@ -1086,12 +1106,14 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary"
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid"
+                                value="Pantawid Beneficiary"
                                 {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng
+                                4Ps)</label>
                         </div>
-                        <input type="text" class="form-control mt-2" name="hh_id"
-                            id="hh_id_group" style="display: {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
+                        <input type="text" class="form-control mt-2" name="hh_id" id="hh_id"
+                            style="display: {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
                             placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
                     </div>
                     <div class="col-md-4">
@@ -1102,8 +1124,10 @@
                             <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
                         </div>
                         <input type="text" class="form-control mt-2" name="indigenous_specify"
-                            id="indigenous_specify_group" style="display: {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
-                            placeholder="Specify (Itala)" value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
+                            id="indigenous_specify"
+                            style="display: {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
+                            placeholder="Specify (Itala)"
+                            value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
                     </div>
                 </div>
             </div>
@@ -1113,23 +1137,27 @@
                 <label class="label"><strong>11. Name of Spouse </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="spouse_last_name">Lastname <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="spouse_last_name">Lastname <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_last_name" id="spouse_last_name"
                             value="{{ old('spouse_last_name', $beneficiary->spouse->spouse_last_name ?? '') }}"
                             required>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="spouse_first_name">First Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="spouse_first_name"
-                            id="spouse_first_name" value="{{ old('spouse_first_name', $beneficiary->spouse->spouse_first_name ?? '') }}" required>
+                        <label class="ltitle" for="spouse_first_name">First Name <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="spouse_first_name" id="spouse_first_name"
+                            value="{{ old('spouse_first_name', $beneficiary->spouse->spouse_first_name ?? '') }}"
+                            required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_middle_name">Middle Name </label>
-                        <input type="text" class="form-control" name="spouse_middle_name"
-                            id="spouse_middle_name" value="{{ old('spouse_middle_name', $beneficiary->spouse->spouse_middle_name ?? '') }}">
+                        <input type="text" class="form-control" name="spouse_middle_name" id="spouse_middle_name"
+                            value="{{ old('spouse_middle_name', $beneficiary->spouse->spouse_middle_name ?? '') }}">
                     </div>
                     <div class="col-md-3 mb-3">
-                        <label class="ltitle" for="name_extension">Name Extension <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="name_extension">Name Extension <span
+                                class="text-danger">*</span></label>
                         <select id="spouse_name_extension" name="spouse_name_extension" class="form-control"
                             required>
                             <option value="">Choose...</option>
@@ -1174,69 +1202,70 @@
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>12. Spouse Address - </strong> Select region first, then province, then city, and finally your barangay</label>
+                <label class="label"><strong>12. Spouse Address - </strong> Select region first, then province, then
+                    city, and finally your barangay</label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
                         @php
-                        $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
-                        $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
-                        $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
-                        $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
-                        $spouseAddress = $beneficiary->addresses->where('type', 'spouse_address')->first();
+                            $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
+                            $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
+                            $cities = App\Models\CityMuni::orderBy('col_citymuni', 'asc')->get();
+                            $barangays = App\Models\Barangay::orderBy('col_brgy', 'asc')->get();
+                            $spouseAddress = $beneficiary->addresses->where('type', 'spouse_address')->first();
                         @endphp
                         <select class="form-control" id="spouse_address_region" name="spouse_address_region"
                             required>
                             <option value="">Select Region</option>
                             @foreach ($regions as $region)
-                            <option value="{{ $region->psgc }}"
-                                {{ $spouseAddress && $spouseAddress->region == $region->col_region ? 'selected' : '' }}>
-                                {{ $region->col_region }}
-                            </option>
+                                <option value="{{ $region->psgc }}"
+                                    {{ $spouseAddress && $spouseAddress->region == $region->col_region ? 'selected' : '' }}>
+                                    {{ $region->col_region }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
-                        <select class="form-control" id="spouse_address_province"
-                            name="spouse_address_province" required>
+                        <select class="form-control" id="spouse_address_province" name="spouse_address_province"
+                            required>
                             <option value="">Select Province</option>
                             @foreach ($provinces as $province)
-                            <option value="{{ $province->psgc }}"
-                                {{ $spouseAddress && $spouseAddress->province == $province->col_province ? 'selected' : '' }}>
-                                {{ $province->col_province }}
-                            </option>
+                                <option value="{{ $province->psgc }}"
+                                    {{ $spouseAddress && $spouseAddress->province == $province->col_province ? 'selected' : '' }}>
+                                    {{ $province->col_province }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
-                        <select class="form-control" id="spouse_address_city" name="spouse_address_city"
-                            required>
+                        <select class="form-control" id="spouse_address_city" name="spouse_address_city" required>
                             <option value="">Select City/Municipality</option>
                             @foreach ($cities as $city)
-                            <option value="{{ $city->psgc }}"
-                                {{ $spouseAddress && $spouseAddress->city == $city->col_citymuni ? 'selected' : '' }}>
-                                {{ $city->col_citymuni }}
-                            </option>
+                                <option value="{{ $city->psgc }}"
+                                    {{ $spouseAddress && $spouseAddress->city == $city->col_citymuni ? 'selected' : '' }}>
+                                    {{ $city->col_citymuni }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
-                        <select class="form-control" id="spouse_address_barangay"
-                            name="spouse_address_barangay" required>
+                        <select class="form-control" id="spouse_address_barangay" name="spouse_address_barangay"
+                            required>
                             <option value="">Select Barangay</option>
                             @foreach ($barangays as $barangay)
-                            <option value="{{ $barangay->psgc }}"
-                                {{ $spouseAddress && $spouseAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
-                                {{ $barangay->col_brgy }}
-                            </option>
+                                <option value="{{ $barangay->psgc }}"
+                                    {{ $spouseAddress && $spouseAddress->barangay == $barangay->col_brgy ? 'selected' : '' }}>
+                                    {{ $barangay->col_brgy }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_address_sitio"
                             placeholder="Sitio/House No./Purok/Street"
                             value="{{ old('spouse_address_sitio', $spouseAddress->sitio ?? '') }}" required>
@@ -1264,43 +1293,49 @@
                             <th>Income</th>
                             <th>Contact Number</th>
                             <th>
-                                <button type="button" class="bi bi-plus-square btn btn-success" id="add_child"></button>
+                                <button type="button" class="bi bi-plus-square btn btn-success"
+                                    id="add_child"></button>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($beneficiary->child as $index => $child)
-                        <tr>
-                            <td><input type="text" class="form-control"
-                                    name="children[{{ $index }}][name]"
-                                    value="{{ $child->children_name }}" required></td>
-                            <td>
-                                <select class="form-control" name="children[{{ $index }}][civil_status]" required>
-                                    <option value="">Civil Status</option>
-                                    <option value="Single"
-                                        {{ $child->children_civil_status == 'Single' ? 'selected' : '' }}>
-                                        Single</option>
-                                    <option value="Married"
-                                        {{ $child->children_civil_status == 'Married' ? 'selected' : '' }}>
-                                        Married</option>
-                                    <option value="Widowed"
-                                        {{ $child->children_civil_status == 'Widowed' ? 'selected' : '' }}>
-                                        Widowed</option>
-                                    <option value="Separated"
-                                        {{ $child->children_civil_status == 'Separated' ? 'selected' : '' }}>
-                                        Separated</option>
-                                </select>
-                            </td>
-                            <td><input type="text" class="form-control" name="children[{{ $index }}][occupation]"
-                                    value="{{ $child->children_occupation }}" required></td>
-                            <td><input type="text" class="form-control" name="children[{{ $index }}][income]"
-                                    value="{{ $child->children_income }}" required>
-                            </td>
-                            <td><input type="text" class="form-control" name="children[{{ $index }}][contact_number]"
-                                    value="{{ $child->children_contact_number }}">
-                            </td>
-                            <td><button type="button" class="bi bi-dash-square-dotted btn btn-danger remove_child"></button></td>
-                        </tr>
+                            <tr>
+                                <td><input type="text" class="form-control"
+                                        name="children[{{ $index }}][name]"
+                                        value="{{ $child->children_name }}" required></td>
+                                <td>
+                                    <select class="form-control" name="children[{{ $index }}][civil_status]"
+                                        required>
+                                        <option value="">Civil Status</option>
+                                        <option value="Single"
+                                            {{ $child->children_civil_status == 'Single' ? 'selected' : '' }}>
+                                            Single</option>
+                                        <option value="Married"
+                                            {{ $child->children_civil_status == 'Married' ? 'selected' : '' }}>
+                                            Married</option>
+                                        <option value="Widowed"
+                                            {{ $child->children_civil_status == 'Widowed' ? 'selected' : '' }}>
+                                            Widowed</option>
+                                        <option value="Separated"
+                                            {{ $child->children_civil_status == 'Separated' ? 'selected' : '' }}>
+                                            Separated</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control"
+                                        name="children[{{ $index }}][occupation]"
+                                        value="{{ $child->children_occupation }}" required></td>
+                                <td><input type="text" class="form-control"
+                                        name="children[{{ $index }}][income]"
+                                        value="{{ $child->children_income }}" required>
+                                </td>
+                                <td><input type="text" class="form-control"
+                                        name="children[{{ $index }}][contact_number]"
+                                        value="{{ $child->children_contact_number }}">
+                                </td>
+                                <td><button type="button"
+                                        class="bi bi-dash-square-dotted btn btn-danger remove_child"></button></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -1311,48 +1346,36 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Civil Status</th>
+                            <th>Relationship</th>
                             <th>Contact Number</th>
-                            <th><button type="button" class="bi bi-plus-square btn btn-success" id="add_representative"></button></th>
+                            <th><button type="button" class="bi bi-plus-square btn btn-success"
+                                    id="add_representative"></button></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($beneficiary->representative as $index => $representative)
-                        <tr>
-                            <td><input type="text" class="form-control"
-                                    name="representatives[{{ $index }}][name]"
-                                    value="{{ $representative->representative_name }}" required></td>
-                            <td>
-                                <select class="form-control"
-                                    name="representatives[{{ $index }}][civil_status]" required>
-                                    <option value="">Civil Status</option>
-                                    <option value="Single"
-                                        {{ $representative->representative_civil_status == 'Single' ? 'selected' : '' }}>
-                                        Single</option>
-                                    <option value="Married"
-                                        {{ $representative->representative_civil_status == 'Married' ? 'selected' : '' }}>
-                                        Married</option>
-                                    <option value="Widowed"
-                                        {{ $representative->representative_civil_status == 'Widowed' ? 'selected' : '' }}>
-                                        Widowed</option>
-                                    <option value="Separated"
-                                        {{ $representative->representative_civil_status == 'Separated' ? 'selected' : '' }}>
-                                        Separated</option>
-                            </td>
-                            <td><input type="text" class="form-control"
-                                    name="representatives[{{ $index }}][contact_number]"
-                                    value="{{ $representative->representative_contact_number }}" required></td>
-                            <td><button type="button"
-                                    class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button></td>
-                        </tr>
+                            <tr>
+                                <td><input type="text" class="form-control"
+                                        name="representatives[{{ $index }}][name]"
+                                        value="{{ $representative->representative_name }}" required></td>
+                                <td><input type="text" class="form-control"
+                                        name="representatives[{{ $index }}][relationship]"
+                                        value="{{ $representative->representative_relationship }}" required></td>
+                                <td><input type="text" class="form-control"
+                                        name="representatives[{{ $index }}][contact_number]"
+                                        value="{{ $representative->representative_contact_number }}" required></td>
+                                <td><button type="button"
+                                        class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-           
+
             @php
-            $houseStatus = explode(',', $beneficiary->housingLivingStatus->house_status ?? '');
-            $livingStatus = explode(',', $beneficiary->housingLivingStatus->living_status ?? '');
+                $houseStatus = explode(',', $beneficiary->housingLivingStatus->house_status ?? '');
+                $livingStatus = explode(',', $beneficiary->housingLivingStatus->living_status ?? '');
             @endphp
 
             <div class="form-group mt-4">
@@ -1372,7 +1395,8 @@
                                 {{ in_array('Others', $houseStatus) ? 'checked' : '' }}> Others
                         </div>
                         <input type="text" class="form-control mt-2" name="house_status_others_input"
-                            id="house_status_others_input" style="display: {{ in_array('Others', $houseStatus) ? 'block' : 'none' }};"
+                            id="house_status_others_input"
+                            style="display: {{ in_array('Others', $houseStatus) ? 'block' : 'none' }};"
                             placeholder="Specify other house status"
                             value="{{ $beneficiary->housingLivingStatus->house_status_others_input ?? '' }}">
                     </div>
@@ -1396,7 +1420,8 @@
                                 {{ in_array('Others', $livingStatus) ? 'checked' : '' }}> Others
                         </div>
                         <input type="text" class="form-control mt-2" name="living_status_others_input"
-                            id="living_status_others_input" style="display: {{ in_array('Others', $livingStatus) ? 'block' : 'none' }};"
+                            id="living_status_others_input"
+                            style="display: {{ in_array('Others', $livingStatus) ? 'block' : 'none' }};"
                             placeholder="Specify other living status"
                             value="{{ $beneficiary->housingLivingStatus->living_status_others_input ?? '' }}">
                     </div>
@@ -1431,11 +1456,15 @@
                                     No
                                 </td>
                                 <td><input type="text" id="pension_amount" name="pension_amount"
-                                        placeholder="Enter amount" value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter amount"
+                                        value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                                 <td><input type="text" id="pension_source" name="pension_source"
-                                        placeholder="Enter source" value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter source"
+                                        value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="ltitle" for="permanent_income">Permanent Income</label>
@@ -1452,11 +1481,15 @@
                                     No
                                 </td>
                                 <td><input type="text" id="income_amount" name="income_amount"
-                                        placeholder="Enter amount" value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter amount"
+                                        value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                                 <td><input type="text" id="income_source" name="income_source"
-                                        placeholder="Enter source" value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter source"
+                                        value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                             </tr>
                             <tr>
                                 <td><label class="ltitle" for="regular_support">Regular Support</label>
@@ -1466,17 +1499,22 @@
                                         onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')"
                                         {{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'checked' : '' }} />
                                     Yes
-                                    <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
+                                    <input type="checkbox" id="regular_support_no" name="regular_support"
+                                        value="No"
                                         onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')"
                                         {{ $beneficiary->economicInformation->regular_support == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
                                 <td><input type="text" id="support_amount" name="support_amount"
-                                        placeholder="Enter amount" value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter amount"
+                                        value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                                 <td><input type="text" id="support_source" name="support_source"
-                                        placeholder="Enter source" value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" /></td>
+                                        placeholder="Enter source"
+                                        value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
+                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -1507,7 +1545,8 @@
                                     None
                                 </td>
                                 <td><input type="text" id="illness_specify" name="illness_specify"
-                                        placeholder="Specify" style="display:{{ $beneficiary->healthInformation->existing_illness == 'Yes' ? 'block' : 'none' }};"
+                                        placeholder="Specify"
+                                        style="display:{{ $beneficiary->healthInformation->existing_illness == 'Yes' ? 'block' : 'none' }};"
                                         value="{{ $beneficiary->healthInformation->illness_specify ?? '' }}" /></td>
                             </tr>
                             <tr>
@@ -1522,8 +1561,10 @@
                                     None
                                 </td>
                                 <td><input type="text" id="disability_specify" name="disability_specify"
-                                        placeholder="Specify" style="display:{{ $beneficiary->healthInformation->with_disability == 'Yes' ? 'block' : 'none' }};"
-                                        value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" /></td>
+                                        placeholder="Specify"
+                                        style="display:{{ $beneficiary->healthInformation->with_disability == 'Yes' ? 'block' : 'none' }};"
+                                        value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -1534,34 +1575,41 @@
                         <tbody>
                             <tr>
                                 <td><label class="ltitle">1. Do you experience difficulty in doing your ADLs?</label>
-                                <td><input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes"
-                                        onclick="handleCheckboxSelectionFra('difficult_adl', true)"
-                                        {{ $beneficiary->healthInformation->difficult_adl == 'Yes' ? 'checked' : '' }} /> Yes
+                                <td><input type="checkbox" id="difficult_adl_yes" name="difficult_adl"
+                                        value="Yes" onclick="handleCheckboxSelectionFra('difficult_adl', true)"
+                                        {{ $beneficiary->healthInformation->difficult_adl == 'Yes' ? 'checked' : '' }} />
+                                    Yes
                                     <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No"
                                         onclick="handleCheckboxSelectionFra('difficult_adl', false)"
-                                        {{ $beneficiary->healthInformation->difficult_adl == 'No' ? 'checked' : '' }} /> No
+                                        {{ $beneficiary->healthInformation->difficult_adl == 'No' ? 'checked' : '' }} />
+                                    No
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><label class="ltitle">2. Are you completely dependent on someone in doing your IADLs?</label></td>
-                                <td><input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
-                                        onclick="handleCheckboxSelectionFra('dependent_iadl', true)"
-                                        {{ $beneficiary->healthInformation->dependent_iadl == 'Yes' ? 'checked' : '' }} /> Yes
-                                    <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No"
-                                        onclick="handleCheckboxSelectionFra('dependent_iadl', false)"
-                                        {{ $beneficiary->healthInformation->dependent_iadl == 'No' ? 'checked' : '' }} /> No
+                                <td><label class="ltitle">2. Are you completely dependent on someone in doing your
+                                        IADLs?</label></td>
+                                <td><input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl"
+                                        value="Yes" onclick="handleCheckboxSelectionFra('dependent_iadl', true)"
+                                        {{ $beneficiary->healthInformation->dependent_iadl == 'Yes' ? 'checked' : '' }} />
+                                    Yes
+                                    <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl"
+                                        value="No" onclick="handleCheckboxSelectionFra('dependent_iadl', false)"
+                                        {{ $beneficiary->healthInformation->dependent_iadl == 'No' ? 'checked' : '' }} />
+                                    No
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><label class="ltitle">3. Are you experiencing weight loss, weakness, exhaustion?</label></td>
+                                <td><label class="ltitle">3. Are you experiencing weight loss, weakness,
+                                        exhaustion?</label></td>
                                 <td><input type="checkbox" id="experience_loss_yes" name="experience_loss"
                                         value="Yes" onclick="handleCheckboxSelectionFra('experience_loss', true)"
                                         {{ $beneficiary->healthInformation->experience_loss == 'Yes' ? 'checked' : '' }} />
                                     Yes
-                                    <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No"
-                                        onclick="handleCheckboxSelectionFra('experience_loss', false)"
-                                        {{ $beneficiary->healthInformation->experience_loss == 'No' ? 'checked' : ''}} /> No
+                                    <input type="checkbox" id="experience_loss_no" name="experience_loss"
+                                        value="No" onclick="handleCheckboxSelectionFra('experience_loss', false)"
+                                        {{ $beneficiary->healthInformation->experience_loss == 'No' ? 'checked' : '' }} />
+                                    No
                                 <td></td>
                             </tr>
                         </tbody>
@@ -1585,8 +1633,8 @@
                     <div class="col-md-3 mb-3">
                         <label class="ltitle">Eligibility</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="eligibility_eligible" value="Eligible"
-                                onclick="handleCheckboxSelection('eligibility', true)"
+                            <input class="form-check-input" type="checkbox" id="eligibility_eligible"
+                                value="Eligible" onclick="handleCheckboxSelection('eligibility', true)"
                                 {{ $beneficiary->assessmentRecommendation->eligibility == 'Eligible' ? 'checked' : '' }} />
                             <label class="form-check-label" for="eligibility_eligible">Eligible</label>
                         </div>
@@ -1597,7 +1645,8 @@
                             <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
                         </div>
                     </div>
-                    <input type="hidden" name="eligibility" id="eligibility_value" value="{{ $beneficiary->assessmentRecommendation->eligibility }}">
+                    <input type="hidden" name="eligibility" id="eligibility_hidden"
+                        value="{{ $beneficiary->assessmentRecommendation->eligibility }}">
                 </div>
             </div>
             <div class="form-group text-center mt-4">
@@ -1632,10 +1681,8 @@
 
         const listahananCheckbox = document.getElementById('listahanan');
         const pantawidCheckbox = document.getElementById('pantawid');
-        const hhIdGroup = document.getElementById('hh_id_group');
         const hhIdField = document.getElementById('hh_id');
         const indigenousCheckbox = document.getElementById('indigenous');
-        const indigenousSpecifyGroup = document.getElementById('indigenous_specify_group');
         const indigenousSpecifyField = document.getElementById('indigenous_specify');
 
         // Set initial state of checkboxes
@@ -1644,26 +1691,18 @@
         indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
 
         // Set initial visibility of additional fields
-        hhIdGroup.style.display = pantawidCheckbox.checked ? 'block' : 'none';
-        indigenousSpecifyGroup.style.display = indigenousCheckbox.checked ? 'block' : 'none';
+        hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
+        indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
 
         // Add event listeners to handle visibility on change
         pantawidCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                hhIdGroup.style.display = 'block';
-            } else {
-                hhIdGroup.style.display = 'none';
-                hhIdField.value = ''; // Clear the field when unchecked
-            }
+            hhIdField.style.display = this.checked ? 'block' : 'none';
+            if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
         });
 
         indigenousCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                indigenousSpecifyGroup.style.display = 'block';
-            } else {
-                indigenousSpecifyGroup.style.display = 'none';
-                indigenousSpecifyField.value = ''; // Clear the field when unchecked
-            }
+            indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
+            if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
         });
 
         // Add event listener to clear other fields when "Listahanan" is checked
@@ -1671,11 +1710,11 @@
             if (this.checked) {
                 pantawidCheckbox.checked = false;
                 hhIdField.value = '';
-                hhIdGroup.style.display = 'none';
+                hhIdField.style.display = 'none';
 
                 indigenousCheckbox.checked = false;
                 indigenousSpecifyField.value = '';
-                indigenousSpecifyGroup.style.display = 'none';
+                indigenousSpecifyField.style.display = 'none';
             }
         });
     });
@@ -1812,15 +1851,7 @@
 
         newRow.innerHTML = `
         <td><input type="text" class="form-control" name="representatives[${representativeIndex}][name]" required></td>
-        <td>
-            <select class="form-control" name="representatives[${representativeIndex}][civil_status]" required>
-                <option value="">Civil Status</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Widowed">Widowed</option>
-                <option value="Separated">Separated</option>
-            </select>
-        </td>
+       <td><input type="text" class="form-control" name="representatives[${representativeIndex}][relationship]" required></td>
         <td><input type="text" class="form-control" name="representatives[${representativeIndex}][contact_number]" required></td>
         <td><button type="button" class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button></td>
     `;

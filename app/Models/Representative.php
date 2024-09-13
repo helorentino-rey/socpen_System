@@ -14,7 +14,7 @@ class Representative extends Model
     protected $fillable = [
         'beneficiary_id',
         'representative_name',
-        'representative_civil_status',
+        'representative_relationship',
         'representative_contact_number',
     ];
 

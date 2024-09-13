@@ -208,23 +208,11 @@
          <h5>Authorized Representatives Information</h5>
          @foreach ($beneficiary->representative as $representative)
              <p><strong>Name:</strong> {{ $representative->representative_name ?? 'N/A' }}</p>
-             <p><strong>Civil Status:</strong> {{ $representative->representative_civil_status ?? 'N/A' }}</p>
+             <p><strong>Relationship (to Beneficiary):</strong> {{ $representative->representative_relationship ?? 'N/A' }}</p>
              <p><strong>Contact Number:</strong> {{ $representative->representative_contact_number ?? 'N/A' }}</p>
              <br>
          @endforeach
      </div>
- 
- 
-     {{-- <!-- <div class="info-section">
-         <h5>Caregiver Information</h5>
-         <p><strong>Last Name:</strong> {{ $beneficiary->caregiver->caregiver_last_name ?? 'N/A' }}</p>
-         <p><strong>First Name:</strong> {{ $beneficiary->caregiver->caregiver_first_name ?? 'N/A' }}</p>
-         <p><strong>Middle Name:</strong> {{ $beneficiary->caregiver->caregiver_middle_name ?? 'N/A' }}</p>
-         <p><strong>Name Extension:</strong> {{ $beneficiary->caregiver->caregiver_name_extension ?? 'N/A' }}</p>
-         <p><strong>Relationship:</strong> {{ $beneficiary->caregiver->caregiver_relationship ?? 'N/A' }}</p>
-         <p><strong>Contact:</strong> {{ $beneficiary->caregiver->caregiver_contact ?? 'N/A' }}</p>
-     </div> --> --}}
- 
  
      <div class="info-section">
          <h5>Housing and Living Status</h5>

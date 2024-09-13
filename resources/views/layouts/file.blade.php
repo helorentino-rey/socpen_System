@@ -452,7 +452,7 @@
                     });
                 });
             });
-            
+
             //Display Beneficiary Information Modal
             $(document).ready(function() {
                 $('.beneficiary-name').click(function(e) {

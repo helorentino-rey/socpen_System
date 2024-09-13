@@ -85,15 +85,8 @@ class AddBeneficiaryController extends Controller
             'children.*.contact_number' => 'nullable|string|max:13',
 
             'representatives.*.name' => 'nullable|string|max:50',
-            'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
+            'representatives.*.relationship' => 'nullable|string|max:50',
             'representatives.*.contact_number' => 'nullable|string|max:13',
-
-            // 'caregiver_last_name' => 'nullable|string|max:25',
-            // 'caregiver_first_name' => 'nullable|string|max:25',
-            // 'caregiver_middle_name' => 'nullable|string|max:25',
-            // 'caregiver_name_extension' => 'nullable|string|max:4',
-            // 'caregiver_relationship' => 'nullable|string|max:25',
-            // 'caregiver_contact' => 'nullable|string|max:13',
 
             'house_status' => 'required|array',
             'house_status.*' => 'required|string|in:Owned,Rent,Others',
@@ -264,24 +257,12 @@ class AddBeneficiaryController extends Controller
                 Representative::create([
                     'beneficiary_id' => $beneficiary->id,
                     'representative_name' => $representativeData['name'] ?? null,
-                    'representative_civil_status' => $representativeData['civil_status'] ?? null,
+                    'representative_relationship' => $representativeData['relationship'] ?? null,
                     'representative_contact_number' => $representativeData['contact_number'] ?? null,
                 ]);
                 Log::info('Representative created for beneficiary: ' . $beneficiary->id);
             }
         }
-
-        // Create a new caregiver record
-        // Caregiver::create([
-        //     'beneficiary_id' => $beneficiary->id,
-        //     'caregiver_last_name' => $validatedData['caregiver_last_name'] ?? null,
-        //     'caregiver_first_name' => $validatedData['caregiver_first_name'] ?? null,
-        //     'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
-        //     'caregiver_name_extension' => $validatedData['caregiver_name_extension'] ?? null,
-        //     'caregiver_relationship' => $validatedData['caregiver_relationship'] ?? null,
-        //     'caregiver_contact' => $validatedData['caregiver_contact'] ?? null,
-        // ]);
-        // Log::info('Caregiver created for beneficiary: ' . $beneficiary->id);
 
         // Process the checkbox values
         $houseStatus = implode(', ', $validatedData['house_status']);
@@ -349,7 +330,6 @@ class AddBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -380,7 +360,6 @@ class AddBeneficiaryController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            // 'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
