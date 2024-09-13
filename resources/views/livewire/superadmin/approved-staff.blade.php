@@ -105,7 +105,7 @@
             <div class="modal-body">
                 <div class="text-center mb-3">
                     <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
-                        style="width: 150px; height: 150px; object-fit: cover;">
+                        style="width: 150px; height: 150px; object-fit: cover; border: 1.5px solid #1C4CB1;">
                 </div>
                 <div>
                     <p><strong>Last Name:</strong> <span id="staff-lastname"></span></p>

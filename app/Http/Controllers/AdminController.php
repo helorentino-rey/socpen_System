@@ -35,6 +35,7 @@ class AdminController extends Controller
     public function getStaffDetails($id)
     {
         $staff = Staff::findOrFail($id);
+        $staff->image_url = $staff->profile_picture ? asset('storage/' . $staff->profile_picture) : null;
         return response()->json($staff);
     }
 

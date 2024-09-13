@@ -66,7 +66,6 @@
             border: none;
             padding: 0;
             cursor: pointer;
-            text-decoration: underline;
         }
 
         .resend-link.disabled {
