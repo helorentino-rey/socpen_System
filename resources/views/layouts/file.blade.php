@@ -101,11 +101,11 @@
 
         .table {
             font-family: 'Arial', sans-serif;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .form-control {
-            font-size: 12px;
+            font-size: 14px;
         }
     </style>
 
@@ -198,9 +198,10 @@
                                     data-bs-target="#statusModal{{ $beneficiary->id }}"
                                     style="cursor: pointer; color: black;"></i>
 
-                                    <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}" style="cursor: pointer;" title="Edit">
-    <i class="bi bi-pencil" style="color: black;"></i>
-</a>
+                                <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}"
+                                    style="cursor: pointer;" title="Edit">
+                                    <i class="bi bi-pencil" style="color: black;"></i>
+                                </a>
 
                                 <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
                                     style="cursor: pointer; text-decoration: none;" title="Show Form">
@@ -322,9 +323,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-
                         <div class="modal-body">
-                            <form action="{{ route('beneficiaries.export') }}" method="GET">
+                            <form id="exportForm" action="{{ route('beneficiaries.export') }}" method="GET">
                                 <div class="alert alert-info" role="alert">
                                     If you want to export everything, just add a filename and click export.
                                 </div>
@@ -353,6 +353,23 @@
                 </div>
             </div>
 
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            CSV file downloaded successfully.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Error Modal -->
             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
@@ -363,12 +380,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            @if (session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
+                        <div class="modal-body" id="errorMessage">
+                            <!-- Error message will be inserted here by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -380,12 +393,54 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
             <script>
-                //Display Error Modal
-                @if (session('error'))
-                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-                    errorModal.show();
-                @endif
+                //Display Error and Success Modal
+                $(document).ready(function() {
+                    $('#exportForm').on('submit', function(e) {
+                        e.preventDefault();
 
+                        var form = $(this);
+                        var url = form.attr('action');
+                        var formData = form.serialize();
+                        var filename = $('#filename').val();
+
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: formData,
+                            xhrFields: {
+                                responseType: 'blob'
+                            },
+                            success: function(response, status, xhr) {
+                                var disposition = xhr.getResponseHeader('content-disposition');
+                                var matches = /"([^"]*)"/.exec(disposition);
+                                var downloadFilename = (matches != null && matches[1] ? matches[1] :
+                                    filename + '.csv');
+
+                                var link = document.createElement('a');
+                                link.href = window.URL.createObjectURL(response);
+                                link.download = downloadFilename;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+
+                                // Show success modal
+                                var successModal = new bootstrap.Modal(document.getElementById(
+                                    'successModal'));
+                                successModal.show();
+                            },
+                            error: function(xhr) {
+                                var errorMessage = xhr.responseJSON ? xhr.responseJSON.error :
+                                    'No records found for the selected province.';
+                                $('#errorMessage').text(errorMessage);
+
+                                // Show error modal
+                                var errorModal = new bootstrap.Modal(document.getElementById(
+                                    'errorModal'));
+                                errorModal.show();
+                            }
+                        });
+                    });
+                });
                 //Display Beneficiary Information Modal
                 $(document).ready(function() {
                     $('.beneficiary-name').click(function(e) {

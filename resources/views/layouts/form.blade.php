@@ -22,11 +22,12 @@
                 display: none;
             }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
         }
-    }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -427,7 +428,7 @@
 
                 <tr>
                     <th colspan="5">ADDRESS (Tirahan):</th>
-                     <tr>
+                <tr>
                     <td>Sitio/House No./Purok/Street:
                         <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>
                     </td>
@@ -448,7 +449,7 @@
                 <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
                     <span>{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</span>
                 </td>
-               
+
                 <tr>
                     <th colspan="5">CHILDREN (Mga Anak):</th>
                 </tr>
@@ -486,7 +487,7 @@
                 <tr>
                     <td colspan="3">Housing Situation(Sitwasyon ng Pamamahay):
                         <span>{{ $beneficiary->housingLivingStatus->house_status ?? 'N/A' }}</span>
-                        <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A'}}</span>
+                        <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A' }}</span>
                     </td>
 
                     <td colspan="2">Living Arrangement (kaayusan sa pamumuhay):
@@ -568,12 +569,12 @@
                     <th colspan="5">FRAILTY QUESTIONS:</th>
                 </tr>
                 <tr>
-                    <td colspan="2">1. Do you experience difficulty in doing your ADLs? (Yes/No)
+                    <td>1. Do you experience difficulty in doing your ADLs? (Yes/No)
                         <span>{{ $beneficiary->healthInformation->difficult_adl ?? 'N/A' }}</span>
                     </td>
-                    <td colspan="2">2. Are you completely dependent on someone in doing your IADLs?
+                    <td>2. Are you completely dependent on someone in doing your IADLs?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->dependent_iadl ?? 'N/A' }}</span></td>
-                    <td colspan="1">3. Are you experiencing weight loss, weakness, exhaustion?
+                    <td>3. Are you experiencing weight loss, weakness, exhaustion?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->experience_loss ?? 'N/A' }}</span></td>
                 </tr>
             </table>
@@ -604,11 +605,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">Signature over Printed
-                        Name<span></span></td>
+                        Name<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
                     <td colspan="2">
-                        Designation<span></span></td>
+                        Designation<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
                     <td colspan="1">
-                        Date<span></span></td>
+                        Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
                 </tr>
                 <tr>
                     <th colspan="5">By signing this form, I grant my free and voluntary consent for the Department
@@ -626,11 +627,11 @@
                 </tr>
                 <tr>
                     <td colspan="2">Name of Applicant or
-                        Respondent<span></span></td>
+                        Respondent<span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span></td>
                     <td colspan="2">Signature or
-                        Thumbmark<span></span></td>
+                        Thumbmark<span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span></td>
                     <td colspan="1">
-                        Date<span></span></td>
+                        Date<span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span></td>
                 </tr>
                 <tr>
                     <th colspan="5">DATA PRIVACY

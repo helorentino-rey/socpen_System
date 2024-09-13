@@ -21,7 +21,8 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        $query = Beneficiary::with('child',
+        $query = Beneficiary::with(
+            'child',
             'representative',
             'beneficiaryInfo',
             'mothersMaidenName',
@@ -34,14 +35,16 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'economicInformation',
             'healthInformation',
             'housingLivingStatus',
-            'spouse');
+            'spouse'
+        );
 
-        if ($this->request->has('province') && $this->request->province) {
-            $query->whereHas('presentAddress', function ($q) {
-                $q->where('province', $this->request->province);
-            });
+        if ($this->request->has('province')) {
+            if ($this->request->province) {
+                $query->whereHas('presentAddress', function ($q) {
+                    $q->where('province', $this->request->province);
+                });
+            }
         }
-
         return $query;
     }
 

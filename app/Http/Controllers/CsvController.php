@@ -20,27 +20,32 @@ class CsvController extends Controller
                 $filename .= '.csv';
             }
 
-            // Validate province input
-            if (!$request->has('province') || !$request->province) {
-                return redirect()->back()->with('error', 'Please select a province.');
+            // Check if there are records for the selected province or all provinces
+            $query = Beneficiary::query();
+
+            if ($request->has('province') && $request->province) {
+                $query->whereHas('presentAddress', function ($query) use ($request) {
+                    $query->where('province', $request->province);
+                });
             }
 
-            // Check if there are records for the selected province
-            $provinceExists = Beneficiary::whereHas('presentAddress', function ($query) use ($request) {
-                $query->where('province', $request->province);
-            })->exists();
+            $provinceExists = $query->exists();
 
             if (!$provinceExists) {
-                return redirect()->back()->with('error', 'No records found for the selected province.');
+                return response()->json(['error' => 'No records found for the selected province.'], 404);
             }
 
+            // Set success message in session
+            session()->flash('success', 'CSV file downloaded successfully.');
+
+            // Return the download response
             return (new BeneficiariesExport($request))->download($filename);
         } catch (\Exception $e) {
             // Log the actual error message for debugging purposes
             Log::error('Export error: ' . $e->getMessage());
 
             // Show a user-friendly error message
-            return redirect()->back()->with('error', 'An error occurred while processing your request. Please try again later.');
+            return response()->json(['error' => 'An error occurred while processing your request. Please try again later.'], 500);
         }
     }
 }
