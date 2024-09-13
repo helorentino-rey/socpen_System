@@ -67,7 +67,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 14px;
 
         }
 
@@ -296,8 +296,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <button type="button" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <!-- Content will be populated by JavaScript -->
@@ -309,7 +308,18 @@
             <!-- Pagination -->
             <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
                 <ul class="pagination">
-                    {{ $beneficiaries->links('pagination::bootstrap-4') }}
+                    @if ($beneficiaries->hasPages())
+                        {{ $beneficiaries->links('pagination::bootstrap-4') }}
+                    @else
+                        <!-- Render empty pagination links to maintain layout -->
+                        <li class="page-item"><a class="page-link">‹</a></li>
+                        <li class="page-item"><a class="page-link">1</a></li>
+                        <li class="page-item"><a class="page-link">2</a></li>
+                        <li class="page-item"><a class="page-link">3</a></li>
+                        <li class="page-item"><a class="page-link">4</a></li>
+                        <li class="page-item"><a class="page-link">5</a></li>
+                        <li class="page-item"><a class="page-link">›</a></li>
+                    @endif
                 </ul>
             </nav>
 
@@ -386,207 +396,216 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Include Bootstrap and jQuery JavaScript files -->
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+        <!-- Include Bootstrap and jQuery JavaScript files -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
-            <script>
-                //Display Error and Success Modal
-                $(document).ready(function() {
-                    $('#exportForm').on('submit', function(e) {
-                        e.preventDefault();
+        <script>
+            //Display Error and Success Modal
+            $(document).ready(function() {
+                $('#exportForm').on('submit', function(e) {
+                    e.preventDefault();
 
-                        var form = $(this);
-                        var url = form.attr('action');
-                        var formData = form.serialize();
-                        var filename = $('#filename').val();
+                    var form = $(this);
+                    var url = form.attr('action');
+                    var formData = form.serialize();
+                    var filename = $('#filename').val();
 
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            data: formData,
-                            xhrFields: {
-                                responseType: 'blob'
-                            },
-                            success: function(response, status, xhr) {
-                                var disposition = xhr.getResponseHeader('content-disposition');
-                                var matches = /"([^"]*)"/.exec(disposition);
-                                var downloadFilename = (matches != null && matches[1] ? matches[1] :
-                                    filename + '.csv');
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: formData,
+                        xhrFields: {
+                            responseType: 'blob'
+                        },
+                        success: function(response, status, xhr) {
+                            var disposition = xhr.getResponseHeader('content-disposition');
+                            var matches = /"([^"]*)"/.exec(disposition);
+                            var downloadFilename = (matches != null && matches[1] ? matches[1] :
+                                filename + '.csv');
 
-                                var link = document.createElement('a');
-                                link.href = window.URL.createObjectURL(response);
-                                link.download = downloadFilename;
-                                document.body.appendChild(link);
-                                link.click();
-                                document.body.removeChild(link);
+                            var link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(response);
+                            link.download = downloadFilename;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
 
-                                // Show success modal
-                                var successModal = new bootstrap.Modal(document.getElementById(
-                                    'successModal'));
-                                successModal.show();
-                            },
-                            error: function(xhr) {
-                                var errorMessage = xhr.responseJSON ? xhr.responseJSON.error :
-                                    'No records found for the selected province.';
-                                $('#errorMessage').text(errorMessage);
+                            // Show success modal
+                            var successModal = new bootstrap.Modal(document.getElementById(
+                                'successModal'));
+                            successModal.show();
+                        },
+                        error: function(xhr) {
+                            var errorMessage = xhr.responseJSON ? xhr.responseJSON.error :
+                                'No records found for the selected province.';
+                            $('#errorMessage').text(errorMessage);
 
-                                // Show error modal
-                                var errorModal = new bootstrap.Modal(document.getElementById(
-                                    'errorModal'));
-                                errorModal.show();
-                            }
-                        });
+                            // Show error modal
+                            var errorModal = new bootstrap.Modal(document.getElementById(
+                                'errorModal'));
+                            errorModal.show();
+                        }
                     });
                 });
-                //Display Beneficiary Information Modal
-                $(document).ready(function() {
-                    $('.beneficiary-name').click(function(e) {
-                        e.preventDefault();
-                        const beneficiaryId = $(this).data('id');
+            });
+            
+            //Display Beneficiary Information Modal
+            $(document).ready(function() {
+                $('.beneficiary-name').click(function(e) {
+                    e.preventDefault();
+                    const beneficiaryId = $(this).data('id');
 
-                        $.ajax({
-                            url: '/beneficiaries/' + beneficiaryId,
-                            type: 'GET',
-                            success: function(response) {
-                                $('#beneficiaryModal .modal-body').html(response);
-                                $('#beneficiaryModal').modal('show');
-                            },
-                            error: function() {
-                                $('#beneficiaryModal .modal-body').html(
-                                    'Error loading beneficiary information.');
-                            }
-                        });
+                    $.ajax({
+                        url: '/beneficiaries/' + beneficiaryId,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#beneficiaryModal .modal-body').html(response);
+                            $('#beneficiaryModal').modal('show');
+                        },
+                        error: function() {
+                            $('#beneficiaryModal .modal-body').html(
+                                'Error loading beneficiary information.');
+                        }
                     });
                 });
+            });
 
-                //Search for a Beneficiary
-                $(document).ready(function() {
-                    $('#beneficiary-search').on('keyup', function() {
-                        const query = $(this).val();
+            //Search for a Beneficiary
+            $(document).ready(function() {
+                $('#beneficiary-search').on('keyup', function() {
+                    const query = $(this).val();
 
-                        if (query.length > 2) {
-                            $.ajax({
-                                url: '{{ route('beneficiaries.search') }}',
-                                method: 'GET',
-                                data: {
-                                    query: query
-                                },
-                                success: function(data) {
-                                    let searchResults = $('#search-results');
-                                    searchResults.empty();
+                    if (query.length > 2) {
+                        $.ajax({
+                            url: '{{ route('beneficiaries.search') }}',
+                            method: 'GET',
+                            data: {
+                                query: query
+                            },
+                            success: function(data) {
+                                let searchResults = $('#search-results');
+                                searchResults.empty();
 
-                                    if (data.length > 0) {
-                                        data.forEach(function(beneficiary) {
-                                            searchResults.append(`
+                                if (data.length > 0) {
+                                    data.forEach(function(beneficiary) {
+                                        searchResults.append(`
                               <a href="#" class="list-group-item list-group-item-action beneficiary-item" data-id="${beneficiary.id}">
     <span class="beneficiary-name">${beneficiary.name}</span>
     <span class="beneficiary-status">${beneficiary.status}</span>
 </a>
                             `);
-                                        });
-                                    } else {
-                                        searchResults.append(
-                                            '<div class="list-group-item">No results found</div>');
-                                    }
+                                    });
+                                } else {
+                                    searchResults.append(
+                                        '<div class="list-group-item">No results found</div>');
                                 }
-                            });
-                        } else {
-                            $('#search-results').empty();
+                            }
+                        });
+                    } else {
+                        $('#search-results').empty();
+                    }
+                });
+
+                // Handle click on a search result
+                $(document).on('click', '.beneficiary-item', function(e) {
+                    e.preventDefault();
+                    const beneficiaryId = $(this).data('id');
+
+                    $.ajax({
+                        url: '/beneficiaries/' + beneficiaryId,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#beneficiaryModal .modal-body').html(response);
+                            $('#beneficiaryModal').modal('show');
+                        },
+                        error: function() {
+                            $('#beneficiaryModal .modal-body').html(
+                                'Error loading beneficiary information.');
                         }
                     });
 
-                    // Handle click on a search result
-                    $(document).on('click', '.beneficiary-item', function(e) {
-                        e.preventDefault();
-                        const beneficiaryId = $(this).data('id');
+                    $('#search-results').empty();
+                    $('#beneficiary-search').val(''); // Clear the search input
+                });
+            });
 
-                        $.ajax({
-                            url: '/beneficiaries/' + beneficiaryId,
-                            type: 'GET',
-                            success: function(response) {
-                                $('#beneficiaryModal .modal-body').html(response);
-                                $('#beneficiaryModal').modal('show');
-                            },
-                            error: function() {
-                                $('#beneficiaryModal .modal-body').html(
-                                    'Error loading beneficiary information.');
-                            }
-                        });
+            //Pagination
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                let page = $(this).attr('href').split('page=')[1];
+                fetchBeneficiaries(page);
+            });
 
-                        $('#search-results').empty();
-                        $('#beneficiary-search').val(''); // Clear the search input
-                    });
+            function fetchBeneficiaries(page) {
+                $.ajax({
+                    url: '/beneficiaries?page=' + page,
+                    success: function(data) {
+                        $('.card').html(data);
+                    }
+                });
+            }
+        </script>
+        <script>
+            // Update Beneficiary Information
+            function initializeModal() {
+                // Function to handle the close button with confirmation
+                document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const confirmation = confirm(
+                        "Are you sure you want to close the form? Any unsaved changes will be lost.");
+
+                    if (confirmation) {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
+                        modal.hide();
+                        // Redirect to the specified route after closing
+                        window.location.href = '/approved-beneficiary'; // Replace with your desired route
+                    }
                 });
 
-                //Pagination
-                $(document).on('click', '.pagination a', function(e) {
+                // Set up event listener for the edit button
+                $('.edit-beneficiary').click(function(e) {
                     e.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    fetchBeneficiaries(page);
-                });
+                    const beneficiaryId = $(this).data('id');
 
-                function fetchBeneficiaries(page) {
+                    // Call confirmEdit function for confirmation
+                    confirmEdit(beneficiaryId);
+                });
+            }
+
+            // Function to confirm editing a beneficiary
+            function confirmEdit(beneficiaryId) {
+                if (confirm("Are you sure you want to edit this beneficiary?")) {
+                    // Fetch the beneficiary edit form via AJAX only if confirmed
                     $.ajax({
-                        url: '/beneficiaries?page=' + page,
-                        success: function(data) {
-                            $('.card').html(data);
+                        url: '/beneficiaries/edit/' + beneficiaryId,
+                        type: 'GET',
+                        success: function(response) {
+                            // Populate the modal body with the response (edit form)
+                            $('#editBeneficiaryModal .modal-body').html(response);
+                            // Show the modal after successful AJAX call
+                            const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            modal.show();
+                            // Reinitialize modal events
+                            initializeModal();
+                        },
+                        error: function() {
+                            alert('Error loading beneficiary information.');
                         }
                     });
                 }
-            </script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Function to handle the close button with confirmation
-                    document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
-                        event.preventDefault();
+            }
 
-                        const confirmation = confirm(
-                            "Are you sure you want to close the form? Any unsaved changes will be lost.");
-
-                        if (confirmation) {
-                            const modal = bootstrap.Modal.getInstance(document.getElementById(
-                                'editBeneficiaryModal'));
-                            modal.hide();
-
-                            // Redirect to the specified route after closing
-                            window.location.href = '/approved-beneficiary'; // Replace with your desired route
-                        }
-                    });
-
-                    // Function to confirm editing a beneficiary
-                    function confirmEdit(beneficiaryId) {
-                        if (confirm("Are you sure you want to edit this beneficiary?")) {
-                            // Fetch the beneficiary edit form via AJAX only if confirmed
-                            $.ajax({
-                                url: '/beneficiaries/edit/' + beneficiaryId,
-                                type: 'GET',
-                                success: function(response) {
-                                    // Populate the modal body with the response (edit form)
-                                    $('#editBeneficiaryModal .modal-body').html(response);
-                                    // Show the modal after successful AJAX call
-                                    $('#editBeneficiaryModal').modal('show');
-                                },
-                                error: function() {
-                                    alert('Error loading beneficiary information.');
-                                }
-                            });
-                        }
-                    }
-
-                    // Set up event listener for the edit button
-                    $(document).ready(function() {
-                        // Trigger when the edit button is clicked
-                        $('.edit-beneficiary').click(function(e) {
-                            e.preventDefault();
-                            const beneficiaryId = $(this).data('id');
-
-                            // Call confirmEdit function for confirmation
-                            confirmEdit(beneficiaryId);
-                        });
-                    });
-                });
-            </script>
-        @endsection
+            // Initialize modal events on document ready
+            $(document).ready(function() {
+                initializeModal();
+            });
+        </script>
+    @endsection

@@ -136,7 +136,7 @@ Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->na
 Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])->name('beneficiaries.update');
 
 //Pagination Controller
-Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagination.list');
+Route::get('/beneficiaries', [PaginationController::class, 'index']);
 
 //Export and Import Controller
 Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('beneficiaries.import');
