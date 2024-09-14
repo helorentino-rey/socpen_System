@@ -901,7 +901,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_province"
                             name="permanent_address_province" required>
@@ -940,7 +940,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="permanent_address_sitio"
@@ -972,7 +972,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_province" name="present_address_province"
                             required>
@@ -1010,7 +1010,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="present_address_sitio"
@@ -1225,7 +1225,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_province" name="spouse_address_province"
                             required>
@@ -1263,7 +1263,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_address_sitio"
@@ -1455,15 +1455,15 @@
                                         {{ $beneficiary->economicInformation->receiving_pension == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" id="pension_amount" name="pension_amount"
+                                <td><input type="text" class="form-control mt-2" id="pension_amount" name="pension_amount"
                                         placeholder="Enter amount"
                                         value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" id="pension_source" name="pension_source"
+                                <td><input type="text" class="form-control mt-2" id="pension_source" name="pension_source"
                                         placeholder="Enter source"
                                         value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                             </tr>
                             <tr>
@@ -1480,15 +1480,15 @@
                                         {{ $beneficiary->economicInformation->permanent_income == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" id="income_amount" name="income_amount"
+                                <td><input type="text" class="form-control mt-2" id="income_amount" name="income_amount"
                                         placeholder="Enter amount"
                                         value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" id="income_source" name="income_source"
+                                <td><input type="text" class="form-control mt-2" id="income_source" name="income_source"
                                         placeholder="Enter source"
                                         value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->permanent_income == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                             </tr>
                             <tr>
@@ -1505,15 +1505,15 @@
                                         {{ $beneficiary->economicInformation->regular_support == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" id="support_amount" name="support_amount"
+                                <td><input type="text" class="form-control mt-2" id="support_amount" name="support_amount"
                                         placeholder="Enter amount"
                                         value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" id="support_source" name="support_source"
+                                <td><input type="text" class="form-control mt-2" id="support_source" name="support_source"
                                         placeholder="Enter source"
                                         value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
-                                        style="{{ $beneficiary->economicInformation->regular_support == 'Yes' ? 'display:block;' : 'display:none;' }}" />
+                                        {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                             </tr>
                         </tbody>
@@ -1544,9 +1544,9 @@
                                         {{ $beneficiary->healthInformation->existing_illness == 'None' ? 'checked' : '' }} />
                                     None
                                 </td>
-                                <td><input type="text" id="illness_specify" name="illness_specify"
+                                <td><input type="text" class="form-control mt-2" id="illness_specify" name="illness_specify"
                                         placeholder="Specify"
-                                        style="display:{{ $beneficiary->healthInformation->existing_illness == 'Yes' ? 'block' : 'none' }};"
+                                        {{ $beneficiary->healthInformation->existing_illness == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->illness_specify ?? '' }}" /></td>
                             </tr>
                             <tr>
@@ -1560,9 +1560,9 @@
                                         {{ $beneficiary->healthInformation->with_disability == 'None' ? 'checked' : '' }} />
                                     None
                                 </td>
-                                <td><input type="text" id="disability_specify" name="disability_specify"
+                                <td><input type="text" class="form-control mt-2" id="disability_specify" name="disability_specify"
                                         placeholder="Specify"
-                                        style="display:{{ $beneficiary->healthInformation->with_disability == 'Yes' ? 'block' : 'none' }};"
+                                        {{ $beneficiary->healthInformation->with_disability == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" />
                                 </td>
                             </tr>
@@ -1721,51 +1721,58 @@
 
     //Economic Information
     function handleCheckboxSelectionEco(field, isYes, amountFieldId, sourceFieldId) {
-        const yesCheckbox = document.getElementById(`${field}_yes`);
-        const noCheckbox = document.getElementById(`${field}_no`);
-        const amountField = document.getElementById(amountFieldId);
-        const sourceField = document.getElementById(sourceFieldId);
+    const yesCheckbox = document.getElementById(`${field}_yes`);
+    const noCheckbox = document.getElementById(`${field}_no`);
+    const amountField = document.getElementById(amountFieldId);
+    const sourceField = document.getElementById(sourceFieldId);
 
-        // Uncheck the other checkbox if one is checked
-        if (isYes) {
-            noCheckbox.checked = false;
-        } else {
-            yesCheckbox.checked = false;
-        }
-
-        // Show or hide fields based on the Yes/No selection
-        if (yesCheckbox.checked) {
-            amountField.style.display = "block";
-            sourceField.style.display = "block";
-        } else {
-            amountField.style.display = "none";
-            sourceField.style.display = "none";
-        }
+    // Uncheck the other checkbox if one is checked
+    if (isYes) {
+        noCheckbox.checked = false;
+    } else {
+        yesCheckbox.checked = false;
     }
+
+    // Enable or disable fields based on the Yes/No selection
+    if (yesCheckbox.checked) {
+        amountField.removeAttribute('disabled');
+        sourceField.removeAttribute('disabled');
+    } else {
+        amountField.setAttribute('disabled', 'true');
+        sourceField.setAttribute('disabled', 'true');
+    }
+}
+
 
     //Health Information
     function toggleFields(groupName, specifyFieldId) {
-        const yesCheckbox = document.getElementById(`${groupName}_yes`);
-        const noCheckbox = document.getElementById(`${groupName}_none`);
-        const specifyField = document.getElementById(specifyFieldId);
+    const yesCheckbox = document.getElementById(`${groupName}_yes`);
+    const noCheckbox = document.getElementById(`${groupName}_none`);
+    const specifyField = document.getElementById(specifyFieldId);
 
-        yesCheckbox.addEventListener('change', () => {
-            if (yesCheckbox.checked) {
-                specifyField.style.display = 'block';
-                noCheckbox.checked = false;
-            } else {
-                specifyField.style.display = 'none';
-            }
-        });
+    yesCheckbox.addEventListener('change', () => {
+        if (yesCheckbox.checked) {
+            specifyField.removeAttribute('disabled'); // Enable field
+            noCheckbox.checked = false;
+        } else {
+            specifyField.setAttribute('disabled', 'true'); // Disable field
+        }
+    });
 
-        noCheckbox.addEventListener('change', () => {
-            if (noCheckbox.checked) {
-                specifyField.style.display = 'none';
-                specifyField.value = ''; // Clear the input field
-                yesCheckbox.checked = false;
-            }
-        });
+    noCheckbox.addEventListener('change', () => {
+        if (noCheckbox.checked) {
+            specifyField.setAttribute('disabled', 'true'); // Disable field
+            specifyField.value = ''; // Clear the input field
+            yesCheckbox.checked = false;
+        }
+    });
+
+    // Initial state setup: Disable the field if "None" is checked
+    if (noCheckbox.checked) {
+        specifyField.setAttribute('disabled', 'true');
     }
+}
+
 
     //Frailty Questions
     function handleCheckboxSelectionFra(field, isYes) {

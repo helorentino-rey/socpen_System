@@ -34,6 +34,7 @@
             align-items: center;
             padding: 10px 20px;
             margin-bottom: 10px;
+            margin-top: -80px;
         }
 
         .logos {
@@ -225,6 +226,21 @@
                 /* Ensures the button is hidden in print view */
             }
         }
+
+        .table1 {
+    width: 100%;
+    margin-top: -80px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table1 td {
+    text-align: center;
+    padding: 10px; 
+    font-size: 14px; 
+    border: none; 
+}
+
     </style>
 </head>
 
@@ -276,12 +292,21 @@
         </div>
 
         {{-- Marc ang header diri na Province and City Municipality --}}
-        <td>City/Municipality (Lungsod):
+        <table class="table1">
+    <tr>
+        <td>City / Municipality (Lungsod):
+            <br>
             <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}</span>
         </td>
+    </tr>
+    <tr>
         <td>Province (Lalawigan):
+            <br>
             <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}</span>
         </td>
+    </tr>
+</table>
+
 
         <!-- Form Section -->
         <div class="container mt-5">
@@ -429,26 +454,17 @@
                 <tr>
                     <th colspan="5">ADDRESS (Tirahan):</th>
                 <tr>
-                    <td>Sitio/House No./Purok/Street:
-                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>
-                    </td>
-                    <td>Barangay:
-                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->barangay ?? 'N/A' }}</span>
-                    </td>
-                    <td>City/Municipality (Lungsod):
-                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->city ?? 'N/A' }}</span>
-                    </td>
-                    <td>Province (Lalawigan):
-                        <span>{{ $beneficiary->addresses->where('type', 'spouse_addresst')->first()->province ?? 'N/A' }}</span>
-                    </td>
-                    <td>Region (Rehiyon):
-                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
-                    </td>
-                    <td colspan="1"><span></span></td>
-                </tr>
-                <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
+                <td colspan="4">
+        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>,
+        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->barangay ?? 'N/A' }}</span>,
+        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->city ?? 'N/A' }}</span>,
+        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->province ?? 'N/A' }}</span>,
+        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
+    </td>
+    <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
                     <span>{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</span>
                 </td>
+                </tr>
 
                 <tr>
                     <th colspan="5">CHILDREN (Mga Anak):</th>
@@ -569,12 +585,12 @@
                     <th colspan="5">FRAILTY QUESTIONS:</th>
                 </tr>
                 <tr>
-                    <td>1. Do you experience difficulty in doing your ADLs? (Yes/No)
+                    <td colspan="1">1. Do you experience difficulty in doing your ADLs? (Yes/No)
                         <span>{{ $beneficiary->healthInformation->difficult_adl ?? 'N/A' }}</span>
                     </td>
-                    <td>2. Are you completely dependent on someone in doing your IADLs?
+                    <td colspan="2">2. Are you completely dependent on someone in doing your IADLs?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->dependent_iadl ?? 'N/A' }}</span></td>
-                    <td>3. Are you experiencing weight loss, weakness, exhaustion?
+                    <td colspan="2">3. Are you experiencing weight loss, weakness, exhaustion?
                         (Yes/No)<span>{{ $beneficiary->healthInformation->experience_loss ?? 'N/A' }}</span></td>
                 </tr>
             </table>

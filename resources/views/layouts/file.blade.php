@@ -295,7 +295,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
+                            <h5 class="modal-title" id="editBeneficiaryModalLabel"></h5>
                             <button type="button" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
