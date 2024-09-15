@@ -490,7 +490,7 @@
                             <span>{{ $representative->representative_name ?? 'N/A' }}</span>
                         </td>
                         <td colspan="1">RELATIONSHIP(Relasyon sa Benepisyaryo):
-                            <span>{{ $representative->representative_civil_status ?? 'N/A' }}</span>
+                            <span>{{ $representative->representative_relationship ?? 'N/A' }}</span>
                         </td>
                         <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
                             <span>{{ $representative->representative_contact_number ?? 'N/A' }}</span>
