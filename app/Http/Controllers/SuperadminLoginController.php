@@ -25,7 +25,7 @@ class SuperadminLoginController extends Controller
 
         if ($superAdmin && Hash::check($request->password, $superAdmin->password)) {
             Auth::guard('superadmin')->login($superAdmin);
-            return redirect()->route('superadmin.dashboard')->with('success', 'Welcome Super Admin!');
+            return redirect()->route('superadmin.home')->with('success', 'Welcome Super Admin!');
         } else {
             return back()->withErrors(['login_error' => 'Invalid Employee ID or Password']);
         }

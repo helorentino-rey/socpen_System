@@ -194,9 +194,6 @@
                             <td>{{ $beneficiary->presentAddress->province }}</td>
                             <td id="status-{{ $beneficiary->id }}">{{ $beneficiary->status }}</td>
                             <td>
-                                <i class="bi bi-pencil-square" data-bs-toggle="modal"
-                                    data-bs-target="#statusModal{{ $beneficiary->id }}"
-                                    style="cursor: pointer; color: black;"></i>
 
                                 <a href="#" class="edit-beneficiary" data-id="{{ $beneficiary->id }}"
                                     style="cursor: pointer;" title="Edit">
@@ -207,64 +204,6 @@
                                     style="cursor: pointer; text-decoration: none;" title="Show Form">
                                     <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
                                 </a>
-
-                                <!-- The Modal for Status Update -->
-                                <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
-                                    aria-labelledby="statusModalLabel{{ $beneficiary->id }}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="statusModalLabel{{ $beneficiary->id }}">Change
-                                                    Status</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="statusForm{{ $beneficiary->id }}"
-                                                    action="{{ route('beneficiary.updateStatus', $beneficiary->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <div class="mb-3">
-                                                        <label for="status" class="form-label">Status</label>
-                                                        <select class="form-select" id="status" name="status" required>
-                                                            <option value="ACTIVE"
-                                                                {{ $beneficiary->status == 'ACTIVE' ? 'selected' : '' }}>
-                                                                ACTIVE</option>
-                                                            <option value="WAITLISTED"
-                                                                {{ $beneficiary->status == 'WAITLISTED' ? 'selected' : '' }}>
-                                                                WAITLISTED</option>
-                                                            <option value="SUSPENDED"
-                                                                {{ $beneficiary->status == 'SUSPENDED' ? 'selected' : '' }}>
-                                                                SUSPENDED</option>
-                                                            <option value="UNVALIDATED"
-                                                                {{ $beneficiary->status == 'UNVALIDATED' ? 'selected' : '' }}>
-                                                                UNVALIDATED</option>
-                                                            <option value="NOT LOCATED"
-                                                                {{ $beneficiary->status == 'NOT LOCATED' ? 'selected' : '' }}>
-                                                                NOT LOCATED</option>
-                                                            <option value="DOUBLE ENTRY"
-                                                                {{ $beneficiary->status == 'DOUBLE ENTRY' ? 'selected' : '' }}>
-                                                                DOUBLE ENTRY</option>
-                                                            <option value="TRANSFER OF RESIDENCE"
-                                                                {{ $beneficiary->status == 'TRANSFER OF RESIDENCE' ? 'selected' : '' }}>
-                                                                TRANSFER OF RESIDENCE</option>
-                                                            <option value="RECEIVING SUPPORT FROM THE FAMILY"
-                                                                {{ $beneficiary->status == 'RECEIVING SUPPORT FROM THE FAMILY' ? 'selected' : '' }}>
-                                                                RECEIVING SUPPORT FROM THE FAMILY</option>
-                                                            <option value="RECEIVING PENSION FROM OTHER AGENCY"
-                                                                {{ $beneficiary->status == 'RECEIVING PENSION FROM OTHER AGENCY' ? 'selected' : '' }}>
-                                                                RECEIVING PENSION FROM OTHER AGENCY</option>
-                                                            <option value="WITH PERMANENT INCOME"
-                                                                {{ $beneficiary->status == 'WITH PERMANENT INCOME' ? 'selected' : '' }}>
-                                                                WITH PERMANENT INCOME</option>
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                     @endforeach

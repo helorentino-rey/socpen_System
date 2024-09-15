@@ -22,7 +22,7 @@ class LoginController extends Controller
         $user = SuperAdmin::where('employee_id', $employee_id)->first();
         if ($user && Hash::check($password, $user->password) && $user->usertype === 'super_admin') {
             Auth::guard('superadmin')->login($user);
-            return redirect()->route('superadmin.dashboard');
+            return redirect()->route('superadmin.home');
         }
 
         // Check Admin

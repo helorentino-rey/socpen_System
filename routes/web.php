@@ -20,6 +20,7 @@ use App\Http\Controllers\EditBeneficiaryController;
 use App\Http\Controllers\PaginationController;
 use App\Http\Controllers\CsvController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -54,7 +55,8 @@ Route::post('/staff/otp-verify', [LoginController::class, 'verifyOtp']);
 Route::post('/staff/otp/send', [LoginController::class, 'sendOtp'])->name('staff.otp.send');
 
 //Super admin Dashboard Controller
-Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'adminDashboard'])->name('superadmin.dashboard');
+Route::get('/superadmin/home', [SuperAdminDashboardController::class, 'superadminHome'])->name('superadmin.home');
+Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'superadminDashboard'])->name('superadmin.dashboard');
 Route::get('/superadmin/admin-account', [SuperAdminDashboardController::class, 'adminAccount'])->name('superadmin.admin-account');
 Route::get('/superadmin/approved-staff', [SuperAdminDashboardController::class, 'approvedStaff'])->name('superadmin.approved-staff');
 Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::class, 'approvedBeneficiary'])->name('superadmin.approved-beneficiary');
@@ -146,3 +148,5 @@ Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('ben
 Route::get('/pdf-show/{id}', [PDFController::class, 'show'])->name('pdf.show');
 Route::get('/export', [PDFController::class, 'export'])->name('export.pdf');
 
+//Superadmin Dashboard
+Route::get('/superadmin/maindashboard', [SuperadminDashboardController::class, 'kpi'])->name('superadmin.maindashboard');

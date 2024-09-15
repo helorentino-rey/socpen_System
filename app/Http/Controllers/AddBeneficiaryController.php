@@ -469,6 +469,6 @@ class AddBeneficiaryController extends Controller
         }
 
         // If not an AJAX request, render the view
-        return view('livewire.superadmin.dashboard', compact('beneficiaries'));
+        return view('livewire.superadmin.home', compact('beneficiaries'));
     }
 }
