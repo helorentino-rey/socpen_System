@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 class EditBeneficiaryController extends Controller
 {
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $beneficiary = Beneficiary::with([
             'addresses',
@@ -266,7 +266,7 @@ class EditBeneficiaryController extends Controller
         $beneficiary->affiliation()->updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
-                'affiliation_type' => implode(',', $validatedData['affiliation'] ?? []),
+                'affiliation_type' => implode(', ', $validatedData['affiliation'] ?? []),
                 'hh_id' => $validatedData['hh_id'] ?? null,
                 'indigenous_specify' => $validatedData['indigenous_specify'] ?? null,
             ]

@@ -98,19 +98,19 @@
         }
 
         .table th {
-    border-top: 1px solid #333;
-    border-right: 1px solid #333;
-    border-left: 1px solid #333;
-    border-bottom: none;
-    padding: 4px;
-    text-align: left;
-}
+            border-top: 1px solid #333;
+            border-right: 1px solid #333;
+            border-left: 1px solid #333;
+            border-bottom: none;
+            padding: 4px;
+            text-align: left;
+        }
 
         .table td {
             border-top: none;
-    border-right: none;
-    border-left: none;
-    border-bottom: 1px solid #333;
+            border-right: none;
+            border-left: none;
+            border-bottom: 1px solid #333;
             padding: 4px;
             text-align: left;
         }
@@ -249,37 +249,36 @@
         }
 
         .table1 {
-    width: 100%;
-    margin-top: -140px;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
+            width: 100%;
+            margin-top: -140px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-.table1 td {
-    text-align: center;
-    padding: 10px; 
-    font-size: 14px; 
-    border: none; 
-}
+        .table1 td {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+        }
 
-.table2 {
+        .table2 {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
 
-.table2 td,
-.table2 th {
-    padding: 20px;
-    height: 100px; 
-}
-
+        .table2 td,
+        .table2 th {
+            padding: 20px;
+            height: 100px;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-    <div class="header-text" style="font-style: italic;">
+        <div class="header-text" style="font-style: italic;">
             <small>DSWD-GF-0104 | REV 00 | 22 SEP 2023</small>
         </div>
         <div class="logos">
@@ -314,14 +313,15 @@
                 <h6 class="mb-0">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h6>
             </div>
             <div class="col-md-4 text-center">
-            <div class="header-text" style="font-weight: bold; font-style:italic; text-align:right; margin-right:80px; margin-top: 30px;">
-            <small>ANNEX 2</small></div>
-            <br>
-                <!-- Picture Upload Section -->
-                @if ($beneficiary->profile_upload)
+                <div class="header-text"
+                    style="font-weight: bold; font-style:italic; text-align:right; margin-right:80px; margin-top: 30px;">
+                    <small>ANNEX 2</small>
+                </div>
+                <br>
+                    <!-- Picture Upload Section -->
+                    @if ($profilePhotoUrl)
                     <div class="picture-frame" style="margin-right:20px;">
-                        {{-- <span>1x1 picture</span> --}}
-                        <img src="{{ asset('storage/' . $beneficiary->profile_upload) }}" alt="Profile Photo">
+                        <img src="{{ $profilePhotoUrl }}" alt="Profile Photo">
                     </div>
                 @endif
             </div>
@@ -329,23 +329,24 @@
 
         {{-- Marc ang header diri na Province and City Municipality --}}
         <table class="table1">
-    <tr>
-    <td>
-    <span style="text-decoration: underline;">
-        {{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}
-    </span>
-    <br>
-    <span>City / Municipality</span>
-</td>
-    </tr>
-    <tr>
-        <td>
-        <span style="text-decoration: underline;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}</span>
-            <br>
-            <span>Province</span>
-        </td>
-    </tr>
-</table>
+            <tr>
+                <td>
+                    <span style="text-decoration: underline;">
+                        {{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}
+                    </span>
+                    <br>
+                    <span>City / Municipality</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span
+                        style="text-decoration: underline;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}</span>
+                    <br>
+                    <span>Province</span>
+                </td>
+            </tr>
+        </table>
 
         <!-- Form Section -->
         <div class="container mt-5">
@@ -354,14 +355,16 @@
             <table class="table">
                 <tr class="table">
                     <th colspan="3"><strong>OSCA ID No.:</strong> {{ $beneficiary->osca_id }}</th>
-                    <th colspan="2"><strong>NCSC RRN</strong>  <span style="font-style:italic;">(if Applicable)</span>:{{ $beneficiary->ncsc_rrn }}</th>
+                    <th colspan="2"><strong>NCSC RRN</strong> <span style="font-style:italic;">(if
+                            Applicable)</span>:{{ $beneficiary->ncsc_rrn }}</th>
                 </tr>
 
                 <tr>
                     <th colspan="5">NAME (Pangalan):</th>
                 </tr>
                 <tr>
-                    <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->BeneficiaryInfo->last_name }} <br><span>Last Name (Apelyido)</span>
+                    <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
+                        {{ $beneficiary->BeneficiaryInfo->last_name }} <br><span>Last Name (Apelyido)</span>
                     </td>
                     <td colspan="2">First Name (Unang Pangalan):
                         <span>{{ $beneficiary->BeneficiaryInfo->first_name }}</span>
@@ -369,7 +372,8 @@
                     <td colspan="1">Middle Name (Gitnang Pangalan):
                         <span>{{ $beneficiary->BeneficiaryInfo->middle_name }}</span>
                     </td>
-                    <td colspan="1" style="border-right: 1px solid #333;">Ext. (Jr., II) <span>{{ $beneficiary->BeneficiaryInfo->name_extension }}</span>
+                    <td colspan="1" style="border-right: 1px solid #333;">Ext. (Jr., II)
+                        <span>{{ $beneficiary->BeneficiaryInfo->name_extension }}</span>
                     </td>
                 </tr>
 
@@ -377,7 +381,8 @@
                     <th colspan="5">MOTHER'S MAIDEN NAME (Pangalan ng Ina sa Pagkadalaga):</th>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">Last Name (Apelyido):
+                    <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
+                        Last Name (Apelyido):
                         <span>{{ $beneficiary->MothersMaidenName->mother_last_name }}</span>
                     </td>
                     <td colspan="2">First Name (Unang Pangalan):
@@ -392,7 +397,8 @@
                     <th colspan="5">PERMANENT ADDRESS (Permanenting Tirahan):</th>
                 </tr>
                 <tr>
-                    <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">Sitio/House No./Purok/Street:
+                    <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">Sitio/House
+                        No./Purok/Street:
                         <span>{{ $beneficiary->addresses->where('type', 'permanent')->first()->sitio ?? 'N/A' }}</span>
                     </td>
                     <td>Barangay:
@@ -493,47 +499,50 @@
                 <tr>
                     <th colspan="5">ADDRESS (Tirahan):</th>
                 <tr>
-                <td colspan="4">
-        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>,
-        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->barangay ?? 'N/A' }}</span>,
-        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->city ?? 'N/A' }}</span>,
-        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->province ?? 'N/A' }}</span>,
-        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
-    </td>
-    <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
-                    <span>{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</span>
-                </td>
+                    <td colspan="4">
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>,
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->barangay ?? 'N/A' }}</span>,
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->city ?? 'N/A' }}</span>,
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->province ?? 'N/A' }}</span>,
+                        <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
+                    </td>
+                    <td colspan="1">CONTACT NUMBER(Numero ng Telepono):
+                        <span>{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}</span>
+                    </td>
                 </tr>
 
                 <tr>
-        <th colspan="5">CHILDREN (Mga Anak):</th>
-    </tr>
-    @foreach ($beneficiary->child as $child)
-    <tr>
-        <td>NAME (Pangalan): <span>{{ $child->children_name ?? 'N/A' }}</span></td>
-        <td>CIVIL STATUS (Katayuang Sibil): <span>{{ $child->children_civil_status ?? 'N/A' }}</span></td>
-        <td>OCCUPATION (Trabaho): <span>{{ $child->children_occupation ?? 'N/A' }}</span></td>
-        <td>INCOME (Kita o Sahod): <span>{{ $child->children_income ?? 'N/A' }}</span></td>
-        <td>CONTACT NUMBER (Numero ng Telepono): <span>{{ $child->children_contact_number ?? 'N/A' }}</span></td>
-    </tr>
-    @endforeach
+                    <th colspan="5">CHILDREN (Mga Anak):</th>
+                </tr>
+                @foreach ($beneficiary->child as $child)
+                    <tr>
+                        <td>NAME (Pangalan): <span>{{ $child->children_name ?? 'N/A' }}</span></td>
+                        <td>CIVIL STATUS (Katayuang Sibil): <span>{{ $child->children_civil_status ?? 'N/A' }}</span>
+                        </td>
+                        <td>OCCUPATION (Trabaho): <span>{{ $child->children_occupation ?? 'N/A' }}</span></td>
+                        <td>INCOME (Kita o Sahod): <span>{{ $child->children_income ?? 'N/A' }}</span></td>
+                        <td>CONTACT NUMBER (Numero ng Telepono):
+                            <span>{{ $child->children_contact_number ?? 'N/A' }}</span>
+                        </td>
+                    </tr>
+                @endforeach
 
-    <tr>
-        <th colspan="5">NAME OF AUTHORIZED REPRESENTATIVES:</th>
-    </tr>
-    @foreach ($beneficiary->representative as $representative)
-    <tr>
-        <td colspan="3">NAME (Pangalan):
-            <span>{{ $representative->representative_name ?? 'N/A' }}</span>
-        </td>
-        <td colspan="1">RELATIONSHIP (Relasyon sa Benepisyaryo):
-            <span>{{ $representative->representative_civil_status ?? 'N/A' }}</span>
-        </td>
-        <td colspan="1">CONTACT NUMBER (Numero ng Telepono):
-            <span>{{ $representative->representative_contact_number ?? 'N/A' }}</span>
-        </td>
-    </tr>
-    @endforeach
+                <tr>
+                    <th colspan="5">NAME OF AUTHORIZED REPRESENTATIVES:</th>
+                </tr>
+                @foreach ($beneficiary->representative as $representative)
+                    <tr>
+                        <td colspan="3">NAME (Pangalan):
+                            <span>{{ $representative->representative_name ?? 'N/A' }}</span>
+                        </td>
+                        <td colspan="1">RELATIONSHIP (Relasyon sa Benepisyaryo):
+                            <span>{{ $representative->representative_civil_status ?? 'N/A' }}</span>
+                        </td>
+                        <td colspan="1">CONTACT NUMBER (Numero ng Telepono):
+                            <span>{{ $representative->representative_contact_number ?? 'N/A' }}</span>
+                        </td>
+                    </tr>
+                @endforeach
                 <tr>
                     <th colspan="5">LIVING ARRANGEMENT (Kaayusan sa Pamumuhay Anak):</th>
                 </tr>
@@ -632,11 +641,14 @@
                 </tr>
             </table>
             <h4 class="section-title">V. ASSESSMENT (Pagtatasa)</h4>
-<table class="table2">
-    <tr>
-        <td colspan="5"><textarea style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;">{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea></td>
-    </tr>
-</table>
+            <table class="table2">
+                <tr>
+                    <td colspan="5">
+                        <textarea
+                            style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;">{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea>
+                    </td>
+                </tr>
+            </table>
 
             <h4 class="section-title2">VI. RECOMMENDATION (Rekomendasyon)</h4>
             <table class="table">
@@ -647,23 +659,31 @@
                     <th colspan="5">Validated by:</th>
                 </tr>
                 <tr>
-    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature over Printed
-        Name <br><span style="font-style: italic;">(Buong Pangalan at Lagda)</span>
-        </td>
-    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
-        Designation <br><span style="font-style: italic;">(Position)</span></td>
-    <td colspan="1" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
-        Date <br><span style="font-style: italic;">(Petsa)</span></td>
-</tr>
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature
+                        over Printed
+                        Name <br><span style="font-style: italic;">(Buong Pangalan at Lagda)</span>
+                    </td>
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
+                        Designation <br><span style="font-style: italic;">(Position)</span></td>
+                    <td colspan="1"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
+                        Date <br><span style="font-style: italic;">(Petsa)</span></td>
+                </tr>
                 <tr>
                     <th colspan="5">Econded by:</th>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature over Printed
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature
+                        over Printed
                         Name <br><span style="font-style: italic;">(Buong Pangalan at Lagda)</span></td>
-                    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
                         Designation <br><span style="font-style: italic;">(Position)</span></td>
-                    <td colspan="1" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
+                    <td colspan="1"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
                         Date <br><span style="font-style: italic;">(Petsa)</span></td>
                 </tr>
                 <tr>
@@ -677,7 +697,15 @@
                         information.
                         <br>
                         <br>
-                        <span style="font-style: italic;">Sa paglagda nito, binibigyan ko ang aking malaya at boluntaryong pahintulot sa Department of Social Welfare and Development (DSWD) na kolektahin, iproseso, at ibahagi ang aking personal na impormasyon para sa layunin ng validation, eligibility test, at cross-matching para magsilbing batayan sa pagbibigay ng aking mga karapatan bilang isang kwalipikadong benepisyaryo ng Social Pension for Indigent Senior Citizens (SPISC) Program. Bilang isang paksa ng datos, nauunawaan ko na may karapatan akong malaman, ma-access, tumanggi, harangan, maghain ng mga reklamo o pinsala o itama ang aking personal na impormasyong nakuha, naproseso, o ibinahagi pati na rin ang layunin at dahilan para sa pagproseso o pagbabahagi ng personal na impormasyon na ito.
+                        <span style="font-style: italic;">Sa paglagda nito, binibigyan ko ang aking malaya at
+                            boluntaryong pahintulot sa Department of Social Welfare and Development (DSWD) na
+                            kolektahin, iproseso, at ibahagi ang aking personal na impormasyon para sa layunin ng
+                            validation, eligibility test, at cross-matching para magsilbing batayan sa pagbibigay ng
+                            aking mga karapatan bilang isang kwalipikadong benepisyaryo ng Social Pension for Indigent
+                            Senior Citizens (SPISC) Program. Bilang isang paksa ng datos, nauunawaan ko na may karapatan
+                            akong malaman, ma-access, tumanggi, harangan, maghain ng mga reklamo o pinsala o itama ang
+                            aking personal na impormasyong nakuha, naproseso, o ibinahagi pati na rin ang layunin at
+                            dahilan para sa pagproseso o pagbabahagi ng personal na impormasyon na ito.
                         </span>
                     </td>
                 </tr>
@@ -685,11 +713,16 @@
                     <th colspan="5">Confirmed by:</th>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Name of Applicant or
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Name of
+                        Applicant or
                         Respondent <br><span style="font-style: italic;">(Pangalan ng Aplikante)</span></td>
-                    <td colspan="2" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature or
+                    <td colspan="2"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">Signature
+                        or
                         Thumbmark <br><span style="font-style: italic;">(Lagda o Thumbmark)</span></td>
-                    <td colspan="1" style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
+                    <td colspan="1"
+                        style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom;">
                         Date <br><span style="font-style: italic;">(Petsa)</span></td>
                 </tr>
                 <tr>
@@ -701,11 +734,15 @@
                         Senior Citizens (SPISC) Program as mandated under Republic Act No. 9994
                         <br>
                         <br>
-                        <span style="font-style: italic;">Bilang pagsunod sa mga probisyon ng Batas Republika 10173, na kilala rin bilang Data Privacy Act of 2012 at ang Implementing Rules and Regulations (IRR) nito, tinitiyak ng Department of Social Welfare and Development (DSWD) na ang personal na impormasyong ibinigay ay kinokolekta at pinoproseso ng awtorisadong mga tauhan at ginagamit lamang para sa pagpapatupad ng Social Pension for Indigent Senior Citizens (SPISC) Program ayon sa mandato sa ilalim ng Batas Republika 9994.
+                        <span style="font-style: italic;">Bilang pagsunod sa mga probisyon ng Batas Republika 10173, na
+                            kilala rin bilang Data Privacy Act of 2012 at ang Implementing Rules and Regulations (IRR)
+                            nito, tinitiyak ng Department of Social Welfare and Development (DSWD) na ang personal na
+                            impormasyong ibinigay ay kinokolekta at pinoproseso ng awtorisadong mga tauhan at ginagamit
+                            lamang para sa pagpapatupad ng Social Pension for Indigent Senior Citizens (SPISC) Program
+                            ayon sa mandato sa ilalim ng Batas Republika 9994.
                         </span>
                     </td>
                 </tr>
             </table>
         </div>
-        <a href="{{ route('export.pdf') }}" class="btn btn-primary export-button no-print">Export to PDF</a>
 </body>

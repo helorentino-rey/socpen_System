@@ -107,15 +107,8 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'Children Contact Number',
 
             'Representative Name',
-            'Representative Civil Status',
+            'Representative Relationship',
             'Representative Contact Number',
-
-            'Caregiver Last Name',
-            'Caregiver First Name',
-            'Caregiver Middle Name',
-            'Caregiver Name Extension',
-            'Caregiver Relationship',
-            'Caregiver Contact',
 
             'House Status',
             'House Status Others Input',
@@ -154,8 +147,10 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
         $childrenContactNumber = $beneficiary->child ? $beneficiary->child->pluck('children_contact_number')->implode(', ') : 'N/A';
 
         $representativeNames = $beneficiary->representative ? $beneficiary->representative->pluck('representative_name')->implode(', ') : 'N/A';
-        $representativeCivilStatus = $beneficiary->representative ? $beneficiary->representative->pluck('representative_civil_status')->implode(', ') : 'N/A';
+        $representativeRelationship = $beneficiary->representative ? $beneficiary->representative->pluck('representative_relationship')->implode(', ') : 'N/A';
         $representativeContactNumbers = $beneficiary->representative ? $beneficiary->representative->pluck('representative_contact_number')->implode(', ') : 'N/A';
+
+
 
         return [
             'osca_id' => $beneficiary->osca_id ?? 'N/A',
@@ -206,7 +201,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'spouse_address_city' => $beneficiary->spouseAddress->city ?? 'N/A',
             'spouse_address_barangay' => $beneficiary->spouseAddress->barangay ?? 'N/A',
             'spouse_address_sitio' => $beneficiary->spouseAddress->sitio ?? 'N/A',
-
+           
             'children_name' => $childrenNames,
             'children_civil_status' => $childrenCivilStatus,
             'children_occupation' => $childrenOccupation,
@@ -214,15 +209,8 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'children_contact_number' => $childrenContactNumber,
 
             'representative_name' => $representativeNames,
-            'representative_civil_status' => $representativeCivilStatus,
+            'representative_relationship' => $representativeRelationship,
             'representative_contact_number' => $representativeContactNumbers,
-
-            'caregiver_last_name' => $beneficiary->caregiver->caregiver_last_name ?? 'N/A',
-            'caregiver_first_name' => $beneficiary->caregiver->caregiver_first_name ?? 'N/A',
-            'caregiver_middle_name' => $beneficiary->caregiver->caregiver_middle_name ?? 'N/A',
-            'caregiver_name_extension' => $beneficiary->caregiver->caregiver_name_extension ?? 'N/A',
-            'caregiver_relationship' => $beneficiary->caregiver->caregiver_relationship ?? 'N/A',
-            'caregiver_contact' => $beneficiary->caregiver->caregiver_contact ?? 'N/A',
 
             'house_status' => $beneficiary->housingLivingStatus->house_status ?? 'N/A',
             'house_status_others_input' => $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A',

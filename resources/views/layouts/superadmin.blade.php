@@ -208,7 +208,7 @@
                 </a>
             </li>
               <li class="nav-item">
-                <a href="{{ route('superadmin.notifications') }}" class="nav-link">
+                <a href="{{ route('logs') }}" class="nav-link">
                     <i class="bi bi-bell-fill"></i> <span>Logs</span>
                 </a>
             </li>

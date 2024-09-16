@@ -61,7 +61,7 @@ Route::get('/superadmin/admin-account', [SuperAdminDashboardController::class, '
 Route::get('/superadmin/approved-staff', [SuperAdminDashboardController::class, 'approvedStaff'])->name('superadmin.approved-staff');
 Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::class, 'approvedBeneficiary'])->name('superadmin.approved-beneficiary');
 Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
-Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
+// Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
 
 //Super Admin Beneficiary Controller
 Route::get('/superadmin/beneficiaries/approve', [SuperAdminDashboardController::class, 'approve'])->name('superadmin.beneficiaries.approve');
@@ -145,8 +145,10 @@ Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('be
 Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
 
 //Pdf Controller
-Route::get('/pdf-show/{id}', [PDFController::class, 'show'])->name('pdf.show');
-Route::get('/export', [PDFController::class, 'export'])->name('export.pdf');
+Route::get('/export/{id}', [PDFController::class, 'export'])->name('export.pdf');
 
 //Superadmin Dashboard
 Route::get('/superadmin/maindashboard', [SuperadminDashboardController::class, 'kpi'])->name('superadmin.maindashboard');
+
+//Notificaion Controller
+Route::get('/superadmin/notifications', [SuperadminDashboardController::class, 'showLogs'])->name('logs');
