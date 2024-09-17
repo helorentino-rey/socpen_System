@@ -35,6 +35,7 @@
             padding: 10px 20px;
             margin-bottom: 10px;
             margin-top: -80px;
+            font-family: Arial, sans-serif;
         }
 
         .logos {
@@ -71,11 +72,10 @@
         }
 
         .socopab-logo {
-            height: 20px;
-            margin-left: 50px;
-            object-fit: contain;
-            margin-top: 5px;
-        }
+    height: 40px;
+    margin-right: -680px;
+    margin-top: -40px;
+}
 
         .header-text {
             font-size: 10px;
@@ -83,6 +83,7 @@
             line-height: 1;
             display: flex;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
 
         h5,
@@ -92,6 +93,7 @@
             font-weight: bold;
             text-align: center;
             font-size: 15px;
+            font-family: Arial, sans-serif;
         }
 
         .row.align-items-center {
@@ -102,6 +104,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            font-family: Arial, sans-serif;
         }
 
         .table th {
@@ -111,6 +114,7 @@
             border-bottom: none;
             padding: 4px;
             text-align: left;
+            font-family: Arial, sans-serif;
         }
 
         .table td {
@@ -120,6 +124,7 @@
             border-bottom: 1px solid #333;
             padding: 4px;
             text-align: left;
+            font-family: Arial, sans-serif;
         }
 
         .section-title {
@@ -130,6 +135,7 @@
             font-size: 12px;
             border-bottom: 1px solid #333;
             padding-bottom: 3px;
+            font-family: Arial, sans-serif;
         }
 
         .section-title2 {
@@ -140,6 +146,7 @@
             font-size: 12px;
             border-bottom: 1px solid #333;
             padding-bottom: 3px;
+            font-family: Arial, sans-serif;
         }
 
         .input-underline {
@@ -147,13 +154,13 @@
             width: 100%;
             display: inline-block;
             margin-top: -2px;
+            font-family: Arial, sans-serif;
         }
 
 
         footer {
             position: fixed;
             bottom: -30px;
-            /* Adjust position to move closer to the page bottom */
             left: 0;
             right: 0;
             height: 10px;
@@ -161,12 +168,14 @@
             text-align: center;
             font-size: 10px;
             padding: 5px 20px;
+            font-family: Arial, sans-serif;
         }
 
         .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-family: Arial, sans-serif;
         }
 
         .footer-line {
@@ -178,12 +187,14 @@
         .footer-text {
             font-weight: bold;
             font-size: 12px;
+            font-family: Arial, sans-serif;
         }
 
         .footer-address {
             font-size: 10px;
             text-align: center;
             margin-bottom: 5px;
+            font-family: Arial, sans-serif;
         }
 
         .pagenum:before {
@@ -260,6 +271,7 @@
             margin-top: -60px;
             border-collapse: collapse;
             margin-bottom: 20px;
+            font-family: Arial, sans-serif;
         }
 
         .table1 td {
@@ -267,18 +279,21 @@
             padding: 10px;
             font-size: 14px;
             border: none;
+            font-family: Arial, sans-serif;
         }
 
         .table2 {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            font-family: Arial, sans-serif;
         }
 
         .table2 td,
         .table2 th {
             padding: 20px;
             height: 100px;
+            font-family: Arial, sans-serif;
         }
     </style>
 </head>
@@ -299,19 +314,21 @@
 
     <!-- Footer content (on every page) -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-line"></div>
-            <div class="footer-text">
-                <strong>PAGE <span class="pagenum"></span></strong>
-            </div>
+    <div class="footer-content">
+        <div class="footer-line"></div>
+        <div class="footer-text">
+            <strong style="font-size:10px;">PAGE <span class="pagenum"></span></strong>
+        </div>
+        <div class="footer-address-wrapper">
             <div class="footer-address">
                 DSWD Field Office XI, R. Magsaysay Avenue corner Suazo Street, Davao City, Philippines 8000<br>
-                Website: <a href="http://www.fo11.dswd.gov.ph">http://www.fo11.dswd.gov.ph</a> Tel No./Telefax: (082)
-                227-1964
-                <img src="{{ public_path('img/socopab.png') }}" alt="socopab Logo" class="socopab-logo">
+                Website: <a href="http://www.fo11.dswd.gov.ph">http://www.fo11.dswd.gov.ph</a> Tel No./Telefax: (082) 227-1964
             </div>
+            <img src="{{ public_path('img/socopab.png') }}" alt="socopab Logo" class="socopab-logo">
         </div>
-    </footer>
+    </div>
+</footer>
+
 
     <div class="container mt-5">
         <!-- Title Section -->
@@ -358,93 +375,93 @@
         <!-- Form Section -->
         <div class="container mt-5">
             <!-- Identification Information -->
-            <h4 class="section-title">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
+            <h4 class="section-title">I. IDENTIFYING INFORMATION <span style="font-style:italic; font-size:12px;">(Pagkilala ng Impormasyon)</span></h4>
             <table class="table">
                 <tr class="table">
                     <td colspan="3" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>OSCA ID No.:</strong> {{ $beneficiary->osca_id }}</td>
-                    <td colspan="2" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>NCSC RRN</strong> <span style="font-style:italic;">(if
-                            Applicable)</span>:{{ $beneficiary->ncsc_rrn }}</td>
+                    <td colspan="2" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>NCSCRRN</strong> <span style="font-style:italic; font-size:8px;">(if
+                            Applicable)</span>: {{ $beneficiary->ncsc_rrn }}</td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">NAME (Pangalan):</th>
+                    <th colspan="5">NAME <span style="font-style:italic; font-size:11px;">(Pangalan)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
-                        {{ $beneficiary->BeneficiaryInfo->last_name }} <br><span>Last Name (Apelyido)</span>
+                        {{ $beneficiary->BeneficiaryInfo->last_name }} <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->BeneficiaryInfo->first_name }}
-                        <br><span>First Name (Unang Pangalan)</span>
+                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->BeneficiaryInfo->middle_name }}
-                        <br><span>Middle Name (Gitnang Pangalan)</span>
+                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;"> {{ $beneficiary->BeneficiaryInfo->name_extension }}
-                        <br><span>Ext. (Jr., II)</span>
+                        <br><span>Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span></span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">MOTHER'S MAIDEN NAME (Pangalan ng Ina sa Pagkadalaga):</th>
+                    <th colspan="5">MOTHER'S MAIDEN NAME <span style="font-style:italic; font-size:11px;">(Pangalan ng Ina sa Pagkadalaga)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                     {{ $beneficiary->MothersMaidenName->mother_last_name }}
-                        <br><span>Last Name (Apelyido)</span>
+                        <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->MothersMaidenName->mother_first_name }}
-                        <br><span>First Name (Unang Pangalan)</span>
+                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->MothersMaidenName->mother_middle_name }}
-                        <br><span>Middle Name (Gitnang Pangalan)</span>
+                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">PERMANENT ADDRESS (Permanenting Tirahan):</th>
+                    <th colspan="5">PERMANENT ADDRESS <span style="font-style:italic; font-size:11px;">(Permanenteng Tirahan)</span>:</th>
                 </tr>
                 <tr>
                     <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->sitio ?? 'N/A' }}
                         <br><span>Sitio/House No./Purok/Street</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'permanent')->first()->barangay ?? 'N/A' }}
-                        <br><span>Barangay:</span>
+                        <br><span>Barangay</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}
-                        <br><span>City/Municipality (Lungsod)</span>
+                        <br><span>City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}
-                       <br> <span>Province (Lalawigan)</span>
+                       <br> <span>Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->region ?? 'N/A' }}
-                        <br><span>Region (Rehiyon):</span>
+                        <br><span>Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span>:</span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">PRESENT ADDRESS (Kasalukuyang Tirahan):</th>
+                    <th colspan="5">PRESENT ADDRESS <span style="font-style:italic; font-size:11px;">(Kasalukuyang Tirahan)</span>:</th>
                 </tr>
                 <tr>
                     <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'present')->first()->sitio ?? 'N/A' }}
                         <br><span>Sitio/House No./Purok/Street</span>
                     </td>
-                    <td> {{ $beneficiary->addresses->where('type', 'present')->first()->barangay ?? 'N/A' }}
+                    <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->barangay ?? 'N/A' }}
                         <br><span>Barangay</span>
                     </td>
-                    <td> {{ $beneficiary->addresses->where('type', 'present')->first()->city ?? 'N/A' }}
-                        <br><span>City/Municipality (Lungsod)</span>
+                    <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->city ?? 'N/A' }}
+                        <br><span>City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
                     </td>
-                    <td> {{ $beneficiary->addresses->where('type', 'present')->first()->province ?? 'N/A' }}
-                        <br><span>Province (Lalawigan)</span>
+                    <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->province ?? 'N/A' }}
+                        <br><span>Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'present')->first()->region ?? 'N/A' }}
-                        <br><span>Region (Rehiyon)</span>
+                        <br><span>Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span></span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="1">DATE OF BIRTH (Araw ng Kapanganakan):</th>
-                    <th colspan="4">PLACE OF BIRTH (Lugar ng Kapanganakan):</th>
+                    <th colspan="1">DATE OF BIRTH <span style="font-style:italic; font-size:11px;">(Araw ng Kapanganakan)</span>:</th>
+                    <th colspan="4">PLACE OF BIRTH <span style="font-style:italic; font-size:11px;">(Lugar ng Kapanganakan)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
@@ -453,15 +470,15 @@
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->MothersMaidenName->place_of_birth_city }}
                         <br><span>City/Municipality
-                    (Lungsod)</span></td>
+                        <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->MothersMaidenName->place_of_birth_province }}
                         <br><span> Province</span></td>
                 </tr>
 
                 <tr>
-                    <th colspan="1">AGE (Edad):</th>
-                    <th colspan="2">SEX (Kasarian):</th>
-                    <th colspan="2">CIVIL STATUS (Katayuang Sibil):</th>
+                    <th colspan="1">AGE <span style="font-style:italic; font-size:11px;">(Edad)</span>:</th>
+                    <th colspan="2">SEX <span style="font-style:italic; font-size:11px;">(Kasarian)</span>:</th>
+                    <th colspan="2">CIVIL STATUS <span style="font-style:italic; font-size:11px;">(Katayuang Sibil)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;"><span>{{ $beneficiary->MothersMaidenName->age }}</span></td>
@@ -470,11 +487,11 @@
                 </tr>
 
                 <tr>
-                    <th colspan="5">AFFILIATION (Pagkakaugnay):</th>
+                    <th colspan="5">AFFILIATION <span style="font-style:italic; font-size:11px;">(Pagkakaugnay)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->affiliation->affiliation_type ?? 'N/A' }}
-                       <br> <span>Affiliation Type:</span>
+                       <br> <span>Affiliation Type</span>
                     </td>
                     <td colspan="2"  style="text-align: center; vertical-align: bottom;">{{ $beneficiary->affiliation->hh_id ?? 'N/A' }} <br><span>Household ID</span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->affiliation->indigenous_specify ?? 'N/A' }}
@@ -483,28 +500,28 @@
                 </tr>
             </table>
 
-            <h4 class="section-title">II. FAMILY INFORMATION (Impormasyon ng Pamilya)</h4>
+            <h4 class="section-title">II. FAMILY INFORMATION <span style="font-style:italic; font-size:12px;">(Impormasyon ng Pamilya)</span></h4>
             <table class="table">
                 <tr>
-                    <th colspan="5">NAME OF SPOUSE (Pangalan ng Asawa):</th>
+                    <th colspan="5">NAME OF SPOUSE <span style="font-style:italic; font-size:11px;">(Pangalan ng Asawa)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->spouse->spouse_last_name ?? 'N/A' }}
-                        <br><span>Last Name (Apelyido)</span>
+                        <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->spouse->spouse_first_name ?? 'N/A' }}
-                        <br><span>First Name (Unang Pangalan)</span>
+                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
-                    <td colspan="1" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->spouse->spouse_middle_name ?? 'N/A' }}Middle Name (Gitnang Pangalan):
-                        <br><span>Middle Name (Gitnang Pangalan):</span>
+                    <td colspan="1" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->spouse->spouse_middle_name ?? 'N/A' }}
+                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span>:</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->spouse->spouse_name_extension ?? 'N/A' }} 
-                        <br><span>Ext. (Jr., II):</span>
+                        <br><span>Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span>:</span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">ADDRESS (Tirahan):</th>
+                    <th colspan="5">ADDRESS <span style="font-style:italic; font-size:11px;">(Tirahan)</span>:</th>
                 <tr>
                     <td colspan="4" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->sitio ?? 'N/A' }}</span>,
@@ -514,22 +531,22 @@
                         <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}
-                        <br><span>CONTACT NUMBER(Numero ng Telepono)</span>
+                        <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="5">CHILDREN (Mga Anak):</th>
+                    <th colspan="5">CHILDREN <span style="font-style:italic; font-size:11px;">(Mga Anak)</span>:</th>
                 </tr>
                 @foreach ($beneficiary->child as $child)
                     <tr>
-                        <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $child->children_name ?? 'N/A' }} <br><span>NAME (Pangalan):</span></td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_civil_status ?? 'N/A' }} <br><span>CIVIL STATUS (Katayuang Sibil)</span>
+                        <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $child->children_name ?? 'N/A' }} <br><span>NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span>:</span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_civil_status ?? 'N/A' }} <br><span>CIVIL STATUS <span style="font-style:italic; font-size:8px;">(Katayuang Sibil)</span></span>
                         </td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_occupation ?? 'N/A' }} <br><span>OCCUPATION (Trabaho)</span></td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_income ?? 'N/A' }} <br><span>INCOME (Kita o Sahod)</span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_occupation ?? 'N/A' }} <br><span>OCCUPATION <span style="font-style:italic; font-size:8px;">(Trabaho)</span></span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_income ?? 'N/A' }} <br><span>INCOME <span style="font-style:italic; font-size:8px;">(Kita o Sahod)</span></span></td>
                         <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $child->children_contact_number ?? 'N/A' }}
-                            <br><span>CONTACT NUMBER (Numero ng Telepono)</span>
+                            <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                         </td>
                     </tr>
                 @endforeach
@@ -539,101 +556,101 @@
                 </tr>
                 @foreach ($beneficiary->representative as $representative)
                     <tr>
-                        <td colspan="3" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $representative->representative_name ?? 'N/A' }}
-                            <br><span>NAME (Pangalan)</span>
+                        <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $representative->representative_name ?? 'N/A' }}
+                            <br><span>NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span></span>
                         </td>
-                        <td colspan="1" style="text-align: center; vertical-align: bottom;">{{ $representative->representative_civil_status ?? 'N/A' }}
-                           <br> <span>RELATIONSHIP (Relasyon sa Benepisyaryo)</span>
+                        <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $representative->representative_civil_status ?? 'N/A' }}
+                           <br> <span>RELATIONSHIP <span style="font-style:italic; font-size:8px;">(Relasyon sa Benepisyaryo)</span></span>
                         </td>
                         <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $representative->representative_contact_number ?? 'N/A' }}
-                            <br><span>CONTACT NUMBER (Numero ng Telepono)</span>
+                            <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                         </td>
                     </tr>
                 @endforeach
                 <tr>
-                    <th colspan="5">LIVING ARRANGEMENT (Kaayusan sa Pamumuhay Anak):</th>
+                    <th colspan="5">LIVING ARRANGEMENT <span style="font-style:italic; font-size:11px;">(Kaayusan sa Pamumuhay Anak)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->housingLivingStatus->house_status ?? 'N/A' }}</span>
                         <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A' }}</span>
-                        <br><span>Housing Situation(Sitwasyon ng Pamamahay)</span>
+                        <br><span>Housing Situation <span style="font-style:italic; font-size:8px;">(Sitwasyon ng Pamamahay)</span></span>
                     </td>
 
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->housingLivingStatus->living_status ?? 'N/A' }}</span>
                        <span>{{ $beneficiary->housingLivingStatus->living_status_others_input ?? 'N/A' }}</span>
-                        <br><span>Living Arrangement (kaayusan sa pamumuhay)</span>
+                        <br><span>Living Arrangement <span style="font-style:italic; font-size:8px;">(Kaayusan sa Pamumuhay)</span></span>
                     </td>
                 </tr>
             </table>
-            <h4 class="section-title">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
+            <h4 class="section-title">III. ECONOMIC INFORMATION <span style="font-style:italic; font-size:12px;">(Impormasyong Pang-ekonomiya)</span></h4>
             <table class="table">
                 <tr>
-                    <th colspan="5">RECEIVING PENSION (Tumatanggap ng pension):</th>
+                    <th colspan="5">RECEIVING PENSION <span style="font-style:italic; font-size:11px;">(Tumatanggap ng pension)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->receiving_pension ?? 'N/A' }}</span>
-                        <br><span>Yes(Oo)/No(Wala)</span>
+                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->pension_amount ?? 'N/A' }}</span>
-                        <br><span>How much (Magkano)</span>
+                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->pension_source ?? 'N/A' }}</span>
-                        <br><span>Source (Mula saan)</span>
+                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="5">PERMANENT INCOME (Permanenteng Kita):</th>
+                    <th colspan="5">PERMANENT INCOME <span style="font-style:italic; font-size:11px;">(Permanenteng Kita)</span>:</th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span>
-                        <br><span>Yes(Oo)/No(Wala)</span>
+                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span>
-                        <br><span>How much (Magkano)</span>
+                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span>
-                        <br><span>Source (Mula saan)</span>
+                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="5">REGULAR SUPPORT (Regular na Suporta):</th>
+                    <th colspan="5">REGULAR SUPPORT <span style="font-style:italic; font-size:11px;">(Regular na Suporta)</span></th>
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->regular_support ?? 'N/A' }}</span>
-                        <br><span>Yes(Oo)/No(Wala)</span>
+                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
-                    <td colspan="1" style="text-align: center; vertical-align: bottom;">How much (Magkano):
+                    <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->support_amount ?? 'N/A' }}</span>
-                        <br><span>How much (Magkano)</span>
+                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
-                    <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">Source (Mula saan):
+                    <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->support_source ?? 'N/A' }}</span>
-                        <br><span>Source (Mula saan)</span>
+                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
             </table>
-            <h4 class="section-title">IV. HEALTH INFORMATION (Impormasyon sa Kalusugan)</h4>
+            <h4 class="section-title">IV. HEALTH INFORMATION <span style="font-style:italic; font-size:12px;">(Impormasyon sa Kalusugan)</span></h4>
             <table class="table">
                 <tr>
-                    <th colspan="5">WITH EXISTING ILLNESS (May Karamdaman):</th>
+                    <th colspan="5">WITH EXISTING ILLNESS <span style="font-style:italic; font-size:11px;">(May Karamdaman)</span></th>
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->existing_illness ?? 'N/A' }}</span>
-                        <br><span>Yes(Oo)/No(Wala)</span>
+                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->illness_specify ?? 'N/A' }}</span>
-                        <br><span>Specify (Itala)</span>
+                        <br><span>Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -642,11 +659,11 @@
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->with_disability ?? 'N/A' }}</span>
-                        <br><span>Yes(Oo)/No(Wala)</span>
+                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->disability_specify ?? 'N/A' }}</span>
-                        <br><span>Specify (Itala)</span>
+                        <br><span>Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -655,17 +672,24 @@
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->difficult_adl ?? 'N/A' }}</span>
-                        <br><span>1. Do you experience difficulty in doing your ADLs? (Yes/No)</span>
+                        <br><span>1. Do you experience difficulty in doing your ADLs?</span> <br>
+                        <span style="font-style:italic; font-size:8px;">(Nahihirapan ka ba sa iyong pang-araw araw na gawain?)</span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->healthInformation->dependent_iadl ?? 'N/A' }}</span>
-                    <br><span>2. Are you completely dependent on someone in doing your IADLs?</span></td>
+                    <br><span>2. Are you completely dependent on someone in doing your IADLs?</span><br>
+                    <span style="font-style:italic; font-size:8px;">(Ganap ka bang umaasa sa ibang tao sa pagsasagawa ng iyong gawaing pamumuhay?)</span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                        <span>{{ $beneficiary->healthInformation->experience_loss ?? 'N/A' }}</span>
-                    <br><span>3. Are you experiencing weight loss, weakness, exhaustion?</span></td>
+                    <br><span>3. Are you experiencing weight loss, weakness, exhaustion?</span><br>
+                    <span style="font-style:italic; font-size:8px;">(Ikaw ba ay nakakaranas ng pagkabawas ng timbang, kahinaan o pagkapagod?)</span></td>
                 </tr>
             </table>
-            <h4 class="section-title">V. ASSESSMENT (Pagtatasa)</h4>
+            <h4 class="section-title"><span>DO NOT WRITE BELOW THIS PART FOR DSWD’S USE ONLY</span>
+            <br><span style="font-style:italic; font-size:12px; font-weight:500">(Huwag susulatan ang DSWD lamang ang pwedeng gumamit)</span>
+            </h4>
+            <br>
+            <h4 class="section-title">V. ASSESSMENT <span style="font-style:italic; font-size:11px;">(Pagtatasa)</span></h4>
             <table class="table2">
                 <tr>
                     <td colspan="5">
@@ -675,7 +699,7 @@
                 </tr>
             </table>
 
-            <h4 class="section-title2">VI. RECOMMENDATION (Rekomendasyon)</h4>
+            <h4 class="section-title2">VI. RECOMMENDATION <span style="font-style:italic; font-size:12px;">(Rekomendasyon)</span></h4>
             <table class="table">
                 <tr>
                     <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;">{{ $beneficiary->assessmentRecommendation->eligibility ?? 'N/A' }}</td>
@@ -687,14 +711,14 @@
                     <td colspan="2"
                         style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">Signature
                         over Printed
-                        Name <br><span style="font-style: italic;">(Buong Pangalan at Lagda)</span>
+                        Name <br><span style="font-style:italic; font-size:8px;">(Buong Pangalan at Lagda)</span>
                     </td>
                     <td colspan="2"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">
-                        Designation <br><span style="font-style: italic;">(Position)</span></td>
+                        Designation <br><span style="font-style:italic; font-size:8px;">(Position)</span></td>
                     <td colspan="1"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-right: 1px solid #333; border-left: 1px solid #333;">
-                        Date <br><span style="font-style: italic;">(Petsa)</span></td>
+                        Date <br><span style="font-style:italic; font-size:8px;">(Petsa)</span></td>
                 </tr>
                 <tr>
                     <th colspan="5" style="border-bottom: 1px solid #333;">Econded by:</th>
@@ -703,16 +727,16 @@
                     <td colspan="2"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">Signature
                         over Printed
-                        Name <br><span style="font-style: italic;">(Buong Pangalan at Lagda)</span></td>
+                        Name <br><span style="font-style:italic; font-size:8px;">(Buong Pangalan at Lagda)</span></td>
                     <td colspan="2"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">
-                        Designation <br><span style="font-style: italic;">(Position)</span></td>
+                        Designation <br><span style="font-style:italic; font-size:8px;">(Position)</span></td>
                     <td colspan="1"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-right: 1px solid #333; border-left: 1px solid #333;">
-                        Date <br><span style="font-style: italic;">(Petsa)</span></td>
+                        Date <br><span style="font-style:italic; font-size:8px;">(Petsa)</span></td>
                 </tr>
                 <tr>
-                    <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;">By signing this form, I grant my free and voluntary consent for the Department
+                    <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333; text-align:justify;">By signing this form, I grant my free and voluntary consent for the Department
                         of Social Welfare and Development (DSWD) to collect, process, and share my personal information
                         for the purpose of validation, eligibility test, and cross-matching to serve as the basis in
                         granting my entitlements as a qualified beneficiary of the Social Pension for Indigent Senior
@@ -722,7 +746,7 @@
                         information.
                         <br>
                         <br>
-                        <span style="font-style: italic;">Sa paglagda nito, binibigyan ko ang aking malaya at
+                        <span style="font-style: italic; text-align:justify;">Sa paglagda nito, binibigyan ko ang aking malaya at
                             boluntaryong pahintulot sa Department of Social Welfare and Development (DSWD) na
                             kolektahin, iproseso, at ibahagi ang aking personal na impormasyon para sa layunin ng
                             validation, eligibility test, at cross-matching para magsilbing batayan sa pagbibigay ng
@@ -741,17 +765,17 @@
                     <td colspan="2"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">Name of
                         Applicant or
-                        Respondent <br><span style="font-style: italic;">(Pangalan ng Aplikante)</span></td>
+                        Respondent <br><span style="font-style:italic; font-size:8px;">(Pangalan ng Aplikante)</span></td>
                     <td colspan="2"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-left: 1px solid #333;">Signature
                         or
-                        Thumbmark <br><span style="font-style: italic;">(Lagda o Thumbmark)</span></td>
+                        Thumbmark <br><span style="font-style:italic; font-size:8px;">(Lagda o Thumbmark)</span></td>
                     <td colspan="1"
                     style="text-align: center; padding-top: 30px; height:50px; vertical-align: bottom; border-right: 1px solid #333; border-left: 1px solid #333;">
-                        Date <br><span style="font-style: italic;">(Petsa)</span></td>
+                        Date <br><span style="font-style:italic; font-size:8px;">(Petsa)</span></td>
                 </tr>
                 <tr>
-                    <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;">DATA PRIVACY
+                    <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333; text-align:justify;">DATA PRIVACY
                         In compliance with the provisions of Republic Act No. 10173, also known as the Data Privacy Act
                         of 2012 and its Implementing Rules and Regulations (IRR), the Department of Social Welfare and
                         Development (DSWD) ensures that the personal information provided is collected and processed by
@@ -759,7 +783,7 @@
                         Senior Citizens (SPISC) Program as mandated under Republic Act No. 9994
                         <br>
                         <br>
-                        <span style="font-style: italic;">Bilang pagsunod sa mga probisyon ng Batas Republika 10173, na
+                        <span style="font-style: italic; text-align:justify;">Bilang pagsunod sa mga probisyon ng Batas Republika 10173, na
                             kilala rin bilang Data Privacy Act of 2012 at ang Implementing Rules and Regulations (IRR)
                             nito, tinitiyak ng Department of Social Welfare and Development (DSWD) na ang personal na
                             impormasyong ibinigay ay kinokolekta at pinoproseso ng awtorisadong mga tauhan at ginagamit
