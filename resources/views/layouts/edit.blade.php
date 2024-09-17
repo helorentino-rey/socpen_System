@@ -777,7 +777,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="label" for="ncsc_rrn"><strong>NCSC RRN (If Applicable)</strong></label>
+                <label class="label" for="ncsc_rrn"><strong>NCSC RRN <span style="font-style:italic; font-weight:500;">(If Applicable)</span></strong></label>
                     <input type="text" class="form-control1" name="ncsc_rrn" id="ncsc_rrn"
                         value="{{ $beneficiary->ncsc_rrn }}">
                 </div>
@@ -788,10 +788,10 @@
                     <input type="file" class="form-control" name="profile_upload" id="profile_upload">
                 </div>
             </div>
-            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
+            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng Impormasyon)</span></h4>
             <!-- Name Section -->
             <div class="form-group">
-                <label class="label"><strong>1. Name (Pangalan):</strong></label>
+                <label class="label"><strong>1. NAME</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="last_name">Last Name <span class="text-danger">*</span></label>
@@ -853,7 +853,7 @@
             </div>
 
             <div class="form-group">
-                <label class="label"><strong>2. Mother's Maiden Name</strong></label>
+            <label class="label"><strong>2. MOTHER'S MAIDEN NAME</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_last_name">Last Name <span
@@ -879,9 +879,9 @@
 
             <!-- Address Section -->
             <div class="form-group mt-4">
-                <label class="label"><strong>3. Permanent Address</strong></label>
+                <label class="label"><strong>3. PERMANENT ADDRESS</strong></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         @php
                             $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
                             $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
@@ -901,7 +901,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_province"
                             name="permanent_address_province" required>
@@ -914,7 +914,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_city" name="permanent_address_city"
                             required>
@@ -927,7 +927,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_barangay"
                             name="permanent_address_barangay" required>
@@ -940,7 +942,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="permanent_address_sitio"
@@ -951,9 +953,9 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label"><strong>4. Present Address</strong></label>
+                <label class="label"><strong>4. PRESENT ADDRESS</strong></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         @php
                             $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
                             $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
@@ -972,7 +974,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_province" name="present_address_province"
                             required>
@@ -985,7 +987,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_city" name="present_address_city" required>
                             <option value="">Select City/Municipality</option>
@@ -997,7 +999,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_barangay" name="present_address_barangay"
                             required>
@@ -1010,7 +1014,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="present_address_sitio"
@@ -1022,11 +1026,11 @@
 
             <!-- Birth Date Section -->
             <div class="form-group mt-4">
-                <label class="label"><strong>5. Birth Date</strong></label>
-                <label class="place"><strong>6. Place of Birth</strong></label></span>
+                <label class="label"><strong>5. DATE OF BIRTH</strong></label>
+                <label class="place"><strong>6. PLACE OF BIRTH</strong></label></span>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="date_of_birth">DATE OF BIRTH <span
+                        <label class="ltitle" for="date_of_birth">Date of Birth <span
                                 class="text-danger">*</span></label>
                         <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
                             max="{{ date('Y-m-d', strtotime('-60 years')) }}"
@@ -1054,7 +1058,7 @@
 
             <div class="form-row custom-form-row">
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="age"><strong>7. Age</strong></label>
+                    <label class="label" for="age"><strong>7. AGE</strong> <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" name="age" id="age"
                         value="{{ old('age', $beneficiary->MothersMaidenName->age ?? '') }}" required readonly>
                 </div>
@@ -1072,7 +1076,7 @@
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="civil_status"><strong>8. Civil Status <span
+                    <label class="label" for="civil_status"><strong>9. CIVIL STATUS <span
                                 class="text-danger">*</span></strong></label>
                     <select name="civil_status" id="civil_status" class="form-control" required>
                         <option value="">Select Status</option>
@@ -1093,48 +1097,47 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label" for="affiliation"><strong>10. Affiliation <span
-                            class="text-danger">*</span></strong> (Check all applicable)</label>
-                <div class="form-row custom-form-row">
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan"
-                                value="Listahanan"
-                                {{ in_array('Listahanan', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="listahanan">Listahanan</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid"
-                                value="Pantawid Beneficiary"
-                                {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng
-                                4Ps)</label>
-                        </div>
-                        <input type="text" class="form-control mt-2" name="hh_id" id="hh_id"
-                            style="display: {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
-                            placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous"
-                                value="Indigenous People"
-                                {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
-                        </div>
-                        <input type="text" class="form-control mt-2" name="indigenous_specify"
-                            id="indigenous_specify"
-                            style="display: {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'block' : 'none' }};"
-                            placeholder="Specify (Itala)"
-                            value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
-                    </div>
-                </div>
+    <label class="label" for="affiliation"><strong>10. AFFILIATION <span class="text-danger">*</span></strong>
+        <span style="font-style:italic;">(Check all applicable)</span>
+    </label>
+    <div class="form-row custom-form-row">
+        <!-- Listahanan Checkbox -->
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan" value="Listahanan"
+                    {{ in_array('Listahanan', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                <label class="form-check-label" for="listahanan">Listahanan</label>
             </div>
+        </div>
 
-            <h4 class="section-title mb-3">II. FAMILY INFORMATION (Impormasyon ng Pamilya)</h4>
+        <!-- Pantawid Beneficiary Checkbox -->
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary"
+                    {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+            </div>
+            <input type="text" class="form-control mt-2" name="hh_id" id="hh_id" style="display:none;" 
+                   placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
+        </div>
+
+        <!-- Indigenous People Checkbox -->
+        <div class="col-md-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous" value="Indigenous People"
+                    {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
+            </div>
+            <input type="text" class="form-control mt-2" name="indigenous_specify" id="indigenous_specify" style="display:none;" 
+                   placeholder="Specify (Itala)" value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
+        </div>
+    </div>
+</div>
+
+
+            <h4 class="section-title mb-3">II. FAMILY INFORMATION <span style="font-style:italic;">(Impormasyon ng Pamilya)</span></h4>
             <div class="form-group">
-                <label class="label"><strong>11. Name of Spouse </strong></label>
+                <label class="label"><strong>11. NAME OF SPOUSE </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_last_name">Lastname <span
@@ -1202,10 +1205,9 @@
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>12. Spouse Address - </strong> Select region first, then province, then
-                    city, and finally your barangay</label>
+                <label class="label"><strong>12. SPOUSE ADDRESS </strong></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
                         @php
                             $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
@@ -1225,7 +1227,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_province" name="spouse_address_province"
                             required>
@@ -1238,7 +1240,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_city" name="spouse_address_city" required>
                             <option value="">Select City/Municipality</option>
@@ -1250,7 +1252,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_barangay" name="spouse_address_barangay"
                             required>
@@ -1263,7 +1267,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_address_sitio"
@@ -1273,7 +1277,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="label"><strong>13. Contact Number</strong></label>
+                <label class="label"><strong>13. CONTACT NUMBER</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label for="spouse_contact"></label>
@@ -1283,7 +1287,7 @@
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>14. Children Information</strong></label>
+                <label class="label"><strong>14. CHILDREN INFORMATION</strong></label>
                 <table class="table table-bordered" id="children_table">
                     <thead>
                         <tr>
@@ -1303,10 +1307,9 @@
                             <tr>
                                 <td><input type="text" class="form-control"
                                         name="children[{{ $index }}][name]"
-                                        value="{{ $child->children_name }}" required></td>
+                                        value="{{ $child->children_name }}"></td>
                                 <td>
-                                    <select class="form-control" name="children[{{ $index }}][civil_status]"
-                                        required>
+                                    <select class="form-control" name="children[{{ $index }}][civil_status]">
                                         <option value="">Civil Status</option>
                                         <option value="Single"
                                             {{ $child->children_civil_status == 'Single' ? 'selected' : '' }}>
@@ -1324,10 +1327,10 @@
                                 </td>
                                 <td><input type="text" class="form-control"
                                         name="children[{{ $index }}][occupation]"
-                                        value="{{ $child->children_occupation }}" required></td>
+                                        value="{{ $child->children_occupation }}"></td>
                                 <td><input type="text" class="form-control"
                                         name="children[{{ $index }}][income]"
-                                        value="{{ $child->children_income }}" required>
+                                        value="{{ $child->children_income }}">
                                 </td>
                                 <td><input type="text" class="form-control"
                                         name="children[{{ $index }}][contact_number]"
@@ -1341,7 +1344,7 @@
                 </table>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>15. Name of Authorized Representatives</strong></label>
+                <label class="label"><strong>15. NAME OF AUTHORIZED REPRESENTATIVES</strong></label>
                 <table class="table table-bordered" id="representatives_table">
                     <thead>
                         <tr>
@@ -1357,13 +1360,13 @@
                             <tr>
                                 <td><input type="text" class="form-control"
                                         name="representatives[{{ $index }}][name]"
-                                        value="{{ $representative->representative_name }}" required></td>
+                                        value="{{ $representative->representative_name }}"></td>
                                 <td><input type="text" class="form-control"
                                         name="representatives[{{ $index }}][relationship]"
-                                        value="{{ $representative->representative_relationship }}" required></td>
+                                        value="{{ $representative->representative_relationship }}"></td>
                                 <td><input type="text" class="form-control"
                                         name="representatives[{{ $index }}][contact_number]"
-                                        value="{{ $representative->representative_contact_number }}" required></td>
+                                        value="{{ $representative->representative_contact_number }}"></td>
                                 <td><button type="button"
                                         class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button>
                                 </td>
@@ -1379,7 +1382,7 @@
             @endphp
 
             <div class="form-group mt-4">
-                <label class="label"><strong>17. Living Arrangement</strong></label>
+                <label class="label"><strong>16. LIVING ARRANGEMENT</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4">
                         <label class="ltitle">House Status</label>
@@ -1428,7 +1431,7 @@
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
+            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION <span style="font-style:italic;">(Impormasyong Pang-ekonomiya)</span></h4>
             <div class="form-group mt-4">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1520,7 +1523,7 @@
                     </table>
                 </div>
             </div>
-            <h4 class="section-title mb-3">IV. HEALTH INFORMATION (Impormasyon sa Kalusugan)</h4>
+            <h4 class="section-title mb-3">IV. HEALTH INFORMATION <span style="font-style:italic;">(Impormasyon sa Kalusugan)</span></h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1617,7 +1620,7 @@
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">V. ASSESSMENT (Pagtatasa)</h4>
+            <h4 class="section-title mb-3">V. ASSESSMENT <span style="font-style:italic;">(Pagtatasa)</span></h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
@@ -1626,7 +1629,7 @@
                     </div>
                 </div>
             </div>
-            <h4 class="section-title mb-3">VI. RECOMMENDATION (Rekomendasyon)</h4>
+            <h4 class="section-title mb-3">VI. RECOMMENDATION <span style="font-style:italic;"></span>(Rekomendasyon)</h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
@@ -1676,7 +1679,7 @@
     }
 
     //Affiliation
-    document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
         const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(',');
 
         const listahananCheckbox = document.getElementById('listahanan');
@@ -1691,32 +1694,40 @@
         indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
 
         // Set initial visibility of additional fields
-        hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
-        indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
+        hhIdGroup.style.display = pantawidCheckbox.checked ? 'block' : 'none';
+        indigenousSpecifyGroup.style.display = indigenousCheckbox.checked ? 'block' : 'none';
 
         // Add event listeners to handle visibility on change
         pantawidCheckbox.addEventListener('change', function() {
-            hhIdField.style.display = this.checked ? 'block' : 'none';
-            if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
+            if (this.checked) {
+                hhIdGroup.style.display = 'block';
+            } else {
+                hhIdGroup.style.display = 'none';
+                hhIdField.value = ''; // Clear the field when unchecked
+            }
         });
 
         indigenousCheckbox.addEventListener('change', function() {
-            indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
-            if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
+            if (this.checked) {
+                indigenousSpecifyGroup.style.display = 'block';
+            } else {
+                indigenousSpecifyGroup.style.display = 'none';
+                indigenousSpecifyField.value = ''; // Clear the field when unchecked
+            }
         });
 
         // Add event listener to clear other fields when "Listahanan" is checked
-        listahananCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                pantawidCheckbox.checked = false;
-                hhIdField.value = '';
-                hhIdField.style.display = 'none';
+        // listahananCheckbox.addEventListener('change', function() {
+        //     if (this.checked) {
+        //         pantawidCheckbox.checked = false;
+        //         hhIdField.value = '';
+        //         hhIdGroup.style.display = 'none';
 
-                indigenousCheckbox.checked = false;
-                indigenousSpecifyField.value = '';
-                indigenousSpecifyField.style.display = 'none';
-            }
-        });
+        //         indigenousCheckbox.checked = false;
+        //         indigenousSpecifyField.value = '';
+        //         indigenousSpecifyGroup.style.display = 'none';
+        //     }
+        // });
     });
 
     //Economic Information
@@ -1737,12 +1748,15 @@
     if (yesCheckbox.checked) {
         amountField.removeAttribute('disabled');
         sourceField.removeAttribute('disabled');
+        amountField.style.cursor = ''; // Remove 'not-allowed' when enabled
+        sourceField.style.cursor = ''; // Remove 'not-allowed' when enabled
     } else {
         amountField.setAttribute('disabled', 'true');
         sourceField.setAttribute('disabled', 'true');
+        amountField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
+        sourceField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
     }
 }
-
 
     //Health Information
     function toggleFields(groupName, specifyFieldId) {
@@ -1823,9 +1837,9 @@
         const newRow = table.insertRow();
 
         newRow.innerHTML = `
-        <td><input type="text" class="form-control" name="children[${childIndex}][name]" required></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][name]"></td>
         <td>
-            <select class="form-control" name="children[${childIndex}][civil_status]" required>
+            <select class="form-control" name="children[${childIndex}][civil_status]">
                 <option value="">Civil Status</option>
                 <option value="Single">Single</option>
                 <option value="Married">Married</option>
@@ -1833,9 +1847,9 @@
                 <option value="Separated">Separated</option>
             </select>
         </td>
-        <td><input type="text" class="form-control" name="children[${childIndex}][occupation]" required></td>
-        <td><input type="text" class="form-control" name="children[${childIndex}][income]" required></td>
-        <td><input type="text" class="form-control" name="children[${childIndex}][contact_number]" required></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][occupation]"></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][income]"></td>
+        <td><input type="text" class="form-control" name="children[${childIndex}][contact_number]"></td>
         <td><button type="button" class="bi bi-dash-square-dotted btn btn-danger remove_child"></button></td>
     `;
 
@@ -1857,9 +1871,9 @@
         const newRow = table.insertRow();
 
         newRow.innerHTML = `
-        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][name]" required></td>
-       <td><input type="text" class="form-control" name="representatives[${representativeIndex}][relationship]" required></td>
-        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][contact_number]" required></td>
+        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][name]"></td>
+       <td><input type="text" class="form-control" name="representatives[${representativeIndex}][relationship]"></td>
+        <td><input type="text" class="form-control" name="representatives[${representativeIndex}][contact_number]" ></td>
         <td><button type="button" class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button></td>
     `;
 

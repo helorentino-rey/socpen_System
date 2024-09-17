@@ -572,13 +572,11 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
-                        <span>{{ $beneficiary->housingLivingStatus->house_status ?? 'N/A' }}</span>
                         <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A' }}</span>
                         <br><span>Housing Situation <span style="font-style:italic; font-size:8px;">(Sitwasyon ng Pamamahay)</span></span>
                     </td>
 
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
-                        <span>{{ $beneficiary->housingLivingStatus->living_status ?? 'N/A' }}</span>
                        <span>{{ $beneficiary->housingLivingStatus->living_status_others_input ?? 'N/A' }}</span>
                         <br><span>Living Arrangement <span style="font-style:italic; font-size:8px;">(Kaayusan sa Pamumuhay)</span></span>
                     </td>

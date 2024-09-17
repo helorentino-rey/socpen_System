@@ -794,7 +794,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="label" for="ncsc_rrn"><strong>NCSC RRN (If Applicable)</strong></label>
+                    <label class="label" for="ncsc_rrn"><strong>NCSC RRN <span style="font-style:italic; font-weight:500;">(If Applicable)</span></strong></label>
                     <input type="text" class="form-control1" name="ncsc_rrn" id="ncsc_rrn">
                 </div>
 
@@ -803,10 +803,10 @@
                     <input type="file" class="form-control" name="profile_upload" id="profile_upload" required>
                 </div>
             </div>
-            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION (Pagkilala ng Impormasyon)</h4>
+            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng Impormasyon)</span></h4>
             <!-- Name Section -->
             <div class="form-group">
-                <label class="label"><strong>1. Name (Pangalan):</strong></label>
+                <label class="label"><strong>1. NAME</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="last_name">Last Name <span class="text-danger">*</span></label>
@@ -842,7 +842,7 @@
             </div>
 
             <div class="form-group">
-                <label class="label"><strong>2. Mother's Maiden Name</strong></label>
+                <label class="label"><strong>2. MOTHER'S MAIDEN NAME</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_last_name">Last Name <span class="text-danger">*</span></label>
@@ -861,9 +861,9 @@
 
             <!-- Address Section -->
             <div class="form-group mt-4">
-                <label class="label"><strong>3. Permanent Address</strong></label>
+                <label class="label"><strong>3. PERMANENT ADDRESS -</strong> <span style="font-style:italic;"> Select region first, then province, then city, and finally your barangay</span></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         @php
                         $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
                         $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
@@ -879,7 +879,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_province"
                             name="permanent_address_province" required>
@@ -889,7 +889,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_city" name="permanent_address_city"
                             required>
@@ -899,7 +899,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="permanent_address_barangay"
                             name="permanent_address_barangay" required>
@@ -909,7 +911,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="permanent_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" required>
@@ -918,9 +920,9 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label"><strong>4. Present Address</strong></label>
+                <label class="label"><strong>4. PRESENT ADDRESS -</strong> <span style="font-style:italic;"> Select region first, then province, then city, and finally your barangay</span></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         @php
                         $regions = App\Models\Region::orderBy('col_region', 'asc')->get();
                         $provinces = App\Models\Province::orderBy('col_province', 'asc')->get();
@@ -936,7 +938,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_province"
                             name="present_address_province" required>
@@ -946,7 +948,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_city" name="present_address_city"
                             required>
@@ -956,7 +958,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="present_address_barangay"
                             name="present_address_barangay" required>
@@ -966,7 +970,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="present_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" required>
@@ -976,11 +980,11 @@
 
             <!-- Birth Date Section -->
             <div class="form-group mt-4">
-                <label class="label"><strong>5. Birth Date</strong></label>
-                <label class="place"><strong>6. Place of Birth</strong></label></span>
+                <label class="label"><strong>5. DATE OF BIRTH</strong></label>
+                <label class="place"><strong>6. PLACE OF BIRTH</strong></label></span>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
-                        <label class="ltitle" for="date_of_birth">DATE OF BIRTH <span class="text-danger">*</span></label>
+                        <label class="ltitle" for="date_of_birth">Birth Date <span class="text-danger">*</span></label>
                         <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
                             max="{{ date('Y-m-d', strtotime('-60 years')) }}" required>
                     </div>
@@ -999,7 +1003,7 @@
 
             <div class="form-row custom-form-row">
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="age"><strong>7. Age</strong></label>
+                    <label class="label" for="age"><strong>7. AGE</strong></label>
                     <input type="number" class="form-control" name="age" id="age" required readonly>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -1011,7 +1015,7 @@
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="civil_status"><strong>8. Civil Status <span class="text-danger">*</span></strong></label>
+                    <label class="label" for="civil_status"><strong>9. CIVIL STATUS <span class="text-danger">*</span></strong></label>
                     <select name="civil_status" id="civil_status" class="form-control" required>
                         <option value="">Select Status</option>
                         <option value="Single">Single</option>
@@ -1023,7 +1027,7 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label" for="affiliation"><strong>10. Affiliation <span class="text-danger">*</span></strong> (Check all applicable)</label>
+                <label class="label" for="affiliation"><strong>10. AFFILIATION <span class="text-danger">*</span></strong> <span style="font-style:italic;">(Check all applicable)</span></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4">
                         <div class="form-check">
@@ -1034,7 +1038,7 @@
                     <div class="col-md-4">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary">
-                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary</label>
                         </div>
                         <input type="text" class="form-control mt-2" name="hh_id"
                             id="hh_id_group" style="display:none;"
@@ -1052,9 +1056,9 @@
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">II. FAMILY INFORMATION (Impormasyon ng Pamilya)</h4>
+            <h4 class="section-title mb-3">II. FAMILY INFORMATION <span style="font-style:italic;">(Impormasyon ng Pamilya)</span></h4>
             <div class="form-group">
-                <label class="label"><strong>11. Name of Spouse </strong></label>
+                <label class="label"><strong>11. NAME OF SPOUSE </strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_last_name">Lastname <span class="text-danger">*</span></label>
@@ -1093,9 +1097,9 @@
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>12. Spouse Address - </strong> Select region first, then province, then city, and finally your barangay</label>
+                <label class="label"><strong>12. SPOUSE ADDRESS - </strong> <span style="font-style:italic;"> Select region first, then province, then city, and finally your barangay</span></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="region">Region <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_region" name="spouse_address_region"
                             required>
@@ -1105,7 +1109,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="province">Province <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_province"
                             name="spouse_address_province" required>
@@ -1115,7 +1119,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="city">City <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_city" name="spouse_address_city"
                             required>
@@ -1125,7 +1129,9 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mb-3">
+                </div>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
                         <select class="form-control" id="spouse_address_barangay"
                             name="spouse_address_barangay" required>
@@ -1135,7 +1141,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-8 mb-3">
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" required>
@@ -1143,16 +1149,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="label"><strong>13. Contact Number</strong></label>
+                <label class="label"><strong>13. CONTACT NUMBER</strong> <span class="text-danger"> *</span></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label for="spouse_contact"></label>
-                        <input type="text" class="form-control" id="spouse_contact" name="spouse_contact">
+                        <input type="text" class="form-control" id="spouse_contact" name="spouse_contact" required>
                     </div>
                 </div>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>14. Children Information</strong></label>
+                <label class="label"><strong>14. CHILDREN INFORMATION</strong></label>
                 <table class="table table-bordered" id="children_table">
                     <thead>
                         <tr>
@@ -1190,7 +1196,7 @@
                 </table>
             </div>
             <div class="form-group mt-4">
-                <label class="label"><strong>15. Name of Authorized Representatives</strong></label>
+                <label class="label"><strong>15. NAME OF AUTHORIZED REPRESENTATIVES</strong></label>
                 <table class="table table-bordered" id="representatives_table">
                     <thead>
                         <tr>
@@ -1214,7 +1220,7 @@
             </div>
 
             <div class="form-group mt-4">
-                <label class="label"><strong>17. Living Arrangement</strong></label>
+                <label class="label"><strong>16. LIVING ARRANGEMENT</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4">
                         <label class="ltitle">House Status</label>
@@ -1250,7 +1256,7 @@
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION (Impormasyong Pang-ekonomiya)</h4>
+            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION <span style="font-style:italic;">(Impormasyong Pang-ekonomiya)</span></h4>
             <div class="form-group mt-4">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1264,60 +1270,63 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label class="ltitle" for="pension">Receiving Pension</label>
-                                    <br />
-                                    <input type="checkbox" id="receiving_pension_yes" name="receiving_pension"
-                                        value="Yes"
-                                        onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" />
-                                    Yes
-                                    <input type="checkbox" id="receiving_pension_no" name="receiving_pension"
-                                        value="No"
-                                        onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" />
-                                    No
+                                <td>
+                                    <label class="ltitle" for="pension">Receiving Pension</label> <span class="text-danger"> *</span><br />
+                                    <input type="checkbox" id="receiving_pension_yes" name="receiving_pension" value="Yes"
+                                        onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" /> Yes
+                                    <input type="checkbox" id="receiving_pension_no" name="receiving_pension" value="No"
+                                        onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" /> No
                                 </td>
-                                <td><input type="text" id="pension_amount" name="pension_amount"
-                                        placeholder="Enter amount" style="display:none;" /></td>
-                                <td><input type="text" id="pension_source" name="pension_source"
-                                        placeholder="Enter source" style="display:none;" /></td>
-                            </tr>
-                            <tr>
-                                <td><label class="ltitle" for="permanent_income">Permanent Income</label>
-                                    <br />
-                                    <input type="checkbox" id="permanent_income_yes" name="permanent_income"
-                                        value="Yes"
-                                        onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" />
-                                    Yes
-                                    <input type="checkbox" id="permanent_income_no" name="permanent_income"
-                                        value="No"
-                                        onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" />
-                                    No
+                                <td>
+                                    <input type="text" class="form-control" id="pension_amount" name="pension_amount"
+                                        placeholder="Enter amount" disabled style="cursor:not-allowed;" />
                                 </td>
-                                <td><input type="text" id="income_amount" name="income_amount"
-                                        placeholder="Enter amount" style="display:none;" /></td>
-                                <td><input type="text" id="income_source" name="income_source"
-                                        placeholder="Enter source" style="display:none;" /></td>
+                                <td>
+                                    <input type="text" class="form-control" id="pension_source" name="pension_source"
+                                        placeholder="Enter source" disabled style="cursor:not-allowed;" />
+                                </td>
                             </tr>
+
                             <tr>
-                                <td><label class="ltitle" for="regular_support">Regular Support</label>
-                                    <br />
-                                    <input type="checkbox" id="regular_support_yes" name="regular_support"
-                                        value="Yes"
-                                        onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" />
-                                    Yes
+                                <td>
+                                    <label class="ltitle" for="permanent_income">Permanent Income</label> <span class="text-danger"> *</span><br />
+                                    <input type="checkbox" id="permanent_income_yes" name="permanent_income" value="Yes"
+                                        onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" /> Yes
+                                    <input type="checkbox" id="permanent_income_no" name="permanent_income" value="No"
+                                        onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" /> No
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="income_amount" name="income_amount"
+                                        placeholder="Enter amount" disabled style="cursor:not-allowed;" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="income_source" name="income_source"
+                                        placeholder="Enter source" disabled style="cursor:not-allowed;" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label class="ltitle" for="regular_support">Regular Support</label> <span class="text-danger"> *</span><br />
+                                    <input type="checkbox" id="regular_support_yes" name="regular_support" value="Yes"
+                                        onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" /> Yes
                                     <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
-                                        onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" />
-                                    No
+                                        onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" /> No
                                 </td>
-                                <td><input type="text" id="support_amount" name="support_amount"
-                                        placeholder="Enter amount" style="display:none;" /></td>
-                                <td><input type="text" id="support_source" name="support_source"
-                                        placeholder="Enter source" style="display:none;" /></td>
+                                <td>
+                                    <input type="text" class="form-control" id="support_amount" name="support_amount"
+                                        placeholder="Enter amount" disabled style="cursor:not-allowed;" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="support_source" name="support_source"
+                                        placeholder="Enter source" disabled style="cursor:not-allowed;" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <h4 class="section-title mb-3">IV. HEALTH INFORMATION (Impormasyon sa Kalusugan)</h4>
+            <h4 class="section-title mb-3">IV. HEALTH INFORMATION <span style="font-style:italic;">(Impormasyon sa Kalusugan)</span></h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1331,33 +1340,35 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><label class="ltitle">With Existing Illness</label>
-                                <td><input type="checkbox" id="existing_illness_yes" name="existing_illness"
-                                        value="Yes" onclick="toggleFields('existing_illness', 'illness_specify')" />
-                                    Yes
-                                    <input type="checkbox" id="existing_illness_none" name="existing_illness"
-                                        value="None" onclick="toggleFields('existing_illness', 'illness_specify')" />
-                                    None
+                                <td><label class="ltitle">With Existing Illness</label> <span class="text-danger"> *</span></td>
+                                <td>
+                                    <input type="checkbox" id="existing_illness_yes" name="existing_illness" value="Yes"
+                                        onclick="toggleFields('existing_illness', 'illness_specify')" /> Yes
+                                    <input type="checkbox" id="existing_illness_none" name="existing_illness" value="None"
+                                        onclick="toggleFields('existing_illness', 'illness_specify')" /> None
                                 </td>
-                                <td><input type="text" id="illness_specify" name="illness_specify"
-                                        placeholder="Specify" style="display:none;" /></td>
+                                <td>
+                                    <input type="text" class="form-control" id="illness_specify" name="illness_specify" placeholder="Specify" disabled style="cursor:not-allowed;"/>
+                                </td>
                             </tr>
+
                             <tr>
-                                <td><label class="ltitle">With Disability</label></td>
-                                <td><input type="checkbox" id="with_disability_yes" name="with_disability"
-                                        value="Yes" onclick="toggleFields('with_disability', 'disability_specify')" />
-                                    Yes
-                                    <input type="checkbox" id="with_disability_none" name="with_disability"
-                                        value="None" onclick="toggleFields('with_disability', 'disability_specify')" />
-                                    None
+                                <td><label class="ltitle">With Disability</label> <span class="text-danger"> *</span></td>
+                                <td>
+                                    <input type="checkbox" id="with_disability_yes" name="with_disability" value="Yes"
+                                        onclick="toggleFields('with_disability', 'disability_specify')" /> Yes
+                                    <input type="checkbox" id="with_disability_none" name="with_disability" value="None"
+                                        onclick="toggleFields('with_disability', 'disability_specify')" /> None
                                 </td>
-                                <td><input type="text" id="disability_specify" name="disability_specify"
-                                        placeholder="Specify" style="display:none;" /></td>
+                                <td>
+                                    <input type="text" class="form-control" id="disability_specify" name="disability_specify" placeholder="Specify" disabled style="cursor:not-allowed;"/>
+                                </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
-                <label class="ltitle">Frailty Questions</label>
+                <label class="ltitle">Frailty Questions</label> <span class="text-danger"> *</span>
                 <div class="table-responsive">
                     <table class="table">
                         <tbody>
@@ -1392,7 +1403,7 @@
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">V. ASSESSMENT (Pagtatasa)</h4>
+            <h4 class="section-title mb-3">V. ASSESSMENT <span style="font-style:italic;">(Pagtatasa)</span></h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
@@ -1401,7 +1412,7 @@
                     </div>
                 </div>
             </div>
-            <h4 class="section-title mb-3">VI. RECOMMENDATION (Rekomendasyon)</h4>
+            <h4 class="section-title mb-3">VI. RECOMMENDATION <span style="font-style:italic;"></span>(Rekomendasyon)</h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
@@ -1480,22 +1491,32 @@
         const amountField = document.getElementById(amountFieldId);
         const sourceField = document.getElementById(sourceFieldId);
 
-        // Uncheck the other checkbox if one is checked
-        if (isYes) {
-            noCheckbox.checked = false;
-        } else {
-            yesCheckbox.checked = false;
-        }
+        yesCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                noCheckbox.checked = false; // Uncheck "No"
+                amountField.disabled = false; // Enable amount field
+                sourceField.disabled = false; // Enable source field
+                amountField.focus(); // Optionally focus the amount field
+            }
+        });
 
-        // Show or hide fields based on the Yes/No selection
-        if (yesCheckbox.checked) {
-            amountField.style.display = "block";
-            sourceField.style.display = "block";
-        } else {
-            amountField.style.display = "none";
-            sourceField.style.display = "none";
+        noCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                yesCheckbox.checked = false; // Uncheck "Yes"
+                amountField.disabled = true; // Disable amount field
+                sourceField.disabled = true; // Disable source field
+                amountField.value = ''; // Optionally clear amount field
+                sourceField.value = ''; // Optionally clear source field
+            }
+        });
+
+        // Disable the fields by default if "Yes" is not checked
+        if (!yesCheckbox.checked) {
+            amountField.disabled = true;
+            sourceField.disabled = true;
         }
     }
+
 
     //Health Information
     function toggleFields(groupName, specifyFieldId) {
@@ -1503,22 +1524,29 @@
         const noCheckbox = document.getElementById(`${groupName}_none`);
         const specifyField = document.getElementById(specifyFieldId);
 
-        yesCheckbox.addEventListener('change', () => {
-            if (yesCheckbox.checked) {
-                specifyField.style.display = 'block';
-                noCheckbox.checked = false;
+        // Handle the "Yes" checkbox
+        yesCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                noCheckbox.checked = false; // Uncheck "None"
+                specifyField.disabled = false; // Enable the input field
+                specifyField.focus(); // Optionally focus the input field
             } else {
-                specifyField.style.display = 'none';
+                specifyField.disabled = true; // Disable the input field if unchecked
             }
         });
 
-        noCheckbox.addEventListener('change', () => {
-            if (noCheckbox.checked) {
-                specifyField.style.display = 'none';
-                yesCheckbox.checked = false;
+        // Handle the "None" checkbox
+        noCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                yesCheckbox.checked = false; // Uncheck "Yes"
+                specifyField.disabled = true; // Disable the input field
+                specifyField.value = ''; // Clear the input field
             }
         });
     }
+
+
+
 
     //Frailty Questions
     function handleCheckboxSelectionFra(field, isYes) {
