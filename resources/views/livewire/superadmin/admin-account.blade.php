@@ -2,7 +2,55 @@
 
 @section('title', 'Admin Account')
 @section('content')
-    <h1>Admin Account</h1>
+<style>
+    .table {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center; /* Vertically aligns the heading and logos */
+    justify-content: space-between; /* Heading on the left, logos on the right */
+    border-bottom: 1.5px solid grey; /* Line under both heading and logos */
+    padding-bottom: -50px;
+    margin-bottom: 0;
+    margin-top: -30px;
+}
+
+.logos-container {
+    display: flex;
+    align-items: center; /* Ensures the logos are vertically aligned */
+}
+
+.heading-border {
+    margin-right: 10px; /* Adds some space between the heading and logos */
+}
+
+.dswd-logo {
+    height: 50px;
+    margin-left: 10px;
+}
+
+.social-pension-logo {
+    height: 100px;
+    margin-left: 10px;
+    margin-bottom: 9px;
+}
+
+.custom-btn-sm {
+    font-size: 14px;
+    padding: 0.10rem 0.15rem; 
+    border-radius: 0.25rem; 
+}
+</style>
+<div class="header-container">
+    <h1 class="heading-border">Admin</h1>
+    <div class="logos-container">
+        <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
+        <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="social-pension-logo">
+    </div>
+</div>
 
     <!-- Display Success Message -->
     @if (session('success'))
@@ -53,7 +101,7 @@
                 <form action="{{ route('admin.create') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addAdminModalLabel">Add New Admin</h5>
+                        <h5 class="modal-title custom-btn-sm" id="addAdminModalLabel">Add New Admin</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

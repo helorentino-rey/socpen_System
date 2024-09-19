@@ -20,6 +20,8 @@ use App\Http\Controllers\EditBeneficiaryController;
 use App\Http\Controllers\PaginationController;
 use App\Http\Controllers\CsvController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -54,12 +56,13 @@ Route::post('/staff/otp-verify', [LoginController::class, 'verifyOtp']);
 Route::post('/staff/otp/send', [LoginController::class, 'sendOtp'])->name('staff.otp.send');
 
 //Super admin Dashboard Controller
-Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'adminDashboard'])->name('superadmin.dashboard');
+Route::get('/superadmin/home', [SuperAdminDashboardController::class, 'superadminHome'])->name('superadmin.home');
+Route::get('/superadmin/dashboard', [SuperAdminDashboardController::class, 'superadminDashboard'])->name('superadmin.dashboard');
 Route::get('/superadmin/admin-account', [SuperAdminDashboardController::class, 'adminAccount'])->name('superadmin.admin-account');
 Route::get('/superadmin/approved-staff', [SuperAdminDashboardController::class, 'approvedStaff'])->name('superadmin.approved-staff');
 Route::get('/superadmin/approved-beneficiary', [SuperAdminDashboardController::class, 'approvedBeneficiary'])->name('superadmin.approved-beneficiary');
 Route::get('/superadmin/account-information', [SuperAdminDashboardController::class, 'accountInformation'])->name('superadmin.account-information');
-Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
+// Route::get('/superadmin/notifications', [SuperAdminDashboardController::class, 'notifications'])->name('superadmin.notifications');
 
 //Super Admin Beneficiary Controller
 Route::get('/superadmin/beneficiaries/approve', [SuperAdminDashboardController::class, 'approve'])->name('superadmin.beneficiaries.approve');
@@ -101,7 +104,7 @@ Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name(
 // Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
 Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
-Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
+Route::get('/beneficiaries/admin-list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
 Route::get('/staff/approve', [AdminDashboardController::class, 'approveStaff'])->name('admin.staff.approve');
 Route::get('/staff/list', [AdminDashboardController::class, 'listStaff'])->name('admin.staff.list');
 Route::get('/account', [AdminDashboardController::class, 'accountInformation'])->name('admin.account');
@@ -126,6 +129,7 @@ Route::post('/add-submit', [AddBeneficiaryController::class, 'store'])->name('ad
 Route::get('/approved-beneficiary', [AddBeneficiaryController::class, 'list'])->name('layouts.file');
 Route::post('/beneficiary/{id}/status', [AddBeneficiaryController::class, 'updateStatus'])->name('beneficiary.updateStatus');
 Route::get('/beneficiaries/{id}', [AddBeneficiaryController::class, 'show']);
+Route::get('/beneficiaries/edit/{id}', [AddBeneficiaryController::class, 'edit'])->name('layouts.edit');
 Route::get('/search', [AddBeneficiaryController::class, 'search'])->name('beneficiaries.search');
 Route::get('/searchStaff', [AddBeneficiaryController::class, 'searchStaff'])->name('beneficiary.search');
 Route::get('/searchSuper', [AddBeneficiaryController::class, 'searchSuper'])->name('benefi.search');
@@ -135,11 +139,17 @@ Route::get('/layouts/edit/{id}', [EditBeneficiaryController::class, 'edit'])->na
 Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])->name('beneficiaries.update');
 
 //Pagination Controller
-Route::get('/beneficiaries', [PaginationController::class, 'index'])->name('pagination.list');
+Route::get('/beneficiaries', [PaginationController::class, 'index']);
 
 //Export and Import Controller
 Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('beneficiaries.import');
 Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
 
 //Pdf Controller
-Route::get('/export-pdf', [PDFController::class, 'exportPDF'])->name('export.pdf');
+Route::get('/export/{id}', [PDFController::class, 'export'])->name('export.pdf');
+
+//Superadmin Dashboard
+Route::get('/superadmin/maindashboard', [SuperadminDashboardController::class, 'kpi'])->name('superadmin.maindashboard');
+
+//Notificaion Controller
+Route::get('/notifications', [NotificationController::class, 'index'])->name('logs');

@@ -2,6 +2,31 @@
 
 @section('content')
     <style>
+        /* Ensure body does not scroll */
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
+
+        /* Main content container (acting as sidebar) */
+        .design {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Align items to the top */
+            min-height: 110vh;
+            /* Increased height for the sidebar */
+            max-width: 100vw;
+            /* Prevent horizontal overflow */
+            max-height: 100vh;
+            /* Prevent vertical overflow */
+            overflow: hidden;
+            /* Prevent overflow */
+            padding-top: 30px;
+            /* Reduced top padding */
+        }
+
         /* Search Bar */
         .list-group-item {
             display: flex;
@@ -14,22 +39,116 @@
             padding-left: 10px;
             font-weight: bold;
         }
+
+        .search-bar {
+            height: 80vh;
+            /* Adjusted to occupy 80% of viewport height */
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+            margin-top: 20px;
+            /* Adjust the search bar position */
+            display: flex;
+            flex-direction: column;
+        }
+
+        #search-results {
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 100%;
+            /* Allow search results to use available space */
+            overflow-y: auto;
+            /* Enable scrolling inside search results if needed */
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            /* Center the buttons */
+            margin-bottom: 20px;
+            gap: 10px;
+            /* Adjust the gap between buttons */
+        }
+
+        .nav-buttons .btn {
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-buttons .btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Button Styles */
+        .btn-list,
+        .btn-add {
+            background-color: white;
+            color: #1C4CB1;
+            /* Blue text */
+            border: 2px solid #1C4CB1;
+            /* Blue border */
+            border-radius: 50px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transition */
+        }
+
+        /* Hover effect */
+        .btn-list:hover,
+        .btn-add:hover {
+            background-color: #1C4CB1;
+            /* Change background to blue */
+            color: white;
+            /* Change text color to white */
+        }
+
+        .modal-lg {
+            max-width: 60%;
+        }
+
+        .soc {
+            margin-bottom: -30px;
+            margin-top: -20px;
+            /* Move logos higher */
+        }
+
+        h1 {
+            margin-top: 10px;
+            /* Move title higher */
+        }
     </style>
 
     <!-- Main Content -->
-    <div class="content text-center" id="content"
-        style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="design" id="content">
         <!-- DSWD Logo and Title -->
-        <div class="mt-5">
-            <img src="{{ asset('path/to/logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
-            <img src="{{ asset('path/to/logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
+        <div class="soc mt-5">
+            <img src="{{ asset('img/social-pension-logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
+            <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 80px;">
         </div>
-        <h1 class="mt-3" style="font-weight: bold; color: #1C4CB1; font-size: 2.5rem;">
+        <h1 class="mt-3" style="font-weight: bold; color: #1C4CB1; font-size: 3.5rem;">
             SOCIAL PENSION UNIT
         </h1>
 
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons mt-4">
+            <a href="{{ route('admin.beneficiaries.list') }}" class="btn btn-list">
+                <i class="bi bi-list"></i> List of Beneficiaries
+            </a>
+            <a href="{{ route('admin.beneficiaries.create') }}" class="btn btn-add">
+                <i class="bi bi-plus"></i> Add Beneficiary
+            </a>
+        </div>
+
         <!-- Search Bar -->
-        <div class="search-bar mt-4" style="width: 60%; max-width: 800px;">
+        <div class="search-bar">
             <div class="input-group">
                 <span class="input-group-text" id="basic-addon1"
                     style="background-color: white; border-radius: 50px 0 0 50px; border-right: none;">
@@ -38,19 +157,7 @@
                 <input type="text" id="beneficiary-search" class="form-control" placeholder="Search..."
                     style="border-radius: 0 50px 50px 0; border-left: none;">
             </div>
-            <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 37%;"></div>
-        </div>
-
-        <!-- Navigation Links -->
-        <div class="mt-4 d-flex justify-content-center" style="gap: 50px;">
-            <a href="{{ route('admin.beneficiaries.list') }}" class="text-decoration-none nav-link"
-                style="font-size: 1.25rem; font-weight: 500; color: black;">
-                <span class="hover-effect">List of Beneficiaries</span>
-            </a>
-            <a href="{{ route('admin.beneficiaries.create') }}" class="text-decoration-none nav-link"
-                style="font-size: 1.25rem; font-weight: 500; color: black;">
-                <span class="hover-effect">Add Beneficiary</span>
-            </a>
+            <div id="search-results" class="list-group"></div>
         </div>
     </div>
 
@@ -59,8 +166,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
-                        Information</h5>
+                    <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner Information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -69,6 +175,7 @@
             </div>
         </div>
     </div>
+
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

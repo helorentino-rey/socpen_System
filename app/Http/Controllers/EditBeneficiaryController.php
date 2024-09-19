@@ -15,17 +15,17 @@ use App\Models\CityMuni;
 use App\Models\Barangay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class EditBeneficiaryController extends Controller
 {
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $beneficiary = Beneficiary::with([
             'addresses',
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -44,7 +44,6 @@ class EditBeneficiaryController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validate the request data
         $validatedData = $request->validate([
             'osca_id' => 'required|string|unique:beneficiary,osca_id,' . $id,
             'ncsc_rrn' => 'nullable|integer',
@@ -65,7 +64,6 @@ class EditBeneficiaryController extends Controller
             'sex' => 'required|in:Male,Female',
             'civil_status' => 'required|in:Single,Married,Widowed,Separated',
 
-            // Address validation
             'permanent_address_region' => 'required|string|max:50',
             'permanent_address_province' => 'required|string|max:50',
             'permanent_address_city' => 'required|string|max:50',
@@ -105,15 +103,8 @@ class EditBeneficiaryController extends Controller
 
             'representatives' => 'present|array',
             'representatives.*.name' => 'nullable|string|max:50',
-            'representatives.*.civil_status' => 'nullable|in:Single,Married,Widowed,Separated',
+            'representatives.*.relationship' => 'nullable|string|max:50',
             'representatives.*.contact_number' => 'nullable|string|max:13',
-
-            'caregiver_last_name' => 'nullable|string|max:25',
-            'caregiver_first_name' => 'nullable|string|max:25',
-            'caregiver_middle_name' => 'nullable|string|max:25',
-            'caregiver_name_extension' => 'nullable|string|max:4',
-            'caregiver_relationship' => 'nullable|string|max:25',
-            'caregiver_contact' => 'nullable|string|max:13',
 
             'house_status' => 'required|array',
             'house_status.*' => 'required|string|in:Owned,Rent,Others',
@@ -144,13 +135,11 @@ class EditBeneficiaryController extends Controller
             'eligibility' => 'nullable|in:Eligible,Not Eligible',
         ]);
 
-        // Find the beneficiary by ID
         $beneficiary = Beneficiary::with([
             'addresses',
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
@@ -187,8 +176,8 @@ class EditBeneficiaryController extends Controller
         $spouse_city_name = CityMuni::where('psgc', $request->input('spouse_address_city'))->value('col_citymuni');
         $spouse_barangay_name = Barangay::where('psgc', $request->input('spouse_address_barangay'))->value('col_brgy');
 
-
-        // Update the beneficiary's data
+        // Update beneficiary information
+        $originalBeneficiaryData = $beneficiary->toArray();
         $beneficiaryData = [
             'osca_id' => $validatedData['osca_id'],
             'ncsc_rrn' => $validatedData['ncsc_rrn'],
@@ -197,12 +186,11 @@ class EditBeneficiaryController extends Controller
         if (isset($validatedData['profile_upload'])) {
             $beneficiaryData['profile_upload'] = $validatedData['profile_upload'];
         }
-
         $beneficiary->update($beneficiaryData);
-        Log::info('Beneficiary updated: ' . $beneficiary->id);
+        $updatedBeneficiaryData = $beneficiary->toArray();
 
-        // Update or create beneficiary info record
-        BeneficiaryInfo::updateOrCreate(
+        $originalBeneficiaryInfo = BeneficiaryInfo::where('beneficiary_id', $beneficiary->id)->first()->toArray();
+        $updatedBeneficiaryInfo = BeneficiaryInfo::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
                 'last_name' => $validatedData['last_name'],
@@ -210,12 +198,14 @@ class EditBeneficiaryController extends Controller
                 'middle_name' => $validatedData['middle_name'] ?? null,
                 'name_extension' => $validatedData['name_extension'],
             ]
-        );
-        Log::info('Beneficiary info updated for beneficiary: ' . $beneficiary->id);
-
+        )->toArray();
 
         // Update or create permanent address with names
-        Address::updateOrCreate(
+        $originalPermanentAddress = Address::where('beneficiary_id', $beneficiary->id)
+            ->where('type', 'permanent')
+            ->first()
+            ->toArray();
+        $updatedPermanentAddress = Address::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id, 'type' => 'permanent'],
             [
                 'region' => $permanent_region_name,
@@ -224,11 +214,14 @@ class EditBeneficiaryController extends Controller
                 'barangay' => $permanent_barangay_name,
                 'sitio' => $validatedData['permanent_address_sitio'],
             ]
-        );
-        Log::info('Permanent address updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
 
         // Update or create present address with names
-        Address::updateOrCreate(
+        $originalPresentAddress = Address::where('beneficiary_id', $beneficiary->id)
+            ->where('type', 'present')
+            ->first()
+            ->toArray();
+        $updatedPresentAddress = Address::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id, 'type' => 'present'],
             [
                 'region' => $present_region_name,
@@ -237,11 +230,14 @@ class EditBeneficiaryController extends Controller
                 'barangay' => $present_barangay_name,
                 'sitio' => $validatedData['present_address_sitio'],
             ]
-        );
-        Log::info('Present address updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
 
         // Update or create spouse address with names
-        Address::updateOrCreate(
+        $originalSpouseAddress = Address::where('beneficiary_id', $beneficiary->id)
+            ->where('type', 'spouse_address')
+            ->first()
+            ->toArray();
+        $updatedSpouseAddress = Address::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id, 'type' => 'spouse_address'],
             [
                 'region' => $spouse_region_name,
@@ -250,12 +246,11 @@ class EditBeneficiaryController extends Controller
                 'barangay' => $spouse_barangay_name,
                 'sitio' => $validatedData['spouse_address_sitio'],
             ]
-        );
-        Log::info('Spouse address updated for beneficiary: ' . $beneficiary->id);
-
+        )->toArray();
 
         // Update or create mother's maiden name record
-        MothersMaidenName::updateOrCreate(
+        $originalMothersMaidenName = MothersMaidenName::where('beneficiary_id', $beneficiary->id)->first()->toArray();
+        $updatedMothersMaidenName = MothersMaidenName::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
                 'mother_last_name' => $validatedData['mother_last_name'],
@@ -268,22 +263,26 @@ class EditBeneficiaryController extends Controller
                 'sex' => $validatedData['sex'],
                 'civil_status' => $validatedData['civil_status'],
             ]
-        );
-        Log::info('Mother\'s maiden name updated for beneficiary: ' . $beneficiary->id);
-
+        )->toArray();
+        
         // Update or create affiliation record
-        $beneficiary->affiliation()->updateOrCreate(
+        $originalAffiliation = $beneficiary->affiliation()->where('beneficiary_id', $beneficiary->id)->first();
+        $originalAffiliationArray = $originalAffiliation ? $originalAffiliation->toArray() : [];
+
+        $updatedAffiliation = $beneficiary->affiliation()->updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
-                'affiliation_type' => implode(',', $validatedData['affiliation'] ?? []),
+                'affiliation_type' => is_array($validatedData['affiliation'] ?? []) ? implode(', ', $validatedData['affiliation'] ?? []) : '',
                 'hh_id' => $validatedData['hh_id'] ?? null,
                 'indigenous_specify' => $validatedData['indigenous_specify'] ?? null,
             ]
-        );
-        Log::info('Affiliation updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
 
         // Update or create spouse record
-        $beneficiary->spouse()->updateOrCreate(
+        $originalSpouse = $beneficiary->spouse()->where('beneficiary_id', $beneficiary->id)->first();
+        $originalSpouseArray = $originalSpouse ? $originalSpouse->toArray() : [];
+       
+        $updatedSpouse = $beneficiary->spouse()->updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
                 'spouse_last_name' => $validatedData['spouse_last_name'],
@@ -292,59 +291,45 @@ class EditBeneficiaryController extends Controller
                 'spouse_name_extension' => $validatedData['spouse_name_extension'],
                 'spouse_contact' => $validatedData['spouse_contact'] ?? null,
             ]
-        );
-        Log::info('Spouse updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
 
-        // Handle children update or deletion
-        // Delete all existing children for the beneficiary
+       // Insert the new or updated children
+        $originalChildren = $beneficiary->child()->get()->toArray();
         $beneficiary->child()->delete();
-
-        // Insert the new or updated children
+        
+        $updatedChildren = [];
         foreach ($validatedData['children'] as $childData) {
-            $beneficiary->child()->create([
+            $updatedChildren[] = $beneficiary->child()->create([
                 'children_name' => $childData['name'] ?? null,
                 'children_civil_status' => $childData['civil_status'] ?? null,
                 'children_occupation' => $childData['occupation'] ?? null,
                 'children_income' => $childData['income'] ?? null,
                 'children_contact_number' => $childData['contact_number'] ?? null,
-            ]);
+            ])->toArray();
         }
-        Log::info('Children updated for beneficiary: ' . $beneficiary->id);
-
-        // Handle representatives update or deletion
-        // Delete all existing representatives for the beneficiary
-        $beneficiary->representative()->delete();
 
         // Insert the new or updated representatives
-        foreach ($validatedData['representatives'] as $representativeData) {
-            $beneficiary->representative()->create([
-                'representative_name' => $representativeData['name'] ?? null,
-                'representative_civil_status' => $representativeData['civil_status'] ?? null,
-                'representative_contact_number' => $representativeData['contact_number'] ?? null,
-            ]);
-        }
-        Log::info('Representatives updated for beneficiary: ' . $beneficiary->id);
+        $originalRepresentatives = $beneficiary->representative()->get()->toArray();
+        $beneficiary->representative()->delete();
 
-        // Update or create caregiver record
-        $beneficiary->caregiver()->updateOrCreate(
-            ['beneficiary_id' => $beneficiary->id],
-            [
-                'caregiver_last_name' => $validatedData['caregiver_last_name'],
-                'caregiver_first_name' => $validatedData['caregiver_first_name'],
-                'caregiver_middle_name' => $validatedData['caregiver_middle_name'] ?? null,
-                'caregiver_name_extension' => $validatedData['caregiver_name_extension'],
-                'caregiver_relationship' => $validatedData['caregiver_relationship'],
-                'caregiver_contact' => $validatedData['caregiver_contact'],
-            ]
-        );
-        Log::info('Caregiver updated for beneficiary: ' . $beneficiary->id);
+        $updatedRepresentatives = [];
+        foreach ($validatedData['representatives'] as $representativeData) {
+            $updatedRepresentatives[] = $beneficiary->representative()->create([
+                'representative_name' => $representativeData['name'] ?? null,
+                'representative_relationship' => $representativeData['relationship'] ?? null,
+                'representative_contact_number' => $representativeData['contact_number'] ?? null,
+            ])->toArray();
+        }
 
         // Handle "Others" fields for house and living status
         $houseStatusOthersInput = in_array('Others', $validatedData['house_status']) ? $validatedData['house_status_others_input'] : null;
         $livingStatusOthersInput = in_array('Others', $validatedData['living_status']) ? $validatedData['living_status_others_input'] : null;
 
+        $originalHousingLivingStatus = $beneficiary->housingLivingStatus()->where('beneficiary_id', $beneficiary->id)->first();
+        $originalHousingLivingStatusArray = $originalHousingLivingStatus ? $originalHousingLivingStatus->toArray() : [];
+
         // Update or create housing and living status
-        $beneficiary->housingLivingStatus()->updateOrCreate(
+        $updatedHousingLivingStatus = $beneficiary->housingLivingStatus()->updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
                 'house_status' => implode(',', $validatedData['house_status']),
@@ -352,10 +337,10 @@ class EditBeneficiaryController extends Controller
                 'living_status' => implode(',', $validatedData['living_status']),
                 'living_status_others_input' => $livingStatusOthersInput,
             ]
-        );
-        Log::info('Housing and living status updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
 
-        // Update or create economic information
+        //Economic Information
+        $originalEconomicInformation = $beneficiary->economicInformation->toArray();
         // Clear fields if "No" is selected
         if ($validatedData['receiving_pension'] == 'No') {
             $validatedData['pension_amount'] = null;
@@ -370,7 +355,6 @@ class EditBeneficiaryController extends Controller
             $validatedData['support_source'] = null;
         }
 
-        // Update the beneficiary's economic information
         $beneficiary->economicInformation->update([
             'receiving_pension' => $validatedData['receiving_pension'],
             'pension_amount' => $validatedData['pension_amount'],
@@ -382,9 +366,11 @@ class EditBeneficiaryController extends Controller
             'support_amount' => $validatedData['support_amount'],
             'support_source' => $validatedData['support_source'],
         ]);
-        Log::info('Economic information updated for beneficiary: ' . $beneficiary->id);
+        $updatedEconomicInformation = $beneficiary->economicInformation->toArray();
 
         // Update or create health information  
+        $originalHealthInformation = $beneficiary->healthInformation->toArray();
+
         if ($request->has('existing_illness')) {
             $beneficiary->healthInformation->existing_illness = $request->input('existing_illness');
             $beneficiary->healthInformation->illness_specify = $request->input('existing_illness') == 'Yes' ? $request->input('illness_specify') : null;
@@ -408,23 +394,232 @@ class EditBeneficiaryController extends Controller
         }
 
         $beneficiary->healthInformation->save();
+        $updatedHealthInformation = $beneficiary->healthInformation->toArray();
 
-        Log::info('Health information updated for beneficiary: ' . $beneficiary->id);
-
-        // Ensure 'eligibility' is set in $validatedData
-        $validatedData['eligibility'] = $validatedData['eligibility'] ?? null;
 
         // Update or create assessment recommendation record
-        AssessmentRecommendation::updateOrCreate(
+        $validatedData['eligibility'] = $validatedData['eligibility'] ?? null;
+
+        $originalAssessmentRecommendation = AssessmentRecommendation::where('beneficiary_id', $beneficiary->id)->first();
+        $originalAssessmentRecommendationArray = $originalAssessmentRecommendation ? $originalAssessmentRecommendation->toArray() : [];
+        
+        $updatedAssessmentRecommendation = AssessmentRecommendation::updateOrCreate(
             ['beneficiary_id' => $beneficiary->id],
             [
                 'remarks' => $validatedData['remarks'],
                 'eligibility' => $validatedData['eligibility'],
             ]
-        );
-        Log::info('Assessment recommendation updated for beneficiary: ' . $beneficiary->id);
+        )->toArray();
+      
+        // Log changes
+        $changes = [];
+        $humanReadableChanges = [];
+        foreach ($updatedBeneficiaryData as $key => $value) {
+            if ($key !== 'updated_at' && $key !== 'created_at' && $key !== 'id' && (!isset($originalBeneficiaryData[$key]) || $originalBeneficiaryData[$key] != $value)) {
+                $originalValue = is_array($originalBeneficiaryData[$key] ?? null) ? json_encode($originalBeneficiaryData[$key]) : ($originalBeneficiaryData[$key] ?? 'N/A');
+                $newValue = is_array($value) ? json_encode($value) : ($value ?: 'N/A');
+
+                if ($originalValue != $newValue) {
+                    $changes[$key] = ['old' => $originalValue, 'new' => $newValue];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . $originalValue . ' into ' . $newValue;
+                }
+            }
+        }
+
+        foreach ($updatedBeneficiaryInfo as $key => $value) {
+            if ($key !== 'updated_at' && $originalBeneficiaryInfo[$key] != $value) {
+                $changes[$key] = ['old' => $originalBeneficiaryInfo[$key], 'new' => $value];
+                $humanReadableChanges[] = '"' . $key . '" from ' . $originalBeneficiaryInfo[$key] . ' into ' . $value;
+            }
+        }
+
+        foreach ($updatedPermanentAddress as $key => $value) {
+            if ($key !== 'updated_at' && $originalPermanentAddress[$key] != $value) {
+                $changes[$key] = ['old' => $originalPermanentAddress[$key], 'new' => $value];
+                $humanReadableChanges[] = '"' . $key . '" from ' .  $originalPermanentAddress[$key] . ' into ' . $value;
+            }
+        }
+
+        foreach ($updatedPresentAddress as $key => $value) {
+            if ($key !== 'updated_at' && $originalPresentAddress[$key] != $value) {
+                $changes[$key] = ['old' => $originalPresentAddress[$key], 'new' => $value];
+                $humanReadableChanges[] = '"' . $key . '" from ' . $originalPresentAddress[$key] . ' into ' . $value;
+            }
+        }
+
+        foreach ($updatedSpouseAddress as $key => $value) {
+            if ($key !== 'updated_at' &&  $originalSpouseAddress[$key] != $value) {
+                $changes[$key] = ['old' =>  $originalSpouseAddress[$key], 'new' => $value];
+                $humanReadableChanges[] = '"' . $key . '" from ' .  $originalSpouseAddress[$key] . ' into ' . $value;
+            }
+        }
+
+        foreach ($updatedMothersMaidenName as $key => $value) {
+            if ($key !== 'updated_at' &&  $originalMothersMaidenName[$key] != $value) {
+                $changes[$key] = ['old' =>  $originalMothersMaidenName[$key], 'new' => $value];
+                $humanReadableChanges[] = '"' . $key . '" from ' .  $originalMothersMaidenName[$key] . ' into ' . $value;
+            }
+        }
+
+        foreach ($updatedAffiliation as $key => $value) {
+            if ($key !== 'updated_at' && (!isset($originalAffiliationArray[$key]) || $originalAffiliationArray[$key] != $value)) {
+                if (($originalAffiliationArray[$key] ?? 'N/A') != ($value ?: 'N/A')) {
+                    $changes[$key] = [
+                        'old' => $originalAffiliationArray[$key] ?? 'N/A',
+                        'new' => $value ?: 'N/A' 
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . ($originalAffiliationArray[$key] ?? 'N/A') . ' into ' . ($value ?: 'N/A');
+                }
+            }
+        }
+
+        foreach ($updatedSpouse as $key => $value) {
+            if ($key !== 'updated_at' && (!isset($originalSpouseArray[$key]) || $originalSpouseArray[$key] != $value)) {
+                if (($originalSpouseArray[$key] ?? 'N/A') != ($value ?: 'N/A')) {
+                    $changes[$key] = [
+                        'old' => $originalSpouseArray[$key] ?? 'N/A',
+                        'new' => $value ?: 'N/A' 
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . ($originalSpouseArray[$key] ?? 'N/A') . ' into ' . ($value ?: 'N/A');
+                }
+            }
+        }
+
+        //children records
+        foreach ($originalChildren as $index => $originalChild) {
+            $updatedChild = $updatedChildren[$index] ?? [];
+            foreach ($originalChild as $key => $value) {
+                if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($updatedChild[$key]) || $updatedChild[$key] != $value)) {
+                    if (($value ?? 'N/A') != ($updatedChild[$key] ?? 'N/A')) {
+                        $changes['children'][$index][$key] = [
+                            'old' => $value ?? 'N/A',
+                            'new' => $updatedChild[$key] ?? 'N/A' 
+                        ];
+                        $humanReadableChanges[] = ' "' . $key . '" from ' . ($value ?? 'N/A') . ' into ' . ($updatedChild[$key] ?? 'N/A');
+                    }
+                }
+            }
+        }
+
+        //representatives records
+        foreach ($originalRepresentatives as $index => $originalRepresentative) {
+            $updatedRepresentative = $updatedRepresentatives[$index] ?? [];
+            foreach ($originalRepresentative as $key => $value) {
+                if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($updatedRepresentative[$key]) || $updatedRepresentative[$key] != $value)) {
+                    if (($value ?? 'N/A') != ($updatedRepresentative[$key] ?? 'N/A')) {
+                        $changes['representatives'][$index][$key] = [
+                            'old' => $value ?? 'N/A',
+                            'new' => $updatedRepresentative[$key] ?? 'N/A' 
+                        ];
+                        $humanReadableChanges[] = ' "' . $key . '" from ' . ($value ?? 'N/A') . ' into ' . ($updatedRepresentative[$key] ?? 'N/A');
+                    }
+                }
+            }
+        }
+
+        //housing and living status records
+        foreach ($updatedHousingLivingStatus as $key => $value) {
+            if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($originalHousingLivingStatusArray[$key]) || $originalHousingLivingStatusArray[$key] != $value)) {
+                if (($originalHousingLivingStatusArray[$key] ?? 'N/A') != ($value ?: 'N/A')) {
+                    $changes['housing_living_status'][$key] = [
+                        'old' => $originalHousingLivingStatusArray[$key] ?? 'N/A',
+                        'new' => $value ?: 'N/A' 
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . ($originalHousingLivingStatusArray[$key] ?? 'N/A') . ' into ' . ($value ?: 'N/A');
+                }
+            }
+        }
+
+        //economic information records
+        foreach ($updatedEconomicInformation as $key => $value) {
+            if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($originalEconomicInformation[$key]) || $originalEconomicInformation[$key] != $value)) {
+                $originalValue = is_array($originalEconomicInformation[$key] ?? null) ? json_encode($originalEconomicInformation[$key]) : ($originalEconomicInformation[$key] ?? 'N/A');
+                $newValue = is_array($value) ? json_encode($value) : ($value ?: 'N/A');
+
+                if ($originalValue != $newValue) {
+                    $changes['economic_information'][$key] = [
+                        'old' => $originalValue,
+                        'new' => $newValue
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . $originalValue . ' into ' . $newValue;
+                }
+            }
+        }
+
+        $filteredHumanReadableChanges = array_filter($humanReadableChanges, function ($change) {
+            return !str_contains($change, 'economic_information');
+        });
+        $humanReadableChanges = $filteredHumanReadableChanges;
+
+        //health information records
+        foreach ($updatedHealthInformation as $key => $value) {
+            if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($originalHealthInformation[$key]) || $originalHealthInformation[$key] != $value)) {
+                $originalValue = is_array($originalHealthInformation[$key] ?? null) ? json_encode($originalHealthInformation[$key]) : ($originalHealthInformation[$key] ?? 'N/A');
+                $newValue = is_array($value) ? json_encode($value) : ($value ?: 'N/A');
+
+                if ($originalValue != $newValue) {
+                    $changes['health_information'][$key] = [
+                        'old' => $originalValue,
+                        'new' => $newValue
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . $originalValue . ' into ' . $newValue;
+                }
+            }
+        }
+
+        $filteredHumanReadableChanges = array_filter($humanReadableChanges, function ($change) {
+            return !str_contains($change, 'health_information');
+        });
+        $humanReadableChanges = $filteredHumanReadableChanges;
+
+        //assessment recommendation records
+        foreach ($updatedAssessmentRecommendation as $key => $value) {
+            if (!in_array($key, ['updated_at', 'created_at', 'id']) && (!isset($originalAssessmentRecommendationArray[$key]) || $originalAssessmentRecommendationArray[$key] != $value)) {
+                $originalValue = is_array($originalAssessmentRecommendationArray[$key] ?? null) ? json_encode($originalAssessmentRecommendationArray[$key]) : ($originalAssessmentRecommendationArray[$key] ?? 'N/A');
+                $newValue = is_array($value) ? json_encode($value) : ($value ?: 'N/A');
+
+                if ($originalValue != $newValue) {
+                    $changes['assessment_recommendation'][$key] = [
+                        'old' => $originalValue,
+                        'new' => $newValue
+                    ];
+                    $humanReadableChanges[] = '"' . $key . '" from ' . $originalValue . ' into ' . $newValue;
+                }
+            }
+        }
+
+        $filteredHumanReadableChanges = array_filter($humanReadableChanges, function ($change) {
+            return !str_contains($change, 'assessment_recommendation');
+        });
+        $humanReadableChanges = $filteredHumanReadableChanges;
+
+        // Get the authenticated user from different guards
+        $superadmin = Auth::guard('superadmin')->user();
+        $admin = Auth::guard('admin')->user();
+        $staff = Auth::guard('staff')->user();
+
+        if (!$superadmin && !$admin && !$staff) {
+            dd('No authenticated user found in any guard');
+        }
+
+        $user = $superadmin ?? $admin ?? $staff;
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Log the action with human-readable changes only
+            \App\Models\Log::create([
+                'user' => $user->employee_id . ' [' . $user->usertype . ']',
+                'action' => 'Edited beneficiary with OSCA ID ' . $beneficiary->osca_id . ': ' . implode(', ', $humanReadableChanges),
+            ]);
+        } else {
+            // Handle the case where the user is not authenticated
+            \App\Models\Log::create([
+                'user' => 'Unknown User',
+                'action' => 'Edited beneficiary with OSCA ID ' . $beneficiary->osca_id . ': ' . implode(', ', $humanReadableChanges),
+            ]);
+        }
 
         // Redirect back with a success message
-        return redirect()->route('layouts.edit', $id)->with('success', 'Beneficiary updated successfully.');
+        return redirect()->back()->with('success', 'Beneficiary updated successfully!');
     }
 }

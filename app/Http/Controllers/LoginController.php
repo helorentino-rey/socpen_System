@@ -22,7 +22,7 @@ class LoginController extends Controller
         $user = SuperAdmin::where('employee_id', $employee_id)->first();
         if ($user && Hash::check($password, $user->password) && $user->usertype === 'super_admin') {
             Auth::guard('superadmin')->login($user);
-            return redirect()->route('superadmin.dashboard');
+            return redirect()->route('superadmin.home');
         }
 
         // Check Admin
@@ -42,6 +42,9 @@ class LoginController extends Controller
         $user = Staff::where('employee_id', $employee_id)->first();
         if ($user && Hash::check($password, $user->password) && $user->usertype === 'staff') {
             if ($user->status === 'active') {
+                // Log in the user
+                Auth::guard('staff')->login($user);
+
                 // Generate OTP
                 $otp = $this->generateOTP();
 

@@ -183,8 +183,13 @@
 
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
-                <a href="{{ route('superadmin.dashboard') }}" class="nav-link">
+                <a href="{{ route('superadmin.home') }}" class="nav-link">
                     <i class="bi bi-house-door-fill"></i> <span>Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('superadmin.maindashboard') }}" class="nav-link">
+                    <i class="bi bi-grid-fill"></i> <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -200,6 +205,11 @@
             <li class="nav-item">
                 <a href="{{ route('superadmin.approved-beneficiary') }}" class="nav-link">
                     <i class="bi bi-person-lines-fill"></i> <span>Beneficiaries</span>
+                </a>
+            </li>
+              <li class="nav-item">
+                <a href="{{ route('logs') }}" class="nav-link">
+                    <i class="bi bi-bell-fill"></i> <span>Logs</span>
                 </a>
             </li>
             <li class="nav-item">

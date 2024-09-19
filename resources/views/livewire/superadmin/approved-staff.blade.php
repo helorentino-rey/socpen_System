@@ -2,7 +2,56 @@
 
 @section('title', 'Approved Staff')
 @section('content')
-<h1>Approved Staff</h1>
+<style>
+    .table {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center; /* Vertically aligns the heading and logos */
+    justify-content: space-between; /* Heading on the left, logos on the right */
+    border-bottom: 1.5px solid grey; /* Line under both heading and logos */
+    padding-bottom: -50px;
+    margin-bottom: 0;
+    margin-top: -30px;
+}
+
+.logos-container {
+    display: flex;
+    align-items: center; /* Ensures the logos are vertically aligned */
+}
+
+.heading-border {
+    margin-right: 10px; /* Adds some space between the heading and logos */
+}
+
+.custom-btn-sm {
+    font-size: 14px; /* Smaller font size */
+    padding: 0.10rem 0.15rem; /* Adjust padding for a smaller button */
+    border-radius: 0.25rem; /* Adjust border radius for a smaller, rounded button */
+}
+
+.dswd-logo {
+    height: 50px;
+    margin-left: 10px;
+}
+
+.social-pension-logo {
+    height: 100px;
+    margin-left: 10px;
+    margin-bottom: 9px;
+}
+</style>
+<div class="header-container">
+    <h1 class="heading-border">Approve Staff</h1>
+    <div class="logos-container">
+        <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
+        <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="social-pension-logo">
+    </div>
+</div>
+
 <br>
 <br>
 <!-- Search Beneficiaries content -->
@@ -33,9 +82,9 @@
                     @csrf
                     @method('PATCH')
                     @if ($staffMember->status == 'pending')
-                    <button type="submit" class="btn btn-sm btn-primary">Approve</button>
+                    <button type="submit" class="btn btn-sm btn-primary custom-btn-sm">Approve</button>
                     @else
-                    <button type="submit" class="btn btn-sm btn-warning">Deactivate</button>
+                    <button type="submit" class="btn btn-sm btn-warning custom-btn-sm">Deactivate</button>
                     @endif
                 </form>
             </td>
@@ -56,7 +105,7 @@
             <div class="modal-body">
                 <div class="text-center mb-3">
                     <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
-                        style="width: 150px; height: 150px; object-fit: cover;">
+                        style="width: 150px; height: 150px; object-fit: cover; border: 1.5px solid #1C4CB1;">
                 </div>
                 <div>
                     <p><strong>Last Name:</strong> <span id="staff-lastname"></span></p>

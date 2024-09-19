@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Beneficiary;
+use App\Models\Staff;
+use App\Models\MothersMaidenName;
+use Illuminate\Support\Facades\DB;
+use App\Models\Log;
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
+
 
 class SuperAdminDashboardController extends Controller
 {
-    public function adminDashboard()
+    public function superadminHome()
+    {
+        // Your logic here
+        return view('livewire.superadmin.home');
+    }
+
+    public function superadminDashboard()
     {
         // Your logic here
         return view('livewire.superadmin.dashboard');
@@ -36,7 +50,7 @@ class SuperAdminDashboardController extends Controller
     {
         return view('livewire.superadmin.notifications');
     }
-    
+
     //For Beneficiaries
     public function approve()
     {
@@ -56,5 +70,58 @@ class SuperAdminDashboardController extends Controller
     public function list()
     {
         return view('livewire.superadmin.beneficiaries.list');
+    }
+
+    public function kpi()
+    {
+        $activeBeneficiaries = Beneficiary::where('status', 'ACTIVE')->count();
+        $unvalidatedBeneficiaries = Beneficiary::where('status', 'UNVALIDATED')->count();
+        $totalStaff = Staff::count();
+        $totalBeneficiaries = Beneficiary::count();
+
+        $beneficiariesByProvince = Beneficiary::join('addresses', 'beneficiary.id', '=', 'addresses.beneficiary_id')
+            ->where('addresses.type', 'present')
+            ->selectRaw('addresses.province, COUNT(*) as count')
+            ->groupBy('addresses.province')
+            ->pluck('count', 'addresses.province');
+
+        $beneficiariesBySex = MothersMaidenName::select('sex', DB::raw('count(*) as count'))
+            ->groupBy('sex')
+            ->pluck('count', 'sex');
+
+        $ageDistribution = MothersMaidenName::select('age', DB::raw('count(*) as count'))
+            ->groupBy('age')
+            ->pluck('count', 'age');
+
+        // Fetch beneficiary registration data grouped by month and year
+        $beneficiaryRegistrations = Beneficiary::select(
+            DB::raw('YEAR(created_at) as year'),
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as count')
+        )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        // Fetch beneficiaries by status and province
+        $beneficiariesByStatusAndProvince = Beneficiary::join('addresses', 'beneficiary.id', '=', 'addresses.beneficiary_id')
+            ->where('addresses.type', 'present')
+            ->selectRaw('addresses.province, beneficiary.status, COUNT(*) as count')
+            ->groupBy('addresses.province', 'beneficiary.status')
+            ->get()
+            ->groupBy('province');
+
+        return view('livewire.superadmin.dashboard', compact(
+            'activeBeneficiaries',
+            'unvalidatedBeneficiaries',
+            'totalStaff',
+            'totalBeneficiaries',
+            'beneficiariesByProvince',
+            'beneficiariesBySex',
+            'ageDistribution',
+            'beneficiaryRegistrations',
+            'beneficiariesByStatusAndProvince' // Pass the new data to the view
+        ));
     }
 }
