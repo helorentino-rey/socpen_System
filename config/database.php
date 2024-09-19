@@ -77,6 +77,7 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            'timezone' => '+08:00', // Add this line to set the timezone to Philippine Standard Time
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],

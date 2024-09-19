@@ -206,7 +206,7 @@
                                 <a href="{{ route('export.pdf', ['id' => $beneficiary->id]) }}"
                                     style="cursor: pointer; text-decoration: none;" title="Show Form" target="_blank">
                                     <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
-                                 </a>
+                                </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -550,102 +550,102 @@
             }
         </script>
         <script>
-            
             // Update Beneficiary Information
-           function initializeBeneficiaryCheckboxes() {
-    const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(', ');
+            function initializeBeneficiaryCheckboxes() {
+                const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(', ');
 
-    const listahananCheckbox = document.getElementById('listahanan');
-    const pantawidCheckbox = document.getElementById('pantawid');
-    const hhIdField = document.getElementById('hh_id');
-    const indigenousCheckbox = document.getElementById('indigenous');
-    const indigenousSpecifyField = document.getElementById('indigenous_specify');
+                const listahananCheckbox = document.getElementById('listahanan');
+                const pantawidCheckbox = document.getElementById('pantawid');
+                const hhIdField = document.getElementById('hh_id');
+                const indigenousCheckbox = document.getElementById('indigenous');
+                const indigenousSpecifyField = document.getElementById('indigenous_specify');
 
-    // // Set initial state of checkboxes
-    // listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
-    // pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
-    // indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
+                // // Set initial state of checkboxes
+                // listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
+                // pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
+                // indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
 
-    // Set initial visibility of additional fields
-    hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
-    indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
+                // Set initial visibility of additional fields
+                hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
+                indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
 
-    // Add event listeners to handle visibility on change
-    pantawidCheckbox.addEventListener('change', function() {
-        hhIdField.style.display = this.checked ? 'block' : 'none';
-        if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
-    });
-
-    indigenousCheckbox.addEventListener('change', function() {
-        indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
-        if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
-    });
-
-    // Add event listener to clear other fields when "Listahanan" is checked
-    // listahananCheckbox.addEventListener('change', function() {
-    //     if (this.checked) {
-    //         pantawidCheckbox.checked = false;
-    //         hhIdField.value = '';
-    //         hhIdField.style.display = 'none';
-
-    //         indigenousCheckbox.checked = false;
-    //         indigenousSpecifyField.value = '';
-    //         indigenousSpecifyField.style.display = 'none';
-    //     }
-    // });
-}
-
-// Initialize modal and reapply checkbox logic
-function initializeModal() {
-    document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
-        event.preventDefault();
-
-        const confirmation = confirm("Are you sure you want to close the form? Any unsaved changes will be lost.");
-        if (confirmation) {
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
-            modal.hide();
-            // window.location.href = '/approved-beneficiary'; // Optional redirection
-        }
-    });
-
-    // Set up event listener for the edit button
-    $('.edit-beneficiary').click(function(e) {
-        e.preventDefault();
-        const beneficiaryId = $(this).data('id');
-
-        confirmEdit(beneficiaryId);
-    });
-}
-
-// Fetch form via AJAX and reapply checkbox logic
-function confirmEdit(beneficiaryId) {
-    if (confirm("Are you sure you want to edit this beneficiary?")) {
-        $.ajax({
-            url: '/beneficiaries/edit/' + beneficiaryId,
-            type: 'GET',
-            success: function(response) {
-                $('#editBeneficiaryModal .modal-body').html(response);
-                const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
-                    backdrop: 'static',
-                    keyboard: false
+                // Add event listeners to handle visibility on change
+                pantawidCheckbox.addEventListener('change', function() {
+                    hhIdField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
                 });
-                modal.show();
 
-                // Reinitialize modal and checkboxes after content is loaded
-                initializeModal();
-                initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
-            },
-            error: function() {
-                alert('Error loading beneficiary information.');
+                indigenousCheckbox.addEventListener('change', function() {
+                    indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
+                });
+
+                // Add event listener to clear other fields when "Listahanan" is checked
+                // listahananCheckbox.addEventListener('change', function() {
+                //     if (this.checked) {
+                //         pantawidCheckbox.checked = false;
+                //         hhIdField.value = '';
+                //         hhIdField.style.display = 'none';
+
+                //         indigenousCheckbox.checked = false;
+                //         indigenousSpecifyField.value = '';
+                //         indigenousSpecifyField.style.display = 'none';
+                //     }
+                // });
             }
-        });
-    }
-}
 
-// Initialize modal and checkbox logic on document ready
-$(document).ready(function() {
-    initializeModal();
-    initializeBeneficiaryCheckboxes();
-});
+            // Initialize modal and reapply checkbox logic
+            function initializeModal() {
+                document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const confirmation = confirm(
+                        "Are you sure you want to close the form? Any unsaved changes will be lost.");
+                    if (confirmation) {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
+                        modal.hide();
+                        window.location.href = '/approved-beneficiary'; // Optional redirection
+                    }
+                });
+
+                // Set up event listener for the edit button
+                $('.edit-beneficiary').click(function(e) {
+                    e.preventDefault();
+                    const beneficiaryId = $(this).data('id');
+
+                    confirmEdit(beneficiaryId);
+                });
+            }
+
+            // Fetch form via AJAX and reapply checkbox logic
+            function confirmEdit(beneficiaryId) {
+                if (confirm("Are you sure you want to edit this beneficiary?")) {
+                    $.ajax({
+                        url: '/beneficiaries/edit/' + beneficiaryId,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#editBeneficiaryModal .modal-body').html(response);
+                            const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            modal.show();
+
+                            // Reinitialize modal and checkboxes after content is loaded
+                            initializeModal();
+                            initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
+                        },
+                        error: function() {
+                            alert('Error loading beneficiary information.');
+                        }
+                    });
+                }
+            }
+
+            // Initialize modal and checkbox logic on document ready
+            $(document).ready(function() {
+                initializeModal();
+                initializeBeneficiaryCheckboxes();
+            });
         </script>
     @endsection

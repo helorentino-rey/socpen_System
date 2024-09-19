@@ -189,7 +189,7 @@
                                     {{ $beneficiary->BeneficiaryInfo->first_name }},
                                     {{ $beneficiary->BeneficiaryInfo->middle_name }}
                                 </a>
-                            </td>
+                            </td>  
                             <td>{{ $beneficiary->mothersMaidenName->age }}</td>
                             <td>{{ $beneficiary->presentAddress->province }}</td>
                             <td id="status-{{ $beneficiary->id }}">{{ $beneficiary->status }}</td>
@@ -203,10 +203,10 @@
                                     <i class="bi bi-pencil" style="color: black;"></i>
                                 </a>
 
-                                <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
-                                    style="cursor: pointer; text-decoration: none;" title="Show Form">
+                                <a href="{{ route('export.pdf', ['id' => $beneficiary->id]) }}"
+                                    style="cursor: pointer; text-decoration: none;" title="Show Form" target="_blank">
                                     <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
-                                </a>
+                                 </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -295,7 +295,6 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
                             <button type="button" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -549,21 +548,62 @@
                 });
             }
         </script>
-        <script>
+         <script>
             // Update Beneficiary Information
+            function initializeBeneficiaryCheckboxes() {
+                const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(', ');
+
+                const listahananCheckbox = document.getElementById('listahanan');
+                const pantawidCheckbox = document.getElementById('pantawid');
+                const hhIdField = document.getElementById('hh_id');
+                const indigenousCheckbox = document.getElementById('indigenous');
+                const indigenousSpecifyField = document.getElementById('indigenous_specify');
+
+                // // Set initial state of checkboxes
+                // listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
+                // pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
+                // indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
+
+                // Set initial visibility of additional fields
+                hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
+                indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
+
+                // Add event listeners to handle visibility on change
+                pantawidCheckbox.addEventListener('change', function() {
+                    hhIdField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
+                });
+
+                indigenousCheckbox.addEventListener('change', function() {
+                    indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
+                });
+
+                // Add event listener to clear other fields when "Listahanan" is checked
+                // listahananCheckbox.addEventListener('change', function() {
+                //     if (this.checked) {
+                //         pantawidCheckbox.checked = false;
+                //         hhIdField.value = '';
+                //         hhIdField.style.display = 'none';
+
+                //         indigenousCheckbox.checked = false;
+                //         indigenousSpecifyField.value = '';
+                //         indigenousSpecifyField.style.display = 'none';
+                //     }
+                // });
+            }
+
+            // Initialize modal and reapply checkbox logic
             function initializeModal() {
-                // Function to handle the close button with confirmation
                 document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
                     event.preventDefault();
 
                     const confirmation = confirm(
                         "Are you sure you want to close the form? Any unsaved changes will be lost.");
-
                     if (confirmation) {
                         const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
                         modal.hide();
-                        // Redirect to the specified route after closing
-                        window.location.href = '{{ route('admin.beneficiaries.approve') }}'; // Replace with your desired route
+                        window.location.href = '/beneficiaries/admin-list'; // Optional redirection
                     }
                 });
 
@@ -572,29 +612,27 @@
                     e.preventDefault();
                     const beneficiaryId = $(this).data('id');
 
-                    // Call confirmEdit function for confirmation
                     confirmEdit(beneficiaryId);
                 });
             }
 
-            // Function to confirm editing a beneficiary
+            // Fetch form via AJAX and reapply checkbox logic
             function confirmEdit(beneficiaryId) {
                 if (confirm("Are you sure you want to edit this beneficiary?")) {
-                    // Fetch the beneficiary edit form via AJAX only if confirmed
                     $.ajax({
                         url: '/beneficiaries/edit/' + beneficiaryId,
                         type: 'GET',
                         success: function(response) {
-                            // Populate the modal body with the response (edit form)
                             $('#editBeneficiaryModal .modal-body').html(response);
-                            // Show the modal after successful AJAX call
                             const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
                                 backdrop: 'static',
                                 keyboard: false
                             });
                             modal.show();
-                            // Reinitialize modal events
+
+                            // Reinitialize modal and checkboxes after content is loaded
                             initializeModal();
+                            initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
                         },
                         error: function() {
                             alert('Error loading beneficiary information.');
@@ -603,9 +641,10 @@
                 }
             }
 
-            // Initialize modal events on document ready
+            // Initialize modal and checkbox logic on document ready
             $(document).ready(function() {
                 initializeModal();
+                initializeBeneficiaryCheckboxes();
             });
         </script>
     @endsection

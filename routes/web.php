@@ -20,6 +20,7 @@ use App\Http\Controllers\EditBeneficiaryController;
 use App\Http\Controllers\PaginationController;
 use App\Http\Controllers\CsvController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
 
 // Route::get('/', function () {
@@ -103,7 +104,7 @@ Route::get('/dashboard', [AdminDashboardController::class, 'mDashboard'])->name(
 // Route::get('/beneficiaries/export', [AdminDashboardController::class, 'export'])->name('admin.beneficiaries.export');
 Route::get('/beneficiaries/approve', [AdminDashboardController::class, 'approveBeneficiaries'])->name('admin.beneficiaries.approve');
 Route::get('/beneficiaries/create', [AdminDashboardController::class, 'create'])->name('admin.beneficiaries.create');
-Route::get('/beneficiaries/list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
+Route::get('/beneficiaries/admin-list', [AdminDashboardController::class, 'listBeneficiaries'])->name('admin.beneficiaries.list');
 Route::get('/staff/approve', [AdminDashboardController::class, 'approveStaff'])->name('admin.staff.approve');
 Route::get('/staff/list', [AdminDashboardController::class, 'listStaff'])->name('admin.staff.list');
 Route::get('/account', [AdminDashboardController::class, 'accountInformation'])->name('admin.account');
@@ -151,4 +152,4 @@ Route::get('/export/{id}', [PDFController::class, 'export'])->name('export.pdf')
 Route::get('/superadmin/maindashboard', [SuperadminDashboardController::class, 'kpi'])->name('superadmin.maindashboard');
 
 //Notificaion Controller
-Route::get('/superadmin/notifications', [SuperadminDashboardController::class, 'showLogs'])->name('logs');
+Route::get('/notifications', [NotificationController::class, 'index'])->name('logs');

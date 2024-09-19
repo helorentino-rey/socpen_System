@@ -14,13 +14,15 @@ use App\Models\Barangay;
 use App\Models\Spouse;
 use App\Models\Child;
 use App\Models\Representative;
-use App\Models\Caregiver;
 use App\Models\HousingLivingStatus;
 use App\Models\EconomicInformation;
 use App\Models\HealthInformation;
 use App\Models\AssessmentRecommendation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Models\Log;
+// use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class AddBeneficiaryController extends Controller
 {
@@ -146,7 +148,33 @@ class AddBeneficiaryController extends Controller
             'ncsc_rrn' => $validatedData['ncsc_rrn'],
             'profile_upload' => $validatedData['profile_upload'],
         ]);
-        Log::info('Beneficiary created: ' . $beneficiary->id);
+
+        // Get the authenticated user from different guards
+        $superadmin = Auth::guard('superadmin')->user();
+        $admin = Auth::guard('admin')->user();
+        $staff = Auth::guard('staff')->user();
+
+        // Debugging output
+        if (!$superadmin && !$admin && !$staff) {
+            dd('No authenticated user found in any guard');
+        }
+
+        $user = $superadmin ?? $admin ?? $staff;
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Log the action
+            Log::create([
+                'user' => $user->employee_id . ' [' . $user->usertype . ']',
+                'action' => 'Added New Beneficiary with OSCA ID ' . $beneficiary->osca_id,
+            ]);
+        } else {
+            // Handle the case where the user is not authenticated
+            Log::create([
+                'user' => 'Unknown User',
+                'action' => 'Added New Beneficiary with OSCA ID ' . $beneficiary->osca_id,
+            ]);
+        }
 
         // Create a new beneficiary info record
         BeneficiaryInfo::create([
@@ -156,7 +184,7 @@ class AddBeneficiaryController extends Controller
             'middle_name' => $validatedData['middle_name'] ?? null,
             'name_extension' => $validatedData['name_extension'],
         ]);
-        Log::info('Beneficiary info created for beneficiary: ' . $beneficiary->id);
+        Log::info('Beneficiary Info created with ID: ' . $beneficiary->id);
 
         // Save permanent address with names
         Address::create([
@@ -322,7 +350,6 @@ class AddBeneficiaryController extends Controller
         return redirect()->back()->with('success', 'Beneficiary added successfully!');
     }
 
-
     public function list()
     {
         $beneficiaries = Beneficiary::with([
@@ -346,8 +373,36 @@ class AddBeneficiaryController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $beneficiary = Beneficiary::findOrFail($id);
+        $oldStatus = $beneficiary->status; // Capture the old status
         $beneficiary->status = $request->input('status');
         $beneficiary->save();
+
+        // Get the authenticated user from different guards
+        $superadmin = Auth::guard('superadmin')->user();
+        $admin = Auth::guard('admin')->user();
+        $staff = Auth::guard('staff')->user();
+
+        // Debugging output
+        if (!$superadmin && !$admin && !$staff) {
+            dd('No authenticated user found in any guard');
+        }
+
+        $user = $superadmin ?? $admin ?? $staff;
+
+        // Check if the user is authenticated
+        if ($user) {
+            // Log the action
+            Log::create([
+                'user' => $user->employee_id . ' [' . $user->usertype . ']',
+                'action' => 'Changed status of Beneficiary with OSCA ID ' . $beneficiary->osca_id . ' from ' . $oldStatus . ' to ' . $beneficiary->status,
+            ]);
+        } else {
+            // Handle the case where the user is not authenticated
+            Log::create([
+                'user' => 'Unknown User',
+                'action' => 'Changed status of Beneficiary with OSCA ID ' . $beneficiary->osca_id . ' from ' . $oldStatus . ' to ' . $beneficiary->status,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Status updated successfully.');
     }

@@ -203,10 +203,10 @@
                                     <i class="bi bi-pencil" style="color: black;"></i>
                                 </a>
 
-                                <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
-                                    style="cursor: pointer; text-decoration: none;" title="Show Form">
+                                <a href="{{ route('export.pdf', ['id' => $beneficiary->id]) }}"
+                                    style="cursor: pointer; text-decoration: none;" title="Show Form" target="_blank">
                                     <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
-                                </a>
+                                 </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"

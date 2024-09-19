@@ -1097,43 +1097,44 @@
             </div>
 
             <div class="form-group mt-4">
-    <label class="label" for="affiliation"><strong>10. AFFILIATION <span class="text-danger">*</span></strong>
-        <span style="font-style:italic;">(Check all applicable)</span>
-    </label>
-    <div class="form-row custom-form-row">
-        <!-- Listahanan Checkbox -->
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan" value="Listahanan"
-                    {{ in_array('Listahanan', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                <label class="form-check-label" for="listahanan">Listahanan</label>
+                <label class="label" for="affiliation">
+                    <strong>10. AFFILIATION <span class="text-danger">*</span></strong>
+                    <span style="font-style:italic;">(Check all applicable)</span>
+                </label>
+                <div class="form-row custom-form-row">
+                    <!-- Listahanan Checkbox -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan" value="Listahanan"
+                                {{ in_array('Listahanan', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="listahanan">Listahanan</label>
+                        </div>
+                    </div>
+            
+                    <!-- Pantawid Beneficiary Checkbox -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary"
+                                {{ in_array('Pantawid Beneficiary', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+                        </div>
+                        <input type="text" class="form-control mt-2" name="hh_id" id="hh_id" style="display:none;"
+                               placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
+                    </div>
+            
+                    <!-- Indigenous People Checkbox -->
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous" value="Indigenous People"
+                                {{ in_array('Indigenous People', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
+                        </div>
+                        <input type="text" class="form-control mt-2" name="indigenous_specify" id="indigenous_specify" style="display:none;"
+                               placeholder="Specify (Itala)" value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Pantawid Beneficiary Checkbox -->
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary"
-                    {{ in_array('Pantawid Beneficiary', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
-            </div>
-            <input type="text" class="form-control mt-2" name="hh_id" id="hh_id" style="display:none;" 
-                   placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
-        </div>
-
-        <!-- Indigenous People Checkbox -->
-        <div class="col-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous" value="Indigenous People"
-                    {{ in_array('Indigenous People', explode(',', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
-            </div>
-            <input type="text" class="form-control mt-2" name="indigenous_specify" id="indigenous_specify" style="display:none;" 
-                   placeholder="Specify (Itala)" value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
-        </div>
-    </div>
-</div>
-
+            
 
             <h4 class="section-title mb-3">II. FAMILY INFORMATION <span style="font-style:italic;">(Impormasyon ng Pamilya)</span></h4>
             <div class="form-group">
@@ -1277,7 +1278,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="label"><strong>13. CONTACT NUMBER</strong></label>
+                <label class="label"><strong>13. CONTACT NUMBER</strong> <span class="text-danger"> *</span></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label for="spouse_contact"></label>
@@ -1689,9 +1690,9 @@
         const indigenousSpecifyField = document.getElementById('indigenous_specify');
 
         // Set initial state of checkboxes
-        listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
-        pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
-        indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
+        // listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
+        // pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
+        // indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
 
         // Set initial visibility of additional fields
         hhIdGroup.style.display = pantawidCheckbox.checked ? 'block' : 'none';

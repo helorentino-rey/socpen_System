@@ -8,22 +8,21 @@
             margin: 0;
         }
 
-        /* Main content container */
+        /* Main content container (acting as sidebar) */
         .design {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             /* Align items to the top */
-            min-height: 100vh;
+            min-height: 110vh; /* Increased height for the sidebar */
             max-width: 100vw;
             /* Prevent horizontal overflow */
             max-height: 100vh;
             /* Prevent vertical overflow */
             overflow: hidden;
             /* Prevent overflow */
-            padding-top: 55px;
-            /* Adjust top padding to move content down from the very top */
+            padding-top: 30px; /* Reduced top padding */
         }
 
         /* Search Bar */
@@ -40,35 +39,61 @@
         }
 
         .search-bar {
-            height: 20px;
+            height: 80vh; /* Adjusted to occupy 80% of viewport height */
             width: 100%;
             max-width: 800px;
             position: relative;
+            margin-top: 20px; /* Adjust the search bar position */
+            display: flex;
+            flex-direction: column;
         }
 
         #search-results {
             position: absolute;
             z-index: 1000;
             width: 100%;
-            max-height: 300px;
-            /* Adjust as needed */
+            max-height: 100%; /* Allow search results to use available space */
             overflow-y: auto;
             /* Enable scrolling inside search results if needed */
         }
 
-        /* Navigation Links */
-        .nav-link {
-            font-size: 1.12rem;
-            font-weight: 500;
-            color: black;
-            /* Default link color */
-            text-decoration: none;
+        /* Navigation Buttons */
+        .nav-buttons {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center; /* Center the buttons */
+            margin-bottom: 20px;
+            gap: 10px; /* Adjust the gap between buttons */
         }
 
-        .nav-link:hover {
-            color: #567be9;
-            /* Change color to blue on hover */
+        .nav-buttons .btn {
+            font-size: 1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
+        .nav-buttons .btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Button Styles */
+        .btn-list, .btn-add {
+            background-color: white;
+            color: #1C4CB1; /* Blue text */
+            border: 2px solid #1C4CB1; /* Blue border */
+            border-radius: 50px;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+        }
+
+        /* Hover effect */
+        .btn-list:hover, .btn-add:hover {
+            background-color: #1C4CB1; /* Change background to blue */
+            color: white; /* Change text color to white */
         }
 
         .modal-lg {
@@ -77,21 +102,38 @@
 
         .soc {
             margin-bottom: -30px;
+            margin-top: -20px; /* Move logos higher */
+        }
+
+        h1 {
+            margin-top: 10px; /* Move title higher */
         }
     </style>
+
     <!-- Main Content -->
     <div class="design" id="content">
         <!-- DSWD Logo and Title -->
         <div class="soc mt-5">
-            <img src="{{ asset('img/social-pension-logo.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 150px;">
+            <img src="{{ asset('img/social-pension-logo.png') }}" alt="DSWD Logo" class="img-fluid"
+                style="max-height: 150px;">
             <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="img-fluid" style="max-height: 80px;">
         </div>
         <h1 class="mt-3" style="font-weight: bold; color: #1C4CB1; font-size: 3.5rem;">
             SOCIAL PENSION UNIT
         </h1>
 
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons mt-4">
+            <a href="{{ route('superadmin.beneficiaries.list') }}" class="btn btn-list">
+                <i class="bi bi-list"></i> List of Beneficiaries
+            </a>
+            <a href="{{ route('superadmin.beneficiaries.create') }}" class="btn btn-add">
+                <i class="bi bi-plus"></i> Add Beneficiary
+            </a>
+        </div>
+
         <!-- Search Bar -->
-        <div class="search-bar mt-4">
+        <div class="search-bar">
             <div class="input-group">
                 <span class="input-group-text" id="basic-addon1"
                     style="background-color: white; border-radius: 50px 0 0 50px; border-right: none;">
@@ -102,21 +144,7 @@
             </div>
             <div id="search-results" class="list-group"></div>
         </div>
-
-        <!-- Navigation Links -->
-        <div class="mt-4 d-flex justify-content-center" style="gap: 50px;">
-            <a href="{{ route('superadmin.beneficiaries.list') }}" class="nav-link">
-                <span class="hover-effect">List of Beneficiaries</span>
-            </a>
-            
-            <a href="{{ route('superadmin.beneficiaries.create') }}" class="nav-link">
-                <span class="hover-effect">Add Beneficiary</span>
-            </a>
-        </div>
     </div>
-
-   
-
 
     <!-- Modal to Display Beneficiary Information -->
     <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel" aria-hidden="true">
@@ -133,39 +161,36 @@
         </div>
     </div>
 
-    
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script>
         //Dashboard
         $(document).ready(function() {
-        // Show Dashboard button click event
-        $('#show-dashboard').click(function() {
-            // Hide the original view elements
-            $('#beneficiary-search').hide();
-            $('.beneficiary-list').hide();
-            $(this).hide();
+            // Show Dashboard button click event
+            $('#show-dashboard').click(function() {
+                // Hide the original view elements
+                $('#beneficiary-search').hide();
+                $('.beneficiary-list').hide();
+                $(this).hide();
 
-            // Show the dashboard elements
-            $('#return-home').show();
-            $('.dashboard-content').show();
+                // Show the dashboard elements
+                $('#return-home').show();
+                $('.dashboard-content').show();
+            });
+
+            // Return to Home button click event
+            $('#return-home').click(function() {
+                // Show the original view elements
+                $('#beneficiary-search').show();
+                $('.beneficiary-list').show();
+                $('#show-dashboard').show();
+
+                // Hide the dashboard elements
+                $(this).hide();
+                $('.dashboard-content').hide();
+            });
         });
-
-        // Return to Home button click event
-        $('#return-home').click(function() {
-            // Show the original view elements
-            $('#beneficiary-search').show();
-            $('.beneficiary-list').show();
-            $('#show-dashboard').show();
-
-            // Hide the dashboard elements
-            $(this).hide();
-            $('.dashboard-content').hide();
-        });
-    });
 
         //Display Beneficiary Information Modal
         $(document).ready(function() {

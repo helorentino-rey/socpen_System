@@ -7,6 +7,7 @@ use App\Models\Beneficiary;
 use App\Models\Staff;
 use App\Models\MothersMaidenName;
 use Illuminate\Support\Facades\DB;
+use App\Models\Log;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 
@@ -122,29 +123,5 @@ class SuperAdminDashboardController extends Controller
             'beneficiaryRegistrations',
             'beneficiariesByStatusAndProvince' // Pass the new data to the view
         ));
-    }
-    
-    public function showLogs()
-    {
-        // Path to the log file
-        $logFile = storage_path('logs/laravel.log');
-
-        // Read the log file
-        $logs = [];
-        if (File::exists($logFile)) {
-            $logEntries = File::lines($logFile)->toArray();
-            foreach ($logEntries as $entry) {
-                // Extract the timestamp and convert it to Philippine time
-                if (preg_match('/^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]/', $entry, $matches)) {
-                    $timestamp = $matches[1];
-                    $localTime = Carbon::createFromFormat('Y-m-d H:i:s', $timestamp, 'UTC')->setTimezone('Asia/Manila');
-                    $entry = str_replace($timestamp, $localTime->format('Y-m-d H:i:s'), $entry);
-                }
-                $logs[] = $entry;
-            }
-        }
-
-        // Pass logs to the view
-        return view('livewire.superadmin.notifications', compact('logs'));
     }
 }

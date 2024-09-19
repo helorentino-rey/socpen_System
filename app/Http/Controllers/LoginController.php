@@ -42,6 +42,9 @@ class LoginController extends Controller
         $user = Staff::where('employee_id', $employee_id)->first();
         if ($user && Hash::check($password, $user->password) && $user->usertype === 'staff') {
             if ($user->status === 'active') {
+                // Log in the user
+                Auth::guard('staff')->login($user);
+
                 // Generate OTP
                 $otp = $this->generateOTP();
 
