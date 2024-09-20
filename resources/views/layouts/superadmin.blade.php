@@ -172,15 +172,38 @@
             top: 5px;
             vertical-align: middle;
         }
+
+        .profile-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #4F6DFF;
+    background-color: #fff;
+    margin: 0 auto;
+    transition: opacity 0.3s;
+}
+
+        .sidebar.retracted .profile-pic {
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 
 <body>
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
-        <div class="profile-pic"></div>
+    <div class="profile-container">
+        <div class="profile-pic">
+        <img src="{{ asset('img/social-pension-logo.png') }}" alt="SOCPen Logo" class="img-fluid rounded-circle">
+        </div>
         <div class="profile-name">Super Admin</div>
-
+        </div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
                 <a href="{{ route('superadmin.home') }}" class="nav-link">

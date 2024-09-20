@@ -107,6 +107,10 @@
         .form-control {
             font-size: 14px;
         }
+
+        .card{
+            border-left: 5px solid blue;
+        }
     </style>
 
     <!-- Top nav bar -->

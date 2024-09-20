@@ -3,10 +3,34 @@
 @section('title', 'Admin Account')
 @section('content')
 <style>
-    .table {
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-}
+        /* Search Bar */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+
+        }
+
+        .beneficiary-status {
+            margin-left: auto;
+            padding-left: 10px;
+            font-weight: bold;
+
+        }
+
+        .card{
+            border-left: 5px solid blue;
+        }
+
+        .table {
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-control {
+            font-size: 14px;
+        }
 
 .header-container {
     display: flex;
@@ -65,19 +89,22 @@
     </div>
 
     <!-- Admins Table -->
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Admin Name</th>
-                <th>Employee ID</th>
-                <th>Assigned Province</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($admins as $admin)
-                <tr>
-                    <td>{{ $admin->name }}</td>
+
+    <div class="my-5 px-4" style="font-family: 'Arial', sans-serif;">
+        <div class="card shadow-sm p-4 rounded ">
+        <table class="table table-borderless w-100">
+                <thead class="border-bottom">
+                    <tr>
+                        <th scope="col">Admin Name</th>
+                        <th scope="col">Employee ID</th>
+                        <th scope="col">Assigned Province</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($admins as $admin)
+                        <tr>
+                        <td>{{ $admin->name }}</td>
                     <td>{{ $admin->employee_id }}</td>
                     <td>{{ $admin->assigned_province }}</td>
                     <td class="table-actions">
@@ -89,10 +116,10 @@
                         <i class="bi bi-key" data-bs-toggle="modal"
                             data-bs-target="#resetPasswordModal-{{ $admin->id }}"></i>
                     </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
     <!-- Add Admin Modal -->
     <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
@@ -316,6 +343,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script>

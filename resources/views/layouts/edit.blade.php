@@ -1,10 +1,15 @@
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
-    }
+   .modal-container {
+     max-width: 800px;
+     margin: 20px auto;
+     margin-top: -15px;
+     background: #ffffff;
+     border-radius: 8px;
+     padding: 20px;
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+     font-family: 'Arial', sans-serif;
+     color: #333;
+ }
 
     .container {
         max-width: 900px;
@@ -93,7 +98,7 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table {
+    .table1 {
         width: 100%;
         margin-bottom: 1rem;
         color: #212529;
@@ -101,14 +106,14 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table th,
-    .table td {
+    .table1 th,
+    .table1 td {
         text-align: center;
         vertical-align: middle;
         font-family: 'Arial', sans-serif;
     }
 
-    .table .btn {
+    .table1 .btn {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -164,6 +169,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: -70px;
     }
 
     .dswd-logo,
@@ -249,15 +255,15 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table {
+    .table1 {
         width: 100%;
         margin-top: 10px;
         border-collapse: collapse;
         font-family: 'Arial', sans-serif;
     }
 
-    .table th,
-    .table td {
+    .table1 th,
+    .table1 td {
         padding: 0.75rem;
         vertical-align: top;
         border-top: 1px solid #dee2e6;
@@ -265,7 +271,7 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table th {
+    .table1 th {
         font-size: 14px;
         font-weight: bold;
         background-color: #f8f9fa;
@@ -275,14 +281,14 @@
         font-family: 'Arial', sans-serif;
     }
 
-    .table td {
+    .table1 td {
         padding: 8px;
         border-bottom: 1px solid #dee2e6;
         font-family: 'Arial', sans-serif;
     }
 
-    .table input.form-control,
-    .table select.form-control {
+    .table1 input.form-control,
+    .table1 select.form-control {
         height: 30px;
         font-size: 14px;
         border-radius: 5px;
@@ -742,7 +748,7 @@
 
 <!-- Page Content -->
 
-<body>
+<div class="modal-container">
     <div class="container mt-5">
         <div class="logos">
             <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
@@ -1289,7 +1295,7 @@
             </div>
             <div class="form-group mt-4">
                 <label class="label"><strong>14. CHILDREN INFORMATION</strong></label>
-                <table class="table table-bordered" id="children_table">
+                <table class="table1 table-bordered" id="children_table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -1346,7 +1352,7 @@
             </div>
             <div class="form-group mt-4">
                 <label class="label"><strong>15. NAME OF AUTHORIZED REPRESENTATIVES</strong></label>
-                <table class="table table-bordered" id="representatives_table">
+                <table class="table1 table-bordered" id="representatives_table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -1436,7 +1442,7 @@
             <div class="form-group mt-4">
                 <label><strong></strong></label>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table1">
                         <thead>
                             <tr>
                                 <th></th>
@@ -1528,7 +1534,7 @@
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table1">
                         <thead>
                             <tr>
                                 <th></th>
@@ -1575,7 +1581,7 @@
                 </div>
                 <label class="ltitle">Frailty Questions</label>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table1">
                         <tbody>
                             <tr>
                                 <td><label class="ltitle">1. Do you experience difficulty in doing your ADLs?</label>
@@ -1658,7 +1664,7 @@
             </div>
         </form>
     </div>
-</body>
+</div>
 
 <script>
     //House Status

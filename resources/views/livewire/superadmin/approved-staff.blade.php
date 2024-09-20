@@ -3,10 +3,51 @@
 @section('title', 'Approved Staff')
 @section('content')
 <style>
-    .table {
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-}
+        /* Search Bar */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+
+        }
+
+        .beneficiary-status {
+            margin-left: auto;
+            padding-left: 10px;
+            font-weight: bold;
+
+        }
+
+        /* Pagination */
+        .pagination .page-link {
+            font-size: 12px;
+            /* Adjust the size as needed */
+            padding: 0.25rem 0.5rem;
+            /* Make the arrows smaller */
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            /* Your active link color */
+            border-color: #007bff;
+        }
+
+        .pagination .page-link:hover {
+            background-color: rgba(0, 86, 179, 0.1);
+            /* Light blue background with transparency */
+            border-color: #0056b3;
+            /* Keep the border color */
+        }
+
+        .table {
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-control {
+            font-size: 14px;
+        }
 
 .header-container {
     display: flex;
@@ -17,6 +58,10 @@
     margin-bottom: 0;
     margin-top: -30px;
 }
+
+.card{
+            border-left: 5px solid blue;
+        }
 
 .logos-container {
     display: flex;
@@ -55,17 +100,19 @@
 <br>
 <br>
 <!-- Search Beneficiaries content -->
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Staff Name</th>
-            <th>Assigned Province</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($staff as $staffMember)
+<div class="my-5 px-4" style="font-family: 'Arial', sans-serif;">
+<div class="card shadow-sm p-4 rounded">
+<table class="table table-borderless w-100">
+                <thead class="border-bottom">
+                    <tr>
+                        <th scope="col">Staff Name</th>
+                        <th scope="col">Assigned Province</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach ($staff as $staffMember)
         <tr>
             <td onclick="showStaffDetails({{ $staffMember->id }})" style="cursor: pointer;">
                 {{ $staffMember->lastname }}, {{ $staffMember->firstname }} {{ $staffMember->middlename }}
@@ -90,8 +137,8 @@
             </td>
         </tr>
         @endforeach
-    </tbody>
-</table>
+                </tbody>
+            </table>
 
 <!-- Modal -->
 <div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="staffDetailsModalLabel"
@@ -148,6 +195,9 @@
         </div>
     </div>
 </div>
+</div>
+</div>
+
 
 
 <script>
