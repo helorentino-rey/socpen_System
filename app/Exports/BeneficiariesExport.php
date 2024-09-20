@@ -31,7 +31,6 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'spouseAddress',
             'affiliation',
             'assessmentRecommendation',
-            'caregiver',
             'economicInformation',
             'healthInformation',
             'housingLivingStatus',
@@ -175,7 +174,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
 
             'present_address_region' => $beneficiary->presentAddress->region ?? 'N/A',
             'present_address_province' => $beneficiary->presentAddress->province ?? 'N/A',
-            'present_city' => $beneficiary->presentAddress->city ?? 'N/A',
+            'present_address_city' => $beneficiary->presentAddress->city ?? 'N/A',
             'present_address_barangay' => $beneficiary->presentAddress->barangay ?? 'N/A',
             'present_address_sitio' => $beneficiary->presentAddress->sitio ?? 'N/A',
 

@@ -157,7 +157,6 @@
                     'affiliation',
                     'assessmentRecommendation',
                     'beneficiaryInfo',
-                    'caregiver',
                     'child',
                     'economicInformation',
                     'healthInformation',

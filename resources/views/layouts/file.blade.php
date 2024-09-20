@@ -127,6 +127,12 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
+                            data-bs-target="#importModal">
+                            <i class="bi bi-file-earmark-arrow-down"></i> Import Beneficiary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
                             data-bs-target="#exportModal">
                             <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
                         </a>
@@ -157,7 +163,6 @@
                     'affiliation',
                     'assessmentRecommendation',
                     'beneficiaryInfo',
-                    'caregiver',
                     'child',
                     'economicInformation',
                     'healthInformation',
@@ -322,6 +327,74 @@
                     @endif
                 </ul>
             </nav>
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('success') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('error') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Import Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('import.beneficiaries') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="importModalLabel">Import Beneficiaries</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Choose CSV File</label>
+                                    <input type="file" class="form-control" id="file" name="file" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
             <!-- Export Modal -->
             <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
@@ -548,6 +621,19 @@
                     }
                 });
             }
+
+            //Success and Error
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (session('success'))
+                    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                @endif
+
+                @if (session('error'))
+                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+                @endif
+            });
         </script>
         <script>
             // Update Beneficiary Information

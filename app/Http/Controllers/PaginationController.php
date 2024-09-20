@@ -14,7 +14,6 @@ class PaginationController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
             'child',
             'economicInformation',
             'healthInformation',

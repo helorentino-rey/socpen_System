@@ -45,6 +45,16 @@
 
     <div class="container">
         <h2 class="notification-title">Notification Center</h2>
+
+        <!-- Date Filter Form -->
+        <form method="GET" action="{{ route('logs') }}">
+            <div class="form-group">
+                <label for="date">Filter by Date:</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ request('date') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+
         <div class="notification-container">
             @foreach ($logs as $log)
                 <div class="notification-item">
