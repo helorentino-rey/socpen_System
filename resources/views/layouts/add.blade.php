@@ -1272,9 +1272,9 @@
                             <tr>
                                 <td>
                                     <label class="ltitle" for="pension">Receiving Pension</label> <span class="text-danger"> *</span><br />
-                                    <input type="checkbox" id="receiving_pension_yes" name="receiving_pension" value="Yes"
+                                    <input type="checkbox" class="form-check-input" id="receiving_pension_yes" name="receiving_pension" value="Yes"
                                         onclick="handleCheckboxSelectionEco('receiving_pension', true, 'pension_amount', 'pension_source')" /> Yes
-                                    <input type="checkbox" id="receiving_pension_no" name="receiving_pension" value="No"
+                                    <input type="checkbox" class="form-check-input" id="receiving_pension_no" name="receiving_pension" value="No"
                                         onclick="handleCheckboxSelectionEco('receiving_pension', false, 'pension_amount', 'pension_source')" /> No
                                 </td>
                                 <td>
@@ -1290,9 +1290,9 @@
                             <tr>
                                 <td>
                                     <label class="ltitle" for="permanent_income">Permanent Income</label> <span class="text-danger"> *</span><br />
-                                    <input type="checkbox" id="permanent_income_yes" name="permanent_income" value="Yes"
+                                    <input type="checkbox" class="form-check-input" id="permanent_income_yes" name="permanent_income" value="Yes"
                                         onclick="handleCheckboxSelectionEco('permanent_income', true, 'income_amount', 'income_source')" /> Yes
-                                    <input type="checkbox" id="permanent_income_no" name="permanent_income" value="No"
+                                    <input type="checkbox" class="form-check-input" id="permanent_income_no" name="permanent_income" value="No"
                                         onclick="handleCheckboxSelectionEco('permanent_income', false, 'income_amount', 'income_source')" /> No
                                 </td>
                                 <td>
@@ -1308,9 +1308,9 @@
                             <tr>
                                 <td>
                                     <label class="ltitle" for="regular_support">Regular Support</label> <span class="text-danger"> *</span><br />
-                                    <input type="checkbox" id="regular_support_yes" name="regular_support" value="Yes"
+                                    <input type="checkbox" class="form-check-input" id="regular_support_yes" name="regular_support" value="Yes"
                                         onclick="handleCheckboxSelectionEco('regular_support', true, 'support_amount', 'support_source')" /> Yes
-                                    <input type="checkbox" id="regular_support_no" name="regular_support" value="No"
+                                    <input type="checkbox" class="form-check-input" id="regular_support_no" name="regular_support" value="No"
                                         onclick="handleCheckboxSelectionEco('regular_support', false, 'support_amount', 'support_source')" /> No
                                 </td>
                                 <td>
@@ -1342,9 +1342,9 @@
                             <tr>
                                 <td><label class="ltitle">With Existing Illness</label> <span class="text-danger"> *</span></td>
                                 <td>
-                                    <input type="checkbox" id="existing_illness_yes" name="existing_illness" value="Yes"
+                                    <input type="checkbox" class="form-check-input" id="existing_illness_yes" name="existing_illness" value="Yes"
                                         onclick="toggleFields('existing_illness', 'illness_specify')" /> Yes
-                                    <input type="checkbox" id="existing_illness_none" name="existing_illness" value="None"
+                                    <input type="checkbox" class="form-check-input" id="existing_illness_none" name="existing_illness" value="None"
                                         onclick="toggleFields('existing_illness', 'illness_specify')" /> None
                                 </td>
                                 <td>
@@ -1355,9 +1355,9 @@
                             <tr>
                                 <td><label class="ltitle">With Disability</label> <span class="text-danger"> *</span></td>
                                 <td>
-                                    <input type="checkbox" id="with_disability_yes" name="with_disability" value="Yes"
+                                    <input type="checkbox" class="form-check-input" id="with_disability_yes" name="with_disability" value="Yes"
                                         onclick="toggleFields('with_disability', 'disability_specify')" /> Yes
-                                    <input type="checkbox" id="with_disability_none" name="with_disability" value="None"
+                                    <input type="checkbox" class="form-check-input" id="with_disability_none" name="with_disability" value="None"
                                         onclick="toggleFields('with_disability', 'disability_specify')" /> None
                                 </td>
                                 <td>
@@ -1374,27 +1374,27 @@
                         <tbody>
                             <tr>
                                 <td><label class="ltitle">1. Do you experience difficulty in doing your ADLs?</label>
-                                <td><input type="checkbox" id="difficult_adl_yes" name="difficult_adl" value="Yes"
+                                <td><input type="checkbox" class="form-check-input" id="difficult_adl_yes" name="difficult_adl" value="Yes"
                                         onclick="handleCheckboxSelectionFra('difficult_adl', true)" /> Yes
-                                    <input type="checkbox" id="difficult_adl_no" name="difficult_adl" value="No"
+                                    <input type="checkbox" class="form-check-input" id="difficult_adl_no" name="difficult_adl" value="No"
                                         onclick="handleCheckboxSelectionFra('difficult_adl', false)" /> No
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td><label class="ltitle">2. Are you completely dependent on someone in doing your IADLs?</label></td>
-                                <td><input type="checkbox" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
+                                <td><input type="checkbox" class="form-check-input" id="dependent_iadl_yes" name="dependent_iadl" value="Yes"
                                         onclick="handleCheckboxSelectionFra('dependent_iadl', true)" /> Yes
-                                    <input type="checkbox" id="dependent_iadl_no" name="dependent_iadl" value="No"
+                                    <input type="checkbox" class="form-check-input" id="dependent_iadl_no" name="dependent_iadl" value="No"
                                         onclick="handleCheckboxSelectionFra('dependent_iadl', false)" /> No
                                 <td></td>
                             </tr>
                             <tr>
                                 <td><label class="ltitle">3. Are you experiencing weight loss, weakness, exhaustion?</label></td>
-                                <td><input type="checkbox" id="experience_loss_yes" name="experience_loss"
+                                <td><input type="checkbox" class="form-check-input" id="experience_loss_yes" name="experience_loss"
                                         value="Yes" onclick="handleCheckboxSelectionFra('experience_loss', true)" />
                                     Yes
-                                    <input type="checkbox" id="experience_loss_no" name="experience_loss" value="No"
+                                    <input type="checkbox" class="form-check-input" id="experience_loss_no" name="experience_loss" value="No"
                                         onclick="handleCheckboxSelectionFra('experience_loss', false)" /> No
                                 <td></td>
                             </tr>

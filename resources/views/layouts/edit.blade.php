@@ -1295,7 +1295,7 @@
             </div>
             <div class="form-group mt-4">
                 <label class="label"><strong>14. CHILDREN INFORMATION</strong></label>
-                <table class="table1 table-bordered" id="children_table">
+                <table class="table table-bordered" id="children_table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -1352,7 +1352,7 @@
             </div>
             <div class="form-group mt-4">
                 <label class="label"><strong>15. NAME OF AUTHORIZED REPRESENTATIVES</strong></label>
-                <table class="table1 table-bordered" id="representatives_table">
+                <table class="table table-bordered" id="representatives_table">
                     <thead>
                         <tr>
                             <th>Name</th>

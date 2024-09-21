@@ -9,6 +9,7 @@
      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
      font-family: 'Arial', sans-serif;
      color: #333;
+     margin-top: -15px;
  }
 
         @media print {
@@ -144,6 +145,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-top: -70px;
 }
 
 .table1 td {
@@ -185,11 +187,12 @@
     <div class="container mt-5">
         <!-- Title Section -->
         <div class="row align-items-center mb-3">
-            <div class="col-md-8 text-center mx-auto" style="margin-right:30px;">
-                <h5 class="mb-0" style="font-size: 25px">SOCIAL PENSION VALIDATION FORM</h5>
+            <div class="col-md-8 text-center mx-auto">
+                <h5 class="mb-0" style="font-size: 25px;">SOCIAL PENSION VALIDATION FORM</h5>
                 <h6 class="mb-0">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h6>
             </div>
-            <div class="col-md-4 text-center">
+        </div>
+        <div class="text-center">
                     <!-- Picture Upload Section -->
                     @if ($beneficiary->profile_upload)
                     <div class="picture-frame">
@@ -198,7 +201,6 @@
                     </div>
                 @endif
             </div>
-        </div>
 
         <table class="table1">
             <tr>
@@ -236,16 +238,16 @@
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
-                        {{ $beneficiary->BeneficiaryInfo->last_name }} <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
+                        {{ $beneficiary->BeneficiaryInfo->last_name }} <br><span style="font-size: 12px;">Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->BeneficiaryInfo->first_name }}
-                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
+                        <br><span style="font-size: 12px;">First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->BeneficiaryInfo->middle_name }}
-                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
+                        <br><span style="font-size: 12px;">Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;"> {{ $beneficiary->BeneficiaryInfo->name_extension }}
-                        <br><span>Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span></span>
+                        <br><span style="font-size: 12px;">Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span></span>
                     </td>
                 </tr>
 
@@ -255,13 +257,13 @@
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                     {{ $beneficiary->MothersMaidenName->mother_last_name }}
-                        <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
+                        <br><span style="font-size: 12px;">Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->MothersMaidenName->mother_first_name }}
-                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
+                        <br><span style="font-size: 12px;">First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->MothersMaidenName->mother_middle_name }}
-                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
+                        <br><span style="font-size: 12px;">Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span></span>
                     </td>
                 </tr>
 
@@ -270,19 +272,19 @@
                 </tr>
                 <tr>
                     <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->sitio ?? 'N/A' }}
-                        <br><span>Sitio/House No./Purok/Street</span>
+                        <br><span style="font-size: 12px;">Sitio/House No./Purok/Street</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'permanent')->first()->barangay ?? 'N/A' }}
-                        <br><span>Barangay</span>
+                        <br><span style="font-size: 12px;">Barangay</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->city ?? 'N/A' }}
-                        <br><span>City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
+                        <br><span style="font-size: 12px;">City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->province ?? 'N/A' }}
-                       <br> <span>Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
+                       <br> <span style="font-size: 12px;">Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'permanent')->first()->region ?? 'N/A' }}
-                        <br><span>Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span>:</span>
+                        <br><span style="font-size: 12px;">Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span>:</span>
                     </td>
                 </tr>
 
@@ -291,19 +293,19 @@
                 </tr>
                 <tr>
                     <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'present')->first()->sitio ?? 'N/A' }}
-                        <br><span>Sitio/House No./Purok/Street</span>
+                        <br><span style="font-size: 12px;">Sitio/House No./Purok/Street</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->barangay ?? 'N/A' }}
-                        <br><span>Barangay</span>
+                        <br><span style="font-size: 12px;">Barangay</span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->city ?? 'N/A' }}
-                        <br><span>City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
+                        <br><span style="font-size: 12px;">City/Municipality <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom;"> {{ $beneficiary->addresses->where('type', 'present')->first()->province ?? 'N/A' }}
-                        <br><span>Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
+                        <br><span style="font-size: 12px;">Province <span style="font-style:italic; font-size:8px;">(Lalawigan)</span></span>
                     </td>
                     <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->addresses->where('type', 'present')->first()->region ?? 'N/A' }}
-                        <br><span>Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span></span>
+                        <br><span style="font-size: 12px;">Region <span style="font-style:italic; font-size:8px;">(Rehiyon)</span></span>
                     </td>
                 </tr>
 
@@ -317,10 +319,10 @@
                             </p></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->MothersMaidenName->place_of_birth_city }}
-                        <br><span>City/Municipality
+                        <br><span style="font-size: 12px;">City/Municipality
                         <span style="font-style:italic; font-size:8px;">(Lungsod)</span></span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->MothersMaidenName->place_of_birth_province }}
-                        <br><span> Province</span></td>
+                        <br><span style="font-size: 12px;"> Province</span></td>
                 </tr>
 
                 <tr>
@@ -339,11 +341,11 @@
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->affiliation->affiliation_type ?? 'N/A' }}
-                       <br> <span>Affiliation Type</span>
+                       <br> <span style="font-size: 12px;">Affiliation Type</span>
                     </td>
                     <td colspan="2"  style="text-align: center; vertical-align: bottom;">{{ $beneficiary->affiliation->hh_id ?? 'N/A' }} <br><span>Household ID</span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->affiliation->indigenous_specify ?? 'N/A' }}
-                        <br><span>Indigenous Specify</span>
+                        <br><span style="font-size: 12px;">Indigenous Specify</span>
                     </td>
                 </tr>
             </table>
@@ -355,16 +357,16 @@
                 </tr>
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->spouse->spouse_last_name ?? 'N/A' }}
-                        <br><span>Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
+                        <br><span style="font-size: 12px;">Last Name <span style="font-style:italic; font-size:8px;">(Apelyido)</span></span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->spouse->spouse_first_name ?? 'N/A' }}
-                        <br><span>First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
+                        <br><span style="font-size: 12px;">First Name <span style="font-style:italic; font-size:8px;">(Unang Pangalan)</span></span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">{{ $beneficiary->spouse->spouse_middle_name ?? 'N/A' }}
-                        <br><span>Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span>:</span>
+                        <br><span style="font-size: 12px;">Middle Name <span style="font-style:italic; font-size:8px;">(Gitnang Pangalan)</span>:</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->spouse->spouse_name_extension ?? 'N/A' }} 
-                        <br><span>Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span>:</span>
+                        <br><span style="font-size: 12px;">Ext. <span style="font-style:italic; font-size:8px;">(Jr., II)</span>:</span>
                     </td>
                 </tr>
 
@@ -379,7 +381,7 @@
                         <span>{{ $beneficiary->addresses->where('type', 'spouse_address')->first()->region ?? 'N/A' }}</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->spouse->spouse_contact ?? 'N/A' }}
-                        <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
+                        <br><span style="font-size: 12px;">CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                     </td>
                 </tr>
 
@@ -388,13 +390,13 @@
                 </tr>
                 @foreach ($beneficiary->child as $child)
                     <tr>
-                        <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $child->children_name ?? 'N/A' }} <br><span>NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span>:</span></td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_civil_status ?? 'N/A' }} <br><span>CIVIL STATUS <span style="font-style:italic; font-size:8px;">(Katayuang Sibil)</span></span>
+                        <td style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $child->children_name ?? 'N/A' }} <br><span style="font-size: 12px;">NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span>:</span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_civil_status ?? 'N/A' }} <br><span style="font-size: 12px;">CIVIL STATUS <span style="font-style:italic; font-size:8px;">(Katayuang Sibil)</span></span>
                         </td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_occupation ?? 'N/A' }} <br><span>OCCUPATION <span style="font-style:italic; font-size:8px;">(Trabaho)</span></span></td>
-                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_income ?? 'N/A' }} <br><span>INCOME <span style="font-style:italic; font-size:8px;">(Kita o Sahod)</span></span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_occupation ?? 'N/A' }} <br><span style="font-size: 12px;">OCCUPATION <span style="font-style:italic; font-size:8px;">(Trabaho)</span></span></td>
+                        <td style="text-align: center; vertical-align: bottom;">{{ $child->children_income ?? 'N/A' }} <br><span style="font-size: 12px;">INCOME <span style="font-style:italic; font-size:8px;">(Kita o Sahod)</span></span></td>
                         <td style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $child->children_contact_number ?? 'N/A' }}
-                            <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
+                            <br><span style="font-size: 12px;">CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                         </td>
                     </tr>
                 @endforeach
@@ -405,13 +407,13 @@
                 @foreach ($beneficiary->representative as $representative)
                     <tr>
                         <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $representative->representative_name ?? 'N/A' }}
-                            <br><span>NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span></span>
+                            <br><span style="font-size: 12px;">NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span></span>
                         </td>
                         <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $representative->representative_civil_status ?? 'N/A' }}
-                           <br> <span>RELATIONSHIP <span style="font-style:italic; font-size:8px;">(Relasyon sa Benepisyaryo)</span></span>
+                           <br> <span style="font-size: 12px;">RELATIONSHIP <span style="font-style:italic; font-size:8px;">(Relasyon sa Benepisyaryo)</span></span>
                         </td>
                         <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $representative->representative_contact_number ?? 'N/A' }}
-                            <br><span>CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
+                            <br><span style="font-size: 12px;">CONTACT NUMBER <span style="font-style:italic; font-size:8px;">(Numero ng Telepono)</span></span>
                         </td>
                     </tr>
                 @endforeach
@@ -421,12 +423,12 @@
                 <tr>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span> {{ $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A' }}</span>
-                        <br><span>Housing Situation <span style="font-style:italic; font-size:8px;">(Sitwasyon ng Pamamahay)</span></span>
+                        <br><span style="font-size: 12px;">Housing Situation <span style="font-style:italic; font-size:8px;">(Sitwasyon ng Pamamahay)</span></span>
                     </td>
 
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                        <span>{{ $beneficiary->housingLivingStatus->living_status_others_input ?? 'N/A' }}</span>
-                        <br><span>Living Arrangement <span style="font-style:italic; font-size:8px;">(Kaayusan sa Pamumuhay)</span></span>
+                        <br><span style="font-size: 12px;">Living Arrangement <span style="font-style:italic; font-size:8px;">(Kaayusan sa Pamumuhay)</span></span>
                     </td>
                 </tr>
             </table>
@@ -438,15 +440,15 @@
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->receiving_pension ?? 'N/A' }}</span>
-                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
+                        <br><span style="font-size: 12px;">Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->pension_amount ?? 'N/A' }}</span>
-                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
+                        <br><span style="font-size: 12px;">How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->pension_source ?? 'N/A' }}</span>
-                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
+                        <br><span style="font-size: 12px;">Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -455,15 +457,15 @@
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->permanent_income ?? 'N/A' }}</span>
-                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
+                        <br><span style="font-size: 12px;">Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->income_amount ?? 'N/A' }}</span>
-                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
+                        <br><span style="font-size: 12px;">How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->income_source ?? 'N/A' }}</span>
-                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
+                        <br><span style="font-size: 12px;">Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -472,15 +474,15 @@
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->regular_support ?? 'N/A' }}</span>
-                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
+                        <br><span style="font-size: 12px;">Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / No<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="1" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->economicInformation->support_amount ?? 'N/A' }}</span>
-                        <br><span>How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
+                        <br><span style="font-size: 12px;">How much <span style="font-style:italic; font-size:8px;">(Magkano)</span></span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->economicInformation->support_source ?? 'N/A' }}</span>
-                        <br><span>Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
+                        <br><span style="font-size: 12px;">Source <span style="font-style:italic; font-size:8px;">(Mula saan)</span></span>
                     </td>
                 </tr>
             </table>
@@ -492,11 +494,11 @@
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->existing_illness ?? 'N/A' }}</span>
-                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
+                        <br><span style="font-size: 12px;">Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->illness_specify ?? 'N/A' }}</span>
-                        <br><span>Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
+                        <br><span style="font-size: 12px;">Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -505,11 +507,11 @@
                 <tr>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->with_disability ?? 'N/A' }}</span>
-                        <br><span>Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
+                        <br><span style="font-size: 12px;">Yes<span style="font-style:italic; font-size:8px;">(Oo)</span> / None<span style="font-style:italic; font-size:8px;">(Wala)</span>
                     </td>
                     <td colspan="3" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->disability_specify ?? 'N/A' }}</span>
-                        <br><span>Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
+                        <br><span style="font-size: 12px;">Specify <span style="font-style:italic; font-size:8px;">(Itala)</span></span>
                     </td>
                 </tr>
                 <tr>
@@ -518,16 +520,16 @@
                 <tr>
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">
                         <span>{{ $beneficiary->healthInformation->difficult_adl ?? 'N/A' }}</span>
-                        <br><span>1. Do you experience difficulty in doing your ADLs?</span> <br>
+                        <br><span style="font-size: 12px;">1. Do you experience difficulty in doing your ADLs?</span> <br>
                         <span style="font-style:italic; font-size:8px;">(Nahihirapan ka ba sa iyong pang-araw araw na gawain?)</span>
                     </td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom;">
                         <span>{{ $beneficiary->healthInformation->dependent_iadl ?? 'N/A' }}</span>
-                    <br><span>2. Are you completely dependent on someone in doing your IADLs?</span><br>
+                    <br><span style="font-size: 12px;">2. Are you completely dependent on someone in doing your IADLs?</span><br>
                     <span style="font-style:italic; font-size:8px;">(Ganap ka bang umaasa sa ibang tao sa pagsasagawa ng iyong gawaing pamumuhay?)</span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">
                        <span>{{ $beneficiary->healthInformation->experience_loss ?? 'N/A' }}</span>
-                    <br><span>3. Are you experiencing weight loss, weakness, exhaustion?</span><br>
+                    <br><span style="font-size: 12px;">3. Are you experiencing weight loss, weakness, exhaustion?</span><br>
                     <span style="font-style:italic; font-size:8px;">(Ikaw ba ay nakakaranas ng pagkabawas ng timbang, kahinaan o pagkapagod?)</span></td>
                 </tr>
             </table>
