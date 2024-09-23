@@ -559,7 +559,7 @@
                         <td colspan="2" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $representative->representative_name ?? 'N/A' }}
                             <br><span>NAME <span style="font-style:italic; font-size:8px;">(Pangalan)</span></span>
                         </td>
-                        <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $representative->representative_civil_status ?? 'N/A' }}
+                        <td colspan="2" style="text-align: center; vertical-align: bottom;">{{ $representative->representative_relationship ?? 'N/A' }}
                            <br> <span>RELATIONSHIP <span style="font-style:italic; font-size:8px;">(Relasyon sa Benepisyaryo)</span></span>
                         </td>
                         <td colspan="1" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $representative->representative_contact_number ?? 'N/A' }}
