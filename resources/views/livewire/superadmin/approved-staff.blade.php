@@ -46,8 +46,44 @@
         }
 
         .form-control {
-            font-size: 14px;
-        }
+        font-size: 14px;
+        padding: 5px;
+        font-family: 'Arial', sans-serif;
+        
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-row>.col-md-3,
+    .form-row>.col-md-2,
+    .form-row>.col-md-6 {
+        padding-right: 10px;
+        padding-left: 10px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-row>.col-md-1,
+    .form-row>.col-md-4,
+    .form-row>.col-md-5 {
+        padding-right: 5px;
+        padding-left: 5px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .custom-form-row {
+        display: flex;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .custom-form-row .form-control {
+        height: 35px;
+        font-size: 14px;
+        border-radius: 5px;
+        font-family: 'Arial', sans-serif;
+    }
 
 .header-container {
     display: flex;
@@ -149,27 +185,102 @@
                 <h5 class="modal-title" id="staffDetailsModalLabel">Staff Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+        <div class="modal-body">
                 <div class="text-center mb-3">
                     <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
                         style="width: 150px; height: 150px; object-fit: cover; border: 1.5px solid #1C4CB1;">
                 </div>
-                <div>
-                    <p><strong>Last Name:</strong> <span id="staff-lastname"></span></p>
-                    <p><strong>First Name:</strong> <span id="staff-firstname"></span></p>
-                    <p><strong>Middle Name:</strong> <span id="staff-middlename"></span></p>
-                    <p><strong>Name Extension:</strong> <span id="staff-name_extension"></span></p>
-                    <p><strong>Sex:</strong> <span id="staff-sex"></span></p>
-                    <p><strong>Birthday:</strong> <span id="staff-birthday"></span></p>
-                    <p><strong>Age:</strong> <span id="staff-age"></span></p>
-                    <p><strong>Marital Status:</strong> <span id="staff-marital_status"></span></p>
-                    <p><strong>Contact Number:</strong> <span id="staff-contact_number"></span></p>
-                    <p><strong>Address:</strong> <span id="staff-address"></span></p>
-                    <p><strong>Employee ID:</strong> <span id="staff-employee_id"></span></p>
-                    <p><strong>Email:</strong> <span id="staff-email"></span></p>
-                    <p><strong>Assigned Province:</strong> <span id="staff-assigned_province"></span></p>
-                    <p><strong>Status:</strong> <span id="staff-status"></span></p>
+                <div class="form-group">
+                <label class="label"><strong>Staff Information</strong></label>
+                <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="last_name"><strong>Last Name:</strong></label>
+                       <span class="form-control" id="staff-lastname"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="first_name"><strong>First Name:</strong></label>
+                         <span class="form-control" id="staff-firstname"></span>
+                    </div>
                 </div>
+            </div>
+            <div class="form-group">
+            <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="middle_name"><strong>Middle Name:</strong> </label>
+                         <span class="form-control" id="staff-middlename"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="name_extension"><strong>Name Extension:</strong></label>
+                         <span class="form-control" id="staff-name_extension"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="last_name"><strong>Sex:</strong></label>
+                        <span class="form-control" id="staff-sex"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="first_name"><strong>Birthday:</strong></label>
+                         <span class="form-control" id="staff-birthday"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="middle_name"><strong>Age:</strong> </label>
+                        <span class="form-control" id="staff-age"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="name_extension"><strong>Marital Status:</strong></label>
+                     <span class="form-control" id="staff-marital_status"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="last_name"><strong>Contact Number:</strong></label>
+                         <span class="form-control" id="staff-contact_number"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="first_name"> <strong>Address:</strong></label>
+                        <span class="form-control" id="staff-address"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+            <label class="label"><strong>Employee Information</strong></label>
+                <div class="form-row custom-form-row">
+                <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="middle_name"><strong>Employee ID:</strong> </label>
+                         <span class="form-control" id="staff-employee_id"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="name_extension"><strong>Email:</strong></label>
+                         <span class="form-control" id="staff-email"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+            <div class="form-row custom-form-row">
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="last_name"><strong>Assigned Province:</strong> </label>
+                        <span class="form-control" id="staff-assigned_province"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="ltitle" for="first_name"><strong>Status:</strong></label>
+                         <span class="form-control" id="staff-status"></span>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
