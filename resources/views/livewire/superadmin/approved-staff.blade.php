@@ -142,6 +142,38 @@
         margin-top: -10px;
         text-align: center;
     }
+
+    .icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #f54242;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .icon-style {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .acm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        margin:auto;
+    }
+
+    .custom-bton {
+    background-color: transparent;
+    border: 2px solid #4d4dff;
+    color: #4d4dff;
+}
 </style>
 <div class="header-container">
     <h1 class="heading-border">Approve Staff</h1>
@@ -310,16 +342,15 @@
         <!-- Confirmation Modal -->
         <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content acm">
+                <div class="icon-container">
+                        <i class="bi bi-question-lg icon-style"></i>
                     </div>
                     <div class="modal-body">
                         <p id="confirmationMessage"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary" id="confirmActionButton">Confirm</button>
                     </div>
                 </div>

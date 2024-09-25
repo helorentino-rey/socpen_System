@@ -111,6 +111,38 @@
         .card {
             border-left: 5px solid blue;
         }
+
+        .icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #f54242;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .icon-style {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .acm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        margin:auto;
+    }
+
+    .custom-bton {
+    background-color: transparent;
+    border: 2px solid #4d4dff;
+    color: #4d4dff;
+}
     </style>
 
     <!-- Top nav bar -->
@@ -295,6 +327,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Custom Confirm Edit Modal -->
+<div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content acm">
+        <div class="icon-container">
+                        <i class="bi bi-question-lg icon-style"></i>
+                    </div>
+            <div class="modal-body">
+                Are you sure you want to edit this beneficiary?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
             <!-- Modal to Update Beneficiary Information -->
             <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
@@ -757,28 +808,35 @@
 
             // Fetch form via AJAX and reapply checkbox logic
             function confirmEdit(beneficiaryId) {
-                if (confirm("Are you sure you want to edit this beneficiary?")) {
-                    $.ajax({
-                        url: '/beneficiaries/edit/' + beneficiaryId,
-                        type: 'GET',
-                        success: function(response) {
-                            $('#editBeneficiaryModal .modal-body').html(response);
-                            const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
-                                backdrop: 'static',
-                                keyboard: false
-                            });
-                            modal.show();
+    // Show the custom modal instead of using the default confirm dialog
+    $('#confirmEditModal').modal('show');
 
-                            // Reinitialize modal and checkboxes after content is loaded
-                            initializeModal();
-                            initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
-                        },
-                        error: function() {
-                            alert('Error loading beneficiary information.');
-                        }
-                    });
-                }
+    // Handle the confirmation button click event
+    $('#confirmEditBtn').off('click').on('click', function () {
+        $.ajax({
+            url: '/beneficiaries/edit/' + beneficiaryId,
+            type: 'GET',
+            success: function (response) {
+                $('#editBeneficiaryModal .modal-body').html(response);
+                const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                modal.show();
+
+                // Reinitialize modal and checkboxes after content is loaded
+                initializeModal();
+                initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
+            },
+            error: function () {
+                alert('Error loading beneficiary information.');
             }
+        });
+        // Hide the confirmation modal after confirming
+        $('#confirmEditModal').modal('hide');
+    });
+}
+
 
             // Initialize modal and checkbox logic on document ready
             $(document).ready(function() {
