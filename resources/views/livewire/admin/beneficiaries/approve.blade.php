@@ -5,7 +5,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <style>
+<style>
         .navbar {
             background-color: #f8f9fa;
             border-bottom: 2px solid #343a40;
@@ -107,6 +107,42 @@
         .form-control {
             font-size: 14px;
         }
+
+        .card {
+            border-left: 5px solid blue;
+        }
+
+        .icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #f54242;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .icon-style {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .acm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        margin:auto;
+    }
+
+    .custom-bton {
+    background-color: transparent;
+    border: 2px solid #4d4dff;
+    color: #4d4dff;
+}
     </style>
 
     <!-- Top nav bar -->
@@ -205,7 +241,7 @@
                                 <a href="{{ route('export.pdf', ['id' => $beneficiary->id]) }}"
                                     style="cursor: pointer; text-decoration: none;" title="Show Form" target="_blank">
                                     <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
-                                 </a>
+                                </a>
 
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
@@ -276,8 +312,6 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
-                                Information</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -288,13 +322,32 @@
                 </div>
             </div>
 
+            <!-- Custom Confirm Edit Modal -->
+<div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content acm">
+        <div class="icon-container">
+                        <i class="bi bi-question-lg icon-style"></i>
+                    </div>
+            <div class="modal-body">
+                Are you sure you want to edit this beneficiary?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
             <!-- Modal to Update Beneficiary Information -->
             <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
+                            <h5 class="modal-title" id="editBeneficiaryModalLabel"></h5>
                             <button type="button" class="btn-close" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -322,6 +375,74 @@
                 </ul>
             </nav>
 
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="successModalLabel">Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('success') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('error') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Import Modal -->
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('import.beneficiaries') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="importModalLabel">Import Beneficiaries</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Choose CSV File</label>
+                                    <input type="file" class="form-control" id="file" name="file" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <!-- Export Modal -->
             <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
                 aria-hidden="true">
@@ -346,21 +467,43 @@
                                     <label for="province">Province</label>
                                     <select id="province" name="province" class="form-control">
                                         <option value="">All Provinces</option>
-                                        <!-- Add options for provinces here -->
                                         <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
                                         <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
                                         <option value="DAVAO ORIENTAL">DAVAO ORIENTAL</option>
                                         <option value="DAVAO DE ORO">DAVAO DE ORO</option>
                                         <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
-                                        <!-- Add more provinces as needed -->
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Export</button>
+                                <button type="button" class="btn btn-primary" id="confirmExportButton">Export</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Deletion Confirmation Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Confirm Export</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to delete the beneficiaries after export?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="deleteAfterExportButton">Yes,
+                                Delete</button>
+                            <button type="button" class="btn btn-primary" id="keepAfterExportButton">No, Keep</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Success Modal -->
             <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
@@ -547,23 +690,104 @@
                     }
                 });
             }
+
+            document.getElementById('confirmExportButton').addEventListener('click', function() {
+                // Show the confirmation modal when the user clicks Export
+                $('#confirmModal').modal('show');
+            });
+
+            document.getElementById('deleteAfterExportButton').addEventListener('click', function() {
+                // Set the delete_data parameter to true and submit the form
+                const exportForm = document.getElementById('exportForm');
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_data';
+                deleteInput.value = 'true';
+                exportForm.appendChild(deleteInput);
+                exportForm.submit();
+            });
+
+            document.getElementById('keepAfterExportButton').addEventListener('click', function() {
+                // Set the delete_data parameter to false and submit the form
+                const exportForm = document.getElementById('exportForm');
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_data';
+                deleteInput.value = 'false';
+                exportForm.appendChild(deleteInput);
+                exportForm.submit();
+            });
+
+
+            //Success and Error
+            document.addEventListener('DOMContentLoaded', function() {
+                @if (session('success'))
+                    var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                @endif
+
+                @if (session('error'))
+                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+                @endif
+            });
         </script>
         <script>
             // Update Beneficiary Information
+            function initializeBeneficiaryCheckboxes() {
+                const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(', ');
+
+                const listahananCheckbox = document.getElementById('listahanan');
+                const pantawidCheckbox = document.getElementById('pantawid');
+                const hhIdField = document.getElementById('hh_id');
+                const indigenousCheckbox = document.getElementById('indigenous');
+                const indigenousSpecifyField = document.getElementById('indigenous_specify');
+
+                // // Set initial state of checkboxes
+                // listahananCheckbox.checked = affiliationTypes.includes('Listahanan');
+                // pantawidCheckbox.checked = affiliationTypes.includes('Pantawid Beneficiary');
+                // indigenousCheckbox.checked = affiliationTypes.includes('Indigenous People');
+
+                // Set initial visibility of additional fields
+                hhIdField.style.display = pantawidCheckbox.checked ? 'block' : 'none';
+                indigenousSpecifyField.style.display = indigenousCheckbox.checked ? 'block' : 'none';
+
+                // Add event listeners to handle visibility on change
+                pantawidCheckbox.addEventListener('change', function() {
+                    hhIdField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) hhIdField.value = ''; // Clear the field when unchecked
+                });
+
+                indigenousCheckbox.addEventListener('change', function() {
+                    indigenousSpecifyField.style.display = this.checked ? 'block' : 'none';
+                    if (!this.checked) indigenousSpecifyField.value = ''; // Clear the field when unchecked
+                });
+
+                // Add event listener to clear other fields when "Listahanan" is checked
+                // listahananCheckbox.addEventListener('change', function() {
+                //     if (this.checked) {
+                //         pantawidCheckbox.checked = false;
+                //         hhIdField.value = '';
+                //         hhIdField.style.display = 'none';
+
+                //         indigenousCheckbox.checked = false;
+                //         indigenousSpecifyField.value = '';
+                //         indigenousSpecifyField.style.display = 'none';
+                //     }
+                // });
+            }
+
+            // Initialize modal and reapply checkbox logic
             function initializeModal() {
-                // Function to handle the close button with confirmation
                 document.querySelector('#editBeneficiaryModal .btn-close').addEventListener('click', function(event) {
                     event.preventDefault();
 
                     const confirmation = confirm(
                         "Are you sure you want to close the form? Any unsaved changes will be lost.");
-
                     if (confirmation) {
                         const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
                         modal.hide();
-                        // Redirect to the specified route after closing
-                        window.location.href =
-                        '{{ route('admin.beneficiaries.approve') }}'; // Replace with your desired route
+                        window.location.href = '{{ route('admin.beneficiaries.approve') }}'; // Optional redirection
                     }
                 });
 
@@ -572,40 +796,46 @@
                     e.preventDefault();
                     const beneficiaryId = $(this).data('id');
 
-                    // Call confirmEdit function for confirmation
                     confirmEdit(beneficiaryId);
                 });
             }
 
-            // Function to confirm editing a beneficiary
+            // Fetch form via AJAX and reapply checkbox logic
             function confirmEdit(beneficiaryId) {
-                if (confirm("Are you sure you want to edit this beneficiary?")) {
-                    // Fetch the beneficiary edit form via AJAX only if confirmed
-                    $.ajax({
-                        url: '/beneficiaries/edit/' + beneficiaryId,
-                        type: 'GET',
-                        success: function(response) {
-                            // Populate the modal body with the response (edit form)
-                            $('#editBeneficiaryModal .modal-body').html(response);
-                            // Show the modal after successful AJAX call
-                            const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
-                                backdrop: 'static',
-                                keyboard: false
-                            });
-                            modal.show();
-                            // Reinitialize modal events
-                            initializeModal();
-                        },
-                        error: function() {
-                            alert('Error loading beneficiary information.');
-                        }
-                    });
-                }
-            }
+    // Show the custom modal instead of using the default confirm dialog
+    $('#confirmEditModal').modal('show');
 
-            // Initialize modal events on document ready
+    // Handle the confirmation button click event
+    $('#confirmEditBtn').off('click').on('click', function () {
+        $.ajax({
+            url: '/beneficiaries/edit/' + beneficiaryId,
+            type: 'GET',
+            success: function (response) {
+                $('#editBeneficiaryModal .modal-body').html(response);
+                const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                modal.show();
+
+                // Reinitialize modal and checkboxes after content is loaded
+                initializeModal();
+                initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
+            },
+            error: function () {
+                alert('Error loading beneficiary information.');
+            }
+        });
+        // Hide the confirmation modal after confirming
+        $('#confirmEditModal').modal('hide');
+    });
+}
+
+
+            // Initialize modal and checkbox logic on document ready
             $(document).ready(function() {
                 initializeModal();
+                initializeBeneficiaryCheckboxes();
             });
         </script>
     @endsection
