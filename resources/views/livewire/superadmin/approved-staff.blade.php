@@ -79,12 +79,14 @@
     }
 
     .custom-form-row .form-control {
-        height: 30px;
-        font-size: 12px;
-        border-radius: 5px;
-        font-family: 'Arial', sans-serif;
-        vertical-align: auto;
-    }
+    height: 28px;
+    font-size: 12px;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif;
+    vertical-align: auto;
+    border: 1px solid blue;
+}
+
 
 .header-container {
     display: flex;
