@@ -108,7 +108,7 @@
             font-size: 14px;
         }
 
-        .card{
+        .card {
             border-left: 5px solid blue;
         }
     </style>
@@ -422,21 +422,43 @@
                                     <label for="province">Province</label>
                                     <select id="province" name="province" class="form-control">
                                         <option value="">All Provinces</option>
-                                        <!-- Add options for provinces here -->
                                         <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
                                         <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
                                         <option value="DAVAO ORIENTAL">DAVAO ORIENTAL</option>
                                         <option value="DAVAO DE ORO">DAVAO DE ORO</option>
                                         <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
-                                        <!-- Add more provinces as needed -->
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Export</button>
+                                <button type="button" class="btn btn-primary" id="confirmExportButton">Export</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Deletion Confirmation Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Confirm Export</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to delete the beneficiaries after export?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" id="deleteAfterExportButton">Yes,
+                                Delete</button>
+                            <button type="button" class="btn btn-primary" id="keepAfterExportButton">No, Keep</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Success Modal -->
             <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
@@ -623,6 +645,34 @@
                     }
                 });
             }
+
+            document.getElementById('confirmExportButton').addEventListener('click', function() {
+                // Show the confirmation modal when the user clicks Export
+                $('#confirmModal').modal('show');
+            });
+
+            document.getElementById('deleteAfterExportButton').addEventListener('click', function() {
+                // Set the delete_data parameter to true and submit the form
+                const exportForm = document.getElementById('exportForm');
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_data';
+                deleteInput.value = 'true';
+                exportForm.appendChild(deleteInput);
+                exportForm.submit();
+            });
+
+            document.getElementById('keepAfterExportButton').addEventListener('click', function() {
+                // Set the delete_data parameter to false and submit the form
+                const exportForm = document.getElementById('exportForm');
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_data';
+                deleteInput.value = 'false';
+                exportForm.appendChild(deleteInput);
+                exportForm.submit();
+            });
+
 
             //Success and Error
             document.addEventListener('DOMContentLoaded', function() {

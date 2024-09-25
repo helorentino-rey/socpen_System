@@ -8,12 +8,15 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Beneficiary;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class CsvController extends Controller
 {
     public function export(Request $request)
     {
+        DB::beginTransaction(); // Begin transaction
+
         try {
             $filename = $request->input('filename', 'beneficiaries.csv'); // Default to 'beneficiaries.csv' if no filename is provided
 
@@ -22,7 +25,7 @@ class CsvController extends Controller
                 $filename .= '.csv';
             }
 
-            // Check if there are records for the selected province or all provinces
+            // Query for beneficiaries based on province filter
             $query = Beneficiary::query();
 
             if ($request->has('province') && $request->province) {
@@ -37,12 +40,26 @@ class CsvController extends Controller
                 return response()->json(['error' => 'No records found for the selected province.'], 404);
             }
 
-            // Set success message in session
-            session()->flash('success', 'CSV file downloaded successfully.');
+            // Store the beneficiaries to be deleted later if needed
+            $beneficiariesToDelete = $query->get();
 
-            // Return the download response
-            return (new BeneficiariesExport($request))->download($filename);
+            // Export the data
+            $exportResponse = (new BeneficiariesExport($request))->download($filename);
+
+            // Check if the user wants to delete the data
+            $deleteData = $request->input('delete_data', false); // Default is 'false'
+
+            if ($deleteData) {
+                // If export was successful and user chose to delete, delete the beneficiaries
+                Beneficiary::destroy($beneficiariesToDelete->pluck('id')->toArray());
+            }
+
+            DB::commit(); // Commit the transaction
+
+            return $exportResponse;
         } catch (\Exception $e) {
+            DB::rollBack(); // Rollback transaction if something goes wrong
+
             // Log the actual error message for debugging purposes
             Log::error('Export error: ' . $e->getMessage());
 

@@ -54,17 +54,17 @@ class AdminController extends Controller
             'name' => 'required|string|max:15',
             'employee_id' => 'required|unique:admins',
             'password' => 'required|min:8',
-            'province' => 'required|string|max:50',
+            'province' => 'required|array',
         ]);
-
+    
         Admin::create([
             'name' => $request->name,
             'employee_id' => $request->employee_id,
             'password' => Hash::make($request->password), // Hash the password
-            'assigned_province' => $request->province,
+            'assigned_province' => implode(',', $request->province),
             'is_active' => true, // Set the default status to active
         ]);
-
+    
         return redirect()->back()->with('success', 'Admin created successfully.');
     }
 
@@ -72,24 +72,24 @@ class AdminController extends Controller
     public function editAdmin(Request $request, $id)
     {
         $admin = Admin::findOrFail($id);
-
+    
         $request->validate([
             'name' => 'required|string|max:15',
             'employee_id' => 'required|unique:admins,employee_id,' . $admin->id,
             'password' => 'nullable|min:8',
-            'province' => 'required|string|max:50',
+            'province' => 'required|array',
         ]);
-
+    
         $admin->name = $request->name;
         $admin->employee_id = $request->employee_id;
-
+    
         if ($request->password) {
             $admin->password = Hash::make($request->password); // Hash the updated password
         }
-
-        $admin->assigned_province = $request->province;
+    
+        $admin->assigned_province = implode(',', $request->province);
         $admin->save();
-
+    
         return redirect()->back()->with('success', 'Admin updated successfully.');
     }
 
