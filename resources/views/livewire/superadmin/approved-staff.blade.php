@@ -46,10 +46,10 @@
         }
 
         .form-control {
-        font-size: 14px;
+        font-size: 20px;
         padding: 5px;
         font-family: 'Arial', sans-serif;
-        
+        vertical-align: middle;
     }
 
     .form-group {
@@ -79,17 +79,18 @@
     }
 
     .custom-form-row .form-control {
-        height: 35px;
-        font-size: 14px;
+        height: 30px;
+        font-size: 12px;
         border-radius: 5px;
         font-family: 'Arial', sans-serif;
+        vertical-align: auto;
     }
 
 .header-container {
     display: flex;
-    align-items: center; /* Vertically aligns the heading and logos */
-    justify-content: space-between; /* Heading on the left, logos on the right */
-    border-bottom: 1.5px solid grey; /* Line under both heading and logos */
+    align-items: center;
+    justify-content: space-between; 
+    border-bottom: 1.5px solid grey; 
     padding-bottom: -50px;
     margin-bottom: 0;
     margin-top: -30px;
@@ -101,17 +102,17 @@
 
 .logos-container {
     display: flex;
-    align-items: center; /* Ensures the logos are vertically aligned */
+    align-items: center;
 }
 
 .heading-border {
-    margin-right: 10px; /* Adds some space between the heading and logos */
+    margin-right: 10px; 
 }
 
 .custom-btn-sm {
-    font-size: 14px; /* Smaller font size */
-    padding: 0.10rem 0.15rem; /* Adjust padding for a smaller button */
-    border-radius: 0.25rem; /* Adjust border radius for a smaller, rounded button */
+    font-size: 14px; 
+    padding: 0.10rem 0.15rem; 
+    border-radius: 0.25rem; 
 }
 
 .dswd-logo {
@@ -182,7 +183,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staffDetailsModalLabel">Staff Details</h5>
+                <h5 class="modal-title" id="staffDetailsModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
         <div class="modal-body">
@@ -193,24 +194,24 @@
                 <div class="form-group">
                 <label class="label"><strong>Staff Information</strong></label>
                 <div class="form-row custom-form-row">
-                    <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="last_name"><strong>Last Name:</strong></label>
-                       <span class="form-control" id="staff-lastname"></span>
+                    <div class="col-md-6 mb-3" style="border-top: 1px solid;">
+                        <label class="ltitle" for="last_name"><strong style="font-size: 14px;">Last Name:</strong></label>
+                       <span class="form-control"  id="staff-lastname"></span>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="first_name"><strong>First Name:</strong></label>
-                         <span class="form-control" id="staff-firstname"></span>
+                    <div class="col-md-6 mb-3" style="border-top: 1px solid;">
+                        <label class="ltitle" for="first_name"><strong style="font-size: 14px;">First Name:</strong></label>
+                         <span class="form-control"  id="staff-firstname"></span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
             <div class="form-row custom-form-row">
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="middle_name"><strong>Middle Name:</strong> </label>
+                        <label class="ltitle" for="middle_name"><strong style="font-size: 14px;">Middle Name:</strong> </label>
                          <span class="form-control" id="staff-middlename"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="name_extension"><strong>Name Extension:</strong></label>
+                        <label class="ltitle" for="name_extension"><strong style="font-size: 14px;">Name Extension:</strong></label>
                          <span class="form-control" id="staff-name_extension"></span>
                     </div>
                 </div>
@@ -219,11 +220,11 @@
             <div class="form-group">
                 <div class="form-row custom-form-row">
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="last_name"><strong>Sex:</strong></label>
+                        <label class="ltitle" for="last_name"><strong style="font-size: 14px;">Sex:</strong></label>
                         <span class="form-control" id="staff-sex"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="first_name"><strong>Birthday:</strong></label>
+                        <label class="ltitle" for="first_name"><strong style="font-size: 14px;">Birthday:</strong></label>
                          <span class="form-control" id="staff-birthday"></span>
                     </div>
                 </div>
@@ -232,11 +233,11 @@
             <div class="form-group">
                 <div class="form-row custom-form-row">
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="middle_name"><strong>Age:</strong> </label>
-                        <span class="form-control" id="staff-age"></span>
+                        <label class="ltitle" for="middle_name"><strong style="font-size: 14px;">Age:</strong> </label>
+                        <span class="form-control" style="font-size: 14px;" id="staff-age"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="name_extension"><strong>Marital Status:</strong></label>
+                        <label class="ltitle" for="name_extension"><strong style="font-size: 14px;">Marital Status:</strong></label>
                      <span class="form-control" id="staff-marital_status"></span>
                     </div>
                 </div>
@@ -245,11 +246,11 @@
             <div class="form-group">
                 <div class="form-row custom-form-row">
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="last_name"><strong>Contact Number:</strong></label>
+                        <label class="ltitle" for="last_name"><strong style="font-size: 14px;">Contact Number:</strong></label>
                          <span class="form-control" id="staff-contact_number"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="first_name"> <strong>Address:</strong></label>
+                        <label class="ltitle" for="first_name"> <strong style="font-size: 14px;">Address:</strong></label>
                         <span class="form-control" id="staff-address"></span>
                     </div>
                 </div>
@@ -258,12 +259,12 @@
             <div class="form-group">
             <label class="label"><strong>Employee Information</strong></label>
                 <div class="form-row custom-form-row">
-                <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="middle_name"><strong>Employee ID:</strong> </label>
+                <div class="col-md-6 mb-3" style="border-top: 1px solid;">
+                        <label class="ltitle" for="middle_name"><strong style="font-size: 14px;">Employee ID:</strong> </label>
                          <span class="form-control" id="staff-employee_id"></span>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="name_extension"><strong>Email:</strong></label>
+                    <div class="col-md-6 mb-3" style="border-top: 1px solid;">
+                        <label class="ltitle" for="name_extension"><strong style="font-size: 14px;">Email:</strong></label>
                          <span class="form-control" id="staff-email"></span>
                     </div>
                 </div>
@@ -272,11 +273,11 @@
             <div class="form-group">
             <div class="form-row custom-form-row">
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="last_name"><strong>Assigned Province:</strong> </label>
+                        <label class="ltitle" for="last_name"><strong style="font-size: 14px;">Assigned Province:</strong> </label>
                         <span class="form-control" id="staff-assigned_province"></span>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="ltitle" for="first_name"><strong>Status:</strong></label>
+                        <label class="ltitle" for="first_name"><strong style="font-size: 14px;">Status:</strong></label>
                          <span class="form-control" id="staff-status"></span>
                     </div>
                 </div>
