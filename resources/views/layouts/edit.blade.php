@@ -1,15 +1,15 @@
 <style>
-   .modal-container {
-     max-width: 800px;
-     margin: 20px auto;
-     margin-top: -15px;
-     background: #ffffff;
-     border-radius: 8px;
-     padding: 20px;
-     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-     font-family: 'Arial', sans-serif;
-     color: #333;
- }
+    .modal-container {
+        max-width: 800px;
+        margin: 20px auto;
+        margin-top: -15px;
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
 
     .container {
         max-width: 900px;
@@ -489,6 +489,36 @@
     .form-group label {
         margin-bottom: 5px;
     }
+
+    /* For icon design */
+    .icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #f54242;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* For modal content */
+    .acm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        margin: auto;
+    }
+
+    /* For close button */
+    .custom-bton {
+        background-color: transparent;
+        border: 2px solid #4d4dff;
+        color: #4d4dff;
+    }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -747,7 +777,6 @@
 </script>
 
 <!-- Page Content -->
-
 <div class="modal-container">
     <div class="container mt-5">
         <div class="logos">
@@ -758,20 +787,34 @@
         <h2 class="text-center">SOCIAL PENSION VALIDATION FORM</h2>
         <h3 class="soc">SOCIAL PENSION FOR INDIGENT SENIOR CITIZENS</h3>
 
+        <!-- Display Success Message -->
         @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success d-none" id="successMessage">
                 {{ session('success') }}
+            </div>
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-check-lg icon-style"></i>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('success') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
 
-        @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
         <!-- Form Section -->
         <form action="{{ route('beneficiaries.update', ['id' => $beneficiary->id]) }}" method="POST"
-            enctype="multipart/form-data">
+            enctype="multipart/form-data" class="edit-form">
             @csrf
             @method('PUT')
             <div class="form-group1 row">
@@ -783,8 +826,10 @@
                 </div>
 
                 <div class="col-md-4">
-                <label class="label" for="ncsc_rrn"><strong>NCSC RRN <span style="font-style:italic; font-weight:500;">(If Applicable)</span></strong></label>
-                    <input type="text" class="form-control1" name="ncsc_rrn" id="ncsc_rrn"
+                    <label class="label" for="ncsc_rrn"><strong>NCSC RRN <span
+                                style="font-style:italic; font-weight:500;">(If Applicable)</span></strong></label>
+                    <input type="text" class="form-control1" name="ncsc_rrn" id="ncsc_rrn" pattern="\d*"
+                        inputmode="numeric" title="Please enter only numbers" maxlength="7"
                         value="{{ $beneficiary->ncsc_rrn }}">
                 </div>
 
@@ -794,7 +839,8 @@
                     <input type="file" class="form-control" name="profile_upload" id="profile_upload">
                 </div>
             </div>
-            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng Impormasyon)</span></h4>
+            <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng
+                    Impormasyon)</span></h4>
             <!-- Name Section -->
             <div class="form-group">
                 <label class="label"><strong>1. NAME</strong></label>
@@ -802,16 +848,25 @@
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="last_name">Last Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="last_name" id="last_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ $beneficiary->BeneficiaryInfo->last_name }}" required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="first_name">First Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="first_name" id="first_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ $beneficiary->BeneficiaryInfo->first_name }}" required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="middle_name">Middle Name </label>
                         <input type="text" class="form-control" name="middle_name" id="middle_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ $beneficiary->BeneficiaryInfo->middle_name }}">
                     </div>
                     <div class="col-md-3 mb-3">
@@ -859,12 +914,15 @@
             </div>
 
             <div class="form-group">
-            <label class="label"><strong>2. MOTHER'S MAIDEN NAME</strong></label>
+                <label class="label"><strong>2. MOTHER'S MAIDEN NAME</strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_last_name">Last Name <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="mother_last_name" id="mother_last_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_last_name', $beneficiary->MothersMaidenName->mother_last_name) }}"
                             required>
                     </div>
@@ -872,12 +930,18 @@
                         <label class="ltitle" for="mother_first_name">First Name <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="mother_first_name" id="mother_first_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_first_name', $beneficiary->MothersMaidenName->mother_first_name) }}"
                             required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_middle_name">Middle Name </label>
                         <input type="text" class="form-control" name="mother_middle_name" id="mother_middle_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_middle_name', $beneficiary->MothersMaidenName->mother_middle_name) }}">
                     </div>
                 </div>
@@ -933,7 +997,7 @@
                             @endforeach
                         </select>
                     </div>
-                    </div>
+                </div>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
@@ -952,7 +1016,8 @@
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="permanent_address_sitio"
-                            placeholder="Sitio/House No./Purok/Street"
+                            placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
+                            title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
                             value="{{ old('permanent_address_sitio', $permanentAddress->sitio ?? '') }}" required>
                     </div>
                 </div>
@@ -1005,7 +1070,7 @@
                             @endforeach
                         </select>
                     </div>
-                    </div>
+                </div>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
@@ -1024,7 +1089,8 @@
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="present_address_sitio"
-                            placeholder="Sitio/House No./Purok/Street"
+                            placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
+                            title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
                             value="{{ old('present_address_sitio', $presentAddress->sitio ?? '') }}" required>
                     </div>
                 </div>
@@ -1047,7 +1113,9 @@
                         <label class="ltitle" for="place_of_birth_city">City/Municipality <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="place_of_birth_city"
-                            id="place_of_birth_city"
+                            id="place_of_birth_city" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('place_of_birth_city', $beneficiary->MothersMaidenName->place_of_birth_city ?? '') }}"
                             required>
                     </div>
@@ -1055,7 +1123,9 @@
                         <label class="ltitle" for="place_of_birth_city">Province <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="place_of_birth_province"
-                            id="place_of_birth_province"
+                            id="place_of_birth_province" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('place_of_birth_province', $beneficiary->MothersMaidenName->place_of_birth_province ?? '') }}"
                             required>
                     </div>
@@ -1064,7 +1134,8 @@
 
             <div class="form-row custom-form-row">
                 <div class="col-md-4 mb-3">
-                    <label class="label" for="age"><strong>7. AGE</strong> <span class="text-danger">*</span></label>
+                    <label class="label" for="age"><strong>7. AGE</strong> <span
+                            class="text-danger">*</span></label>
                     <input type="number" class="form-control" name="age" id="age"
                         value="{{ old('age', $beneficiary->MothersMaidenName->age ?? '') }}" required readonly>
                 </div>
@@ -1111,38 +1182,49 @@
                     <!-- Listahanan Checkbox -->
                     <div class="col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan" value="Listahanan"
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan"
+                                value="Listahanan"
                                 {{ in_array('Listahanan', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
                             <label class="form-check-label" for="listahanan">Listahanan</label>
                         </div>
                     </div>
-            
+
                     <!-- Pantawid Beneficiary Checkbox -->
                     <div class="col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid" value="Pantawid Beneficiary"
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="pantawid"
+                                value="Pantawid Beneficiary"
                                 {{ in_array('Pantawid Beneficiary', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng 4Ps)</label>
+                            <label class="form-check-label" for="pantawid">Pantawid Beneficiary (Benepisyaryo ng
+                                4Ps)</label>
                         </div>
-                        <input type="text" class="form-control mt-2" name="hh_id" id="hh_id" style="display:none;"
-                               placeholder="Specify HH ID (Itala)" value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
+                        <input type="text" class="form-control mt-2" name="hh_id" id="hh_id"
+                            style="display:none;" placeholder="Specify HH ID (Itala)" pattern="[0-9\-]*"
+                            title="Please enter only numbers and dashes"
+                            value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
                     </div>
-            
+
                     <!-- Indigenous People Checkbox -->
                     <div class="col-md-4">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous" value="Indigenous People"
+                            <input class="form-check-input" type="checkbox" name="affiliation[]" id="indigenous"
+                                value="Indigenous People"
                                 {{ in_array('Indigenous People', explode(', ', $beneficiary->affiliation->affiliation_type ?? '')) ? 'checked' : '' }}>
                             <label class="form-check-label" for="indigenous">Indigenous People (Mga Katutubo)</label>
                         </div>
-                        <input type="text" class="form-control mt-2" name="indigenous_specify" id="indigenous_specify" style="display:none;"
-                               placeholder="Specify (Itala)" value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
+                        <input type="text" class="form-control mt-2" name="indigenous_specify"
+                            id="indigenous_specify" style="display:none;" placeholder="Specify (Itala)"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
+                            value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
                     </div>
                 </div>
             </div>
-            
 
-            <h4 class="section-title mb-3">II. FAMILY INFORMATION <span style="font-style:italic;">(Impormasyon ng Pamilya)</span></h4>
+
+            <h4 class="section-title mb-3">II. FAMILY INFORMATION <span style="font-style:italic;">(Impormasyon ng
+                    Pamilya)</span></h4>
             <div class="form-group">
                 <label class="label"><strong>11. NAME OF SPOUSE </strong></label>
                 <div class="form-row custom-form-row">
@@ -1150,6 +1232,9 @@
                         <label class="ltitle" for="spouse_last_name">Lastname <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_last_name" id="spouse_last_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_last_name', $beneficiary->spouse->spouse_last_name ?? '') }}"
                             required>
                     </div>
@@ -1157,12 +1242,18 @@
                         <label class="ltitle" for="spouse_first_name">First Name <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_first_name" id="spouse_first_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_first_name', $beneficiary->spouse->spouse_first_name ?? '') }}"
                             required>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_middle_name">Middle Name </label>
                         <input type="text" class="form-control" name="spouse_middle_name" id="spouse_middle_name"
+                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            title="Please enter only letters, starting each word with a capital letter"
+                            oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_middle_name', $beneficiary->spouse->spouse_middle_name ?? '') }}">
                     </div>
                     <div class="col-md-3 mb-3">
@@ -1259,7 +1350,7 @@
                             @endforeach
                         </select>
                     </div>
-                    </div>
+                </div>
                 <div class="form-row custom-form-row">
                     <div class="col-md-4 mb-3">
                         <label class="ltitle" for="barangay">Barangay <span class="text-danger">*</span></label>
@@ -1278,7 +1369,8 @@
                         <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="spouse_address_sitio"
-                            placeholder="Sitio/House No./Purok/Street"
+                            placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
+                            title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
                             value="{{ old('spouse_address_sitio', $spouseAddress->sitio ?? '') }}" required>
                     </div>
                 </div>
@@ -1289,7 +1381,9 @@
                     <div class="col-md-3 mb-3">
                         <label for="spouse_contact"></label>
                         <input type="text" class="form-control" id="spouse_contact" name="spouse_contact"
-                            value="{{ old('spouse_contact', $beneficiary->spouse->spouse_contact ?? '') }}">
+                            pattern="\+63\d{10}" maxlength="13"
+                            title="Please enter a valid contact number starting with +63 and followed by 10 digits"
+                            value="{{ old('spouse_contact', $beneficiary->spouse->spouse_contact ?? '') }}" required>
                     </div>
                 </div>
             </div>
@@ -1313,7 +1407,8 @@
                         @foreach ($beneficiary->child as $index => $child)
                             <tr>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][name]"
+                                        name="children[{{ $index }}][name]" pattern="[A-Za-z\s\.]*"
+                                        title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $child->children_name }}"></td>
                                 <td>
                                     <select class="form-control" name="children[{{ $index }}][civil_status]">
@@ -1334,13 +1429,18 @@
                                 </td>
                                 <td><input type="text" class="form-control"
                                         name="children[{{ $index }}][occupation]"
+                                        pattern="[A-Za-z0-9,\s\-\/]*"
+                                        title="Please enter a valid occupation (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
                                         value="{{ $child->children_occupation }}"></td>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][income]"
+                                        name="children[{{ $index }}][income]" pattern="[0-9,]*"
+                                        title="Please enter only numbers and commas"
                                         value="{{ $child->children_income }}">
                                 </td>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][contact_number]"
+                                        name="children[{{ $index }}][contact_number]" pattern="\+63\d{10}"
+                                        maxlength="13"
+                                        title="Please enter a valid contact number starting with +63 and followed by 10 digits"
                                         value="{{ $child->children_contact_number }}">
                                 </td>
                                 <td><button type="button"
@@ -1366,13 +1466,18 @@
                         @foreach ($beneficiary->representative as $index => $representative)
                             <tr>
                                 <td><input type="text" class="form-control"
-                                        name="representatives[{{ $index }}][name]"
+                                        name="representatives[{{ $index }}][name]" pattern="[A-Za-z\s\.]*"
+                                        title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $representative->representative_name }}"></td>
                                 <td><input type="text" class="form-control"
                                         name="representatives[{{ $index }}][relationship]"
+                                        pattern="[A-Za-z\s\.]*"
+                                        title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $representative->representative_relationship }}"></td>
                                 <td><input type="text" class="form-control"
                                         name="representatives[{{ $index }}][contact_number]"
+                                        pattern="\+63\d{10}" maxlength="13"
+                                        title="Please enter a valid contact number starting with +63 and followed by 10 digits"
                                         value="{{ $representative->representative_contact_number }}"></td>
                                 <td><button type="button"
                                         class="bi bi-dash-square-dotted btn btn-danger remove_representative"></button>
@@ -1407,7 +1512,8 @@
                         <input type="text" class="form-control mt-2" name="house_status_others_input"
                             id="house_status_others_input"
                             style="display: {{ in_array('Others', $houseStatus) ? 'block' : 'none' }};"
-                            placeholder="Specify other house status"
+                            placeholder="Specify other house status" pattern="[A-Za-z\s]*"
+                            title="Please enter a valid house status (letters, and spaces are allowed)"
                             value="{{ $beneficiary->housingLivingStatus->house_status_others_input ?? '' }}">
                     </div>
 
@@ -1432,13 +1538,15 @@
                         <input type="text" class="form-control mt-2" name="living_status_others_input"
                             id="living_status_others_input"
                             style="display: {{ in_array('Others', $livingStatus) ? 'block' : 'none' }};"
-                            placeholder="Specify other living status"
+                            placeholder="Specify other living status" pattern="[A-Za-z\s]*"
+                            title="Please enter a valid house status (letters, and spaces are allowed)"
                             value="{{ $beneficiary->housingLivingStatus->living_status_others_input ?? '' }}">
                     </div>
                 </div>
             </div>
 
-            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION <span style="font-style:italic;">(Impormasyong Pang-ekonomiya)</span></h4>
+            <h4 class="section-title mb-3">III. ECONOMIC INFORMATION <span style="font-style:italic;">(Impormasyong
+                    Pang-ekonomiya)</span></h4>
             <div class="form-group mt-4">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1465,13 +1573,15 @@
                                         {{ $beneficiary->economicInformation->receiving_pension == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="pension_amount" name="pension_amount"
-                                        placeholder="Enter amount"
+                                <td><input type="text" class="form-control mt-2" id="pension_amount"
+                                        name="pension_amount" placeholder="Enter amount" pattern="[0-9,]*"
+                                        title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="pension_source" name="pension_source"
-                                        placeholder="Enter source"
+                                <td><input type="text" class="form-control mt-2" id="pension_source"
+                                        name="pension_source" placeholder="Enter source" pattern="[A-Za-z,]*"
+                                        title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1490,13 +1600,15 @@
                                         {{ $beneficiary->economicInformation->permanent_income == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="income_amount" name="income_amount"
-                                        placeholder="Enter amount"
+                                <td><input type="text" class="form-control mt-2" id="income_amount"
+                                        name="income_amount" placeholder="Enter amount" pattern="[0-9,]*"
+                                        title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="income_source" name="income_source"
-                                        placeholder="Enter source"
+                                <td><input type="text" class="form-control mt-2" id="income_source"
+                                        name="income_source" placeholder="Enter source" pattern="[A-Za-z,]*"
+                                        title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1515,13 +1627,15 @@
                                         {{ $beneficiary->economicInformation->regular_support == 'No' ? 'checked' : '' }} />
                                     No
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="support_amount" name="support_amount"
-                                        placeholder="Enter amount"
+                                <td><input type="text" class="form-control mt-2" id="support_amount"
+                                        name="support_amount" placeholder="Enter amount" pattern="[0-9,]*"
+                                        title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="support_source" name="support_source"
-                                        placeholder="Enter source"
+                                <td><input type="text" class="form-control mt-2" id="support_source"
+                                        name="support_source" placeholder="Enter source" pattern="[A-Za-z,]*"
+                                        title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1530,7 +1644,8 @@
                     </table>
                 </div>
             </div>
-            <h4 class="section-title mb-3">IV. HEALTH INFORMATION <span style="font-style:italic;">(Impormasyon sa Kalusugan)</span></h4>
+            <h4 class="section-title mb-3">IV. HEALTH INFORMATION <span style="font-style:italic;">(Impormasyon sa
+                    Kalusugan)</span></h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="table-responsive">
@@ -1554,8 +1669,9 @@
                                         {{ $beneficiary->healthInformation->existing_illness == 'None' ? 'checked' : '' }} />
                                     None
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="illness_specify" name="illness_specify"
-                                        placeholder="Specify"
+                                <td><input type="text" class="form-control mt-2" id="illness_specify"
+                                        name="illness_specify" placeholder="Specify" pattern="[A-Za-z,]*"
+                                        title="Please enter only letters and commas"
                                         {{ $beneficiary->healthInformation->existing_illness == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->illness_specify ?? '' }}" /></td>
                             </tr>
@@ -1570,8 +1686,9 @@
                                         {{ $beneficiary->healthInformation->with_disability == 'None' ? 'checked' : '' }} />
                                     None
                                 </td>
-                                <td><input type="text" class="form-control mt-2" id="disability_specify" name="disability_specify"
-                                        placeholder="Specify"
+                                <td><input type="text" class="form-control mt-2" id="disability_specify"
+                                        name="disability_specify" placeholder="Specify" pattern="[A-Za-z,]*"
+                                        title="Please enter only letters and commas"
                                         {{ $beneficiary->healthInformation->with_disability == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" />
                                 </td>
@@ -1636,7 +1753,8 @@
                     </div>
                 </div>
             </div>
-            <h4 class="section-title mb-3">VI. RECOMMENDATION <span style="font-style:italic;"></span>(Rekomendasyon)</h4>
+            <h4 class="section-title mb-3">VI. RECOMMENDATION <span style="font-style:italic;"></span>(Rekomendasyon)
+            </h4>
             <div class="form-group">
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
@@ -1667,6 +1785,115 @@
 </div>
 
 <script>
+    //Checkboxes
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('.edit-form');
+        forms.forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                const houseStatusCheckboxes = form.querySelectorAll(
+                    'input[name="house_status[]"]');
+                const livingStatusCheckboxes = form.querySelectorAll(
+                    'input[name="living_status[]"]');
+                const receivingPensionCheckboxes = form.querySelectorAll(
+                    'input[name="receiving_pension"]');
+                const permanentIncomeCheckboxes = form.querySelectorAll(
+                    'input[name="permanent_income"]');
+                const regularSupportCheckboxes = form.querySelectorAll(
+                    'input[name="regular_support"]');
+                const existingIllnessCheckboxes = form.querySelectorAll(
+                    'input[name="existing_illness"]');
+                const withDisabilityCheckboxes = form.querySelectorAll(
+                    'input[name="with_disability"]');
+                const difficultAdlCheckboxes = form.querySelectorAll(
+                    'input[name="difficult_adl"]');
+                const dependentIadlCheckboxes = form.querySelectorAll(
+                    'input[name="dependent_iadl"]');
+                const experienceLossCheckboxes = form.querySelectorAll(
+                    'input[name="experience_loss"]');
+
+                let isHouseStatusChecked = false;
+                let isLivingStatusChecked = false;
+                let isReceivingPensionChecked = false;
+                let isPermanentIncomeChecked = false;
+                let isRegularSupportChecked = false;
+                let isExistingIllnessChecked = false;
+                let isWithDisabilityChecked = false;
+                let isDifficultAdlChecked = false;
+                let isDependentIadlChecked = false;
+                let isExperienceLossChecked = false;
+
+                houseStatusCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isHouseStatusChecked = true;
+                    }
+                });
+
+                livingStatusCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isLivingStatusChecked = true;
+                    }
+                });
+
+                receivingPensionCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isReceivingPensionChecked = true;
+                    }
+                });
+
+                permanentIncomeCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isPermanentIncomeChecked = true;
+                    }
+                });
+
+                regularSupportCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isRegularSupportChecked = true;
+                    }
+                });
+
+                existingIllnessCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isExistingIllnessChecked = true;
+                    }
+                });
+
+                withDisabilityCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isWithDisabilityChecked = true;
+                    }
+                });
+
+                difficultAdlCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isDifficultAdlChecked = true;
+                    }
+                });
+
+                dependentIadlCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isDependentIadlChecked = true;
+                    }
+                });
+
+                experienceLossCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.checked) {
+                        isExperienceLossChecked = true;
+                    }
+                });
+
+                if (!isHouseStatusChecked || !isLivingStatusChecked || !
+                    isReceivingPensionChecked || !isPermanentIncomeChecked || !
+                    isRegularSupportChecked || !isExistingIllnessChecked || !
+                    isWithDisabilityChecked || !isDifficultAdlChecked || !
+                    isDependentIadlChecked || !isExperienceLossChecked) {
+                    event.preventDefault();
+                    alert('Please select at least one option for each category.');
+                }
+            });
+        });
+    });
+
     //House Status
     function toggleCheckbox(groupName, checkbox, showInput) {
         const checkboxes = document.querySelectorAll(`input[name="${groupName}[]"]`);
@@ -1686,7 +1913,7 @@
     }
 
     //Affiliation
-   document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const affiliationTypes = "{{ $beneficiary->affiliation->affiliation_type ?? '' }}".split(',');
 
         const listahananCheckbox = document.getElementById('listahanan');
@@ -1739,60 +1966,60 @@
 
     //Economic Information
     function handleCheckboxSelectionEco(field, isYes, amountFieldId, sourceFieldId) {
-    const yesCheckbox = document.getElementById(`${field}_yes`);
-    const noCheckbox = document.getElementById(`${field}_no`);
-    const amountField = document.getElementById(amountFieldId);
-    const sourceField = document.getElementById(sourceFieldId);
+        const yesCheckbox = document.getElementById(`${field}_yes`);
+        const noCheckbox = document.getElementById(`${field}_no`);
+        const amountField = document.getElementById(amountFieldId);
+        const sourceField = document.getElementById(sourceFieldId);
 
-    // Uncheck the other checkbox if one is checked
-    if (isYes) {
-        noCheckbox.checked = false;
-    } else {
-        yesCheckbox.checked = false;
-    }
+        // Uncheck the other checkbox if one is checked
+        if (isYes) {
+            noCheckbox.checked = false;
+        } else {
+            yesCheckbox.checked = false;
+        }
 
-    // Enable or disable fields based on the Yes/No selection
-    if (yesCheckbox.checked) {
-        amountField.removeAttribute('disabled');
-        sourceField.removeAttribute('disabled');
-        amountField.style.cursor = ''; // Remove 'not-allowed' when enabled
-        sourceField.style.cursor = ''; // Remove 'not-allowed' when enabled
-    } else {
-        amountField.setAttribute('disabled', 'true');
-        sourceField.setAttribute('disabled', 'true');
-        amountField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
-        sourceField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
+        // Enable or disable fields based on the Yes/No selection
+        if (yesCheckbox.checked) {
+            amountField.removeAttribute('disabled');
+            sourceField.removeAttribute('disabled');
+            amountField.style.cursor = ''; // Remove 'not-allowed' when enabled
+            sourceField.style.cursor = ''; // Remove 'not-allowed' when enabled
+        } else {
+            amountField.setAttribute('disabled', 'true');
+            sourceField.setAttribute('disabled', 'true');
+            amountField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
+            sourceField.style.cursor = 'not-allowed'; // Apply 'not-allowed' when disabled
+        }
     }
-}
 
     //Health Information
     function toggleFields(groupName, specifyFieldId) {
-    const yesCheckbox = document.getElementById(`${groupName}_yes`);
-    const noCheckbox = document.getElementById(`${groupName}_none`);
-    const specifyField = document.getElementById(specifyFieldId);
+        const yesCheckbox = document.getElementById(`${groupName}_yes`);
+        const noCheckbox = document.getElementById(`${groupName}_none`);
+        const specifyField = document.getElementById(specifyFieldId);
 
-    yesCheckbox.addEventListener('change', () => {
-        if (yesCheckbox.checked) {
-            specifyField.removeAttribute('disabled'); // Enable field
-            noCheckbox.checked = false;
-        } else {
-            specifyField.setAttribute('disabled', 'true'); // Disable field
-        }
-    });
+        yesCheckbox.addEventListener('change', () => {
+            if (yesCheckbox.checked) {
+                specifyField.removeAttribute('disabled'); // Enable field
+                noCheckbox.checked = false;
+            } else {
+                specifyField.setAttribute('disabled', 'true'); // Disable field
+            }
+        });
 
-    noCheckbox.addEventListener('change', () => {
+        noCheckbox.addEventListener('change', () => {
+            if (noCheckbox.checked) {
+                specifyField.setAttribute('disabled', 'true'); // Disable field
+                specifyField.value = ''; // Clear the input field
+                yesCheckbox.checked = false;
+            }
+        });
+
+        // Initial state setup: Disable the field if "None" is checked
         if (noCheckbox.checked) {
-            specifyField.setAttribute('disabled', 'true'); // Disable field
-            specifyField.value = ''; // Clear the input field
-            yesCheckbox.checked = false;
+            specifyField.setAttribute('disabled', 'true');
         }
-    });
-
-    // Initial state setup: Disable the field if "None" is checked
-    if (noCheckbox.checked) {
-        specifyField.setAttribute('disabled', 'true');
     }
-}
 
 
     //Frailty Questions

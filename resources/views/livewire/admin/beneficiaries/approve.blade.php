@@ -31,10 +31,11 @@
 
         }
 
-        .navbar-nav .nav-link:hover {
-            color: #007bff;
-            text-decoration-color: #007bff;
-            text-decoration-thickness: 3px;
+        .navbar-nav .nav-item .nav-link:hover,
+        .navbar-nav .nav-item .nav-link.active {
+            color: #1C4CB1 !important;
+            background-color: transparent !important;
+            text-decoration: none !important;
         }
 
         @media (max-width: 991px) {

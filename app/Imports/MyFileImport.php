@@ -110,25 +110,37 @@ class MyFileImport implements ToModel, WithHeadingRow
         $beneficiary->spouse()->save($spouse);
 
         if (isset($row['child_name'])) {
-            $child = new Child([
-                'children_name' => $row['children_name'] ?? null,
-                'children_civil_status' => $row['children_civil_status'] ?? null,
-                'children_occupation' => $row['children_occupation'] ?? null,
-                'children_income' => $row['children_income'] ?? null,
-            ]);
+            $childNames = explode(',', $row['child_name']);
+            $childCivilStatuses = explode(',', $row['children_civil_status'] ?? '');
+            $childOccupations = explode(',', $row['children_occupation'] ?? '');
+            $childIncomes = explode(',', $row['children_income'] ?? '');
 
-            $beneficiary->child()->save($child);
+            foreach ($childNames as $index => $childName) {
+                $child = new Child([
+                    'children_name' => trim($childName),
+                    'children_civil_status' => trim($childCivilStatuses[$index] ?? null),
+                    'children_occupation' => trim($childOccupations[$index] ?? null),
+                    'children_income' => trim($childIncomes[$index] ?? null),
+                ]);
+
+                $beneficiary->child()->save($child);
+            }
         }
 
         if (isset($row['representative_name'])) {
-            $representative = new Representative([
-                'children_contact_number' => $row['children_contact_number'] ?? null,
-                'representative_name' => $row['representative_name'] ?? null,
-                'representative_relationship' => $row['representative_relationship'] ?? null,
-                'representative_contact_number' => $row['representative_contact_number'] ?? null,
-            ]);
+            $representativeNames = explode(',', $row['representative_name']);
+            $representativeRelationships = explode(',', $row['representative_relationship'] ?? '');
+            $representativeContactNumbers = explode(',', $row['representative_contact_number'] ?? '');
 
-            $beneficiary->representative()->save($representative);
+            foreach ($representativeNames as $index => $representativeName) {
+                $representative = new Representative([
+                    'representative_name' => trim($representativeName),
+                    'representative_relationship' => trim($representativeRelationships[$index] ?? null),
+                    'representative_contact_number' => trim($representativeContactNumbers[$index] ?? null),
+                ]);
+
+                $beneficiary->representative()->save($representative);
+            }
         }
 
         if (isset($row['house_status'])) {

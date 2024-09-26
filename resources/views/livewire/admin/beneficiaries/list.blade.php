@@ -5,7 +5,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<style>
+    <style>
         .navbar {
             background-color: #f8f9fa;
             border-bottom: 2px solid #343a40;
@@ -31,10 +31,11 @@
 
         }
 
-        .navbar-nav .nav-link:hover {
-            color: #007bff;
-            text-decoration-color: #007bff;
-            text-decoration-thickness: 3px;
+        .navbar-nav .nav-item .nav-link:hover,
+        .navbar-nav .nav-item .nav-link.active {
+            color: #1C4CB1 !important;
+            background-color: transparent !important;
+            text-decoration: none !important;
         }
 
         @media (max-width: 991px) {
@@ -113,56 +114,56 @@
         }
 
         .icon-container {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        background-color: #f54242;
-        border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-        text-align: center;
-        margin-top: 10px;
-    }
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
 
-    .iconic-container {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 50px;
-        height: 50px;
-        background-color: #2db300;
-        border-radius: 50%;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
-        text-align: center;
-        margin-top: 10px;
-    }
+        .iconic-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2db300;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
 
-    .icon-style {
-        color: white;
-        font-size: 2.5rem;
-    }
+        .icon-style {
+            color: white;
+            font-size: 2.5rem;
+        }
 
-    .acm {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 1rem;
-        margin:auto;
-    }
+        .acm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            margin: auto;
+        }
 
-    .dlg {
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    min-height: calc(100vh - 60px);
-}
+        .dlg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
 
-    .custom-bton {
-    background-color: transparent;
-    border: 2px solid #4d4dff;
-    color: #4d4dff;
-}
+        .custom-bton {
+            background-color: transparent;
+            border: 2px solid #4d4dff;
+            color: #4d4dff;
+        }
     </style>
 
     <!-- Top nav bar -->
@@ -343,22 +344,24 @@
             </div>
 
             <!-- Custom Confirm Edit Modal -->
-<div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content acm">
-        <div class="icon-container">
-                        <i class="bi bi-question-lg icon-style"></i>
+            <div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content acm">
+                        <div class="icon-container">
+                            <i class="bi bi-question-lg icon-style"></i>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to edit this beneficiary?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary custom-bton"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+                        </div>
                     </div>
-            <div class="modal-body">
-                Are you sure you want to edit this beneficiary?
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
             <!-- Modal to Update Beneficiary Information -->
@@ -399,10 +402,10 @@
             <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog dlg">
-        <div class="modal-content acm">
-        <div class="iconic-container">
-                        <i class="bi bi-check-lg icon-style"></i>
-                    </div>
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-check-lg icon-style"></i>
+                        </div>
                         <div class="modal-body">
                             {{ session('success') }}
                         </div>
@@ -461,8 +464,8 @@
                 </div>
             </div>
 
-            <!-- Export Modal -->
-            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
+                <!-- Export Modal -->
+                <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -492,71 +495,53 @@
                                         <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
                                     </select>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="confirmExportButton">Export</button>
+                                <button type="submit" class="btn btn-primary">Export</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Deletion Confirmation Modal -->
-            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="confirmModalLabel">Confirm Export</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Do you want to delete the beneficiaries after export?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger" id="deleteAfterExportButton">Yes,
-                                Delete</button>
-                            <button type="button" class="btn btn-primary" id="keepAfterExportButton">No, Keep</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           <!-- Success Modal -->
+           <div class="modal fade" id="successModal1" tabindex="-1" aria-labelledby="successModalLabel"
+           aria-hidden="true">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header bg-success text-white">
+                       <h5 class="modal-title" id="successModalLabel">Success</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                           id="successCloseButton"></button>
+                   </div>
+                   <div class="modal-body">
+                       CSV file downloaded successfully!
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                           id="successCloseButtonFooter">Close</button>
+                   </div>
+               </div>
+           </div>
+       </div>
 
-
-            <!-- Success Modal -->
-            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            CSV file downloaded successfully.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Error Modal -->
-            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" id="errorMessage">
-                            <!-- Error message will be inserted here by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <!-- Error Modal -->
+       <div class="modal fade" id="errorModal1" tabindex="-1" aria-labelledby="errorModalLabel"
+           aria-hidden="true">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header bg-danger text-white">
+                       <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                       <button type="button" class="btn-close" data-bs-dismiss="modal"
+                           aria-label="Close"></button>
+                   </div>
+                   <div class="modal-body" id="errorMessage">
+                       <!-- Error message will be inserted here by JavaScript -->
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                   </div>
+               </div>
+           </div>
+       </div>
 
         <!-- Include Bootstrap and jQuery JavaScript files -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -568,8 +553,11 @@
             $(document).ready(function() {
                 $('#exportForm').on('submit', function(e) {
                     e.preventDefault();
+                    exportData();
+                });
 
-                    var form = $(this);
+                function exportData() {
+                    var form = $('#exportForm');
                     var url = form.attr('action');
                     var formData = form.serialize();
                     var filename = $('#filename').val();
@@ -584,8 +572,8 @@
                         success: function(response, status, xhr) {
                             var disposition = xhr.getResponseHeader('content-disposition');
                             var matches = /"([^"]*)"/.exec(disposition);
-                            var downloadFilename = (matches != null && matches[1] ? matches[1] :
-                                filename + '.csv');
+                            var downloadFilename = (matches != null && matches[1] ? matches[1] : filename +
+                                '.csv');
 
                             var link = document.createElement('a');
                             link.href = window.URL.createObjectURL(response);
@@ -594,10 +582,21 @@
                             link.click();
                             document.body.removeChild(link);
 
+                            // Close export modal
+                            var exportModal = bootstrap.Modal.getInstance(document.getElementById(
+                                'exportModal'));
+                            exportModal.hide();
+
                             // Show success modal
                             var successModal = new bootstrap.Modal(document.getElementById(
-                                'successModal'));
+                                'successModal1'));
                             successModal.show();
+
+                            // Add event listeners to close buttons
+                            $('#successCloseButton, #successCloseButtonFooter').on('click', function() {
+                                window.location.href =
+                                    '/beneficiaries/admin-list'; // Replace with your actual view URL
+                            });
                         },
                         error: function(xhr) {
                             var errorMessage = xhr.responseJSON ? xhr.responseJSON.error :
@@ -605,12 +604,11 @@
                             $('#errorMessage').text(errorMessage);
 
                             // Show error modal
-                            var errorModal = new bootstrap.Modal(document.getElementById(
-                                'errorModal'));
+                            var errorModal = new bootstrap.Modal(document.getElementById('errorModal1'));
                             errorModal.show();
                         }
                     });
-                });
+                }
             });
 
             //Display Beneficiary Information Modal
@@ -820,34 +818,35 @@
 
             // Fetch form via AJAX and reapply checkbox logic
             function confirmEdit(beneficiaryId) {
-    // Show the custom modal instead of using the default confirm dialog
-    $('#confirmEditModal').modal('show');
+                // Show the custom modal instead of using the default confirm dialog
+                $('#confirmEditModal').modal('show');
 
-    // Handle the confirmation button click event
-    $('#confirmEditBtn').off('click').on('click', function () {
-        $.ajax({
-            url: '/beneficiaries/edit/' + beneficiaryId,
-            type: 'GET',
-            success: function (response) {
-                $('#editBeneficiaryModal .modal-body').html(response);
-                const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
-                    backdrop: 'static',
-                    keyboard: false
+                // Handle the confirmation button click event
+                $('#confirmEditBtn').off('click').on('click', function() {
+                    $.ajax({
+                        url: '/beneficiaries/edit/' + beneficiaryId,
+                        type: 'GET',
+                        success: function(response) {
+                            $('#editBeneficiaryModal .modal-body').html(response);
+                            const modal = new bootstrap.Modal(document.getElementById(
+                                'editBeneficiaryModal'), {
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            modal.show();
+
+                            // Reinitialize modal and checkboxes after content is loaded
+                            initializeModal();
+                            initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
+                        },
+                        error: function() {
+                            alert('Error loading beneficiary information.');
+                        }
+                    });
+                    // Hide the confirmation modal after confirming
+                    $('#confirmEditModal').modal('hide');
                 });
-                modal.show();
-
-                // Reinitialize modal and checkboxes after content is loaded
-                initializeModal();
-                initializeBeneficiaryCheckboxes(); // Reapply checkbox logic here
-            },
-            error: function () {
-                alert('Error loading beneficiary information.');
             }
-        });
-        // Hide the confirmation modal after confirming
-        $('#confirmEditModal').modal('hide');
-    });
-}
 
 
             // Initialize modal and checkbox logic on document ready

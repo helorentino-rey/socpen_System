@@ -547,7 +547,7 @@
                 </tr>
             </table>
 
-            <h4 class="section-title2">VI. RECOMMENDATION <span style="font-style:italic; font-size:12px;">(Rekomendasyon)</span></h4>
+            <h4 class="section-title">VI. RECOMMENDATION <span style="font-style:italic; font-size:11px;">(Rekomendasyon)</span></h4>
             <table class="table3">
                 <tr>
                     <td colspan="5" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;">{{ $beneficiary->assessmentRecommendation->eligibility ?? 'N/A' }}</td>
