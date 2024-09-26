@@ -19,6 +19,7 @@ use App\Http\Controllers\AddBeneficiaryController;
 use App\Http\Controllers\EditBeneficiaryController;
 use App\Http\Controllers\PaginationController;
 use App\Http\Controllers\CsvController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
@@ -142,7 +143,7 @@ Route::put('/beneficiaries/{id}', [EditBeneficiaryController::class, 'update'])-
 Route::get('/beneficiaries', [PaginationController::class, 'index']);
 
 //Export and Import Controller
-Route::post('/beneficiaries/import', [CsvController::class, 'import'])->name('beneficiaries.import');
+Route::post('/import-beneficiaries', [CsvController::class, 'import'])->name('import.beneficiaries');
 Route::get('/export-beneficiaries', [CsvController::class, 'export'])->name('beneficiaries.export');
 
 //Pdf Controller

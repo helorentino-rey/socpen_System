@@ -184,7 +184,6 @@ class AddBeneficiaryController extends Controller
             'middle_name' => $validatedData['middle_name'] ?? null,
             'name_extension' => $validatedData['name_extension'],
         ]);
-        Log::info('Beneficiary Info created with ID: ' . $beneficiary->id);
 
         // Save permanent address with names
         Address::create([
@@ -196,7 +195,6 @@ class AddBeneficiaryController extends Controller
             'sitio' => $validatedData['permanent_address_sitio'],
             'type' => 'permanent',
         ]);
-        Log::info('Permanent address created for beneficiary: ' . $beneficiary->id);
 
         // Save present address with names
         Address::create([
@@ -208,7 +206,6 @@ class AddBeneficiaryController extends Controller
             'sitio' => $validatedData['present_address_sitio'],
             'type' => 'present',
         ]);
-        Log::info('Present address created for beneficiary: ' . $beneficiary->id);
 
         // Save spouse address with names
         Address::create([
@@ -220,7 +217,6 @@ class AddBeneficiaryController extends Controller
             'sitio' => $validatedData['spouse_address_sitio'],
             'type' => 'spouse_address',
         ]);
-        Log::info('Spouse address created for beneficiary: ' . $beneficiary->id);
 
         // Create a new mother's maiden name record
         MothersMaidenName::create([
@@ -235,7 +231,6 @@ class AddBeneficiaryController extends Controller
             'sex' => $validatedData['sex'],
             'civil_status' => $validatedData['civil_status'],
         ]);
-        Log::info('Mother\'s maiden name created for beneficiary: ' . $beneficiary->id);
 
         // Concatenate the selected affiliations into a comma-separated string
         $affiliationTypeString = implode(', ', $validatedData['affiliation']);
@@ -248,8 +243,6 @@ class AddBeneficiaryController extends Controller
             'indigenous_specify' => $validatedData['indigenous_specify'] ?? null,
         ]);
 
-        Log::info('Affiliation created for beneficiary: ' . $beneficiary->id . ' with types: ' . $affiliationTypeString);
-
         // Create a new spouse record
         Spouse::create([
             'beneficiary_id' => $beneficiary->id,
@@ -259,11 +252,7 @@ class AddBeneficiaryController extends Controller
             'spouse_name_extension' => $validatedData['spouse_name_extension'],
             'spouse_contact' => $validatedData['spouse_contact'] ?? null,
         ]);
-        Log::info('Spouse created for beneficiary: ' . $beneficiary->id);
-
-        // Create a new child record
-        Log::info('Validated Data: ', $validatedData);
-
+ 
         // Create a new child record
         if (isset($validatedData['children']) && is_array($validatedData['children'])) {
             foreach ($validatedData['children'] as $childData) {
@@ -275,7 +264,6 @@ class AddBeneficiaryController extends Controller
                     'children_income' => $childData['income'] ?? null,
                     'children_contact_number' => $childData['contact_number'] ?? null,
                 ]);
-                Log::info('Child created for beneficiary: ' . $beneficiary->id);
             }
         }
 
@@ -288,7 +276,6 @@ class AddBeneficiaryController extends Controller
                     'representative_relationship' => $representativeData['relationship'] ?? null,
                     'representative_contact_number' => $representativeData['contact_number'] ?? null,
                 ]);
-                Log::info('Representative created for beneficiary: ' . $beneficiary->id);
             }
         }
 
@@ -305,8 +292,6 @@ class AddBeneficiaryController extends Controller
             'living_status_others_input' => $validatedData['living_status_others_input'] ?? null,
         ]);
 
-        Log::info('Housing living status created for beneficiary: ' . $beneficiary->id);
-
         //Economic Information
         EconomicInformation::create([
             'beneficiary_id' => $beneficiary->id,
@@ -321,8 +306,6 @@ class AddBeneficiaryController extends Controller
             'support_source' => $validatedData['support_source'] ?? null,
         ]);
 
-        Log::info('Economic information created for beneficiary: ' . $beneficiary->id);
-
         //Health Information
         HealthInformation::create([
             'beneficiary_id' => $beneficiary->id,
@@ -335,16 +318,12 @@ class AddBeneficiaryController extends Controller
             'experience_loss' => $validatedData['experience_loss'],
         ]);
 
-        Log::info('Health information created for beneficiary: ' . $beneficiary->id);
-
-
         //Eligibility and Remarks
         AssessmentRecommendation::create([
             'beneficiary_id' => $beneficiary->id,
             'remarks' => $validatedData['remarks'] ?? null,
             'eligibility' => $validatedData['eligibility'] ?? null,
         ]);
-        Log::info('Assessment recommendation created for beneficiary: ' . $beneficiary->id);
 
         // Redirect or return response
         return redirect()->back()->with('success', 'Beneficiary added successfully!');

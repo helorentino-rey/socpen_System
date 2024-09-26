@@ -53,11 +53,6 @@ class Beneficiary extends Model
         return $this->hasOne(BeneficiaryInfo::class);
     }
 
-    public function caregiver()
-    {
-        return $this->hasOne(Caregiver::class);
-    }
-
     public function child()
     {
         return $this->hasMany(Child::class);

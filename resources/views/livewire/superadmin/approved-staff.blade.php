@@ -3,45 +3,176 @@
 @section('title', 'Approved Staff')
 @section('content')
 <style>
+    /* Search Bar */
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+
+    }
+
+    .beneficiary-status {
+        margin-left: auto;
+        padding-left: 10px;
+        font-weight: bold;
+
+    }
+
+    /* Pagination */
+    .pagination .page-link {
+        font-size: 12px;
+        /* Adjust the size as needed */
+        padding: 0.25rem 0.5rem;
+        /* Make the arrows smaller */
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        /* Your active link color */
+        border-color: #007bff;
+    }
+
+    .pagination .page-link:hover {
+        background-color: rgba(0, 86, 179, 0.1);
+        /* Light blue background with transparency */
+        border-color: #0056b3;
+        /* Keep the border color */
+    }
+
     .table {
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-}
+        font-family: 'Arial', sans-serif;
+        font-size: 14px;
+    }
 
-.header-container {
-    display: flex;
-    align-items: center; /* Vertically aligns the heading and logos */
-    justify-content: space-between; /* Heading on the left, logos on the right */
-    border-bottom: 1.5px solid grey; /* Line under both heading and logos */
-    padding-bottom: -50px;
-    margin-bottom: 0;
-    margin-top: -30px;
-}
+    .form-control {
+        font-size: 20px;
+        padding: 5px;
+        font-family: 'Arial', sans-serif;
+        vertical-align: middle;
+    }
 
-.logos-container {
-    display: flex;
-    align-items: center; /* Ensures the logos are vertically aligned */
-}
+    .form-group {
+        margin-bottom: 5px;
+        font-family: 'Arial', sans-serif;
+    }
 
-.heading-border {
-    margin-right: 10px; /* Adds some space between the heading and logos */
-}
+    .text-center{
+        margin-top: 40px;
+    }
 
-.custom-btn-sm {
-    font-size: 14px; /* Smaller font size */
-    padding: 0.10rem 0.15rem; /* Adjust padding for a smaller button */
-    border-radius: 0.25rem; /* Adjust border radius for a smaller, rounded button */
-}
+    .form-row>.col-md-3,
+    .form-row>.col-md-2,
+    .form-row>.col-md-6 {
+        padding-right: 10px;
+        padding-left: 10px;
+        font-family: 'Arial', sans-serif;
+    }
 
-.dswd-logo {
-    height: 50px;
-    margin-left: 10px;
-}
+    .form-row>.col-md-1,
+    .form-row>.col-md-4,
+    .form-row>.col-md-5 {
+        padding-right: 5px;
+        padding-left: 5px;
+        font-family: 'Arial', sans-serif;
+    }
 
-.social-pension-logo {
-    height: 100px;
-    margin-left: 10px;
-    margin-bottom: 9px;
+    .custom-form-row {
+        display: flex;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .custom-form-row .form-control {
+        height: 28px;
+        font-size: 13px;
+        border-radius: 5px;
+        font-family: 'Arial', sans-serif;
+        vertical-align: auto;
+        border: 1px solid #4d4dff;
+    }
+
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1.5px solid grey;
+        padding-bottom: -50px;
+        margin-bottom: 0;
+        margin-top: -30px;
+    }
+
+    .card {
+        border-left: 5px solid blue;
+    }
+
+    .logos-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .heading-border {
+        margin-right: 10px;
+    }
+
+    .custom-btn-sm {
+        font-size: 14px;
+        padding: 0.10rem 0.15rem;
+        border-radius: 0.25rem;
+    }
+
+    .dswd-logo {
+        height: 50px;
+        margin-left: 10px;
+    }
+
+    .social-pension-logo {
+        height: 100px;
+        margin-left: 10px;
+        margin-bottom: 9px;
+    }
+
+    .label1 {
+        text-align: center;
+        font-size: 14px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .text-center1{
+        margin-top: -10px;
+        text-align: center;
+    }
+
+    .icon-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #f54242;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .icon-style {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .acm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        margin:auto;
+    }
+
+    .custom-bton {
+    background-color: transparent;
+    border: 2px solid #4d4dff;
+    color: #4d4dff;
 }
 </style>
 <div class="header-container">
@@ -55,99 +186,179 @@
 <br>
 <br>
 <!-- Search Beneficiaries content -->
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Staff Name</th>
-            <th>Assigned Province</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($staff as $staffMember)
-        <tr>
-            <td onclick="showStaffDetails({{ $staffMember->id }})" style="cursor: pointer;">
-                {{ $staffMember->lastname }}, {{ $staffMember->firstname }} {{ $staffMember->middlename }}
-            </td>
-            <td>{{ $staffMember->assigned_province }}</td>
-            <td>
-                <span class="badge {{ $staffMember->status == 'active' ? 'bg-success' : 'bg-danger' }}">
-                    {{ ucfirst($staffMember->status) }}
-                </span>
-            </td>
-            <td>
-                <form action="{{ route('superadmin.approveStaff', ['id' => $staffMember->id]) }}" method="POST"
-                    style="display: inline;" onsubmit="return confirmAction(event, '{{ $staffMember->status }}')">
-                    @csrf
-                    @method('PATCH')
-                    @if ($staffMember->status == 'pending')
-                    <button type="submit" class="btn btn-sm btn-primary custom-btn-sm">Approve</button>
-                    @else
-                    <button type="submit" class="btn btn-sm btn-warning custom-btn-sm">Deactivate</button>
-                    @endif
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+<div class="my-5 px-4" style="font-family: 'Arial', sans-serif;">
+    <div class="card shadow-sm p-4 rounded">
+        <table class="table table-borderless w-100">
+            <thead class="border-bottom">
+                <tr>
+                    <th scope="col">Staff Name</th>
+                    <th scope="col">Assigned Province</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($staff as $staffMember)
+                <tr>
+                    <td onclick="showStaffDetails({{ $staffMember->id }})" style="cursor: pointer;">
+                        {{ $staffMember->lastname }}, {{ $staffMember->firstname }} {{ $staffMember->middlename }}
+                    </td>
+                    <td>{{ $staffMember->assigned_province }}</td>
+                    <td>
+                        <span class="badge {{ $staffMember->status == 'active' ? 'bg-success' : 'bg-danger' }}">
+                            {{ ucfirst($staffMember->status) }}
+                        </span>
+                    </td>
+                    <td>
+                        <form action="{{ route('superadmin.approveStaff', ['id' => $staffMember->id]) }}" method="POST"
+                            style="display: inline;" onsubmit="return confirmAction(event, '{{ $staffMember->status }}')">
+                            @csrf
+                            @method('PATCH')
+                            @if ($staffMember->status == 'pending')
+                            <button type="submit" class="btn btn-sm btn-primary custom-btn-sm">Approve</button>
+                            @else
+                            <button type="submit" class="btn btn-sm btn-warning custom-btn-sm">Deactivate</button>
+                            @endif
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-<!-- Modal -->
-<div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="staffDetailsModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staffDetailsModalLabel">Staff Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center mb-3">
-                    <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
-                        style="width: 150px; height: 150px; object-fit: cover; border: 1.5px solid #1C4CB1;">
+        <!-- Modal -->
+        <div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="staffDetailsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staffDetailsModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center1 mb-3">
+                            <img id="staff-image" src="/path/to/default-image.jpg" alt="Staff Image" class="img-fluid"
+                                style="width: 150px; height: 150px; object-fit: cover; border: 1.5px solid #1C4CB1;">
+                        </div>
+                        <div class="form-group">
+                            <div class="text-center">
+                                <label class="label"><strong>Staff Information</strong></label>
+                            </div>
+                            <div class="form-row custom-form-row" style="margin-top:10px;">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="last_name"><strong style="font-size: 13px;">Last Name:</strong></label>
+                                    <span class="form-control" id="staff-lastname"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="first_name"><strong style="font-size: 13px;">First Name:</strong></label>
+                                    <span class="form-control" id="staff-firstname"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row custom-form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="middle_name"><strong style="font-size: 13px;">Middle Name:</strong> </label>
+                                    <span class="form-control" id="staff-middlename"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="name_extension"><strong style="font-size: 13px;">Name Extension:</strong></label>
+                                    <span class="form-control" id="staff-name_extension"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row custom-form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="last_name"><strong style="font-size: 13px;">Sex:</strong></label>
+                                    <span class="form-control" id="staff-sex"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="first_name"><strong style="font-size: 13px;">Birthday:</strong></label>
+                                    <span class="form-control" id="staff-birthday"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row custom-form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="middle_name"><strong style="font-size: 13px;">Age:</strong> </label>
+                                    <span class="form-control" id="staff-age"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="name_extension"><strong style="font-size: 13px;">Marital Status:</strong></label>
+                                    <span class="form-control" id="staff-marital_status"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row custom-form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="last_name"><strong style="font-size: 13px;">Contact Number:</strong></label>
+                                    <span class="form-control" id="staff-contact_number"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="first_name"> <strong style="font-size: 13px;">Address:</strong></label>
+                                    <span class="form-control" id="staff-address"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-center">
+                                <label class="label"><strong>Employee Information</strong></label>
+                            </div>
+                            <div class="form-row custom-form-row" style="margin-top:10px;">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="middle_name"><strong style="font-size: 13px;">Employee ID:</strong> </label>
+                                    <span class="form-control" id="staff-employee_id"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="name_extension"><strong style="font-size: 13px;">Email:</strong></label>
+                                    <span class="form-control" id="staff-email"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row custom-form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="last_name"><strong style="font-size: 13px;">Assigned Province:</strong> </label>
+                                    <span class="form-control" id="staff-assigned_province"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="ltitle" for="first_name"><strong style="font-size: 13px;">Status:</strong></label>
+                                    <span class="form-control" id="staff-status"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <p><strong>Last Name:</strong> <span id="staff-lastname"></span></p>
-                    <p><strong>First Name:</strong> <span id="staff-firstname"></span></p>
-                    <p><strong>Middle Name:</strong> <span id="staff-middlename"></span></p>
-                    <p><strong>Name Extension:</strong> <span id="staff-name_extension"></span></p>
-                    <p><strong>Sex:</strong> <span id="staff-sex"></span></p>
-                    <p><strong>Birthday:</strong> <span id="staff-birthday"></span></p>
-                    <p><strong>Age:</strong> <span id="staff-age"></span></p>
-                    <p><strong>Marital Status:</strong> <span id="staff-marital_status"></span></p>
-                    <p><strong>Contact Number:</strong> <span id="staff-contact_number"></span></p>
-                    <p><strong>Address:</strong> <span id="staff-address"></span></p>
-                    <p><strong>Employee ID:</strong> <span id="staff-employee_id"></span></p>
-                    <p><strong>Email:</strong> <span id="staff-email"></span></p>
-                    <p><strong>Assigned Province:</strong> <span id="staff-assigned_province"></span></p>
-                    <p><strong>Status:</strong> <span id="staff-status"></span></p>
-                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        <!-- Confirmation Modal -->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content acm">
+                <div class="icon-container">
+                        <i class="bi bi-question-lg icon-style"></i>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmationMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="confirmActionButton">Confirm</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirm Action</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p id="confirmationMessage"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmActionButton">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <script>

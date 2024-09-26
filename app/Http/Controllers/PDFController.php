@@ -16,7 +16,6 @@ class PDFController extends Controller
             'affiliation',
             'assessmentRecommendation',
             'beneficiaryInfo',
-            'caregiver',
             'child',
             'economicInformation',
             'healthInformation',
