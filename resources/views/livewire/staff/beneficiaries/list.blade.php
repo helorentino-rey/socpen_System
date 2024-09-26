@@ -108,6 +108,71 @@
         .form-control {
             font-size: 14px;
         }
+
+        .icon-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .iconic-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2db300;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .iconic-containers {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .icon-style {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .acm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            margin: auto;
+        }
+
+        .dlg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
+
+        .custom-bton {
+            background-color: transparent;
+            border: 2px solid #4d4dff;
+            color: #4d4dff;
+        }
     </style>
 
     <!-- Top nav bar -->
@@ -299,18 +364,16 @@
             <!-- Success Modal -->
             <div class="modal fade" id="successModal1" tabindex="-1" aria-labelledby="successModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-success text-white">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="successCloseButton"></button>
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-check-lg icon-style"></i>
                         </div>
                         <div class="modal-body">
                             CSV file downloaded successfully!
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                 id="successCloseButtonFooter">Close</button>
                         </div>
                     </div>
@@ -320,18 +383,18 @@
             <!-- Error Modal -->
             <div class="modal fade" id="errorModal1" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-danger text-white">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="modal-header">
+                            <div class="iconic-containers">
+                                <i class="bi bi-x-lg icon-style"></i>
+                            </div>
                         </div>
                         <div class="modal-body" id="errorMessage">
                             <!-- Error message will be inserted here by JavaScript -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -383,13 +446,13 @@
 
                                 // Show success modal
                                 var successModal = new bootstrap.Modal(document.getElementById(
-                                'successModal1'));
+                                    'successModal1'));
                                 successModal.show();
 
                                 // Add event listeners to close buttons
                                 $('#successCloseButton, #successCloseButtonFooter').on('click', function() {
                                     window.location.href =
-                                    '/beneficiary/list'; // Replace with your actual view URL
+                                        '/beneficiary/list'; // Replace with your actual view URL
                                 });
                             },
                             error: function(xhr) {

@@ -139,6 +139,33 @@
             margin-top: 10px;
         }
 
+        .iconic-containers {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+
+        .icon-containers {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #ffd500;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
         .icon-style {
             color: white;
             font-size: 2.5rem;
@@ -425,18 +452,18 @@
             <!-- Error Modal -->
             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <div class="iconic-containers">
+                                <i class="bi bi-x-lg icon-style"></i>
+                            </div>
                         </div>
                         <div class="modal-body">
                             {{ session('error') }}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -513,12 +540,12 @@
             <!-- Confirm Delete Modal -->
             <div class="modal fade" id="confirmDeleteModal1" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <div class="icon-containers">
+                                <i class="bi bi-question-lg icon-style"></i>
+                            </div>
                         </div>
                         <div class="modal-body">
                             Do you want to delete the data from the database after exporting?
@@ -535,18 +562,16 @@
             <!-- Success Modal -->
             <div class="modal fade" id="successModal1" tabindex="-1" aria-labelledby="successModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-success text-white">
-                            <h5 class="modal-title" id="successModalLabel">Success</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="successCloseButton"></button>
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-check-lg icon-style"></i>
                         </div>
                         <div class="modal-body">
                             CSV file downloaded successfully!
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                 id="successCloseButtonFooter">Close</button>
                         </div>
                     </div>
@@ -556,18 +581,18 @@
             <!-- Error Modal -->
             <div class="modal fade" id="errorModal1" tabindex="-1" aria-labelledby="errorModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-danger text-white">
-                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="modal-header">
+                            <div class="iconic-containers">
+                                <i class="bi bi-x-lg icon-style"></i>
+                            </div>
                         </div>
                         <div class="modal-body" id="errorMessage">
                             <!-- Error message will be inserted here by JavaScript -->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -630,13 +655,13 @@
 
                                 // Show success modal
                                 var successModal = new bootstrap.Modal(document.getElementById(
-                                'successModal1'));
+                                    'successModal1'));
                                 successModal.show();
 
                                 // Add event listeners to close buttons
                                 $('#successCloseButton, #successCloseButtonFooter').on('click', function() {
                                     window.location.href =
-                                    '/superadmin/beneficiaries/list'; // Replace with your actual view URL
+                                        '/superadmin/beneficiaries/list'; // Replace with your actual view URL
                                 });
                             },
                             error: function(xhr) {
@@ -747,34 +772,6 @@
                         }
                     });
                 }
-
-                //     document.getElementById('confirmExportButton').addEventListener('click', function() {
-                //         // Show the confirmation modal when the user clicks Export
-                //         $('#confirmModal').modal('show');
-                //     });
-
-                //     document.getElementById('deleteAfterExportButton').addEventListener('click', function() {
-                //         // Set the delete_data parameter to true and submit the form
-                //         const exportForm = document.getElementById('exportForm');
-                //         const deleteInput = document.createElement('input');
-                //         deleteInput.type = 'hidden';
-                //         deleteInput.name = 'delete_data';
-                //         deleteInput.value = 'true';
-                //         exportForm.appendChild(deleteInput);
-                //         exportForm.submit();
-                //     });
-
-                //     document.getElementById('keepAfterExportButton').addEventListener('click', function() {
-                //         // Set the delete_data parameter to false and submit the form
-                //         const exportForm = document.getElementById('exportForm');
-                //         const deleteInput = document.createElement('input');
-                //         deleteInput.type = 'hidden';
-                //         deleteInput.name = 'delete_data';
-                //         deleteInput.value = 'false';
-                //         exportForm.appendChild(deleteInput);
-                //         exportForm.submit();
-                //     });
-
 
                 //Success and Error
                 document.addEventListener('DOMContentLoaded', function() {

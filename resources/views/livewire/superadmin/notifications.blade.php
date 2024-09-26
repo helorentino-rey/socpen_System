@@ -69,38 +69,38 @@
         }
 
         .form-control {
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    height: 30px;
-    font-size: 12px;
-    font-family: 'Arial', sans-serif;
-    width: 50%;
-    max-width: 150px;
-    margin-left: 5px;
-}
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            height: 30px;
+            font-size: 13px;
+            font-family: 'Arial', sans-serif;
+            width: 50%;
+            max-width: 150px;
+            margin-left: 5px;
+        }
 
-.form-group{
-    margin-top: 10px;
-}
+        .form-group {
+            margin-top: 10px;
+        }
     </style>
 
     <div class="container">
-    <div class="header-container">
-        <h1 class="heading-border">Notification Center</h1>
-        <div class="logos-container">
-            <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
-            <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="social-pension-logo">
+        <div class="header-container">
+            <h1 class="heading-border">Notification Center</h1>
+            <div class="logos-container">
+                <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
+                <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="social-pension-logo">
+            </div>
         </div>
-    </div>
 
         <!-- Date Filter Form -->
         <form method="GET" action="{{ route('logs') }}">
-    <div class="form-group d-flex align-items-center">
-        <label for="date" class="mb-0">Filter by Date:</label>
-        <input type="date" id="date" name="date" class="form-control" value="{{ request('date') }}">
-    </div>
-    <button type="submit" class="btn btn-primary btn-sm mt-2">Filter</button>
-</form>
+            <div class="form-group d-flex align-items-center">
+                <label for="date" class="mb-0">Filter by Date:</label>
+                <input type="date" id="date" name="date" class="form-control" value="{{ request('date') }}">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm mt-2">Filter</button>
+        </form>
 
         <div class="notification-container">
             @foreach ($logs as $log)
