@@ -184,6 +184,12 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
+                            data-bs-target="#importModal">
+                            <i class="bi bi-file-earmark-arrow-down"></i> Import Beneficiary
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
                             data-bs-target="#exportModal">
                             <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
                         </a>
