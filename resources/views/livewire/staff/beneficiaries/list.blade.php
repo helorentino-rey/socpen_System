@@ -269,6 +269,42 @@
                 </tbody>
             </table>
 
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-check-lg icon-style"></i>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('success') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="modal-header">
+                            <div class="iconic-containers">
+                                <i class="bi bi-x-lg icon-style"></i>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            {{ session('error') }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Modal to Display Beneficiary Information -->
             <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel"
                 aria-hidden="true">
@@ -284,25 +320,25 @@
                 </div>
             </div>
 
-               <!-- Custom Confirm Edit Modal -->
-               <div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog"
-               aria-labelledby="confirmEditModalLabel" aria-hidden="true">
-               <div class="modal-dialog modal-dialog-centered" role="document">
-                   <div class="modal-content acm">
-                       <div class="icon-container">
-                           <i class="bi bi-question-lg icon-style"></i>
-                       </div>
-                       <div class="modal-body">
-                           Are you sure you want to edit this beneficiary?
-                       </div>
-                       <div class="modal-footer">
-                           <button type="button" class="btn btn-secondary custom-bton"
-                               data-bs-dismiss="modal">Cancel</button>
-                           <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
-                       </div>
-                   </div>
-               </div>
-           </div>
+            <!-- Custom Confirm Edit Modal -->
+            <div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog"
+                aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content acm">
+                        <div class="icon-container">
+                            <i class="bi bi-question-lg icon-style"></i>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to edit this beneficiary?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary custom-bton"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Modal to Update Beneficiary Information -->
             <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
@@ -343,7 +379,6 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
             <script>
-               
                 //Display Beneficiary Information Modal
                 $(document).ready(function() {
                     $('.beneficiary-name').click(function(e) {
@@ -439,6 +474,19 @@
                         }
                     });
                 }
+
+                //Success and Error
+                document.addEventListener('DOMContentLoaded', function() {
+                    @if (session('success'))
+                        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    @endif
+
+                    @if (session('error'))
+                        var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                        errorModal.show();
+                    @endif
+                });
             </script>
             <script>
                 // Update Beneficiary Information

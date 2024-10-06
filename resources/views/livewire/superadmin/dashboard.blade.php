@@ -420,7 +420,7 @@
                 datasets: [{
                     label: 'Beneficiaries by Sex',
                     data: sexDataValues,
-                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    backgroundColor: ['#36A2EB', '#FF6384', '#a84db8'],
                     borderWidth: 1
                 }]
             };

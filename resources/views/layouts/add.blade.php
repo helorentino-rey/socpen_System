@@ -480,8 +480,7 @@
         .form-group label {
             margin-bottom: 5px;
         }
-
-       
+        
         /* For icon design */
         .icon-container {
             display: inline-flex;

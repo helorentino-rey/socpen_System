@@ -361,7 +361,7 @@
                             <option value="Davao Oriental">Davao Oriental</option>
                             <option value="Davao Occidental">Davao Occidental</option>
                         </select>
-                        <input type="file" id="profile_picture" name="profile_picture" required>
+                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required>
                     </div>
 
 

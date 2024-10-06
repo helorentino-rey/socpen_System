@@ -497,6 +497,29 @@
             margin-top: 10px;
         }
 
+        .icon-style {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .icon-styles {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .iconic-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2db300;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
         /* For modal content */
         .acm {
             display: flex;
@@ -511,6 +534,13 @@
             background-color: transparent;
             border: 2px solid #4d4dff;
             color: #4d4dff;
+        }
+
+        .dlg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
         }
     </style>
 
