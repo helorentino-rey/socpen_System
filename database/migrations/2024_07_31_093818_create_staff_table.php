@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->string('lastname', 15);
-            $table->string('firstname', 15);
-            $table->string('middlename', 15)->nullable();
+            $table->string('lastname', 20);
+            $table->string('firstname', 25);
+            $table->string('middlename', 20)->nullable();
             $table->string('name_extension', 4)->nullable();
             $table->enum('sex', ['Male', 'Female',  'Prefer not to say']);
             $table->date('birthday');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->string('password', 150);
             $table->string('assigned_province', 20);
-            $table->string('profile_picture')->nullable();
+            $table->string('profile_picture', 100)->nullable();
             $table->enum('status', ['pending', 'active'])->default('pending');
             $table->string('usertype', 15)->default('staff');
             $table->timestamps();

@@ -496,6 +496,29 @@
         margin-top: 10px;
     }
 
+    .icon-style {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .icon-styles {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .iconic-container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #2db300;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        text-align: center;
+        margin-top: 10px;
+    }
+
     /* For modal content */
     .acm {
         display: flex;
@@ -510,6 +533,13 @@
         background-color: transparent;
         border: 2px solid #4d4dff;
         color: #4d4dff;
+    }
+
+    .dlg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 60px);
     }
 </style>
 
@@ -814,7 +844,7 @@
                     <label class="label" for="osca_id"><strong>OSCA ID No. <span
                                 class="text-danger">*</span></strong></label>
                     <input type="text" class="form-control1" name="osca_id" id="osca_id"
-                        value="{{ $beneficiary->osca_id }}" required>
+                        value="{{ $beneficiary->osca_id }}" required maxlength="25">
                 </div>
 
                 <div class="col-md-4">
@@ -828,7 +858,7 @@
                 <div class="col-md-4">
                     <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span
                                 class="text-danger">*</span></strong></label>
-                    <input type="file" class="form-control" name="profile_upload" id="profile_upload">
+                    <input type="file" class="form-control" name="profile_upload" accept="image/*" id="profile_upload">
                 </div>
             </div>
             <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng
@@ -843,7 +873,7 @@
                             pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
-                            value="{{ $beneficiary->BeneficiaryInfo->last_name }}" required>
+                            value="{{ $beneficiary->BeneficiaryInfo->last_name }}" required maxlength="20">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="first_name">First Name <span class="text-danger">*</span></label>
@@ -851,12 +881,12 @@
                             pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
-                            value="{{ $beneficiary->BeneficiaryInfo->first_name }}" required>
+                            value="{{ $beneficiary->BeneficiaryInfo->first_name }}" required maxlength="25">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="middle_name">Middle Name </label>
-                        <input type="text" class="form-control" name="middle_name" id="middle_name"
-                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                        <input maxlength="20" type="text" class="form-control" name="middle_name"
+                            id="middle_name" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ $beneficiary->BeneficiaryInfo->middle_name }}">
@@ -916,7 +946,7 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_last_name', $beneficiary->MothersMaidenName->mother_last_name) }}"
-                            required>
+                            required maxlength="20">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_first_name">First Name <span
@@ -926,12 +956,12 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_first_name', $beneficiary->MothersMaidenName->mother_first_name) }}"
-                            required>
+                            required maxlength="25">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="mother_middle_name">Middle Name </label>
-                        <input type="text" class="form-control" name="mother_middle_name" id="mother_middle_name"
-                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                        <input maxlength="20" type="text" class="form-control" name="mother_middle_name"
+                            id="mother_middle_name" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('mother_middle_name', $beneficiary->MothersMaidenName->mother_middle_name) }}">
@@ -1010,7 +1040,8 @@
                         <input type="text" class="form-control" name="permanent_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
                             title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
-                            value="{{ old('permanent_address_sitio', $permanentAddress->sitio ?? '') }}" required>
+                            value="{{ old('permanent_address_sitio', $permanentAddress->sitio ?? '') }}" required
+                            maxlength="30">
                     </div>
                 </div>
             </div>
@@ -1083,7 +1114,8 @@
                         <input type="text" class="form-control" name="present_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
                             title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
-                            value="{{ old('present_address_sitio', $presentAddress->sitio ?? '') }}" required>
+                            value="{{ old('present_address_sitio', $presentAddress->sitio ?? '') }}" required
+                            maxlength="30">
                     </div>
                 </div>
             </div>
@@ -1109,7 +1141,7 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('place_of_birth_city', $beneficiary->MothersMaidenName->place_of_birth_city ?? '') }}"
-                            required>
+                            required maxlength="30">
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="ltitle" for="place_of_birth_city">Province <span
@@ -1119,7 +1151,7 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('place_of_birth_province', $beneficiary->MothersMaidenName->place_of_birth_province ?? '') }}"
-                            required>
+                            required maxlength="30">
                     </div>
                 </div>
             </div>
@@ -1135,13 +1167,16 @@
                     <label class="label" for="sex"><strong>8. SEX <span
                                 class="text-danger">*</span></strong></label>
                     <select name="sex" id="sex" class="form-control" required>
-                        <option value="">Select Gender</option>
+                        <option value="">Select Sex</option>
                         <option value="Male"
                             {{ old('sex', $beneficiary->MothersMaidenName->sex ?? '') == 'Male' ? 'selected' : '' }}>
                             Male</option>
                         <option value="Female"
                             {{ old('sex', $beneficiary->MothersMaidenName->sex ?? '') == 'Female' ? 'selected' : '' }}>
                             Female</option>
+                        <option value="Prefer Not to Say"
+                            {{ old('sex', $beneficiary->MothersMaidenName->sex ?? '') == 'Prefer Not to Say' ? 'selected' : '' }}>
+                            Prefer Not to Say</option>
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -1191,8 +1226,8 @@
                                 4Ps)</label>
                         </div>
                         <input type="text" class="form-control mt-2" name="hh_id" id="hh_id"
-                            style="display:none;" placeholder="Specify HH ID (Itala)" pattern="[0-9\-]*"
-                            title="Please enter only numbers and dashes"
+                            style="display:none;" placeholder="Specify HH ID (Itala)" maxlength="25"
+                            pattern="[0-9\-]*" title="Please enter only numbers and dashes"
                             value="{{ $beneficiary->affiliation->hh_id ?? '' }}">
                     </div>
 
@@ -1206,7 +1241,7 @@
                         </div>
                         <input type="text" class="form-control mt-2" name="indigenous_specify"
                             id="indigenous_specify" style="display:none;" placeholder="Specify (Itala)"
-                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            maxlength="25" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ $beneficiary->affiliation->indigenous_specify ?? '' }}">
@@ -1228,7 +1263,7 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_last_name', $beneficiary->spouse->spouse_last_name ?? '') }}"
-                            required>
+                            required maxlength="20">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_first_name">First Name <span
@@ -1238,12 +1273,12 @@
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_first_name', $beneficiary->spouse->spouse_first_name ?? '') }}"
-                            required>
+                            required maxlength="25">
                     </div>
                     <div class="col-md-3 mb-3">
                         <label class="ltitle" for="spouse_middle_name">Middle Name </label>
                         <input type="text" class="form-control" name="spouse_middle_name" id="spouse_middle_name"
-                            pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            maxlength="20" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                             title="Please enter only letters, starting each word with a capital letter"
                             oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())"
                             value="{{ old('spouse_middle_name', $beneficiary->spouse->spouse_middle_name ?? '') }}">
@@ -1363,7 +1398,8 @@
                         <input type="text" class="form-control" name="spouse_address_sitio"
                             placeholder="Sitio/House No./Purok/Street" pattern="[A-Za-z0-9,\s\-\/]*"
                             title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
-                            value="{{ old('spouse_address_sitio', $spouseAddress->sitio ?? '') }}" required>
+                            value="{{ old('spouse_address_sitio', $spouseAddress->sitio ?? '') }}" required
+                            maxlength="30">
                     </div>
                 </div>
             </div>
@@ -1399,7 +1435,8 @@
                         @foreach ($beneficiary->child as $index => $child)
                             <tr>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][name]" pattern="[A-Za-z\s\.]*"
+                                        name="children[{{ $index }}][name]" maxlength="50"
+                                        pattern="[A-Za-z\s\.]*"
                                         title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $child->children_name }}"></td>
                                 <td>
@@ -1420,13 +1457,13 @@
                                     </select>
                                 </td>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][occupation]"
+                                        name="children[{{ $index }}][occupation]" maxlength="50"
                                         pattern="[A-Za-z0-9,\s\-\/]*"
                                         title="Please enter a valid occupation (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
                                         value="{{ $child->children_occupation }}"></td>
                                 <td><input type="text" class="form-control"
-                                        name="children[{{ $index }}][income]" pattern="[0-9,]*"
-                                        title="Please enter only numbers and commas"
+                                        name="children[{{ $index }}][income]" maxlength="10"
+                                        pattern="[0-9,]*" title="Please enter only numbers and commas"
                                         value="{{ $child->children_income }}">
                                 </td>
                                 <td><input type="text" class="form-control"
@@ -1458,11 +1495,12 @@
                         @foreach ($beneficiary->representative as $index => $representative)
                             <tr>
                                 <td><input type="text" class="form-control"
-                                        name="representatives[{{ $index }}][name]" pattern="[A-Za-z\s\.]*"
+                                        name="representatives[{{ $index }}][name]" maxlength="50"
+                                        pattern="[A-Za-z\s\.]*"
                                         title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $representative->representative_name }}"></td>
                                 <td><input type="text" class="form-control"
-                                        name="representatives[{{ $index }}][relationship]"
+                                        name="representatives[{{ $index }}][relationship]" maxlength="20"
                                         pattern="[A-Za-z\s\.]*"
                                         title="Please enter a valid name (letters, spaces, and periods are allowed)"
                                         value="{{ $representative->representative_relationship }}"></td>
@@ -1504,7 +1542,7 @@
                         <input type="text" class="form-control mt-2" name="house_status_others_input"
                             id="house_status_others_input"
                             style="display: {{ in_array('Others', $houseStatus) ? 'block' : 'none' }};"
-                            placeholder="Specify other house status" pattern="[A-Za-z\s]*"
+                            placeholder="Specify other house status" maxlength="25" pattern="[A-Za-z\s]*"
                             title="Please enter a valid house status (letters, and spaces are allowed)"
                             value="{{ $beneficiary->housingLivingStatus->house_status_others_input ?? '' }}">
                     </div>
@@ -1530,7 +1568,7 @@
                         <input type="text" class="form-control mt-2" name="living_status_others_input"
                             id="living_status_others_input"
                             style="display: {{ in_array('Others', $livingStatus) ? 'block' : 'none' }};"
-                            placeholder="Specify other living status" pattern="[A-Za-z\s]*"
+                            placeholder="Specify other living status" maxlength="25" pattern="[A-Za-z\s]*"
                             title="Please enter a valid house status (letters, and spaces are allowed)"
                             value="{{ $beneficiary->housingLivingStatus->living_status_others_input ?? '' }}">
                     </div>
@@ -1566,14 +1604,14 @@
                                     No
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="pension_amount"
-                                        name="pension_amount" placeholder="Enter amount" pattern="[0-9,]*"
-                                        title="Please enter only numbers and commas"
+                                        name="pension_amount" placeholder="Enter amount" maxlength="10"
+                                        pattern="[0-9,]*" title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->pension_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="pension_source"
-                                        name="pension_source" placeholder="Enter source" pattern="[A-Za-z,]*"
-                                        title="Please enter only letters and commas"
+                                        name="pension_source" placeholder="Enter source" maxlength="25"
+                                        pattern="[A-Za-z,]*" title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->pension_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->receiving_pension == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1593,14 +1631,14 @@
                                     No
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="income_amount"
-                                        name="income_amount" placeholder="Enter amount" pattern="[0-9,]*"
-                                        title="Please enter only numbers and commas"
+                                        name="income_amount" placeholder="Enter amount" maxlength="10"
+                                        pattern="[0-9,]*" title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->income_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="income_source"
-                                        name="income_source" placeholder="Enter source" pattern="[A-Za-z,]*"
-                                        title="Please enter only letters and commas"
+                                        name="income_source" placeholder="Enter source" maxlength="25"
+                                        pattern="[A-Za-z,]*" title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->income_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->permanent_income == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1620,14 +1658,14 @@
                                     No
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="support_amount"
-                                        name="support_amount" placeholder="Enter amount" pattern="[0-9,]*"
-                                        title="Please enter only numbers and commas"
+                                        name="support_amount" placeholder="Enter amount" maxlength="10"
+                                        pattern="[0-9,]*" title="Please enter only numbers and commas"
                                         value="{{ $beneficiary->economicInformation->support_amount ?? '' }}"
                                         {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="support_source"
-                                        name="support_source" placeholder="Enter source" pattern="[A-Za-z,]*"
-                                        title="Please enter only letters and commas"
+                                        name="support_source" placeholder="Enter source" maxlength="25"
+                                        pattern="[A-Za-z,]*" title="Please enter only letters and commas"
                                         value="{{ $beneficiary->economicInformation->support_source ?? '' }}"
                                         {{ $beneficiary->economicInformation->regular_support == 'Yes' ? '' : 'disabled' }} />
                                 </td>
@@ -1662,8 +1700,8 @@
                                     None
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="illness_specify"
-                                        name="illness_specify" placeholder="Specify" pattern="[A-Za-z,]*"
-                                        title="Please enter only letters and commas"
+                                        name="illness_specify" placeholder="Specify" maxlength="45"
+                                        pattern="[A-Za-z,]*" title="Please enter only letters and commas"
                                         {{ $beneficiary->healthInformation->existing_illness == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->illness_specify ?? '' }}" /></td>
                             </tr>
@@ -1679,8 +1717,8 @@
                                     None
                                 </td>
                                 <td><input type="text" class="form-control mt-2" id="disability_specify"
-                                        name="disability_specify" placeholder="Specify" pattern="[A-Za-z,]*"
-                                        title="Please enter only letters and commas"
+                                        name="disability_specify" placeholder="Specify" maxlength="45"
+                                        pattern="[A-Za-z,]*" title="Please enter only letters and commas"
                                         {{ $beneficiary->healthInformation->with_disability == 'Yes' ? '' : 'disabled' }}
                                         value="{{ $beneficiary->healthInformation->disability_specify ?? '' }}" />
                                 </td>
@@ -1741,7 +1779,7 @@
                 <label><strong></strong></label>
                 <div class="form-row custom-form-row">
                     <div class="col-md-12 mb-3">
-                        <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="85">{{ $beneficiary->assessmentRecommendation->remarks ?? '' }}</textarea>
+                        <textarea rows="4" id="remarks" name="remarks" class="remarks" maxlength="100" cols="85">{{ $beneficiary->assessmentRecommendation->remarks ?? '' }}</textarea>
                     </div>
                 </div>
             </div>

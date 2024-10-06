@@ -790,7 +790,6 @@
     </script>
 
     <!-- Page Content -->
-
     <body>
         <div class="container mt-5">
             <div class="logos">
@@ -834,7 +833,7 @@
                     <div class="col-md-4">
                         <label class="label" for="osca_id"><strong>OSCA ID No. <span
                                     class="text-danger">*</span></strong></label>
-                        <input type="text" class="form-control1" name="osca_id" id="osca_id" required>
+                        <input type="text" class="form-control1" name="osca_id" id="osca_id" required maxlength="25">
                     </div>
 
                     <div class="col-md-4">
@@ -847,7 +846,8 @@
                     <div class="col-md-4">
                         <label class="label" for="profile_upload"><strong>Upload Profile Picture: <span
                                     class="text-danger">*</span></strong></label>
-                        <input type="file" class="form-control" name="profile_upload" id="profile_upload" required>
+                        <input type="file" class="form-control" name="profile_upload" id="profile_upload"
+                            accept="image/*" required>
                     </div>
                 </div>
                 <h4 class="section-title mb-3">I. IDENTIFYING INFORMATION <span style="font-style:italic;">(Pagkilala ng
@@ -859,21 +859,21 @@
                         <div class="col-md-3 mb-3">
                             <label class="ltitle" for="last_name">Last Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="last_name" id="last_name" required
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                maxlength="20" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="ltitle" for="first_name">First Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="first_name" id="first_name" required
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                maxlength="25" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="ltitle" for="middle_name">Middle Name </label>
-                            <input type="text" class="form-control" name="middle_name" id="middle_name"
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            <input maxlength="20" type="text" class="form-control" name="middle_name"
+                                id="middle_name" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -906,7 +906,7 @@
                             <label class="ltitle" for="mother_last_name">Last Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="mother_last_name" id="mother_last_name"
-                                required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                required maxlength="20" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -914,14 +914,14 @@
                             <label class="ltitle" for="mother_first_name">First Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="mother_first_name" id="mother_first_name"
-                                required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                required maxlength="25" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="ltitle" for="mother_middle_name">Middle Name </label>
-                            <input type="text" class="form-control" name="mother_middle_name" id="mother_middle_name"
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                            <input maxlength="20" type="text" class="form-control" name="mother_middle_name"
+                                id="mother_middle_name" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -985,8 +985,10 @@
                             <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="permanent_address_sitio"
-                                placeholder="Sitio/House No./Purok/Street" required pattern="[A-Za-z0-9,\s\-\/]*"
-                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)">
+                                placeholder="Sitio/House No./Purok/Street" required maxlength="30"
+                                pattern="[A-Za-z0-9,\s\-\/]*"
+                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
+                                oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                     </div>
                 </div>
@@ -1046,8 +1048,10 @@
                             <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="present_address_sitio"
-                                placeholder="Sitio/House No./Purok/Street" required pattern="[A-Za-z0-9,\s\-\/]*"
-                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)">
+                                placeholder="Sitio/House No./Purok/Street" required maxlength="30"
+                                pattern="[A-Za-z0-9,\s\-\/]*"
+                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
+                                oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                     </div>
                 </div>
@@ -1067,7 +1071,7 @@
                             <label class="ltitle" for="place_of_birth_city">City/Municipality <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="place_of_birth_city"
-                                id="place_of_birth_city" required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                id="place_of_birth_city" required maxlength="30" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -1075,7 +1079,8 @@
                             <label class="ltitle" for="place_of_birth_city">Province <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="place_of_birth_province"
-                                id="place_of_birth_province" required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                id="place_of_birth_province" required maxlength="30"
+                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -1092,9 +1097,10 @@
                         <label class="label" for="sex"><strong>8. SEX <span
                                     class="text-danger">*</span></strong></label>
                         <select name="sex" id="sex" class="form-control" required>
-                            <option value="">Select Gender</option>
+                            <option value="">Select Sex</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
+                            <option value="Prefer Not to Say">Prefer Not to Say</option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -1114,7 +1120,7 @@
                     <label class="label" for="affiliation"><strong>10. AFFILIATION <span
                                 class="text-danger">*</span></strong> <span style="font-style:italic;">(Check all
                             applicable)</span></label>
-                    <div class="form-row custom-form-row" required>
+                    <div class="form-row custom-form-row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="affiliation[]" id="listahanan"
@@ -1129,8 +1135,8 @@
                                 <label class="form-check-label" for="pantawid">Pantawid Beneficiary</label>
                             </div>
                             <input type="text" class="form-control mt-2" name="hh_id" id="hh_id_group"
-                                style="display:none;" placeholder="Specify HH ID (Itala)" pattern="[0-9\-]*"
-                                title="Please enter only numbers and dashes">
+                                style="display:none;" placeholder="Specify HH ID (Itala)" maxlength="25"
+                                pattern="[0-9\-]*" title="Please enter only numbers and dashes">
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
@@ -1140,7 +1146,7 @@
                             </div>
                             <input type="text" class="form-control mt-2" name="indigenous_specify"
                                 id="indigenous_specify_group" style="display:none;" placeholder="Specify (Itala)"
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                maxlength="25" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -1156,7 +1162,7 @@
                             <label class="ltitle" for="spouse_last_name">Lastname <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="spouse_last_name" id="spouse_last_name"
-                                required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                required maxlength="20" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -1164,14 +1170,14 @@
                             <label class="ltitle" for="spouse_first_name">First Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="spouse_first_name" id="spouse_first_name"
-                                required pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                required maxlength="25" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="ltitle" for="spouse_middle_name">Middle Name </label>
                             <input type="text" class="form-control" name="spouse_middle_name" id="spouse_middle_name"
-                                pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
+                                maxlength="20" pattern="[A-Z][a-z]*(\s[A-Z][a-z]*)*"
                                 title="Please enter only letters, starting each word with a capital letter"
                                 oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
@@ -1246,8 +1252,10 @@
                             <label class="ltitle" for="residence">Sitio/House No./Purok/Street <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="spouse_address_sitio"
-                                placeholder="Sitio/House No./Purok/Street" required pattern="[A-Za-z0-9,\s\-\/]*"
-                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)">
+                                placeholder="Sitio/House No./Purok/Street" required maxlength="30"
+                                pattern="[A-Za-z0-9,\s\-\/]*"
+                                title="Please enter a valid address format (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
+                                oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                         </div>
                     </div>
                 </div>
@@ -1280,9 +1288,10 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="text" class="form-control" name="children[0][name]"
+                                <td><input type="text" class="form-control" name="children[0][name]" maxlength="50"
                                         pattern="[A-Za-z\s\.]*"
-                                        title="Please enter a valid name (letters, spaces, and periods are allowed)">
+                                        title="Please enter a valid name (letters, spaces, and periods are allowed)"
+                                        oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                                 </td>
                                 <td>
                                     <select class="form-control" name="children[0][civil_status]">
@@ -1294,10 +1303,11 @@
                                     </select>
                                 </td>
                                 <td><input type="text" class="form-control" name="children[0][occupation]"
-                                        pattern="[A-Za-z0-9,\s\-\/]*"
-                                        title="Please enter a valid occupation (letters, numbers, commas, spaces, dashes, and slashes are allowed)">
+                                        maxlength="50" pattern="[A-Za-z0-9,\s\-\/]*"
+                                        title="Please enter a valid occupation (letters, numbers, commas, spaces, dashes, and slashes are allowed)"
+                                        oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                                 </td>
-                                <td><input type="text" class="form-control" name="children[0][income]"
+                                <td><input type="text" class="form-control" name="children[0][income]" maxlength="10"
                                         pattern="[0-9,]*" title="Please enter only numbers and commas">
                                 </td>
                                 <td><input type="text" class="form-control" name="children[0][contact_number]"
@@ -1325,12 +1335,14 @@
                         <tbody>
                             <tr>
                                 <td><input type="text" class="form-control" name="representatives[0][name]"
-                                        pattern="[A-Za-z\s\.]*"
-                                        title="Please enter a valid name (letters, spaces, and periods are allowed)">
+                                        maxlength="50" pattern="[A-Za-z\s\.]*"
+                                        title="Please enter a valid name (letters, spaces, and periods are allowed)"
+                                        oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                                 </td>
                                 <td><input type="text" class="form-control" name="representatives[0][relationship]"
-                                        pattern="[A-Za-z\s\.]*"
-                                        title="Please enter a valid relationship (letters, spaces, and periods are allowed)">
+                                        maxlength="20" pattern="[A-Za-z\s\.]*"
+                                        title="Please enter a valid relationship (letters, spaces, and periods are allowed)"
+                                        oninput="this.value = this.value.replace(/\b\w/g, char => char.toUpperCase())">
                                 </td>
                                 <td><input type="text" class="form-control" name="representatives[0][contact_number]"
                                         pattern="\+63\d{10}" maxlength="13"
@@ -1359,7 +1371,7 @@
                             </div>
                             <input type="text" class="form-control mt-2" name="house_status_others_input"
                                 id="house_status_others_input" style="display:none;"
-                                placeholder="Specify other house status" pattern="[A-Za-z\s]*"
+                                placeholder="Specify other house status" maxlength="25" pattern="[A-Za-z\s]*"
                                 title="Please enter a valid house status (letters, and spaces are allowed)">
                         </div>
 
@@ -1377,7 +1389,7 @@
                             </div>
                             <input type="text" class="form-control mt-2" name="living_status_others_input"
                                 id="living_status_others_input" style="display:none;"
-                                placeholder="Specify other living status" pattern="[A-Za-z\s]*"
+                                placeholder="Specify other living status" maxlength="25" pattern="[A-Za-z\s]*"
                                 title="Please enter a valid living status (letters, and spaces are allowed)">
                         </div>
                     </div>
@@ -1413,13 +1425,13 @@
                                     <td>
                                         <input type="text" class="form-control" id="pension_amount"
                                             name="pension_amount" placeholder="Enter amount" disabled
-                                            style="cursor:not-allowed;" pattern="[0-9,]*"
+                                            style="cursor:not-allowed;" maxlength="10" pattern="[0-9,]*"
                                             title="Please enter only numbers and commas" />
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" id="pension_source"
                                             name="pension_source" placeholder="Enter source" disabled
-                                            style="cursor:not-allowed;" pattern="[A-Za-z,]*"
+                                            style="cursor:not-allowed;" maxlength="25" pattern="[A-Za-z,]*"
                                             title="Please enter only letters and commas" />
                                     </td>
                                 </tr>
@@ -1440,13 +1452,13 @@
                                     <td>
                                         <input type="text" class="form-control" id="income_amount"
                                             name="income_amount" placeholder="Enter amount" disabled
-                                            style="cursor:not-allowed;" pattern="[0-9,]*"
+                                            style="cursor:not-allowed;" maxlength="10" pattern="[0-9,]*"
                                             title="Please enter only numbers and commas" />
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" id="income_source"
                                             name="income_source" placeholder="Enter source" disabled
-                                            style="cursor:not-allowed;" pattern="[A-Za-z,]*"
+                                            style="cursor:not-allowed;" maxlength="25" pattern="[A-Za-z,]*"
                                             title="Please enter only letters and commas" />
                                     </td>
                                 </tr>
@@ -1467,13 +1479,13 @@
                                     <td>
                                         <input type="text" class="form-control" id="support_amount"
                                             name="support_amount" placeholder="Enter amount" disabled
-                                            style="cursor:not-allowed;" pattern="[0-9,]*"
+                                            style="cursor:not-allowed;" maxlength="10" pattern="[0-9,]*"
                                             title="Please enter only numbers and commas" />
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" id="support_source"
                                             name="support_source" placeholder="Enter source" disabled
-                                            style="cursor:not-allowed;" pattern="[A-Za-z,]*"
+                                            style="cursor:not-allowed;" maxlength="25" pattern="[A-Za-z,]*"
                                             title="Please enter only letters and commas" />
                                     </td>
                                 </tr>
@@ -1509,7 +1521,7 @@
                                     <td>
                                         <input type="text" class="form-control" id="illness_specify"
                                             name="illness_specify" placeholder="Specify" disabled
-                                            style="cursor:not-allowed;" pattern="[A-Za-z,]*"
+                                            style="cursor:not-allowed;" maxlength="45" pattern="[A-Za-z,]*"
                                             title="Please enter only letters and commas" />
                                     </td>
                                 </tr>
@@ -1529,7 +1541,7 @@
                                     <td>
                                         <input type="text" class="form-control" id="disability_specify"
                                             name="disability_specify" placeholder="Specify" disabled
-                                            style="cursor:not-allowed;" pattern="[A-Za-z,]*"
+                                            style="cursor:not-allowed;" maxlength="45" pattern="[A-Za-z,]*"
                                             title="Please enter only letters and commas" />
                                     </td>
                                 </tr>
@@ -1586,7 +1598,7 @@
                     <label><strong></strong></label>
                     <div class="form-row custom-form-row">
                         <div class="col-md-12 mb-3">
-                            <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="100"></textarea>
+                            <textarea rows="4" id="remarks" name="remarks" class="remarks" cols="100" maxlength="100"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1619,6 +1631,12 @@
     </body>
 
     <script>
+        //Success Message
+        document.addEventListener('DOMContentLoaded', function() {
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        });
+
         //Checkboxes
         document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('.add-form');
@@ -1907,6 +1925,7 @@
                 row.remove();
             }
         });
+
         //Representatives
         let representativeIndex = 1;
 

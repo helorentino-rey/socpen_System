@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
             $table->enum('house_status', ['Owned', 'Rent', 'Others']);
-            $table->string('house_status_others_input')->nullable();
+            $table->string('house_status_others_input', 25)->nullable();
             $table->enum('living_status', ['Living Alone', 'Living with spouse', 'Living with children', 'Others']);
-            $table->string('living_status_others_input')->nullable();
+            $table->string('living_status_others_input', 25)->nullable();
             $table->timestamps();
 
             $table->foreign('beneficiary_id')->references('id')->on('beneficiary')->onDelete('cascade');

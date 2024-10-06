@@ -1,4 +1,3 @@
-<!-- resources/views/staff/show.blade.php -->
 @extends('layouts.staff')
 @section('content')
 
@@ -144,15 +143,15 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-lastname" class="form-label">Lastname</label>
-                            <input type="text" class="form-control" id="update-lastname" name="lastname" value="{{ $lastName }}">
+                            <input type="text" class="form-control" id="update-lastname" name="lastname" maxlength="20" value="{{ $lastName }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-firstname" class="form-label">Firstname</label>
-                            <input type="text" class="form-control" id="update-firstname" name="firstname" value="{{ $firstName }}">
+                            <input type="text" class="form-control" id="update-firstname" name="firstname" maxlength="25" value="{{ $firstName }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-middlename" class="form-label">Middlename</label>
-                            <input type="text" class="form-control" id="update-middlename" name="middlename" value="{{ $middleName }}">
+                            <input type="text" class="form-control" id="update-middlename" name="middlename" maxlength="20" value="{{ $middleName }}">
                         </div>
                     </div>
                     <div class="row">
@@ -180,23 +179,23 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-contact_number" class="form-label">Contact Number</label>
-                            <input type="text" class="form-control" id="update-contact_number" name="contact_number" value="{{ $contactNumber }}">
+                            <input type="text" class="form-control" id="update-contact_number" name="contact_number" maxlength="13" value="{{ $contactNumber }}">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="update-address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="update-address" name="address" value="{{ $address }}">
+                        <input type="text" class="form-control" id="update-address" name="address" maxlength="50" value="{{ $address }}">
                     </div>
 
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-employee_id" class="form-label">Employee ID</label>
-                            <input type="text" class="form-control" id="update-employee_id" name="employee_id" value="{{ $employeeId }}">
+                            <input type="text" class="form-control" id="update-employee_id" name="employee_id" maxlength="10" value="{{ $employeeId }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="update-email" name="email" value="{{ $email }}">
+                            <input type="email" class="form-control" id="update-email" name="email" maxlength="50" value="{{ $email }}">
                         </div>
 
                         <div class="mb-3 col-md-4">
@@ -238,11 +237,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="current-password" class="form-label">Current Password</label>
-                        <input type="password" class="form-control" id="current-password" name="current_password" required>
+                        <input type="password" class="form-control" id="current-password" name="current_password" maxlength="15" required>
                     </div>
                     <div class="mb-3">
                         <label for="new-password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="new-password" name="new_password" required>
+                        <input type="password" class="form-control" id="new-password" name="new_password" maxlength="15" required>
                         <div id="password-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">

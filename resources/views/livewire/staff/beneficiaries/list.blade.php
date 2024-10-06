@@ -191,12 +191,6 @@
                             Add Beneficiary
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" style="color: black;" data-bs-toggle="modal"
-                            data-bs-target="#exportModal">
-                            <i class="bi bi-file-earmark-arrow-up"></i> Export Beneficiary
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -290,6 +284,26 @@
                 </div>
             </div>
 
+               <!-- Custom Confirm Edit Modal -->
+               <div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog"
+               aria-labelledby="confirmEditModalLabel" aria-hidden="true">
+               <div class="modal-dialog modal-dialog-centered" role="document">
+                   <div class="modal-content acm">
+                       <div class="icon-container">
+                           <i class="bi bi-question-lg icon-style"></i>
+                       </div>
+                       <div class="modal-body">
+                           Are you sure you want to edit this beneficiary?
+                       </div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary custom-bton"
+                               data-bs-dismiss="modal">Cancel</button>
+                           <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
             <!-- Modal to Update Beneficiary Information -->
             <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
                 aria-hidden="true">
@@ -323,151 +337,13 @@
                 </ul>
             </nav>
 
-            <!-- Export Modal -->
-            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exportModalLabel">Export Beneficiaries</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="exportForm" action="{{ route('beneficiaries.export') }}" method="GET">
-                                <div class="alert alert-info" role="alert">
-                                    If you want to export everything, just add a filename and click export.
-                                </div>
-                                <div class="mb-2">
-                                    <label for="filename">Filename</label>
-                                    <input type="text" id="filename" name="filename" placeholder="Enter filename"
-                                        class="form-control" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label for="province">Province</label>
-                                    <select id="province" name="province" class="form-control">
-                                        <option value="">All Provinces</option>
-                                        <option value="DAVAO DEL NORTE">DAVAO DEL NORTE</option>
-                                        <option value="DAVAO DEL SUR">DAVAO DEL SUR</option>
-                                        <option value="DAVAO ORIENTAL">DAVAO ORIENTAL</option>
-                                        <option value="DAVAO DE ORO">DAVAO DE ORO</option>
-                                        <option value="DAVAO OCCIDENTAL">DAVAO OCCIDENTAL</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Export</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Success Modal -->
-            <div class="modal fade" id="successModal1" tabindex="-1" aria-labelledby="successModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog dlg">
-                    <div class="modal-content acm">
-                        <div class="iconic-container">
-                            <i class="bi bi-check-lg icon-style"></i>
-                        </div>
-                        <div class="modal-body">
-                            CSV file downloaded successfully!
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                id="successCloseButtonFooter">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Error Modal -->
-            <div class="modal fade" id="errorModal1" tabindex="-1" aria-labelledby="errorModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog dlg">
-                    <div class="modal-content acm">
-                        <div class="modal-header">
-                            <div class="iconic-containers">
-                                <i class="bi bi-x-lg icon-style"></i>
-                            </div>
-                        </div>
-                        <div class="modal-body" id="errorMessage">
-                            <!-- Error message will be inserted here by JavaScript -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Include Bootstrap and jQuery JavaScript files -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
             <script>
-                //Display Error and Success Modal
-                $(document).ready(function() {
-                    $('#exportForm').on('submit', function(e) {
-                        e.preventDefault();
-                        exportData();
-                    });
-
-                    function exportData() {
-                        var form = $('#exportForm');
-                        var url = form.attr('action');
-                        var formData = form.serialize();
-                        var filename = $('#filename').val();
-
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            data: formData,
-                            xhrFields: {
-                                responseType: 'blob'
-                            },
-                            success: function(response, status, xhr) {
-                                var disposition = xhr.getResponseHeader('content-disposition');
-                                var matches = /"([^"]*)"/.exec(disposition);
-                                var downloadFilename = (matches != null && matches[1] ? matches[1] : filename +
-                                    '.csv');
-
-                                var link = document.createElement('a');
-                                link.href = window.URL.createObjectURL(response);
-                                link.download = downloadFilename;
-                                document.body.appendChild(link);
-                                link.click();
-                                document.body.removeChild(link);
-
-                                // Close export modal
-                                var exportModal = bootstrap.Modal.getInstance(document.getElementById(
-                                    'exportModal'));
-                                exportModal.hide();
-
-                                // Show success modal
-                                var successModal = new bootstrap.Modal(document.getElementById(
-                                    'successModal1'));
-                                successModal.show();
-
-                                // Add event listeners to close buttons
-                                $('#successCloseButton, #successCloseButtonFooter').on('click', function() {
-                                    window.location.href =
-                                        '/beneficiary/list'; // Replace with your actual view URL
-                                });
-                            },
-                            error: function(xhr) {
-                                var errorMessage = xhr.responseJSON ? xhr.responseJSON.error :
-                                    'No records found for the selected province.';
-                                $('#errorMessage').text(errorMessage);
-
-                                // Show error modal
-                                var errorModal = new bootstrap.Modal(document.getElementById('errorModal1'));
-                                errorModal.show();
-                            }
-                        });
-                    }
-                });
-
+               
                 //Display Beneficiary Information Modal
                 $(document).ready(function() {
                     $('.beneficiary-name').click(function(e) {
@@ -634,13 +510,18 @@
 
                 // Fetch form via AJAX and reapply checkbox logic
                 function confirmEdit(beneficiaryId) {
-                    if (confirm("Are you sure you want to edit this beneficiary?")) {
+                    // Show the custom modal instead of using the default confirm dialog
+                    $('#confirmEditModal').modal('show');
+
+                    // Handle the confirmation button click event
+                    $('#confirmEditBtn').off('click').on('click', function() {
                         $.ajax({
                             url: '/beneficiaries/edit/' + beneficiaryId,
                             type: 'GET',
                             success: function(response) {
                                 $('#editBeneficiaryModal .modal-body').html(response);
-                                const modal = new bootstrap.Modal(document.getElementById('editBeneficiaryModal'), {
+                                const modal = new bootstrap.Modal(document.getElementById(
+                                    'editBeneficiaryModal'), {
                                     backdrop: 'static',
                                     keyboard: false
                                 });
@@ -654,8 +535,11 @@
                                 alert('Error loading beneficiary information.');
                             }
                         });
-                    }
+                        // Hide the confirmation modal after confirming
+                        $('#confirmEditModal').modal('hide');
+                    });
                 }
+
 
                 // Initialize modal and checkbox logic on document ready
                 $(document).ready(function() {

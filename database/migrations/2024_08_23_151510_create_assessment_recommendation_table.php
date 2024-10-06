@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('assessment_recommendation', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->text('remarks', 200)->nullable();
+            $table->text('remarks', 100)->nullable();
             $table->enum('eligibility', ['Eligible', 'Not Eligible'])->nullable();
             $table->timestamps();
 

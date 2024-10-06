@@ -18,15 +18,12 @@ class CsvController extends Controller
         DB::beginTransaction(); // Begin transaction
 
         try {
-            // Get filename from request or default to 'beneficiaries.csv'
             $filename = $request->input('filename', 'beneficiaries.csv');
 
-            // Ensure the filename ends with '.csv'
             if (pathinfo($filename, PATHINFO_EXTENSION) !== 'csv') {
                 $filename .= '.csv';
             }
 
-            // Query for beneficiaries with optional province filter
             $query = Beneficiary::query();
             if ($request->has('province') && $request->province) {
                 $query->whereHas('presentAddress', function ($query) use ($request) {
@@ -34,35 +31,29 @@ class CsvController extends Controller
                 });
             }
 
-            // Check if any beneficiaries exist for the given filter
             $provinceExists = $query->exists();
             if (!$provinceExists) {
                 return response()->json(['error' => 'No records found for the selected province.'], 404);
             }
 
-            // Get beneficiaries to potentially delete later
             $beneficiariesToDelete = $query->get();
 
-            // Export the beneficiaries to a CSV
             $exportResponse = (new BeneficiariesExport($request))->download($filename);
 
-            // Check if the user wants to delete the data after export
-            $deleteData = $request->input('delete_data', 'false');  // Ensure it defaults to 'false'
+            $deleteData = $request->input('delete_data', 'false');
 
-            if ($deleteData === 'true') { // Only delete if the flag is explicitly 'true'
+            if ($deleteData === 'true') {
                 Beneficiary::destroy($beneficiariesToDelete->pluck('id')->toArray());
             }
 
-            DB::commit(); // Commit transaction if everything is successful
+            DB::commit();
 
             return $exportResponse;
         } catch (\Exception $e) {
-            DB::rollBack(); // Rollback transaction in case of any error
+            DB::rollBack();
 
-            // Log the error for debugging purposes
             Log::error('Export error: ' . $e->getMessage());
 
-            // Return a user-friendly error message
             return response()->json(['error' => 'An error occurred while processing your request. Please try again later.'], 500);
         }
     }

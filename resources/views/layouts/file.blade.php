@@ -171,6 +171,11 @@
             font-size: 2.5rem;
         }
 
+        .icon-styles {
+            color: white;
+            font-size: 1.5rem;
+        }
+
         .acm {
             display: flex;
             justify-content: center;
@@ -300,56 +305,54 @@
                                 <!-- The Modal for Status Update -->
                                 <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
                                     aria-labelledby="statusModalLabel{{ $beneficiary->id }}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="statusModalLabel{{ $beneficiary->id }}">Change
-                                                    Status</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                    <div class="modal-dialog dlg">
+                                        <div class="modal-content acm">
+                                            <div class="icon-container">
+                                                <i class="bi bi-pencil-square icon-styles"></i>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body text-center">
+                                                <h5 id="statusModalLabel{{ $beneficiary->id }}">Update Beneficiary Status</h5>
                                                 <form id="statusForm{{ $beneficiary->id }}"
-                                                    action="{{ route('beneficiary.updateStatus', $beneficiary->id) }}"
-                                                    method="POST">
+                                                    action="{{ route('beneficiary.updateStatus', $beneficiary->id) }}" method="POST">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="status" class="form-label">Status</label>
                                                         <select class="form-select" id="status" name="status" required>
-                                                            <option value="ACTIVE"
-                                                                {{ $beneficiary->status == 'ACTIVE' ? 'selected' : '' }}>
-                                                                ACTIVE</option>
-                                                            <option value="WAITLISTED"
-                                                                {{ $beneficiary->status == 'WAITLISTED' ? 'selected' : '' }}>
-                                                                WAITLISTED</option>
-                                                            <option value="SUSPENDED"
-                                                                {{ $beneficiary->status == 'SUSPENDED' ? 'selected' : '' }}>
-                                                                SUSPENDED</option>
-                                                            <option value="UNVALIDATED"
-                                                                {{ $beneficiary->status == 'UNVALIDATED' ? 'selected' : '' }}>
-                                                                UNVALIDATED</option>
-                                                            <option value="NOT LOCATED"
-                                                                {{ $beneficiary->status == 'NOT LOCATED' ? 'selected' : '' }}>
-                                                                NOT LOCATED</option>
-                                                            <option value="DOUBLE ENTRY"
-                                                                {{ $beneficiary->status == 'DOUBLE ENTRY' ? 'selected' : '' }}>
-                                                                DOUBLE ENTRY</option>
-                                                            <option value="TRANSFER OF RESIDENCE"
-                                                                {{ $beneficiary->status == 'TRANSFER OF RESIDENCE' ? 'selected' : '' }}>
-                                                                TRANSFER OF RESIDENCE</option>
-                                                            <option value="RECEIVING SUPPORT FROM THE FAMILY"
-                                                                {{ $beneficiary->status == 'RECEIVING SUPPORT FROM THE FAMILY' ? 'selected' : '' }}>
-                                                                RECEIVING SUPPORT FROM THE FAMILY</option>
-                                                            <option value="RECEIVING PENSION FROM OTHER AGENCY"
-                                                                {{ $beneficiary->status == 'RECEIVING PENSION FROM OTHER AGENCY' ? 'selected' : '' }}>
-                                                                RECEIVING PENSION FROM OTHER AGENCY</option>
-                                                            <option value="WITH PERMANENT INCOME"
-                                                                {{ $beneficiary->status == 'WITH PERMANENT INCOME' ? 'selected' : '' }}>
-                                                                WITH PERMANENT INCOME</option>
+                                                            <option value="ACTIVE" {{ $beneficiary->status == 'ACTIVE' ? 'selected' : '' }}>ACTIVE</option>
+                                                            <option value="WAITLISTED" {{ $beneficiary->status == 'WAITLISTED' ? 'selected' : '' }}>WAITLISTED</option>
+                                                            <option value="SUSPENDED" {{ $beneficiary->status == 'SUSPENDED' ? 'selected' : '' }}>SUSPENDED</option>
+                                                            <option value="UNVALIDATED" {{ $beneficiary->status == 'UNVALIDATED' ? 'selected' : '' }}>UNVALIDATED</option>
+                                                            <option value="NOT LOCATED" {{ $beneficiary->status == 'NOT LOCATED' ? 'selected' : '' }}>NOT LOCATED</option>
+                                                            <option value="DOUBLE ENTRY" {{ $beneficiary->status == 'DOUBLE ENTRY' ? 'selected' : '' }}>DOUBLE ENTRY</option>
+                                                            <option value="TRANSFER OF RESIDENCE" {{ $beneficiary->status == 'TRANSFER OF RESIDENCE' ? 'selected' : '' }}>TRANSFER OF RESIDENCE</option>
+                                                            <option value="RECEIVING SUPPORT FROM THE FAMILY" {{ $beneficiary->status == 'RECEIVING SUPPORT FROM THE FAMILY' ? 'selected' : '' }}>RECEIVING SUPPORT FROM THE FAMILY</option>
+                                                            <option value="RECEIVING PENSION FROM OTHER AGENCY" {{ $beneficiary->status == 'RECEIVING PENSION FROM OTHER AGENCY' ? 'selected' : '' }}>RECEIVING PENSION FROM OTHER AGENCY</option>
+                                                            <option value="WITH PERMANENT INCOME" {{ $beneficiary->status == 'WITH PERMANENT INCOME' ? 'selected' : '' }}>WITH PERMANENT INCOME</option>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" onclick="confirmStatusChange({{ $beneficiary->id }})">Update</button>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Confirmation Modal -->
+                                <div class="modal fade" id="confirmModal{{ $beneficiary->id }}" tabindex="-1"
+                                    aria-labelledby="confirmModalLabel{{ $beneficiary->id }}" aria-hidden="true">
+                                    <div class="modal-dialog dlg">
+                                        <div class="modal-content acm">
+                                            <div class="icon-container">
+                                                <i class="bi bi-question-lg icon-style"></i>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to change this status?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary custom-bton"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    onclick="submitStatusForm({{ $beneficiary->id }})">Confirm</button>
                                             </div>
                                         </div>
                                     </div>
@@ -471,51 +474,41 @@
 
 
             <!-- Import Modal -->
-            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="{{ route('import.beneficiaries') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="importModalLabel">Import Beneficiaries</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+            <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-upload icon-styles"></i>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h5 class="mt-3 mb-4" id="importModalLabel">Import Beneficiaries</h5>
+                            <form action="{{ route('import.beneficiaries') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="file" class="form-label">Choose CSV File</label>
                                     <input type="file" class="form-control" id="file" name="file" required>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Import</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Export Modal -->
-            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exportModalLabel">Export Beneficiaries</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+            <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-download icon-styles"></i>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body text-center">
+                            <h5 class="mt-3 mb-4" id="exportModalLabel">Export Beneficiaries</h5>
                             <form id="exportForm" action="{{ route('beneficiaries.export') }}" method="GET">
-                                <div class="alert alert-info" role="alert">
-                                    If you want to export everything, just add a filename and click export.
-                                </div>
                                 <div class="mb-2">
                                     <label for="filename">Filename</label>
-                                    <input type="text" id="filename" name="filename" placeholder="Enter filename"
-                                        class="form-control" required>
+                                    <input type="text" id="filename" name="filename" placeholder="Enter filename" class="form-control" required>
                                 </div>
                                 <div class="mb-2">
                                     <label for="province">Province</label>
@@ -530,6 +523,7 @@
                                         <!-- Add more provinces as needed -->
                                     </select>
                                 </div>
+                                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Export</button>
                             </form>
                         </div>
@@ -604,6 +598,16 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 
             <script>
+                //Changes Status
+                function confirmStatusChange(beneficiaryId) {
+                    var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal' + beneficiaryId));
+                    confirmModal.show();
+                }
+
+                function submitStatusForm(beneficiaryId) {
+                    document.getElementById('statusForm' + beneficiaryId).submit();
+                }
+
                 // Display Error and Success Modal
                 $(document).ready(function() {
                     $('#exportForm').on('submit', function(e) {

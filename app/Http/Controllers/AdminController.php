@@ -51,7 +51,7 @@ class AdminController extends Controller
     public function createAdmin(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:15',
+            'name' => 'required|string|max:50',
             'employee_id' => 'required|unique:admins',
             'password' => 'required|min:8',
             'province' => 'required|array',
@@ -74,7 +74,7 @@ class AdminController extends Controller
         $admin = Admin::findOrFail($id);
     
         $request->validate([
-            'name' => 'required|string|max:15',
+            'name' => 'required|string|max:50',
             'employee_id' => 'required|unique:admins,employee_id,' . $admin->id,
             'password' => 'nullable|min:8',
             'province' => 'required|array',

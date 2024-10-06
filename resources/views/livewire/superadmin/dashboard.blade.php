@@ -170,6 +170,7 @@
         .beneficiary-table-container {
             overflow-x: auto;
             margin-top: 20px;
+            margin-bottom: 20px;
             -webkit-overflow-scrolling: touch;
             /* Smooth scrolling on touch devices */
             border: 2px solid #dee2e6;
@@ -272,12 +273,10 @@
 
         <!-- Chart Section -->
         <div class="chart-container">
-            <!-- Pie Chart Card -->
             <div class="chart-card">
                 <canvas id="myChart" class="pie-chart"></canvas>
                 <div class="chart-info">
                     @foreach ($beneficiariesByProvince as $province => $count)
-                        <!-- Add content here if needed -->
                     @endforeach
                 </div>
             </div>
@@ -287,24 +286,8 @@
                 <canvas id="sexChart" class="doughnut-chart"></canvas>
                 <div class="chart-info">
                     @foreach ($beneficiariesBySex as $sex => $count)
-                        <!-- Add content here if needed -->
                     @endforeach
                 </div>
-            </div>
-        </div>
-
-
-        <!-- Bar Chart Section -->
-        <div class="chart-container">
-            <div class="chart-card">
-                <canvas id="ageChart" class="bar-chart"></canvas>
-            </div>
-        </div>
-
-        <!-- Time Combo Chart Section -->
-        <div class="chart-container">
-            <div class="chart-card">
-                <canvas id="timeComboChart" class="combo-chart"></canvas>
             </div>
         </div>
 
@@ -313,7 +296,7 @@
             <table class="beneficiary-table">
                 <thead class="table-header">
                     <tr>
-                        <th>Province</th>
+                        <th>PROVINCE</th>
                         @foreach (['ACTIVE', 'WAITLISTED', 'SUSPENDED', 'UNVALIDATED', 'NOT LOCATED', 'DOUBLE ENTRY', 'TRANSFER OF RESIDENCE', 'RECEIVING SUPPORT FROM THE FAMILY', 'RECEIVING PENSION FROM OTHER AGENCY', 'WITH PERMANENT INCOME'] as $status)
                             <th>{{ $status }}</th>
                         @endforeach
@@ -330,6 +313,20 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        <!-- Bar Chart Section -->
+        <div class="chart-container">
+            <div class="chart-card">
+                <canvas id="ageChart" class="bar-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Time Combo Chart Section -->
+        <div class="chart-container">
+            <div class="chart-card">
+                <canvas id="timeComboChart" class="combo-chart"></canvas>
+            </div>
         </div>
 
         <!-- Chart.js Script -->
@@ -376,14 +373,13 @@
                 data: data,
                 options: {
                     responsive: true,
-                    aspectRatio: 1.2, // Ensure the chart is circular
+                    aspectRatio: 1.2,
                     plugins: {
                         legend: {
                             position: 'right',
                             labels: {
-                                // Override global font size for legend
                                 font: {
-                                    size: 9
+                                    size: 10
                                 }
                             }
                         },
@@ -392,22 +388,22 @@
                             text: 'Beneficiaries by Province',
                             font: {
                                 size: 12,
-                                weight: 'bold' // Adjust the font size for the title here
+                                weight: 'bold'
                             },
                             padding: {
-                                top: 8 // Adjust this value to move the title higher
+                                top: 8
                             }
                         },
                         datalabels: {
                             anchor: 'end',
-                            align: 'end', // Align the labels to the end of the chart
-                            offset: -75, // Adjust the offset to position the labels closer to the chart
+                            align: 'end',
+                            offset: -75,
                             formatter: (value, context) => {
-                                return context.chart.data.labels[context.dataIndex] + ': ' + value;
+                                return '';
                             },
                             color: '#161616',
                             font: {
-                                size: 8, // Make the font size smaller
+                                size: 8,
                                 weight: 'bold'
                             },
                             rotation: -45
@@ -434,13 +430,13 @@
                 data: sexData,
                 options: {
                     responsive: true,
-                    aspectRatio: 1.05, // Ensure the chart is circular
+                    aspectRatio: 1.05,
                     plugins: {
                         legend: {
                             position: 'right',
                             labels: {
                                 font: {
-                                    size: 9
+                                    size: 10
                                 }
                             }
                         },
@@ -448,22 +444,22 @@
                             display: true,
                             text: 'Beneficiaries by Sex',
                             font: {
-                                size: 12 // Font size for the title
+                                size: 12
                             },
                             padding: {
-                                top: 8 // Adjust this value to move the title higher
+                                top: 8
                             }
                         },
                         datalabels: {
-                            anchor: 'end', // Anchor the labels at the end of the slices
-                            align: 'start', // Align the labels to the start of the slices
-                            offset: 18, // No offset needed
+                            anchor: 'end',
+                            align: 'start',
+                            offset: 18,
                             formatter: (value, context) => {
-                                return context.chart.data.labels[context.dataIndex] + ': ' + value;
+                                return '';
                             },
                             color: '#161616',
                             font: {
-                                size: 10, // Make the font size smaller
+                                size: 10,
                                 weight: 'bold'
                             },
                         }
@@ -558,6 +554,23 @@
                 };
             }
 
+            function prepareChartData(data) {
+                const labels = [];
+                const counts = [];
+
+                data.forEach(item => {
+                    const monthName = moment(`${item.year}-${String(item.month).padStart(2, '0')}`, 'YYYY-MM').format(
+                        'MMMM YYYY');
+                    labels.push(monthName);
+                    counts.push(item.count);
+                });
+
+                return {
+                    labels,
+                    counts
+                };
+            }
+
             function renderTimeComboChart(data) {
                 const {
                     labels,
@@ -565,13 +578,19 @@
                 } = prepareChartData(data);
 
                 const ctx = document.getElementById('timeComboChart').getContext('2d');
+
+                // Create gradient
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(147, 112, 219, 0.8)'); // Lighter color at the top
+                gradient.addColorStop(1, '#0B2F9F'); // Darker color at the bottom
+
                 new Chart(ctx, {
                     data: {
                         labels: labels,
                         datasets: [{
                             type: 'bar',
                             label: 'Monthly Registrations',
-                            backgroundColor: '#9370DB', // Apply gradient to the bars
+                            backgroundColor: gradient, // Apply gradient to the bars
                             borderColor: 'rgba(75, 192, 192, 1)',
                             data: counts,
                             barThickness: 100,

@@ -293,11 +293,11 @@
                 <div class="form-section">
                     <h3 class="form-section-title">Personal Information</h3>
                     <div class="input-group">
-                        <input type="text" id="lastname" name="lastname" placeholder="Lastname" maxlength="15"
+                        <input type="text" id="lastname" name="lastname" placeholder="Lastname" maxlength="20"
                             required>
-                        <input type="text" id="firstname" name="firstname" placeholder="Firstname" maxlength="15"
+                        <input type="text" id="firstname" name="firstname" placeholder="Firstname" maxlength="25"
                             required>
-                        <input type="text" id="middlename" name="middlename" placeholder="Middlename" maxlength="15">
+                        <input type="text" id="middlename" name="middlename" placeholder="Middlename" maxlength="20">
                         <select id="name_extension" name="name_extension">
                             <option value="">Name Extension</option>
                             <option value="Jr.">Jr.</option>

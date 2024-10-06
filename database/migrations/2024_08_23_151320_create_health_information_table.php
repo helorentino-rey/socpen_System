@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
             $table->enum('existing_illness', ['Yes', 'None']);
-            $table->string('illness_specify', 30)->nullable();
+            $table->string('illness_specify', 45)->nullable();
             $table->enum('with_disability', ['Yes', 'None']);
-            $table->string('disability_specify', 30)->nullable();
+            $table->string('disability_specify', 45)->nullable();
             $table->enum('difficult_adl', ['Yes', 'No']);
             $table->enum('dependent_iadl', ['Yes', 'No']);
             $table->enum('experience_loss', ['Yes', 'No']);

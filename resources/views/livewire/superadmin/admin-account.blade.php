@@ -88,6 +88,11 @@
             font-size: 2.5rem;
         }
 
+        .icon-styles {
+            color: white;
+            font-size: 1.5rem;
+        }
+
         .iconic-container {
             display: inline-flex;
             justify-content: center;
@@ -197,171 +202,159 @@
             <!-- Add Admin Modal -->
             <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog dlg">
+                    <div class="modal-content acm">
+                        <div class="iconic-container">
+                            <i class="bi bi-person-plus icon-styles"></i>
+                        </div>
+                        <h5 class="mt-3 mb-4" id="addAdminModalLabel">Add New Admin</h5>
                         <form action="{{ route('admin.create') }}" method="POST" class="province-form">
                             @csrf
-                            <div class="modal-header">
-                                <h5 class="modal-title custom-btn-sm" id="addAdminModalLabel">Add New Admin</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Admin Name</label>
+                                <input type="text" class="form-control" id="name" name="name" maxlength="50" required>
                             </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Admin Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" required>
+                            <div class="mb-3">
+                                <label for="employee_id" class="form-label">Employee ID</label>
+                                <input type="text" class="form-control" id="employee_id" name="employee_id" maxlength="10" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" maxlength="15" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Assigned Province</label>
+                                <div>
+                                    <input type="checkbox" id="davao_city" name="province[]" value="Davao City">
+                                    <label for="davao_city">Davao City</label>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="employee_id" class="form-label">Employee ID</label>
-                                    <input type="text" class="form-control" id="employee_id" name="employee_id" required>
+                                <div>
+                                    <input type="checkbox" id="davao_del_sur" name="province[]" value="Davao del Sur">
+                                    <label for="davao_del_sur">Davao del Sur</label>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                <div>
+                                    <input type="checkbox" id="davao_del_norte" name="province[]" value="Davao del Norte">
+                                    <label for="davao_del_norte">Davao del Norte</label>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Assigned Province</label>
-                                    <div>
-                                        <input type="checkbox" id="davao_city" name="province[]" value="Davao City">
-                                        <label for="davao_city">Davao City</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="davao_del_sur" name="province[]" value="Davao del Sur">
-                                        <label for="davao_del_sur">Davao del Sur</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="davao_del_norte" name="province[]"
-                                            value="Davao del Norte">
-                                        <label for="davao_del_norte">Davao del Norte</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="davao_de_oro" name="province[]" value="Davao de Oro">
-                                        <label for="davao_de_oro">Davao de Oro</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="davao_oriental" name="province[]"
-                                            value="Davao Oriental">
-                                        <label for="davao_oriental">Davao Oriental</label>
-                                    </div>
-                                    <div>
-                                        <input type="checkbox" id="davao_occidental" name="province[]"
-                                            value="Davao Occidental">
-                                        <label for="davao_occidental">Davao Occidental</label>
-                                    </div>
+                                <div>
+                                    <input type="checkbox" id="davao_de_oro" name="province[]" value="Davao de Oro">
+                                    <label for="davao_de_oro">Davao de Oro</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="davao_oriental" name="province[]" value="Davao Oriental">
+                                    <label for="davao_oriental">Davao Oriental</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="davao_occidental" name="province[]"
+                                        value="Davao Occidental">
+                                    <label for="davao_occidental">Davao Occidental</label>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
+                            <button type="button" class="btn btn-secondary custom-bton"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
                 </div>
             </div>
+
             <!-- Edit Admin Modal -->
             @foreach ($admins as $admin)
                 <div class="modal fade" id="editAdminModal-{{ $admin->id }}" tabindex="-1"
-                    aria-labelledby="editAdminModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                    aria-labelledby="editAdminModalLabel-{{ $admin->id }}" aria-hidden="true">
+                    <div class="modal-dialog dlg">
+                        <div class="modal-content acm">
+                            <div class="iconic-container">
+                                <i class="bi bi-pencil-square icon-styles"></i>
+                            </div>
+                            <h5 class="mt-3 mb-4" id="editAdminModalLabel-{{ $admin->id }}">Edit Admin Info</h5>
                             <form action="{{ route('admin.edit', $admin->id) }}" method="POST" class="province-form">
                                 @csrf
                                 @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editAdminModalLabel">Edit Admin Info</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                <div class="mb-3">
+                                    <label for="name-{{ $admin->id }}" class="form-label">Admin Name</label>
+                                    <input type="text" class="form-control" id="name-{{ $admin->id }}"
+                                        name="name" value="{{ $admin->name }}" required maxlength="50">
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Admin Name</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ $admin->name }}" required>
+                                <div class="mb-3">
+                                    <label for="employee_id-{{ $admin->id }}" class="form-label">Employee ID</label>
+                                    <input type="text" class="form-control" id="employee_id-{{ $admin->id }}"
+                                        name="employee_id" value="{{ $admin->employee_id }}" required maxlength="10"> 
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Assigned Province</label>
+                                    <div>
+                                        <input type="checkbox" id="davao_city_{{ $admin->id }}" name="province[]"
+                                            value="Davao City"
+                                            {{ in_array('Davao City', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_city_{{ $admin->id }}">Davao City</label>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="employee_id" class="form-label">Employee ID</label>
-                                        <input type="text" class="form-control" id="employee_id" name="employee_id"
-                                            value="{{ $admin->employee_id }}" required>
+                                    <div>
+                                        <input type="checkbox" id="davao_del_sur_{{ $admin->id }}" name="province[]"
+                                            value="Davao del Sur"
+                                            {{ in_array('Davao del Sur', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_del_sur_{{ $admin->id }}">Davao del Sur</label>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Assigned Province</label>
-                                        <div>
-                                            <input type="checkbox" id="davao_city_{{ $admin->id }}" name="province[]"
-                                                value="Davao City"
-                                                {{ in_array('Davao City', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_city_{{ $admin->id }}">Davao City</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="davao_del_sur_{{ $admin->id }}"
-                                                name="province[]" value="Davao del Sur"
-                                                {{ in_array('Davao del Sur', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_del_sur_{{ $admin->id }}">Davao del Sur</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="davao_del_norte_{{ $admin->id }}"
-                                                name="province[]" value="Davao del Norte"
-                                                {{ in_array('Davao del Norte', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_del_norte_{{ $admin->id }}">Davao del Norte</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="davao_de_oro_{{ $admin->id }}"
-                                                name="province[]" value="Davao de Oro"
-                                                {{ in_array('Davao de Oro', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_de_oro_{{ $admin->id }}">Davao de Oro</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="davao_oriental_{{ $admin->id }}"
-                                                name="province[]" value="Davao Oriental"
-                                                {{ in_array('Davao Oriental', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_oriental_{{ $admin->id }}">Davao Oriental</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="davao_occidental_{{ $admin->id }}"
-                                                name="province[]" value="Davao Occidental"
-                                                {{ in_array('Davao Occidental', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
-                                            <label for="davao_occidental_{{ $admin->id }}">Davao Occidental</label>
-                                        </div>
+                                    <div>
+                                        <input type="checkbox" id="davao_del_norte_{{ $admin->id }}"
+                                            name="province[]" value="Davao del Norte"
+                                            {{ in_array('Davao del Norte', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_del_norte_{{ $admin->id }}">Davao del Norte</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="davao_de_oro_{{ $admin->id }}" name="province[]"
+                                            value="Davao de Oro"
+                                            {{ in_array('Davao de Oro', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_de_oro_{{ $admin->id }}">Davao de Oro</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="davao_oriental_{{ $admin->id }}" name="province[]"
+                                            value="Davao Oriental"
+                                            {{ in_array('Davao Oriental', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_oriental_{{ $admin->id }}">Davao Oriental</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="davao_occidental_{{ $admin->id }}"
+                                            name="province[]" value="Davao Occidental"
+                                            {{ in_array('Davao Occidental', explode(',', $admin->assigned_province)) ? 'checked' : '' }}>
+                                        <label for="davao_occidental_{{ $admin->id }}">Davao Occidental</label>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                                <button type="button" class="btn btn-secondary custom-bton"
+                                    data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </form>
                         </div>
                     </div>
                 </div>
             @endforeach
 
-
             <!-- Reset Password Modal -->
             @foreach ($admins as $admin)
                 <div class="modal fade" id="resetPasswordModal-{{ $admin->id }}" tabindex="-1"
-                    aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form action="{{ route('admin.resetPassword', $admin->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
+                    aria-labelledby="resetPasswordModalLabel-{{ $admin->id }}" aria-hidden="true">
+                    <div class="modal-dialog dlg">
+                        <div class="modal-content acm">
+                            <div class="iconic-container">
+                                <i class="bi bi-key icon-styles"></i>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h5 class="mt-3 mb-4" id="resetPasswordModalLabel-{{ $admin->id }}">Reset Password
+                                </h5>
+                                <form action="{{ route('admin.resetPassword', $admin->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
                                     <div class="mb-3">
-                                        <label for="new_password" class="form-label">New Password</label>
-                                        <input type="password" class="form-control" id="new_password"
-                                            name="new_password" required>
+                                        <label for="new_password-{{ $admin->id }}" class="form-label">Enter New
+                                            Password</label>
+                                        <input type="password" class="form-control"
+                                            id="new_password-{{ $admin->id }}" name="new_password" required maxlength="15">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Reset Password</button>
-                                </div>
-                            </form>
+                                    <button type="button" class="btn btn-secondary custom-bton"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

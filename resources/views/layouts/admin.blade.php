@@ -225,7 +225,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.beneficiaries.approve') }}" class="nav-link">
+                <a href="{{ route('admin.beneficiaries.list') }}" class="nav-link">
                     <i class="bi bi-people-fill"></i> <span>Beneficiaries</span>
                 </a>
             </li>
