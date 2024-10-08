@@ -45,7 +45,7 @@
         }
 
         .form-check-label {
-            font-size: 13px;
+            font-size: 16px;
             font-family: 'Arial', sans-serif;
         }
 

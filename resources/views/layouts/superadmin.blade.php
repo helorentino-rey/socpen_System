@@ -46,8 +46,10 @@
             transition: opacity 0.3s;
         }
 
+        
         .sidebar.retracted .profile-pic {
-            opacity: 0;
+            width: 40px;
+            height: 40px;
         }
 
         .sidebar .profile-name {
