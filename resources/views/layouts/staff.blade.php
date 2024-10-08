@@ -104,6 +104,13 @@
             transition: font-size 0.3s;
         }
 
+        .sidebar.retracted .nav-link {
+            padding-left: 0; 
+            justify-content: center;
+            width: 50px; 
+            padding: 10px 0;
+        }
+
         .sidebar.retracted .nav-link i {
             font-size: 20px;
         }
