@@ -115,6 +115,7 @@
             margin: auto;
         }
 
+
         /* For close button */
         .custom-bton {
             background-color: transparent;
@@ -128,6 +129,16 @@
             justify-content: center;
             min-height: calc(100vh - 60px);
         }
+
+        .adlg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+    max-width: 400px; 
+    width: 90%; 
+}
+
     </style>
     <div class="header-container">
         <h1 class="heading-border">Admin</h1>
@@ -202,7 +213,7 @@
             <!-- Add Admin Modal -->
             <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog dlg">
+                <div class="modal-dialog adlg">
                     <div class="modal-content acm">
                         <div class="iconic-container">
                             <i class="bi bi-person-plus icon-styles"></i>
@@ -262,7 +273,7 @@
             @foreach ($admins as $admin)
                 <div class="modal fade" id="editAdminModal-{{ $admin->id }}" tabindex="-1"
                     aria-labelledby="editAdminModalLabel-{{ $admin->id }}" aria-hidden="true">
-                    <div class="modal-dialog dlg">
+                    <div class="modal-dialog adlg">
                         <div class="modal-content acm">
                             <div class="iconic-container">
                                 <i class="bi bi-pencil-square icon-styles"></i>
