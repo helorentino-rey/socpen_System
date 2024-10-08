@@ -91,7 +91,7 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'Spouse First Name',
             'Spouse Middle Name',
             'Spouse Name Extension',
-            'Spouse Contact Number',
+            'Spouse Contact',
 
             'Spouse Address Region',
             'Spouse Address Province',
@@ -139,18 +139,16 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
 
     public function map($beneficiary): array
     {
-        $childrenNames = $beneficiary->child ? $beneficiary->child->pluck('children_name')->implode(', ') : 'N/A';
-        $childrenCivilStatus = $beneficiary->child ? $beneficiary->child->pluck('children_civil_status')->implode(', ') : 'N/A';
-        $childrenOccupation = $beneficiary->child ? $beneficiary->child->pluck('children_occupation')->implode(', ') : 'N/A';
-        $childrenIncome = $beneficiary->child ? $beneficiary->child->pluck('children_income')->implode(', ') : 'N/A';
-        $childrenContactNumber = $beneficiary->child ? $beneficiary->child->pluck('children_contact_number')->implode(', ') : 'N/A';
+        $childrenNames = $beneficiary->child ? $beneficiary->child->pluck('children_name')->implode(',') : 'N/A';
+        $childrenCivilStatus = $beneficiary->child ? $beneficiary->child->pluck('children_civil_status')->implode(',') : 'N/A';
+        $childrenOccupation = $beneficiary->child ? $beneficiary->child->pluck('children_occupation')->implode(',') : 'N/A';
+        $childrenIncome = $beneficiary->child ? $beneficiary->child->pluck('children_income')->implode(',') : 'N/A';
+        $childrenContactNumber = $beneficiary->child ? $beneficiary->child->pluck('children_contact_number')->implode(',') : 'N/A';
 
-        $representativeNames = $beneficiary->representative ? $beneficiary->representative->pluck('representative_name')->implode(', ') : 'N/A';
-        $representativeRelationship = $beneficiary->representative ? $beneficiary->representative->pluck('representative_relationship')->implode(', ') : 'N/A';
-        $representativeContactNumbers = $beneficiary->representative ? $beneficiary->representative->pluck('representative_contact_number')->implode(', ') : 'N/A';
-
-
-
+        $representativeNames = $beneficiary->representative ? $beneficiary->representative->pluck('representative_name')->implode(',') : 'N/A';
+        $representativeRelationship = $beneficiary->representative ? $beneficiary->representative->pluck('representative_relationship')->implode(',') : 'N/A';
+        $representativeContactNumbers = $beneficiary->representative ? $beneficiary->representative->pluck('representative_contact_number')->implode(',') : 'N/A';
+        
         return [
             'osca_id' => $beneficiary->osca_id ?? 'N/A',
             'ncsc_rrn' => $beneficiary->ncsc_rrn ?? 'N/A',

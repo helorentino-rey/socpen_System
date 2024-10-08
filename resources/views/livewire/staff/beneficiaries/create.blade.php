@@ -51,6 +51,11 @@
             font-family: 'Arial', sans-serif;
         }
 
+        .form-check-label1 {
+            font-size: 16px;
+            font-family: 'Arial', sans-serif;
+        }
+
         .check-age-link {
             font-size: 14px;
             color: #28a745;
@@ -1642,12 +1647,12 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="eligibility_eligible"
                                     value="Eligible" onclick="handleCheckboxSelection('eligibility', true)" />
-                                <label class="form-check-label" for="eligibility_eligible">Eligible</label>
+                                <label class="form-check-label1" for="eligibility_eligible">Eligible</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="eligibility_not_eligible"
                                     value="Not Eligible" onclick="handleCheckboxSelection('eligibility', false)" />
-                                <label class="form-check-label" for="eligibility_not_eligible">Not Eligible</label>
+                                <label class="form-check-label1" for="eligibility_not_eligible">Not Eligible</label>
                             </div>
                         </div>
                         <input type="hidden" name="eligibility" id="eligibility_value" value="">

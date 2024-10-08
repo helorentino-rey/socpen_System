@@ -268,7 +268,7 @@
 
         .table1 {
             width: 100%;
-            margin-top: -100px;
+            margin-top: -150px;
             border-collapse: collapse;
             margin-bottom: 20px;
             font-family: Arial, sans-serif;

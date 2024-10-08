@@ -542,7 +542,7 @@
                 <tr>
                     <td colspan="5">
                         <textarea
-                            style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;">{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea>
+                            style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;" readonly>{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea>
                     </td>
                 </tr>
             </table>

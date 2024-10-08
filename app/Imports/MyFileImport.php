@@ -22,6 +22,16 @@ class MyFileImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        function formatContactNumber($contact)
+        {
+            if (strpos($contact, '+63') === 0) {
+                return $contact;
+            } elseif (strpos($contact, '63') === 0) {
+                return '+' . $contact;
+            }
+            return $contact;
+        }
+
         $beneficiary = Beneficiary::create([
             'osca_id' => $row['osca_id'] ?? null,
             'ncsc_rrn' => $row['ncsc_rrn'] ?? null,
@@ -100,27 +110,31 @@ class MyFileImport implements ToModel, WithHeadingRow
             $beneficiary->affiliation()->save($affiliation);
         }
 
-        $spouse = new Spouse([
-            'spouse_last_name' => $row['spouse_last_name'] ?? null,
-            'spouse_first_name' => $row['spouse_first_name'] ?? null,
-            'spouse_middle_name' => $row['spouse_middle_name'] ?? null,
-            'spouse_name_extension' => $row['spouse_name_extension'] ?? null,
-            'spouse_contact' => $row['spouse_contact'] ?? null,
-        ]);
-        $beneficiary->spouse()->save($spouse);
+        if (isset($row['spouse_last_name']) || isset($row['spouse_first_name']) || isset($row['spouse_middle_name']) || isset($row['spouse_name_extension']) || isset($row['spouse_contact'])) {
+            $spouse = new Spouse([
+                'spouse_last_name' => $row['spouse_last_name'] ?? null,
+                'spouse_first_name' => $row['spouse_first_name'] ?? null,
+                'spouse_middle_name' => $row['spouse_middle_name'] ?? null,
+                'spouse_name_extension' => $row['spouse_name_extension'] ?? null,
+                'spouse_contact' => isset($row['spouse_contact']) ? formatContactNumber($row['spouse_contact']) : null,
+            ]);
+            $beneficiary->spouse()->save($spouse);
+        }
 
-        if (isset($row['child_name'])) {
-            $childNames = explode(',', $row['child_name']);
-            $childCivilStatuses = explode(',', $row['children_civil_status'] ?? '');
-            $childOccupations = explode(',', $row['children_occupation'] ?? '');
-            $childIncomes = explode(',', $row['children_income'] ?? '');
+        if (isset($row['children_name'])) {
+            $childrenNames = array_map('trim', str_getcsv($row['children_name']));
+            $childrenCivilStatus = array_map('trim', str_getcsv($row['children_civil_status'] ?? ''));
+            $childrenOccupation = array_map('trim', str_getcsv($row['children_occupation'] ?? ''));
+            $childrenIncome = array_map('trim', str_getcsv($row['children_income'] ?? ''));
+            $childrenContactNumber = array_map('trim', str_getcsv($row['children_contact_number'] ?? ''));
 
-            foreach ($childNames as $index => $childName) {
+            foreach ($childrenNames as $index => $childrenName) {
                 $child = new Child([
-                    'children_name' => trim($childName),
-                    'children_civil_status' => trim($childCivilStatuses[$index] ?? null),
-                    'children_occupation' => trim($childOccupations[$index] ?? null),
-                    'children_income' => trim($childIncomes[$index] ?? null),
+                    'children_name' => $childrenName,
+                    'children_civil_status' => $childrenCivilStatus[$index] ?? null,
+                    'children_occupation' => $childrenOccupation[$index] ?? null,
+                    'children_income' => $childrenIncome[$index] ?? null,
+                    'children_contact_number' => isset($childrenContactNumber[$index]) ? formatContactNumber($childrenContactNumber[$index]) : null,
                 ]);
 
                 $beneficiary->child()->save($child);
@@ -128,15 +142,15 @@ class MyFileImport implements ToModel, WithHeadingRow
         }
 
         if (isset($row['representative_name'])) {
-            $representativeNames = explode(',', $row['representative_name']);
-            $representativeRelationships = explode(',', $row['representative_relationship'] ?? '');
-            $representativeContactNumbers = explode(',', $row['representative_contact_number'] ?? '');
+            $representativeNames = array_map('trim', str_getcsv($row['representative_name']));
+            $representativeRelationships = array_map('trim', str_getcsv($row['representative_relationship'] ?? ''));
+            $representativeContactNumbers = array_map('trim', str_getcsv($row['representative_contact_number'] ?? ''));
 
             foreach ($representativeNames as $index => $representativeName) {
                 $representative = new Representative([
-                    'representative_name' => trim($representativeName),
-                    'representative_relationship' => trim($representativeRelationships[$index] ?? null),
-                    'representative_contact_number' => trim($representativeContactNumbers[$index] ?? null),
+                    'representative_name' => $representativeName,
+                    'representative_relationship' => $representativeRelationships[$index] ?? null,
+                    'representative_contact_number' => isset($representativeContactNumbers[$index]) ? formatContactNumber($representativeContactNumbers[$index]) : null,
                 ]);
 
                 $beneficiary->representative()->save($representative);
