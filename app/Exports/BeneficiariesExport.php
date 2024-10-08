@@ -139,66 +139,66 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
 
     public function map($beneficiary): array
     {
-        $childrenNames = $beneficiary->child ? $beneficiary->child->pluck('children_name')->implode(',') : 'N/A';
-        $childrenCivilStatus = $beneficiary->child ? $beneficiary->child->pluck('children_civil_status')->implode(',') : 'N/A';
-        $childrenOccupation = $beneficiary->child ? $beneficiary->child->pluck('children_occupation')->implode(',') : 'N/A';
-        $childrenIncome = $beneficiary->child ? $beneficiary->child->pluck('children_income')->implode(',') : 'N/A';
-        $childrenContactNumber = $beneficiary->child ? $beneficiary->child->pluck('children_contact_number')->implode(',') : 'N/A';
+        $childrenNames = $beneficiary->child ? $beneficiary->child->pluck('children_name')->implode(',') : null;
+        $childrenCivilStatus = $beneficiary->child ? $beneficiary->child->pluck('children_civil_status')->implode(',') : null;
+        $childrenOccupation = $beneficiary->child ? $beneficiary->child->pluck('children_occupation')->implode(',') : null;
+        $childrenIncome = $beneficiary->child ? $beneficiary->child->pluck('children_income')->implode(',') : null;
+        $childrenContactNumber = $beneficiary->child ? $beneficiary->child->pluck('children_contact_number')->implode(',') : null;
 
-        $representativeNames = $beneficiary->representative ? $beneficiary->representative->pluck('representative_name')->implode(',') : 'N/A';
-        $representativeRelationship = $beneficiary->representative ? $beneficiary->representative->pluck('representative_relationship')->implode(',') : 'N/A';
-        $representativeContactNumbers = $beneficiary->representative ? $beneficiary->representative->pluck('representative_contact_number')->implode(',') : 'N/A';
-        
+        $representativeNames = $beneficiary->representative ? $beneficiary->representative->pluck('representative_name')->implode(',') : null;
+        $representativeRelationship = $beneficiary->representative ? $beneficiary->representative->pluck('representative_relationship')->implode(',') : null;
+        $representativeContactNumbers = $beneficiary->representative ? $beneficiary->representative->pluck('representative_contact_number')->implode(',') : null;
+
         return [
-            'osca_id' => $beneficiary->osca_id ?? 'N/A',
-            'ncsc_rrn' => $beneficiary->ncsc_rrn ?? 'N/A',
-            'profile_upload' => $beneficiary->profile_upload ?? 'N/A',
+            'osca_id' => $beneficiary->osca_id ?? null,
+            'ncsc_rrn' => $beneficiary->ncsc_rrn ?? null,
+            'profile_upload' => $beneficiary->profile_upload ?? null,
             'status' => $beneficiary->status,
 
-            'last_name' => $beneficiary->beneficiaryInfo->last_name ?? 'N/A',
-            'first_name' => $beneficiary->beneficiaryInfo->first_name ?? 'N/A',
-            'middle_name' => $beneficiary->beneficiaryInfo->middle_name ?? 'N/A',
-            'name_extension' => $beneficiary->beneficiaryInfo->name_extension ?? 'N/A',
+            'last_name' => $beneficiary->beneficiaryInfo->last_name ?? null,
+            'first_name' => $beneficiary->beneficiaryInfo->first_name ?? null,
+            'middle_name' => $beneficiary->beneficiaryInfo->middle_name ?? null,
+            'name_extension' => $beneficiary->beneficiaryInfo->name_extension ?? null,
 
-            'mother_last_name' => $beneficiary->mothersMaidenName->mother_last_name ?? 'N/A',
-            'mother_first_name' => $beneficiary->mothersMaidenName->mother_first_name ?? 'N/A',
-            'mother_middle_name' => $beneficiary->mothersMaidenName->mother_middle_name ?? 'N/A',
+            'mother_last_name' => $beneficiary->mothersMaidenName->mother_last_name ?? null,
+            'mother_first_name' => $beneficiary->mothersMaidenName->mother_first_name ?? null,
+            'mother_middle_name' => $beneficiary->mothersMaidenName->mother_middle_name ?? null,
 
-            'permanent_address_region' => $beneficiary->permanentAddress->region ?? 'N/A',
-            'permanent_address_province' => $beneficiary->permanentAddress->province ?? 'N/A',
-            'permanent_address_city' => $beneficiary->permanentAddress->city ?? 'N/A',
-            'permanent_address_barangay' => $beneficiary->permanentAddress->barangay ?? 'N/A',
-            'permanent_address_sitio' => $beneficiary->permanentAddress->sitio ?? 'N/A',
+            'permanent_address_region' => $beneficiary->permanentAddress->region ?? null,
+            'permanent_address_province' => $beneficiary->permanentAddress->province ?? null,
+            'permanent_address_city' => $beneficiary->permanentAddress->city ?? null,
+            'permanent_address_barangay' => $beneficiary->permanentAddress->barangay ?? null,
+            'permanent_address_sitio' => $beneficiary->permanentAddress->sitio ?? null,
 
-            'present_address_region' => $beneficiary->presentAddress->region ?? 'N/A',
-            'present_address_province' => $beneficiary->presentAddress->province ?? 'N/A',
-            'present_address_city' => $beneficiary->presentAddress->city ?? 'N/A',
-            'present_address_barangay' => $beneficiary->presentAddress->barangay ?? 'N/A',
-            'present_address_sitio' => $beneficiary->presentAddress->sitio ?? 'N/A',
+            'present_address_region' => $beneficiary->presentAddress->region ?? null,
+            'present_address_province' => $beneficiary->presentAddress->province ?? null,
+            'present_address_city' => $beneficiary->presentAddress->city ?? null,
+            'present_address_barangay' => $beneficiary->presentAddress->barangay ?? null,
+            'present_address_sitio' => $beneficiary->presentAddress->sitio ?? null,
 
-            'date_of_birth' => $beneficiary->mothersMaidenName->date_of_birth ?? 'N/A',
-            'place_of_birth_city' => $beneficiary->mothersMaidenName->place_of_birth_city ?? 'N/A',
-            'place_of_birth_province' => $beneficiary->mothersMaidenName->place_of_birth_province ?? 'N/A',
-            'age' => $beneficiary->mothersMaidenName->age ?? 'N/A',
-            'sex' => $beneficiary->mothersMaidenName->sex ?? 'N/A',
-            'civil_status' => $beneficiary->mothersMaidenName->civil_status ?? 'N/A',
+            'date_of_birth' => $beneficiary->mothersMaidenName->date_of_birth ?? null,
+            'place_of_birth_city' => $beneficiary->mothersMaidenName->place_of_birth_city ?? null,
+            'place_of_birth_province' => $beneficiary->mothersMaidenName->place_of_birth_province ?? null,
+            'age' => $beneficiary->mothersMaidenName->age ?? null,
+            'sex' => $beneficiary->mothersMaidenName->sex ?? null,
+            'civil_status' => $beneficiary->mothersMaidenName->civil_status ?? null,
 
-            'affiliation_type' => $beneficiary->affiliation->affiliation_type ?? 'N/A',
-            'hh_id' => $beneficiary->affiliation->hh_id ?? 'N/A',
-            'indigenous_specify' => $beneficiary->affiliation->indigenous_specify ?? 'N/A',
+            'affiliation_type' => $beneficiary->affiliation->affiliation_type ?? null,
+            'hh_id' => $beneficiary->affiliation->hh_id ?? null,
+            'indigenous_specify' => $beneficiary->affiliation->indigenous_specify ?? null,
 
-            'spouse_last_name' => $beneficiary->spouse->spouse_last_name ?? 'N/A',
-            'spouse_first_name' => $beneficiary->spouse->spouse_first_name ?? 'N/A',
-            'spouse_middle_name' => $beneficiary->spouse->spouse_middle_name ?? 'N/A',
-            'spouse_name_extension' => $beneficiary->spouse->spouse_name_extension ?? 'N/A',
-            'spouse_contact' => $beneficiary->spouse->spouse_contact ?? 'N/A',
+            'spouse_last_name' => $beneficiary->spouse->spouse_last_name ?? null,
+            'spouse_first_name' => $beneficiary->spouse->spouse_first_name ?? null,
+            'spouse_middle_name' => $beneficiary->spouse->spouse_middle_name ?? null,
+            'spouse_name_extension' => $beneficiary->spouse->spouse_name_extension ?? null,
+            'spouse_contact' => $beneficiary->spouse->spouse_contact ?? null,
 
-            'spouse_address_region' => $beneficiary->spouseAddress->region ?? 'N/A',
-            'spouse_address_province' => $beneficiary->spouseAddress->province ?? 'N/A',
-            'spouse_address_city' => $beneficiary->spouseAddress->city ?? 'N/A',
-            'spouse_address_barangay' => $beneficiary->spouseAddress->barangay ?? 'N/A',
-            'spouse_address_sitio' => $beneficiary->spouseAddress->sitio ?? 'N/A',
-           
+            'spouse_address_region' => $beneficiary->spouseAddress->region ?? null,
+            'spouse_address_province' => $beneficiary->spouseAddress->province ?? null,
+            'spouse_address_city' => $beneficiary->spouseAddress->city ?? null,
+            'spouse_address_barangay' => $beneficiary->spouseAddress->barangay ?? null,
+            'spouse_address_sitio' => $beneficiary->spouseAddress->sitio ?? null,
+
             'children_name' => $childrenNames,
             'children_civil_status' => $childrenCivilStatus,
             'children_occupation' => $childrenOccupation,
@@ -209,31 +209,31 @@ class BeneficiariesExport implements FromQuery, WithHeadings, WithMapping
             'representative_relationship' => $representativeRelationship,
             'representative_contact_number' => $representativeContactNumbers,
 
-            'house_status' => $beneficiary->housingLivingStatus->house_status ?? 'N/A',
-            'house_status_others_input' => $beneficiary->housingLivingStatus->house_status_others_input ?? 'N/A',
-            'living_status' => $beneficiary->housingLivingStatus->living_status ?? 'N/A',
-            'living_status_others_input' => $beneficiary->housingLivingStatus->living_status_others_input ?? 'N/A',
+            'house_status' => $beneficiary->housingLivingStatus->house_status ?? null,
+            'house_status_others_input' => $beneficiary->housingLivingStatus->house_status_others_input ?? null,
+            'living_status' => $beneficiary->housingLivingStatus->living_status ?? null,
+            'living_status_others_input' => $beneficiary->housingLivingStatus->living_status_others_input ?? null,
 
-            'receiving_pension' => $beneficiary->economicInformation->receiving_pension ?? 'N/A',
-            'pension_amount' => $beneficiary->economicInformation->pension_amount ?? 'N/A',
-            'pension_source' => $beneficiary->economicInformation->pension_source ?? 'N/A',
-            'permanent_income' => $beneficiary->economicInformation->permanent_income ?? 'N/A',
-            'income_amount' => $beneficiary->economicInformation->income_amount ?? 'N/A',
-            'income_source' => $beneficiary->economicInformation->income_source ?? 'N/A',
-            'regular_support' => $beneficiary->economicInformation->regular_support ?? 'N/A',
-            'support_amount' => $beneficiary->economicInformation->support_amount ?? 'N/A',
-            'support_source' => $beneficiary->economicInformation->support_source ?? 'N/A',
+            'receiving_pension' => $beneficiary->economicInformation->receiving_pension ?? null,
+            'pension_amount' => $beneficiary->economicInformation->pension_amount ?? null,
+            'pension_source' => $beneficiary->economicInformation->pension_source ?? null,
+            'permanent_income' => $beneficiary->economicInformation->permanent_income ?? null,
+            'income_amount' => $beneficiary->economicInformation->income_amount ?? null,
+            'income_source' => $beneficiary->economicInformation->income_source ?? null,
+            'regular_support' => $beneficiary->economicInformation->regular_support ?? null,
+            'support_amount' => $beneficiary->economicInformation->support_amount ?? null,
+            'support_source' => $beneficiary->economicInformation->support_source ?? null,
 
-            'existing_illness' => $beneficiary->healthInformation->existing_illness ?? 'N/A',
-            'illness_specify' => $beneficiary->healthInformation->illness_specify ?? 'N/A',
-            'with_disability' => $beneficiary->healthInformation->with_disability ?? 'N/A',
-            'disability_specify' => $beneficiary->healthInformation->disability_specify ?? 'N/A',
-            'difficult_adl' => $beneficiary->healthInformation->difficult_adl ?? 'N/A',
-            'dependent_iadl' => $beneficiary->healthInformation->dependent_iadl ?? 'N/A',
-            'experience_loss' => $beneficiary->healthInformation->experience_loss ?? 'N/A',
+            'existing_illness' => $beneficiary->healthInformation->existing_illness ?? null,
+            'illness_specify' => $beneficiary->healthInformation->illness_specify ?? null,
+            'with_disability' => $beneficiary->healthInformation->with_disability ?? null,
+            'disability_specify' => $beneficiary->healthInformation->disability_specify ?? null,
+            'difficult_adl' => $beneficiary->healthInformation->difficult_adl ?? null,
+            'dependent_iadl' => $beneficiary->healthInformation->dependent_iadl ?? null,
+            'experience_loss' => $beneficiary->healthInformation->experience_loss ?? null,
 
-            'remarks' => $beneficiary->assessmentRecommendation->remarks ?? 'N/A',
-            'eligibility' => $beneficiary->assessmentRecommendation->eligibility ?? 'N/A',
+            'remarks' => $beneficiary->assessmentRecommendation->remarks ?? null,
+            'eligibility' => $beneficiary->assessmentRecommendation->eligibility ?? null,
         ];
     }
 }

@@ -149,10 +149,6 @@ class EditBeneficiaryController extends Controller
             'spouse',
         ])->findOrFail($id);
 
-        if (!$beneficiary) {
-            return redirect()->route('superadmin.beneficiaries.list')->with('error', 'Beneficiary not found.');
-        }
-
         // Handle profile picture upload
         if ($request->hasFile('profile_upload')) {
             $file = $request->file('profile_upload');
