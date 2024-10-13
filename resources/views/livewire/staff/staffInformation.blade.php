@@ -1,13 +1,74 @@
 @extends('layouts.staff')
 @section('content')
 
+<style>
+ /* For icon design */
+ .icon-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .icon-style {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .icon-styles {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .iconic-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2db300;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* For modal content */
+        .acm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            margin: auto;
+        }
+
+        /* For close button */
+        .custom-bton {
+            background-color: transparent;
+            border: 2px solid #4d4dff;
+            color: #4d4dff;
+        }
+
+        .dlg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
+</style>
+
 <!-- Modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="alertModalLabel">Update Successful</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog dlg">
+      <div class="modal-content acm">
+        <div class="iconic-container">
+            <i class="bi bi-check-lg icon-style"></i>
         </div>
         <div class="modal-body">
           @if (session('success'))
@@ -21,7 +82,7 @@
           @endif
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -171,7 +232,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-age" class="form-label">Age</label>
-                            <input type="number" class="form-control" id="update-age" name="age" value="{{ $age }}">
+                            <input type="number" class="form-control" id="update-age" name="age" value="{{ $age }}" readonly>
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-marital_status" class="form-label">Marital Status</label>
@@ -221,6 +282,20 @@
     </div>
 </div>
 
+<script>
+       //Birthday
+       document.getElementById('update-birthday').addEventListener('change', function() {
+        const birthday = new Date(this.value);
+        const ageInput = document.getElementById('update-age');
+        const today = new Date();
+        let age = today.getFullYear() - birthday.getFullYear();
+        const monthDiff = today.getMonth() - birthday.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+            age--;
+        }
+        ageInput.value = age;
+    });
+</script>
 
 
 <!----------->
