@@ -20,18 +20,18 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class MyFileImport implements ToModel, WithHeadingRow
 {
+    private function formatContactNumber($contact)
+    {
+        if (strpos($contact, '+63') === 0) {
+            return $contact;
+        } elseif (strpos($contact, '63') === 0) {
+            return '+' . $contact;
+        }
+        return $contact;
+    }
+
     public function model(array $row)
     {
-        function formatContactNumber($contact)
-        {
-            if (strpos($contact, '+63') === 0) {
-                return $contact;
-            } elseif (strpos($contact, '63') === 0) {
-                return '+' . $contact;
-            }
-            return $contact;
-        }
-
         $beneficiary = Beneficiary::create([
             'osca_id' => $row['osca_id'] ?? null,
             'ncsc_rrn' => $row['ncsc_rrn'] ?? null,
@@ -99,14 +99,12 @@ class MyFileImport implements ToModel, WithHeadingRow
             $beneficiary->spouseAddress()->save($spouseAddress);
         }
 
-
         if (isset($row['affiliation_type'])) {
             $affiliation = new Affiliation([
                 'affiliation_type' => $row['affiliation_type'] ?? null,
                 'hh_id' => $row['hh_id'] ?? null,
                 'indigenous_specify' => $row['indigenous_specify'] ?? null,
             ]);
-
             $beneficiary->affiliation()->save($affiliation);
         }
 
@@ -116,7 +114,7 @@ class MyFileImport implements ToModel, WithHeadingRow
                 'spouse_first_name' => $row['spouse_first_name'] ?? null,
                 'spouse_middle_name' => $row['spouse_middle_name'] ?? null,
                 'spouse_name_extension' => $row['spouse_name_extension'] ?? null,
-                'spouse_contact' => isset($row['spouse_contact']) ? formatContactNumber($row['spouse_contact']) : null,
+                'spouse_contact' => isset($row['spouse_contact']) ? $this->formatContactNumber($row['spouse_contact']) : null,
             ]);
             $beneficiary->spouse()->save($spouse);
         }
@@ -134,9 +132,8 @@ class MyFileImport implements ToModel, WithHeadingRow
                     'children_civil_status' => $childrenCivilStatus[$index] ?? null,
                     'children_occupation' => $childrenOccupation[$index] ?? null,
                     'children_income' => $childrenIncome[$index] ?? null,
-                    'children_contact_number' => isset($childrenContactNumber[$index]) ? formatContactNumber($childrenContactNumber[$index]) : null,
+                    'children_contact_number' => isset($childrenContactNumber[$index]) ? $this->formatContactNumber($childrenContactNumber[$index]) : null,
                 ]);
-
                 $beneficiary->child()->save($child);
             }
         }
@@ -150,9 +147,8 @@ class MyFileImport implements ToModel, WithHeadingRow
                 $representative = new Representative([
                     'representative_name' => $representativeName,
                     'representative_relationship' => $representativeRelationships[$index] ?? null,
-                    'representative_contact_number' => isset($representativeContactNumbers[$index]) ? formatContactNumber($representativeContactNumbers[$index]) : null,
+                    'representative_contact_number' => isset($representativeContactNumbers[$index]) ? $this->formatContactNumber($representativeContactNumbers[$index]) : null,
                 ]);
-
                 $beneficiary->representative()->save($representative);
             }
         }
@@ -164,7 +160,6 @@ class MyFileImport implements ToModel, WithHeadingRow
                 'living_status' => $row['living_status'] ?? null,
                 'living_status_others_input' => $row['living_status_others_input'] ?? null,
             ]);
-
             $beneficiary->housingLivingStatus()->save($housingLivingStatus);
         }
 
@@ -180,7 +175,6 @@ class MyFileImport implements ToModel, WithHeadingRow
                 'support_amount' => $row['support_amount'] ?? null,
                 'support_source' => $row['support_source'] ?? null,
             ]);
-
             $beneficiary->economicInformation()->save($economicInformation);
         }
 
@@ -194,7 +188,6 @@ class MyFileImport implements ToModel, WithHeadingRow
                 'dependent_iadl' => $row['dependent_iadl'] ?? null,
                 'experience_loss' => $row['experience_loss'] ?? null,
             ]);
-
             $beneficiary->healthInformation()->save($healthInformation);
         }
 
@@ -207,7 +200,6 @@ class MyFileImport implements ToModel, WithHeadingRow
             ]);
             $beneficiary->assessmentRecommendation()->save($assessmentRecommendation);
         }
-
 
         return $beneficiary;
     }
