@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('date_of_birth', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('beneficiary_id');
-            $table->string('mother_last_name', 25);
+            $table->string('mother_last_name', 20);
             $table->string('mother_first_name', 25);
-            $table->string('mother_middle_name', 25)->nullable();
+            $table->string('mother_middle_name', 20)->nullable();
             $table->date('date_of_birth');
-            $table->string('place_of_birth_city', 25);
-            $table->string('place_of_birth_province', 25);
+            $table->string('place_of_birth_city', 30);
+            $table->string('place_of_birth_province', 30);
             $table->integer('age');
-            $table->enum('sex', ['Male', 'Female']);
+            $table->enum('sex', ['Male', 'Female', 'Prefer Not to Say']);
             $table->enum('civil_status', ['Single', 'Married', 'Widowed', 'Separated']);
             $table->timestamps();;
 

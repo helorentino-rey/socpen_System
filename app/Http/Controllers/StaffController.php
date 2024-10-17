@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage; //php artisan storage:link
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
-    // $userId = Auth::id();
-    // $staff = Staff::find($userId);
-
     public function store(Request $request)
     {
         // Save the staff data with default 'pending' status
@@ -104,7 +101,6 @@ class StaffController extends Controller
 
 
     // Show the staff information (profile) page
-    // Used by the Staff navigation bar and Staff information page
     public function staffInformation()
     {
         $data = $this->show(Auth::id());
@@ -114,7 +110,7 @@ class StaffController extends Controller
         $middleName = $data['middlename'];
         $nameExtension = $data['name_extension'];
         $sex = $data['sex'];
-        $birthday = (new \DateTime($data['birthday']))->format('Y-m-d'); // Reformat the date
+        $birthday = (new \DateTime($data['birthday']))->format('Y-m-d');
         $age = $data['age'];
         $maritalStatus = $data['marital_status'];
         $contactNumber = $data['contact_number'];
@@ -147,8 +143,7 @@ class StaffController extends Controller
     // Update the staff information
     public function updateStaffInformation(Request $request)
     {
-        $staff = Staff::find(Auth::id()); // Assuming the staff is the authenticated user
-
+        $staff = Staff::find(Auth::id());
         $staff->update([
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
@@ -180,7 +175,6 @@ class StaffController extends Controller
         // Update the password
         $staff->update([
             'password' => Hash::make($request->input('new_password')),
-            // 'password' => $request->input('new_password'),
         ]);
         return redirect()->back()->with('success', 'Password updated successfully.');
     }

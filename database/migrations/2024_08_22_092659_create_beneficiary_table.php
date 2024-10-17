@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('beneficiary', function (Blueprint $table) {
             $table->id();
-            $table->string('osca_id')->unique();
+            $table->string('osca_id', 25)->unique();
             $table->integer('ncsc_rrn')->nullable();
-            $table->string('profile_upload');
+            $table->string('profile_upload', 100)->nullable();
             $table->enum('status', [
                 'ACTIVE',
                 'WAITLISTED',

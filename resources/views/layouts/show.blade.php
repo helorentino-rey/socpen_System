@@ -229,7 +229,7 @@
             <table class="table3">
                 <tr class="table3">
                     <td colspan="3" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>OSCA ID No.:</strong> {{ $beneficiary->osca_id }}</td>
-                    <td colspan="2" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>NCSCRRN</strong> <span style="font-style:italic; font-size:8px;">(if
+                    <td colspan="2" style="border-bottom: 1px solid #333; border-top: 1px solid #333; border-left: 1px solid #333; border-right: 1px solid #333;"><strong>NCSC RRN</strong> <span style="font-style:italic; font-size:8px;">(if
                             Applicable)</span>: {{ $beneficiary->ncsc_rrn }}</td>
                 </tr>
 
@@ -343,7 +343,7 @@
                     <td colspan="1" style="text-align: center; vertical-align: bottom; border-left: 1px solid #333;">{{ $beneficiary->affiliation->affiliation_type ?? 'N/A' }}
                        <br> <span style="font-size: 12px;">Affiliation Type</span>
                     </td>
-                    <td colspan="2"  style="text-align: center; vertical-align: bottom;">{{ $beneficiary->affiliation->hh_id ?? 'N/A' }} <br><span>Household ID</span></td>
+                    <td colspan="2"  style="text-align: center; vertical-align: bottom;  border-right: 1px solid #333;">{{ $beneficiary->affiliation->hh_id ?? 'N/A' }} <br><span  style="font-size: 12px;">Household ID</span></td>
                     <td colspan="2" style="text-align: center; vertical-align: bottom; border-right: 1px solid #333;">{{ $beneficiary->affiliation->indigenous_specify ?? 'N/A' }}
                         <br><span style="font-size: 12px;">Indigenous Specify</span>
                     </td>
@@ -542,7 +542,7 @@
                 <tr>
                     <td colspan="5">
                         <textarea
-                            style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;">{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea>
+                            style="width: 105%; height: 100px; margin-left: -20px; margin-bottom: -5px; border: 1px solid; margin-top: -10px; font-family: Arial, sans-serif;" readonly>{{ $beneficiary->assessmentRecommendation->remarks ?? 'N/A' }}</textarea>
                     </td>
                 </tr>
             </table>

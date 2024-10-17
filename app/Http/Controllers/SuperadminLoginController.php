@@ -11,7 +11,7 @@ class SuperadminLoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('livewire.superadmin.landing-page'); // Update to match your view location
+        return view('livewire.superadmin.landing-page'); 
     }
 
     public function login(Request $request)

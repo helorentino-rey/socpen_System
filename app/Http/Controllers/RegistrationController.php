@@ -22,11 +22,11 @@ class RegistrationController extends Controller
         ];
 
         $validatedData = $request->validate([
-            'lastname' => 'required|string|max:15',
-            'firstname' => 'required|string|max:15',
-            'middlename' => 'nullable|string|max:15',
+            'lastname' => 'required|string|max:20',
+            'firstname' => 'required|string|max:25',
+            'middlename' => 'nullable|string|max:20',
             'name_extension' => 'nullable|string|max:4',
-            'sex' => 'required|string|in:Male,Female,Prefer not to say', // Updated validation rule
+            'sex' => 'required|string|in:Male,Female,Prefer not to say', 
             'birthday' => 'required|date',
             'age' => 'required|integer|min:0',
             'marital_status' => 'required|string|max:10',

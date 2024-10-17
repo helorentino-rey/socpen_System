@@ -121,7 +121,7 @@ class SuperAdminDashboardController extends Controller
             'beneficiariesBySex',
             'ageDistribution',
             'beneficiaryRegistrations',
-            'beneficiariesByStatusAndProvince' // Pass the new data to the view
+            'beneficiariesByStatusAndProvince'
         ));
     }
 }

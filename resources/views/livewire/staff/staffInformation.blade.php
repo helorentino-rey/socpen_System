@@ -1,14 +1,74 @@
-<!-- resources/views/staff/show.blade.php -->
 @extends('layouts.staff')
 @section('content')
 
+<style>
+ /* For icon design */
+ .icon-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #f54242;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .icon-style {
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .icon-styles {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .iconic-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #2db300;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* For modal content */
+        .acm {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+            margin: auto;
+        }
+
+        /* For close button */
+        .custom-bton {
+            background-color: transparent;
+            border: 2px solid #4d4dff;
+            color: #4d4dff;
+        }
+
+        .dlg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 60px);
+        }
+</style>
+
 <!-- Modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="alertModalLabel">Update Successful</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog dlg">
+      <div class="modal-content acm">
+        <div class="iconic-container">
+            <i class="bi bi-check-lg icon-style"></i>
         </div>
         <div class="modal-body">
           @if (session('success'))
@@ -22,7 +82,7 @@
           @endif
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -144,15 +204,15 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-lastname" class="form-label">Lastname</label>
-                            <input type="text" class="form-control" id="update-lastname" name="lastname" value="{{ $lastName }}">
+                            <input type="text" class="form-control" id="update-lastname" name="lastname" maxlength="20" value="{{ $lastName }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-firstname" class="form-label">Firstname</label>
-                            <input type="text" class="form-control" id="update-firstname" name="firstname" value="{{ $firstName }}">
+                            <input type="text" class="form-control" id="update-firstname" name="firstname" maxlength="25" value="{{ $firstName }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-middlename" class="form-label">Middlename</label>
-                            <input type="text" class="form-control" id="update-middlename" name="middlename" value="{{ $middleName }}">
+                            <input type="text" class="form-control" id="update-middlename" name="middlename" maxlength="20" value="{{ $middleName }}">
                         </div>
                     </div>
                     <div class="row">
@@ -172,7 +232,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-age" class="form-label">Age</label>
-                            <input type="number" class="form-control" id="update-age" name="age" value="{{ $age }}">
+                            <input type="number" class="form-control" id="update-age" name="age" value="{{ $age }}" readonly>
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-marital_status" class="form-label">Marital Status</label>
@@ -180,23 +240,23 @@
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-contact_number" class="form-label">Contact Number</label>
-                            <input type="text" class="form-control" id="update-contact_number" name="contact_number" value="{{ $contactNumber }}">
+                            <input type="text" class="form-control" id="update-contact_number" name="contact_number" maxlength="13" value="{{ $contactNumber }}">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="update-address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="update-address" name="address" value="{{ $address }}">
+                        <input type="text" class="form-control" id="update-address" name="address" maxlength="50" value="{{ $address }}">
                     </div>
 
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label for="update-employee_id" class="form-label">Employee ID</label>
-                            <input type="text" class="form-control" id="update-employee_id" name="employee_id" value="{{ $employeeId }}">
+                            <input type="text" class="form-control" id="update-employee_id" name="employee_id" maxlength="10" value="{{ $employeeId }}">
                         </div>
                         <div class="mb-3 col-md-4">
                             <label for="update-email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="update-email" name="email" value="{{ $email }}">
+                            <input type="email" class="form-control" id="update-email" name="email" maxlength="50" value="{{ $email }}">
                         </div>
 
                         <div class="mb-3 col-md-4">
@@ -222,6 +282,20 @@
     </div>
 </div>
 
+<script>
+       //Birthday
+       document.getElementById('update-birthday').addEventListener('change', function() {
+        const birthday = new Date(this.value);
+        const ageInput = document.getElementById('update-age');
+        const today = new Date();
+        let age = today.getFullYear() - birthday.getFullYear();
+        const monthDiff = today.getMonth() - birthday.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthday.getDate())) {
+            age--;
+        }
+        ageInput.value = age;
+    });
+</script>
 
 
 <!----------->
@@ -238,11 +312,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="current-password" class="form-label">Current Password</label>
-                        <input type="password" class="form-control" id="current-password" name="current_password" required>
+                        <input type="password" class="form-control" id="current-password" name="current_password" maxlength="15" required>
                     </div>
                     <div class="mb-3">
                         <label for="new-password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="new-password" name="new_password" required>
+                        <input type="password" class="form-control" id="new-password" name="new_password" maxlength="15" required>
                         <div id="password-error" class="text-danger"></div>
                     </div>
                     <div class="mb-3">

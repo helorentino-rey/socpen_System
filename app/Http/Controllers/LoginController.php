@@ -86,7 +86,7 @@ class LoginController extends Controller
     public function showOtpForm(Request $request)
     {
         $lastOtpSentTime = $request->session()->get('last_otp_sent_time', now());
-        $lastOtpSentTimestamp = $lastOtpSentTime->timestamp; // Convert to Unix timestamp
+        $lastOtpSentTimestamp = $lastOtpSentTime->timestamp; 
         return view('auth.otp_verify', compact('lastOtpSentTimestamp'));
     }
 

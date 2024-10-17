@@ -23,13 +23,12 @@ class PDFController extends Controller
             'mothersMaidenName',
             'representative',
             'spouse',
-        ])->find($id); // Fetch the first beneficiary
+        ])->find($id);
 
         if (!$beneficiary) {
             return response()->json(['error' => 'Beneficiary not found'], 404);
         }
 
-        // Base64 encoding for the profile photo
         $profilePhotoUrl = null;
         if ($beneficiary->profile_upload && file_exists(public_path('storage/' . $beneficiary->profile_upload))) {
             $imagePath = public_path('storage/' . $beneficiary->profile_upload);
@@ -37,13 +36,11 @@ class PDFController extends Controller
             $profilePhotoUrl = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . $imageData;
         }
 
-        // Configure DomPDF options
         $options = new Options();
-        $options->set('chroot', public_path()); // Allow DomPDF to access public folder
-        $options->set('isHtml5ParserEnabled', true); // Enable HTML5 parsing
-        $options->set('isRemoteEnabled', true); // Enable remote access to images
+        $options->set('chroot', public_path());
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
 
-        // Load the view and render the PDF
         $pdf = PDF::loadView('layouts.form', compact('beneficiary', 'profilePhotoUrl'));
         return $pdf->stream('social_pension_validation_form.pdf');
     }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('beneficiary_info', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('beneficiary_id'); // Ensure the type matches the referenced column
+            $table->unsignedBigInteger('beneficiary_id'); 
             $table->string('last_name', 20);
-            $table->string('first_name', 20);
+            $table->string('first_name', 25);
             $table->string('middle_name', 20)->nullable();
             $table->string('name_extension', 4)->nullable();
             $table->timestamps();

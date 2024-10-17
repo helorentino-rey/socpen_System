@@ -43,26 +43,23 @@
         }
 
         .search-bar {
-            height: 80vh;
-            /* Adjusted to occupy 80% of viewport height */
-            width: 100%;
-            max-width: 800px;
-            position: relative;
-            margin-top: 20px;
-            /* Adjust the search bar position */
-            display: flex;
-            flex-direction: column;
-        }
+    height: 80vh; /* Adjusted to occupy 80% of viewport height */
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    margin-top: 20px; /* Adjust the search bar position */
+    display: flex;
+    flex-direction: column;
+}
 
-        #search-results {
-            position: absolute;
-            z-index: 1000;
-            width: 100%;
-            max-height: 100%;
-            /* Allow search results to use available space */
-            overflow-y: auto;
-            /* Enable scrolling inside search results if needed */
-        }
+#search-results {
+    position: relative;
+    z-index: 1000;
+    width: 100%;
+    max-height: 100%; 
+    margin-top: 10px; 
+    overflow-y: auto; /* Enable scrolling inside search results if needed */
+}
 
         /* Navigation Buttons */
         .nav-buttons {
