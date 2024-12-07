@@ -141,7 +141,7 @@
 
     </style>
     <div class="header-container">
-        <h1 class="heading-border">Admin</h1>
+        <h1 class="heading-border">Add Admin</h1>
         <div class="logos-container">
             <img src="{{ asset('img/DSWDColored.png') }}" alt="DSWD Logo" class="dswd-logo">
             <img src="{{ asset('img/social-pension-logo.png') }}" alt="Social Pension Logo" class="social-pension-logo">

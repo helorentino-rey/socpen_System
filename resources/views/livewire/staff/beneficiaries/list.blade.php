@@ -390,7 +390,9 @@
                             type: 'GET',
                             success: function(response) {
                                 $('#beneficiaryModal .modal-body').html(response);
-                                $('#beneficiaryModal').modal('show');
+                                var beneficiaryModal = new bootstrap.Modal(document.getElementById(
+                                    'beneficiaryModal'));
+                                beneficiaryModal.show();
                             },
                             error: function() {
                                 $('#beneficiaryModal .modal-body').html(

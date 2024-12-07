@@ -244,7 +244,6 @@
                 <h3>Active Beneficiary</h3>
                 <p>{{ $activeBeneficiaries }}</p>
                 <i class="fas fa-user-check icon"></i>
-
             </div>
 
             <!-- Unvalidated Beneficiary -->
@@ -252,6 +251,13 @@
                 <h3>Unvalidated Beneficiary</h3>
                 <p>{{ $unvalidatedBeneficiaries }}</p>
                 <i class="fas fa-exclamation-triangle icon"></i>
+            </div>
+
+            <!-- Other Beneficiary -->
+            <div class="kpi-card blue-border">
+                <h3>Other Status of Beneficiary</h3>
+                <p>{{ $otherBeneficiaries }}</p>
+                <i class="fas fa-user-plus icon"></i>
             </div>
 
             <!-- Total Beneficiaries -->
@@ -266,8 +272,6 @@
                 <h3>Total Number of Staff</h3>
                 <p>{{ $totalStaff }}</p>
                 <i class="fas fa-user-tie icon"></i>
-
-
             </div>
         </div>
 
@@ -361,8 +365,7 @@
                     label: 'Beneficiaries by Province',
                     data: dataValues,
                     backgroundColor: [
-                        '#0000FF', '#1E90FF', '#00BFFF', '#87CEFA', '#ADD8E6', '#4682B4', '#4169E1', '#6495ED',
-                        '#5F9EDF', '#00CED1'
+                        '#3F52E3', '#7E60BF', '#D84B6F', '#E67462', '#FFEA85'
                     ],
                     borderWidth: 1
                 }]
@@ -466,7 +469,12 @@
                     },
                 },
             };
-            const ageLabels = {!! json_encode($ageDistribution->keys()) !!};
+
+            const ageLabels = {!! json_encode(
+                $ageDistribution->keys()->map(function ($ageRange) {
+                    return $ageRange . '-' . ($ageRange + 5);
+                }),
+            ) !!};
             const ageDataValues = {!! json_encode($ageDistribution->values()) !!};
 
             const ageData = {
@@ -477,9 +485,10 @@
                     backgroundColor: gradient, // Apply gradient to background
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
-                    barThickness: 110,
+                    barThickness: 50,
                 }]
             };
+
             window.onload = function() {
                 const ageCtx = document.getElementById('ageChart').getContext('2d');
                 new Chart(ageCtx, ageConfig);
@@ -520,6 +529,13 @@
                                     weight: 'bold',
                                     size: 12 // Optional: Adjust the font size if needed
                                 }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return this.getLabelForValue(value);
+                                },
+                                maxRotation: 45, // Maximum rotation for the labels
+                                minRotation: 45 // Minimum rotation for the labels
                             }
                         },
                         y: {
@@ -581,8 +597,8 @@
 
                 // Create gradient
                 const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(147, 112, 219, 0.8)'); // Lighter color at the top
-                gradient.addColorStop(1, '#0B2F9F'); // Darker color at the bottom
+                gradient.addColorStop(0, 'rgba(147, 112, 219, 0.8)');
+                gradient.addColorStop(1, '#0B2F9F');
 
                 new Chart(ctx, {
                     data: {
@@ -590,18 +606,18 @@
                         datasets: [{
                             type: 'bar',
                             label: 'Monthly Registrations',
-                            backgroundColor: gradient, // Apply gradient to the bars
+                            backgroundColor: gradient,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             data: counts,
                             barThickness: 100,
-                            order: 1, // This ensures the bars are rendered first (behind the line)
+                            order: 1,
                             datalabels: {
                                 display: true,
                                 align: 'end',
                                 anchor: 'end',
                                 font: {
                                     weight: 'bold',
-                                    size: 12 // Adjust the font size if needed
+                                    size: 12
                                 },
                                 formatter: (value, context) => {
                                     return value;
@@ -615,7 +631,7 @@
                             fill: false,
                             data: counts,
                             datalabels: {
-                                display: false // Disable datalabels for the trend line
+                                display: false
                             }
                         }]
                     },

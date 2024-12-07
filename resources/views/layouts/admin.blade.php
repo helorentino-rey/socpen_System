@@ -9,8 +9,6 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
         }
 
         .sidebar {
@@ -41,8 +39,10 @@
             transition: opacity 0.3s;
         }
 
+
         .sidebar.retracted .profile-pic {
-            opacity: 0;
+            width: 40px;
+            height: 40px;
         }
 
         .sidebar .profile-name {
@@ -75,9 +75,9 @@
         }
 
         .sidebar.retracted .nav-link {
-            padding-left: 0; 
+            padding-left: 0;
             justify-content: center;
-            width: 50px; 
+            width: 50px;
             padding: 10px 0;
         }
 
@@ -138,25 +138,6 @@
             margin-left: 80px;
         }
 
-        .card {
-            border-left: 4px solid #1C4CB1;
-        }
-
-        .card-title {
-            font-weight: bold;
-        }
-
-        .logo {
-            width: 150px;
-            margin: 20px auto;
-            display: block;
-        }
-
-        .search-bar {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
         .plus-button {
             position: absolute;
             bottom: 20px;
@@ -200,14 +181,14 @@
         }
 
         .sidebar .profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 2px solid #4F6DFF;
-    background-color: #fff;
-    margin: 0 auto;
-    transition: opacity 0.3s;
-}
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #4F6DFF;
+            background-color: #fff;
+            margin: 0 auto;
+            transition: opacity 0.3s;
+        }
 
         .sidebar.retracted .profile-pic {
             width: 40px;
@@ -219,11 +200,12 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar d-flex flex-column" id="sidebar">
-    <div class="profile-container">
-        <div class="profile-pic">
-        <img src="{{ asset('img/social-pension-logo.png') }}" alt="SOCPen Logo" class="img-fluid rounded-circle">
-        </div>
-        <div class="profile-name">Admin</div>
+        <div class="profile-container">
+            <div class="profile-pic">
+                <img src="{{ asset('img/social-pension-logo.png') }}" alt="SOCPen Logo"
+                    class="img-fluid rounded-circle">
+            </div>
+            <div class="profile-name">Admin</div>
         </div>
         <ul class="nav nav-pills flex-column mb-auto mt-4">
             <li class="nav-item">
