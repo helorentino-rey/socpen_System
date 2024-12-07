@@ -74,47 +74,76 @@ class SuperAdminDashboardController extends Controller
 
     public function kpi()
     {
+        // Count active beneficiaries
         $activeBeneficiaries = Beneficiary::where('status', 'ACTIVE')->count();
+    
+        // Count unvalidated beneficiaries
         $unvalidatedBeneficiaries = Beneficiary::where('status', 'UNVALIDATED')->count();
+    
+        // Define the other statuses
+        $statuses = [
+            'WAITLISTED',
+            'SUSPENDED',
+            'NOT LOCATED',
+            'DOUBLE ENTRY',
+            'TRANSFER OF RESIDENCE',
+            'RECEIVING SUPPORT FROM THE FAMILY',
+            'RECEIVING PENSION FROM OTHER AGENCY',
+            'WITH PERMANENT INCOME'
+        ];
+    
+        // Count beneficiaries with 'other' statuses
+        $otherBeneficiaries = Beneficiary::whereIn('status', $statuses)->count();
+    
+        // Count total staff
         $totalStaff = Staff::count();
+    
+        // Count total beneficiaries
         $totalBeneficiaries = Beneficiary::count();
-
+    
+        // Beneficiaries by province
         $beneficiariesByProvince = Beneficiary::join('addresses', 'beneficiary.id', '=', 'addresses.beneficiary_id')
             ->where('addresses.type', 'present')
             ->selectRaw('addresses.province, COUNT(*) as count')
             ->groupBy('addresses.province')
             ->pluck('count', 'addresses.province');
-
+    
+        // Beneficiaries by sex
         $beneficiariesBySex = MothersMaidenName::select('sex', DB::raw('count(*) as count'))
             ->groupBy('sex')
             ->pluck('count', 'sex');
-
-        $ageDistribution = MothersMaidenName::select('age', DB::raw('count(*) as count'))
-            ->groupBy('age')
-            ->pluck('count', 'age');
-
-        // Fetch beneficiary registration data grouped by month and year
+    
+        // Age distribution
+        $ageDistribution = MothersMaidenName::select(
+            DB::raw('FLOOR(age / 6) * 6 as age_range'),
+            DB::raw('count(*) as count')
+        )
+        ->groupBy('age_range')
+        ->pluck('count', 'age_range');
+    
+        // Beneficiary registrations by month/year
         $beneficiaryRegistrations = Beneficiary::select(
             DB::raw('YEAR(created_at) as year'),
             DB::raw('MONTH(created_at) as month'),
             DB::raw('COUNT(*) as count')
         )
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get();
-
-        // Fetch beneficiaries by status and province
+        ->groupBy('year', 'month')
+        ->orderBy('year', 'asc')
+        ->orderBy('month', 'asc')
+        ->get();
+    
+        // Beneficiaries by status and province
         $beneficiariesByStatusAndProvince = Beneficiary::join('addresses', 'beneficiary.id', '=', 'addresses.beneficiary_id')
             ->where('addresses.type', 'present')
             ->selectRaw('addresses.province, beneficiary.status, COUNT(*) as count')
             ->groupBy('addresses.province', 'beneficiary.status')
             ->get()
             ->groupBy('province');
-
+    
         return view('livewire.superadmin.dashboard', compact(
             'activeBeneficiaries',
             'unvalidatedBeneficiaries',
+            'otherBeneficiaries',
             'totalStaff',
             'totalBeneficiaries',
             'beneficiariesByProvince',
@@ -123,5 +152,5 @@ class SuperAdminDashboardController extends Controller
             'beneficiaryRegistrations',
             'beneficiariesByStatusAndProvince'
         ));
-    }
+    }    
 }

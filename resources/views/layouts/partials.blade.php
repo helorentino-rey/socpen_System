@@ -10,6 +10,7 @@
     <div id="search-results" class="list-group position-absolute" style="z-index: 1000; width: 100%;"></div>
 </div>
 
+<!-- Beneficiary List Table -->
 <table class="table table-borderless w-100">
     <thead class="border-bottom">
         <tr>
@@ -43,33 +44,30 @@
                         <i class="bi bi-pencil" style="color: black;"></i>
                     </a>
 
-                    <a href="{{ route('pdf.show', ['id' => $beneficiary->id]) }}"
-                        style="cursor: pointer; text-decoration: none;" title="Show Form">
+                    <a href="{{ route('export.pdf', ['id' => $beneficiary->id]) }}"
+                        style="cursor: pointer; text-decoration: none;" title="Show Form" target="_blank">
                         <i class="bi bi-file-earmark-pdf" style="color: black;"></i>
                     </a>
 
                     <!-- The Modal for Status Update -->
                     <div class="modal fade" id="statusModal{{ $beneficiary->id }}" tabindex="-1"
                         aria-labelledby="statusModalLabel{{ $beneficiary->id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="statusModalLabel{{ $beneficiary->id }}">Change
-                                        Status</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                        <div class="modal-dialog dlg">
+                            <div class="modal-content acm">
+                                <div class="icon-container">
+                                    <i class="bi bi-pencil-square icon-styles"></i>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body text-center">
+                                    <h5 id="statusModalLabel{{ $beneficiary->id }}">Update Beneficiary Status</h5>
                                     <form id="statusForm{{ $beneficiary->id }}"
                                         action="{{ route('beneficiary.updateStatus', $beneficiary->id) }}"
                                         method="POST">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="status" class="form-label">Status</label>
                                             <select class="form-select" id="status" name="status" required>
                                                 <option value="ACTIVE"
-                                                    {{ $beneficiary->status == 'ACTIVE' ? 'selected' : '' }}>
-                                                    ACTIVE</option>
+                                                    {{ $beneficiary->status == 'ACTIVE' ? 'selected' : '' }}>ACTIVE
+                                                </option>
                                                 <option value="WAITLISTED"
                                                     {{ $beneficiary->status == 'WAITLISTED' ? 'selected' : '' }}>
                                                     WAITLISTED</option>
@@ -80,8 +78,8 @@
                                                     {{ $beneficiary->status == 'UNVALIDATED' ? 'selected' : '' }}>
                                                     UNVALIDATED</option>
                                                 <option value="NOT LOCATED"
-                                                    {{ $beneficiary->status == 'NOT LOCATED' ? 'selected' : '' }}>
-                                                    NOT LOCATED</option>
+                                                    {{ $beneficiary->status == 'NOT LOCATED' ? 'selected' : '' }}>NOT
+                                                    LOCATED</option>
                                                 <option value="DOUBLE ENTRY"
                                                     {{ $beneficiary->status == 'DOUBLE ENTRY' ? 'selected' : '' }}>
                                                     DOUBLE ENTRY</option>
@@ -99,8 +97,32 @@
                                                     WITH PERMANENT INCOME</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary custom-bton"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary"
+                                            onclick="confirmStatusChange({{ $beneficiary->id }})">Update</button>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmation Modal -->
+                    <div class="modal fade" id="confirmModal{{ $beneficiary->id }}" tabindex="-1"
+                        aria-labelledby="confirmModalLabel{{ $beneficiary->id }}" aria-hidden="true">
+                        <div class="modal-dialog dlg">
+                            <div class="modal-content acm">
+                                <div class="icon-container">
+                                    <i class="bi bi-question-lg icon-style"></i>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to change this status?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary custom-bton"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="submitStatusForm({{ $beneficiary->id }})">Confirm</button>
                                 </div>
                             </div>
                         </div>
@@ -111,20 +133,11 @@
     </tbody>
 </table>
 
-<!-- Pagination -->
-<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
-    <ul class="pagination">
-        {{ $beneficiaries->links('pagination::bootstrap-4') }}
-    </ul>
-</nav>
-
 <!-- Modal to Display Beneficiary Information -->
 <div class="modal fade" id="beneficiaryModal" tabindex="-1" aria-labelledby="beneficiaryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="beneficiaryModalLabel">Social Pensioner
-                    Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -134,13 +147,33 @@
     </div>
 </div>
 
+<!-- Custom Confirm Edit Modal -->
+<div id="confirmEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmEditModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content acm">
+            <div class="icon-container">
+                <i class="bi bi-question-lg icon-style"></i>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to edit this beneficiary?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary custom-bton" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmEditBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Modal to Update Beneficiary Information -->
 <div class="modal fade" id="editBeneficiaryModal" tabindex="-1" aria-labelledby="editBeneficiaryModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBeneficiaryModalLabel">Edit Beneficiary Information</h5>
+                <h5 class="modal-title" id="editBeneficiaryModalLabel"></h5>
                 <button type="button" class="btn-close" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -150,19 +183,85 @@
     </div>
 </div>
 
-<!-- Export Modal -->
-<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exportModalLabel">Export Beneficiaries</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+<!-- Pagination -->
+<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-4">
+    <ul class="pagination">
+        {{ $beneficiaries->links('pagination::bootstrap-4') }}
+    </ul>
+</nav>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
+            <div class="iconic-container">
+                <i class="bi bi-check-lg icon-style"></i>
             </div>
             <div class="modal-body">
-                <form id="exportForm" action="{{ route('beneficiaries.export') }}" method="GET">
-                    <div class="alert alert-info" role="alert">
-                        If you want to export everything, just add a filename and click export.
+                {{ session('success') }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
+            <div class="modal-header">
+                <div class="iconic-containers">
+                    <i class="bi bi-x-lg icon-style"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                {{ session('error') }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Import Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
+            <div class="iconic-container">
+                <i class="bi bi-upload icon-styles"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="mt-3 mb-4" id="importModalLabel">Import Beneficiaries</h5>
+                <form action="{{ route('import.beneficiaries') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Choose CSV File</label>
+                        <input type="file" class="form-control" id="file" name="file" required>
                     </div>
+                    <button type="button" class="btn btn-secondary custom-bton"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Import</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
+            <div class="iconic-container">
+                <i class="bi bi-download icon-styles"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h5 class="mt-3 mb-4" id="exportModalLabel">Export Beneficiaries</h5>
+                <form id="exportForm" action="{{ route('beneficiaries.export') }}" method="GET">
                     <div class="mb-2">
                         <label for="filename">Filename</label>
                         <input type="text" id="filename" name="filename" placeholder="Enter filename"
@@ -181,6 +280,8 @@
                             <!-- Add more provinces as needed -->
                         </select>
                     </div>
+                    <button type="button" class="btn btn-secondary custom-bton"
+                        data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Export</button>
                 </form>
             </div>
@@ -188,36 +289,64 @@
     </div>
 </div>
 
-<!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirmDeleteModal1" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
             <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="icon-containers">
+                    <i class="bi bi-question-lg icon-style"></i>
+                </div>
             </div>
             <div class="modal-body">
-                CSV file downloaded successfully.
+                Do you want to delete the data from the database after exporting?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete and
+                    Export</button>
+                <button type="button" class="btn btn-primary" id="confirmExportButton">Export Only</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal1" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
+            <div class="iconic-container">
+                <i class="bi bi-check-lg icon-style"></i>
+            </div>
+            <div class="modal-body">
+                CSV file downloaded successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    id="successCloseButtonFooter">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal fade" id="errorModal1" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog dlg">
+        <div class="modal-content acm">
             <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="iconic-containers">
+                    <i class="bi bi-x-lg icon-style"></i>
+                </div>
             </div>
             <div class="modal-body" id="errorMessage">
                 <!-- Error message will be inserted here by JavaScript -->
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
-
 
 <!-- Include Bootstrap and jQuery JavaScript files -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -286,7 +415,9 @@
                 type: 'GET',
                 success: function(response) {
                     $('#beneficiaryModal .modal-body').html(response);
-                    $('#beneficiaryModal').modal('show');
+                    var beneficiaryModal = new bootstrap.Modal(document.getElementById(
+                        'beneficiaryModal'));
+                    beneficiaryModal.show();
                 },
                 error: function() {
                     $('#beneficiaryModal .modal-body').html(
@@ -342,7 +473,9 @@
                 type: 'GET',
                 success: function(response) {
                     $('#beneficiaryModal .modal-body').html(response);
-                    $('#beneficiaryModal').modal('show');
+                    var beneficiaryModal = new bootstrap.Modal(document.getElementById(
+                        'beneficiaryModal'));
+                    beneficiaryModal.show();
                 },
                 error: function() {
                     $('#beneficiaryModal .modal-body').html(
@@ -384,7 +517,10 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById('editBeneficiaryModal'));
                 modal.hide();
                 // Redirect to the specified route after closing
-                window.location.href = '/approved-beneficiary'; // Replace with your desired route
+                function redirectToDefaultRoute() {
+                    window.location.href = '/'; // Redirect to the default route
+                    return; // Exit the function
+                }
             }
         });
 
