@@ -1,6 +1,5 @@
 <?php
 
-// App/Http/Controllers/AdminDashboardController.php
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -9,7 +8,7 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
-        return view('livewire.admin.dashboard'); // Ensure this view exists
+        return view('livewire.admin.dashboard'); 
     }
 
     public function mDashboard()
