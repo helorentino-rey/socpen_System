@@ -1,6 +1,6 @@
 
 <style>
-     .modal-container {
+    .modal-container {
      max-width: 800px;
      margin: 20px auto;
      background: #ffffff;
@@ -146,16 +146,16 @@
     border-collapse: collapse;
     margin-bottom: 20px;
     margin-top: -70px;
-}
+    }
 
-.table1 td {
+    .table1 td {
     text-align: center;
     padding: 10px; 
     font-size: 14px; 
     border: none; 
-}
+    }
 
-.table2 {
+    .table2 {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;

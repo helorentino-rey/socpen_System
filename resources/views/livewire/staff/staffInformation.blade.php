@@ -260,7 +260,7 @@
                         </div>
 
                         <div class="mb-3 col-md-4">
-                            <label for="update-assigned_province">Assigned Province</label>
+                            <label for="update-assigned_province" class="form-label">Assigned Province</label>
                             <select class="form-control form-select" id="update-assigned_province" name="assigned_province">
                                 <option value="{{ $assignedProvince }}">{{ $assignedProvince }}</option>
                                 <option value="Davao City">Davao City</option>

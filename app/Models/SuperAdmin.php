@@ -17,6 +17,4 @@ class SuperAdmin extends Authenticatable
     protected $hidden = [
         'password',
     ];
-
-    // You can add more custom methods or attributes here if needed
 }

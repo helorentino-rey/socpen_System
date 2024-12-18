@@ -36,14 +36,18 @@ class CsvController extends Controller
                 return response()->json(['error' => 'No records found for the selected province.'], 404);
             }
 
-            $beneficiariesToDelete = $query->get();
+            $beneficiariesToArchive = $query->get();
 
             $exportResponse = (new BeneficiariesExport($request))->download($filename);
 
-            $deleteData = $request->input('delete_data', 'false');
+            $archiveData = $request->input('archive_data', 'false');
 
-            if ($deleteData === 'true') {
-                Beneficiary::destroy($beneficiariesToDelete->pluck('id')->toArray());
+            if ($archiveData === 'true') {
+                // Mark data as archived
+                foreach ($beneficiariesToArchive as $beneficiary) {
+                    $beneficiary->archived = true;
+                    $beneficiary->save();
+                }
             }
 
             DB::commit();
@@ -53,6 +57,7 @@ class CsvController extends Controller
             DB::rollBack();
 
             Log::error('Export error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
 
             return response()->json(['error' => 'An error occurred while processing your request. Please try again later.'], 500);
         }
